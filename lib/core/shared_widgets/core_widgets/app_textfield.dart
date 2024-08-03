@@ -176,10 +176,7 @@ class _AppTextFieldState extends State<AppTextField> {
           onSaved: widget.onSaved,
           maxLines: widget.maxLines,
           minLines: widget.minLines,
-          inputFormatters: [
-            ArabicNumbersFormatter(),
-            ...widget.inputFormatters,
-          ],
+          inputFormatters: widget.inputFormatters..add(ArabicNumbersFormatter()),
           autovalidateMode: widget.autovalidateMode,
           keyboardType: widget.keyboardType,
           textAlignVertical: TextAlignVertical.center,
