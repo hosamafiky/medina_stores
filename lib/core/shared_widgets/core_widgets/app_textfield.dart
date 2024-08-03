@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../../config/resources/locale_keys.g.dart';
 import '../../../config/text_styles/app_font_weights.dart';
-import '../../helpers/arabic_numbers_formatter.dart';
+import '../input_formatters/arabic_numbers_formatter.dart';
 
 class AppTextField extends StatefulWidget {
   const AppTextField({
