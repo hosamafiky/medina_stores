@@ -11,13 +11,15 @@ extension AssetExt on String {
     BoxFit fit = BoxFit.contain,
   }) {
     assert(endsWith('.svg'), 'AssetExt: $this is not an svg file');
-    return SvgPicture.asset(
-      this,
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+    return RepaintBoundary(
+      child: SvgPicture.asset(
+        this,
+        width: width,
+        height: height,
+        fit: fit,
+        alignment: alignment,
+        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+      ),
     );
   }
 

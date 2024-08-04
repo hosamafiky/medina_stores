@@ -2,8 +2,9 @@ import 'package:easy_localization/easy_localization.dart' as easy;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/config/resources/color_palette.dart';
+import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
 import 'package:medina_stores/config/text_styles/app_text_styles.dart';
+import 'package:medina_stores/core/extentions/context.dart';
 import 'package:medina_stores/core/extentions/spaced_column.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -22,7 +23,6 @@ class AppTextField extends StatefulWidget {
     this.errorText,
     this.hintStyle,
     this.labelStyle,
-    this.labelFF,
     this.style,
     this.isMandatory = false,
     this.isOptional = false,
@@ -59,9 +59,6 @@ class AppTextField extends StatefulWidget {
     this.hintStyle,
     this.style,
     this.labelStyle,
-
-    /// Label Text Font Family
-    this.labelFF,
     this.isOptional = false,
     this.isMandatory = false,
     this.isBordered = true,
@@ -92,7 +89,6 @@ class AppTextField extends StatefulWidget {
   final String? label;
   final String? hintText, errorText;
   final TextStyle? hintStyle, style, labelStyle;
-  final String? labelFF;
   final Color? fillColor;
   final TextAlign? textAlign;
   final TextDirection? hintTextDirection, textDirection;
@@ -131,6 +127,8 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final AppTextStyle appTextStyle = context.appTextStyle;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -140,26 +138,13 @@ class _AppTextFieldState extends State<AppTextField> {
               children: [
                 TextSpan(
                   text: widget.label,
-                  style: widget.labelStyle ??
-                      AppTextStyle.labelTextStyle.copyWith(
-                        fontFamily: widget.labelFF,
-                      ),
+                  style: widget.labelStyle ?? appTextStyle.labelTextStyle,
                 ),
-                if (widget.isMandatory)
-                  TextSpan(
-                    text: ' *',
-                    style: AppTextStyle.mandatoryStyle.copyWith(
-                      fontFamily: widget.labelFF,
-                    ),
-                  ),
+                if (widget.isMandatory) TextSpan(text: ' *', style: appTextStyle.mandatoryStyle),
                 if (widget.isOptional)
                   TextSpan(
                     text: ' (${LocaleKeys.optional.tr()})',
-                    style: AppTextStyle.optionalStyle.copyWith(
-                      color: ColorPalette.blackColor,
-                      fontFamily: widget.labelFF,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: appTextStyle.optionalStyle.copyWith(color: ColorPalette.blackColor, fontWeight: FontWeight.w400),
                   ),
               ],
             ),
@@ -182,7 +167,7 @@ class _AppTextFieldState extends State<AppTextField> {
           textAlignVertical: TextAlignVertical.center,
           textInputAction: widget.textInputAction,
           style: widget.style ??
-              AppTextStyle.fieldStyle.copyWith(
+              appTextStyle.fieldStyle.copyWith(
                 fontWeight: AppFontWeight.regular,
                 height: 1.8,
               ),

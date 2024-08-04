@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "978985818662",
+    "project_id": "medina-stores",
+    "storage_bucket": "medina-stores.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978985818662:android:e46fb416ea2d39c21ae4e7",
+        "android_client_info": {
+          "package_name": "com.example.medina_stores"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw9wuuPY7Fgjm5oBWslWweOaDD5eQSO7o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

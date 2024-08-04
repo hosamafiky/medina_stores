@@ -7,8 +7,8 @@ import 'page_router/imports_page_router_builder.dart';
 class AppNavigator {
   static final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  static final BuildContext _context = _navigatorKey.currentContext!;
-  static final BuildContext rootContext = _context;
+  static final BuildContext? _context = _navigatorKey.currentContext;
+  static final BuildContext? rootContext = _context;
 
   static GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
   static final PageRouterBuilder _pageRouter = PageRouterBuilder();

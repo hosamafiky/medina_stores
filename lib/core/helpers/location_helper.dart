@@ -45,7 +45,7 @@ class LocationHelper {
   static Future<Position> getCurrentPosition() async => await Geolocator.getCurrentPosition();
 
   static Future<Placemark> getPlacemarkFromCoordinates(double latitude, double longitude) async {
-    setLocaleIdentifier(AppNavigator.rootContext.locale.languageCode);
+    setLocaleIdentifier(AppNavigator.rootContext?.locale.languageCode ?? 'en');
     List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
     return placemarks.first;
   }

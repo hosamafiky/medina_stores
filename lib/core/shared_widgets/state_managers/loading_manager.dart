@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/resources/color_palette.dart';
+import '../../../config/resources/color_palettes/color_palette.dart';
 
 class LoadingManager extends StatefulWidget {
   const LoadingManager({

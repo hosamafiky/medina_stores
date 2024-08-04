@@ -21,14 +21,14 @@ enum Language {
 
   static List<String> get titles => Language.values.map((e) => e.title.tr()).toList();
 
-  static setLocale(Language lang) => AppNavigator.rootContext.setLocale(lang.locale);
+  static setLocale(Language lang) => AppNavigator.rootContext?.setLocale(lang.locale);
 
   static setLocaleWithContext(BuildContext context, Language lang) => context.setLocale(lang.locale);
 
   static String getLanguageCode(Language language) => language.locale.languageCode;
 
   static Language? get currentLanguage {
-    final currentLocale = EasyLocalization.of(AppNavigator.rootContext)!.locale;
+    final currentLocale = EasyLocalization.of(AppNavigator.rootContext!)!.locale;
     return Language.values.firstWhere((element) => element.locale == currentLocale);
   }
 }

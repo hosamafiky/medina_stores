@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medina_stores/core/notifications/notification_helper.dart';
+import 'package:medina_stores/firebase_options.dart';
 
 import 'app.dart';
 import 'config/resources/languages.dart';
@@ -17,10 +22,22 @@ void main() async {
   Bloc.observer = AppBlocObserver();
 
   await Future.wait([
-    // Firebase.initializeApp(),
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(),
     CacheHelper.init(),
-  ]);
+  ]).whenComplete(() async {
+    NotificationHelper(
+      onRoutingMessage: (message) async {
+        final type = NotificationType.fromId(int.parse(message.data['type']));
+        await type.navigator.go(data: message.data);
+      },
+      onNoInitialMessage: () {
+        //TODO: Navigate to the home page
+        log('No initial message');
+      },
+    );
+    await NotificationHelper.instance?.setupNotifications();
+  });
 
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],

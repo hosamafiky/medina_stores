@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
+import 'package:medina_stores/core/extentions/context.dart';
 
 import '../../config/text_styles/app_text_styles.dart';
 
@@ -12,6 +14,8 @@ extension FormFieldExtension on Widget {
     FormFieldSetter<T>? onSaved,
     FormFieldBuilder<T>? builder,
   }) {
+    TextStyle getErrorStyle(BuildContext context) =>
+        context.isDark ? const DarkAppTextStyles(DarkModeColorPalette()).errorStyle : const LightAppTextStyles(LightModeColorPalette()).errorStyle;
     return FormField<T>(
       validator: validator,
       initialValue: initialValue,
@@ -28,7 +32,7 @@ extension FormFieldExtension on Widget {
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
                   state.errorText!,
-                  style: AppTextStyle.errorStyle,
+                  style: getErrorStyle(state.context),
                 ),
               ),
           ],

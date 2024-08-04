@@ -1,36 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:medina_stores/config/resources/color_palette.dart';
+import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
 import 'package:medina_stores/config/text_styles/app_font_weights.dart';
 
-import '../../core/extentions/context.dart';
-import '../../core/navigation/navigator.dart';
+abstract class AppTextStyle {
+  /// App bar title style
+  TextStyle get appBarTitleStyle;
 
-class AppTextStyle {
-  /// Determine if the app is in dark mode
-  static final bool _isDarkMode = AppNavigator.rootContext.isDark;
-
-  static TextStyle get bodyText1 => _isDarkMode ? _DarkAppTextStyles.bodyText1 : _LightAppTextStyles.bodyText1;
-
-  static TextStyle get appBarTitleStyle => _isDarkMode ? _DarkAppTextStyles.appBarTitleStyle : _LightAppTextStyles.appBarTitleStyle;
-
-  static TextStyle get errorStyle => const TextStyle(fontSize: 12, color: Colors.red);
-
-  /// TEXT FIELD STYLES
-  static TextStyle get labelTextStyle => _isDarkMode ? _DarkAppTextStyles.labelTextStyle : _LightAppTextStyles.labelTextStyle;
-  static TextStyle get mandatoryStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.bold, color: Colors.red);
-  static TextStyle get optionalStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.blackColor);
-  static TextStyle get hintTextStyle => const TextStyle(fontSize: 14, color: ColorPalette.blackColor);
-  static TextStyle get fieldStyle => const TextStyle(fontSize: 14, color: ColorPalette.blackColor);
+  /// TextFormField styles for label, hint and field at [InputDecorationTheme]
+  TextStyle get labelTextStyle;
+  TextStyle get hintTextStyle;
+  TextStyle get fieldStyle;
+  TextStyle get mandatoryStyle;
+  TextStyle get optionalStyle;
+  TextStyle get errorStyle;
 }
 
-class _LightAppTextStyles {
-  static const TextStyle appBarTitleStyle = TextStyle(fontSize: 20, color: Colors.black);
-  static const TextStyle bodyText1 = TextStyle(fontSize: 16, color: Colors.black);
-  static const TextStyle labelTextStyle = TextStyle(fontSize: 14, color: Colors.black);
+class LightAppTextStyles implements AppTextStyle {
+  final ColorPalette colorPalette;
+
+  const LightAppTextStyles(this.colorPalette);
+
+  @override
+  TextStyle get appBarTitleStyle => const TextStyle(fontSize: 20, color: ColorPalette.blackColor);
+  @override
+  TextStyle get labelTextStyle => const TextStyle(fontSize: 14, color: ColorPalette.blackColor);
+  @override
+  TextStyle get hintTextStyle => const TextStyle(fontSize: 14, color: ColorPalette.blackColor);
+  @override
+  TextStyle get fieldStyle => const TextStyle(fontSize: 14, color: ColorPalette.blackColor);
+  @override
+  TextStyle get mandatoryStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.bold, color: Colors.red);
+  @override
+  TextStyle get errorStyle => TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: colorPalette.error);
+  @override
+  TextStyle get optionalStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.blackColor);
 }
 
-class _DarkAppTextStyles {
-  static const TextStyle appBarTitleStyle = TextStyle(fontSize: 20, color: ColorPalette.whiteColor);
-  static const TextStyle bodyText1 = TextStyle(fontSize: 16, color: ColorPalette.whiteColor);
-  static const TextStyle labelTextStyle = TextStyle(fontSize: 14, color: ColorPalette.whiteColor);
+class DarkAppTextStyles implements AppTextStyle {
+  final ColorPalette colorPalette;
+
+  const DarkAppTextStyles(this.colorPalette);
+
+  @override
+  TextStyle get appBarTitleStyle => const TextStyle(fontSize: 20, color: ColorPalette.whiteColor);
+  @override
+  TextStyle get labelTextStyle => const TextStyle(fontSize: 14, color: ColorPalette.whiteColor);
+  @override
+  TextStyle get hintTextStyle => const TextStyle(fontSize: 14, color: ColorPalette.whiteColor);
+  @override
+  TextStyle get fieldStyle => const TextStyle(fontSize: 14, color: ColorPalette.whiteColor);
+  @override
+  TextStyle get mandatoryStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.bold, color: Colors.red);
+  @override
+  TextStyle get errorStyle => TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: colorPalette.error);
+  @override
+  TextStyle get optionalStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.blackColor);
 }

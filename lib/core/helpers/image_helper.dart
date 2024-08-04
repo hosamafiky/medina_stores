@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../config/resources/color_palette.dart';
+import '../../config/resources/color_palettes/color_palette.dart';
 import '../../config/resources/locale_keys.g.dart';
 import '../navigation/navigator.dart';
 

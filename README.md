@@ -1,16 +1,42 @@
 # medina_stores
 
-A new Flutter project.
+# Project Settings
 
-## Getting Started
+## App Name
 
-This project is a starting point for a Flutter application.
+Replace this with your app name.
 
-A few resources to get you started if this is your first Flutter project:
+## Firebase Account
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Replace this with your Firebase account information.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Bundle ID
+
+android : com.example.medina_stores
+ios: com.example.medinaStores
+
+## Team
+
+- Flutter:
+
+  1. [Hussam Abed](Github link)
+
+- Backend:
+
+  1. [DEVELOPER NAME](Github link)
+
+- UI/UX:
+
+  1. [DESIGNER NAME](Github link)
+
+## Design
+
+Replace this with the link to the design resources.
+
+## Postman Collection or Swagger Documentation
+
+Replace this with the link to the Postman collection.
+
+## Additional Information
+
+Add any other relevant information about the project here.

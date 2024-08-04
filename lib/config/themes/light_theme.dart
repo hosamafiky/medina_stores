@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 
-import '../resources/color_palette.dart';
+import '../resources/color_palettes/color_palette.dart';
 import '../text_styles/app_text_styles.dart';
 
-ThemeData get lightTheme => ThemeData(
-      primarySwatch: Colors.grey,
-      primaryColor: ColorPalette.whiteColor,
-      brightness: Brightness.light,
-      dividerColor: ColorPalette.whiteColor.withOpacity(0.5),
-      scaffoldBackgroundColor: ColorPalette.whiteColor,
-      appBarTheme: AppBarTheme(
-        color: ColorPalette.whiteColor,
-        iconTheme: const IconThemeData(color: Colors.black),
-        titleTextStyle: AppTextStyle.appBarTitleStyle,
-      ),
-    );
+ThemeData lightTheme(
+  ColorPalette palette,
+  AppTextStyle appTextStyle,
+) {
+  return ThemeData(
+    brightness: Brightness.light,
+    primaryColor: palette.primary,
+    primaryColorDark: palette.primaryVariant,
+    secondaryHeaderColor: palette.secondary,
+    scaffoldBackgroundColor: palette.background,
+    dividerColor: palette.divider,
+    cardColor: palette.cardBackground,
+    shadowColor: palette.cardShadow,
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: appTextStyle.labelTextStyle,
+      hintStyle: appTextStyle.hintTextStyle,
+      errorStyle: appTextStyle.errorStyle,
+    ),
+  );
+}

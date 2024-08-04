@@ -12,6 +12,10 @@ import app_links
     //FIXME: Replace the API key with your own
     GMSServices.provideAPIKey("AIzaSyDV1H2CcIYVHXtndUp8w_tu79A5OgLoAFU")
 
+    if #available(iOS 10.0, *) {
+      UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+    }
+
     // TODO: Uncomment this code to handle screenshots
     // NotificationCenter.default.addObserver(
     //   self,

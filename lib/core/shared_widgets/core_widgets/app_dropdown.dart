@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/config/resources/color_palette.dart';
+import 'package:medina_stores/core/extentions/context.dart';
 
 import '../../../config/resources/locale_keys.g.dart';
-import '../../../config/text_styles/app_text_styles.dart';
 
 class AppDropdown<T> extends StatelessWidget {
   const AppDropdown({
@@ -48,6 +47,9 @@ class AppDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final palette = context.colorPalette;
+    final appTextStyle = context.appTextStyle;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -58,11 +60,11 @@ class AppDropdown<T> extends StatelessWidget {
               children: [
                 TextSpan(
                   text: label,
-                  style: labelTextStyle ?? AppTextStyle.labelTextStyle,
+                  style: labelTextStyle ?? appTextStyle.labelTextStyle,
                 ),
                 if (isOptional) ...[
                   const TextSpan(text: ' '),
-                  TextSpan(text: ' (${LocaleKeys.optional.tr()})', style: AppTextStyle.optionalStyle),
+                  TextSpan(text: ' (${LocaleKeys.optional.tr()})', style: appTextStyle.optionalStyle),
                 ],
               ],
             ),
@@ -75,21 +77,21 @@ class AppDropdown<T> extends StatelessWidget {
             value: value,
             onChanged: onChanged,
             borderRadius: BorderRadius.circular(10.r),
-            iconEnabledColor: ColorPalette.secondaryColor,
+            iconEnabledColor: palette.secondary,
             items: _items.map(itemMapper!).toList(),
-            // icon: SvgManager.arrowdown.svg(color: suffixIconColor ?? ColorPalette.secondaryColor),
-            style: style ?? AppTextStyle.fieldStyle.copyWith(fontSize: 12.sp),
+            // icon: SvgManager.arrowdown.svg(color: suffixIconColor ?? colorPalette.secondaryColor),
+            style: style ?? appTextStyle.fieldStyle.copyWith(fontSize: 12.sp),
             hint: hint != null
                 ? Align(
                     alignment: AlignmentDirectional.centerEnd,
                     child: Text(
                       hint!,
-                      style: hintTextStyle ?? AppTextStyle.hintTextStyle,
+                      style: hintTextStyle ?? appTextStyle.hintTextStyle,
                     ),
                   )
                 : null,
             decoration: InputDecoration(
-              hintStyle: hintTextStyle ?? AppTextStyle.hintTextStyle.copyWith(fontSize: 12.sp),
+              hintStyle: hintTextStyle ?? appTextStyle.hintTextStyle.copyWith(fontSize: 12.sp),
               filled: true,
               fillColor: fillColor,
               border: OutlineInputBorder(
@@ -106,7 +108,7 @@ class AppDropdown<T> extends StatelessWidget {
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
-                borderSide: BorderSide(color: ColorPalette.errorColor, width: 1.r),
+                borderSide: BorderSide(color: palette.error, width: 1.r),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
