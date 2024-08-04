@@ -27,6 +27,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     const AppTextStyle appTextStyle = LightAppTextStyles(colorPalette);
     final ThemeData themeData = AppTheme.light(colorPalette, appTextStyle);
 
+    await CacheHelper.write(CacheKeys.themeMode, themeMode.name);
     emit(UpdateThemeState(
       themeMode: themeMode,
       colorPalette: colorPalette,
@@ -41,6 +42,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     const AppTextStyle appTextStyle = DarkAppTextStyles(colorPalette);
     final ThemeData themeData = AppTheme.dark(colorPalette, appTextStyle);
 
+    await CacheHelper.write(CacheKeys.themeMode, themeMode.name);
     emit(UpdateThemeState(
       themeMode: themeMode,
       colorPalette: colorPalette,

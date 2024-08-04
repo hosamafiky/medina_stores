@@ -1,11 +1,11 @@
 part of 'notification_helper.dart';
 
 enum NotificationType {
-  info._(0, NotificationNavigatorInfo()),
-  success._(1, NotificationNavigatorSuccess()),
-  warning._(2, NotificationNavigatorWarning()),
-  error._(3, NotificationNavigatorError()),
-  none._(4, NotificationNavigatorNone());
+  info._(1, NotificationNavigatorInfo()),
+  success._(2, NotificationNavigatorSuccess()),
+  warning._(3, NotificationNavigatorWarning()),
+  error._(4, NotificationNavigatorError()),
+  none._(0, NotificationNavigatorNone());
 
   static NotificationType fromId(int id) {
     return values.firstWhere((element) => element.id == id, orElse: () => none);

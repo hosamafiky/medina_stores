@@ -28,7 +28,7 @@ void main() async {
   ]).whenComplete(() async {
     NotificationHelper(
       onRoutingMessage: (message) async {
-        final type = NotificationType.fromId(int.parse(message.data['type']));
+        final type = NotificationType.fromId(int.parse(message.data['type'] ?? "0"));
         await type.navigator.go(data: message.data);
       },
       onNoInitialMessage: () {
