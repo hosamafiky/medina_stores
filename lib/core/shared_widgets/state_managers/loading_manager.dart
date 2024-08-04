@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../config/resources/color_palette.dart';
+
 class LoadingManager extends StatefulWidget {
   const LoadingManager({
     super.key,
@@ -41,7 +43,7 @@ class _LoadingManagerState extends State<LoadingManager> {
                   color: Colors.black.withOpacity(0.5),
                   child: const Center(
                     child: CircularProgressIndicator.adaptive(
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                      valueColor: AlwaysStoppedAnimation(ColorPalette.whiteColor),
                     ),
                   ),
                 ),

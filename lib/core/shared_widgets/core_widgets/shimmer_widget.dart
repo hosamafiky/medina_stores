@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../config/resources/color_palette.dart';
+
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget.horizontal({
     super.key,
@@ -65,7 +67,7 @@ class ShimmerWidget extends StatelessWidget {
               width: _width,
               height: _height,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: ColorPalette.whiteColor,
                 borderRadius: _boxShape == BoxShape.circle ? null : _borderRadius ?? BorderRadius.circular(6.r),
                 shape: _boxShape,
               ),

@@ -3,6 +3,8 @@ import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/core/extentions/context.dart';
 
+import '../../../config/resources/color_palette.dart';
+
 class ConnectivityManager extends StatefulWidget {
   final Widget child;
   const ConnectivityManager({super.key, required this.child});
@@ -42,7 +44,7 @@ class _ConnectivityManagerState extends State<ConnectivityManager> with TickerPr
                   child: Text(
                     connected ? 'Online' : 'Offline',
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: ColorPalette.whiteColor,
                       fontSize: 20,
                       decoration: TextDecoration.none,
                     ),

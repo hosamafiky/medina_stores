@@ -30,7 +30,7 @@ class _LightAppTextStyles {
 }
 
 class _DarkAppTextStyles {
-  static const TextStyle appBarTitleStyle = TextStyle(fontSize: 20, color: Colors.white);
-  static const TextStyle bodyText1 = TextStyle(fontSize: 16, color: Colors.white);
-  static const TextStyle labelTextStyle = TextStyle(fontSize: 14, color: Colors.white);
+  static const TextStyle appBarTitleStyle = TextStyle(fontSize: 20, color: ColorPalette.whiteColor);
+  static const TextStyle bodyText1 = TextStyle(fontSize: 16, color: ColorPalette.whiteColor);
+  static const TextStyle labelTextStyle = TextStyle(fontSize: 14, color: ColorPalette.whiteColor);
 }
