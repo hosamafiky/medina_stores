@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
-import 'package:medina_stores/config/text_styles/app_text_styles.dart';
 
+import '../resources/color_palettes/color_palette.dart';
+import '../text_styles/app_text_styles.dart';
 import 'dark_theme.dart';
 import 'light_theme.dart';
 

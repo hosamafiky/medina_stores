@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart' as easy_localization;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
 
+import '../../../config/resources/color_palettes/color_palette.dart';
 import '../../../config/text_styles/app_font_weights.dart';
 
 class BaseSubmitButton extends StatelessWidget {

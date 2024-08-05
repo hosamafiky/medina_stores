@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
-import 'package:medina_stores/core/extentions/context.dart';
 
+import '../../config/resources/color_palettes/color_palette.dart';
 import '../../config/text_styles/app_text_styles.dart';
+import 'context.dart';
 
 extension FormFieldExtension on Widget {
   FormField<T> asFormField<T>({

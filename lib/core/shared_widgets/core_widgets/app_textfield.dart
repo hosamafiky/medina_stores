@@ -2,14 +2,14 @@ import 'package:easy_localization/easy_localization.dart' as easy;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
-import 'package:medina_stores/config/text_styles/app_text_styles.dart';
-import 'package:medina_stores/core/extentions/context.dart';
-import 'package:medina_stores/core/extentions/spaced_column.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../config/resources/color_palettes/color_palette.dart';
 import '../../../config/resources/locale_keys.g.dart';
 import '../../../config/text_styles/app_font_weights.dart';
+import '../../../config/text_styles/app_text_styles.dart';
+import '../../extentions/context.dart';
+import '../../extentions/spaced_column.dart';
 import '../input_formatters/arabic_numbers_formatter.dart';
 
 class AppTextField extends StatefulWidget {

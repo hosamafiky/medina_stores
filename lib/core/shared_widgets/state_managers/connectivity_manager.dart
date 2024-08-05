@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/core/extentions/context.dart';
 
 import '../../../config/resources/color_palettes/color_palette.dart';
+import '../../extentions/context.dart';
 
 class ConnectivityManager extends StatefulWidget {
   final Widget child;
@@ -13,7 +13,7 @@ class ConnectivityManager extends StatefulWidget {
   State<ConnectivityManager> createState() => _ConnectivityManagerState();
 }
 
-class _ConnectivityManagerState extends State<ConnectivityManager> with TickerProviderStateMixin {
+class _ConnectivityManagerState extends State<ConnectivityManager> {
   bool connected = false;
 
   @override
