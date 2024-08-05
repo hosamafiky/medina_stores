@@ -8,8 +8,8 @@ import '../../../config/resources/color_palettes/color_palette.dart';
 import '../../../config/resources/locale_keys.g.dart';
 import '../../../config/text_styles/app_font_weights.dart';
 import '../../../config/text_styles/app_text_styles.dart';
-import '../../extentions/context.dart';
-import '../../extentions/spaced_column.dart';
+import '../../extensions/context.dart';
+import '../../extensions/spaced_column.dart';
 import '../input_formatters/arabic_numbers_formatter.dart';
 
 class AppTextField extends StatefulWidget {

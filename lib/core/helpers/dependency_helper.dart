@@ -1,7 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:medina_stores/features/user/di/setup_user_dependencies.dart';
 
 import '../../features/home/di/setup_home_dependencies.dart';
+import '../../features/post/di/setup_post_dependencies.dart';
+import '../networking/api_service.dart';
+import '../networking/dio_service.dart';
 
 class DependencyHelper {
   DependencyHelper._();
@@ -11,8 +13,13 @@ class DependencyHelper {
   final GetIt serviceLocator = GetIt.instance;
 
   void registerDependencies() {
-    setUpUserDependencies();
+    setUpGeneralDependencies();
     setUpHomeDependencies();
+    setUpPostDependencies();
+  }
+
+  void setUpGeneralDependencies() {
+    serviceLocator.registerLazySingleton<ApiService>(() => DioService());
   }
 }
 

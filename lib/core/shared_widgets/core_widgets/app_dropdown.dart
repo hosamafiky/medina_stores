@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../config/resources/locale_keys.g.dart';
-import '../../extentions/context.dart';
+import '../../extensions/context.dart';
 
 class AppDropdown<T> extends StatelessWidget {
   const AppDropdown({

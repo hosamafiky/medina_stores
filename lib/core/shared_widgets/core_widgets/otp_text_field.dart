@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../config/resources/color_palettes/color_palette.dart';
-import '../../extentions/context.dart';
+import '../../extensions/context.dart';
 
 class OtpTextField extends StatelessWidget {
   final ValueChanged<String>? onCompleted;

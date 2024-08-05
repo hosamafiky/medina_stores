@@ -16,6 +16,12 @@ ThemeData darkTheme(
     dividerColor: palette.divider,
     cardColor: palette.cardBackground,
     shadowColor: palette.cardShadow,
+    appBarTheme: AppBarTheme(
+      elevation: 0,
+      surfaceTintColor: Colors.transparent,
+      iconTheme: const IconThemeData(color: ColorPalette.whiteColor),
+      titleTextStyle: appTextStyle.appBarTitleStyle,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: appTextStyle.labelTextStyle,
       hintStyle: appTextStyle.hintTextStyle,

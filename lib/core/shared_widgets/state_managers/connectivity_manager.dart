@@ -5,7 +5,7 @@ import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../config/resources/color_palettes/color_palette.dart';
-import '../../extentions/context.dart';
+import '../../extensions/context.dart';
 
 class ConnectivityManager extends StatefulWidget {
   final Widget child;

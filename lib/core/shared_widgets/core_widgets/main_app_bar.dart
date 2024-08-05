@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -26,7 +25,6 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
       title: title,
       bottom: bottom,
       toolbarHeight: toolbarHeight ?? 72.h,
@@ -34,6 +32,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleTextStyle: titleTextStyle,
       backgroundColor: backgroundColor,
       centerTitle: centerTitle,
+      surfaceTintColor: Colors.transparent,
       actions: List<Widget>.from(actions ?? [])..add(SizedBox(width: 24.w)),
     );
   }

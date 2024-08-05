@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/core/helpers/dependency_helper.dart';
-import 'package:medina_stores/features/user/presentation/cubit/user_cubit.dart';
 
 import 'core/navigation/navigator.dart';
 import 'core/navigation/route_generator.dart';
@@ -11,6 +9,7 @@ import 'core/observers/navigation_observer.dart';
 import 'core/shared_cubits/theme/theme_cubit.dart';
 import 'core/shared_widgets/state_managers/connectivity_manager.dart';
 import 'core/shared_widgets/state_managers/loading_manager.dart';
+import 'features/post/presentation/presentation_imports.dart';
 
 class MedinaStoresApp extends StatelessWidget {
   const MedinaStoresApp({super.key});
@@ -28,9 +27,6 @@ class MedinaStoresApp extends StatelessWidget {
             BlocProvider(
               create: (context) => ThemeCubit()..checkForCachedThemeMode(),
             ),
-            BlocProvider(
-              create: (context) => DependencyHelper.instance.get<UserCubit>(),
-            ),
           ],
           child: BlocBuilder<ThemeCubit, ThemeState>(
             builder: (context, state) {
@@ -46,7 +42,7 @@ class MedinaStoresApp extends StatelessWidget {
                 theme: state.lightThemeData,
                 darkTheme: state.darkThemeData,
                 themeMode: state.themeMode,
-                home: const MyHomePage(),
+                home: const PostsPage(),
                 builder: (context, child) {
                   return ConnectivityManager(child: LoadingManager(child: child!));
                 },
@@ -55,83 +51,6 @@ class MedinaStoresApp extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final themeState = context.watch<ThemeCubit>().state;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Medina Stores"),
-        actions: [
-          IconButton(
-            icon: themeState.themeMode == ThemeMode.light ? const Icon(Icons.brightness_4) : const Icon(Icons.brightness_7),
-            onPressed: () {
-              if (themeState.themeMode == ThemeMode.light) {
-                context.read<ThemeCubit>().setDarkTheme();
-              } else {
-                context.read<ThemeCubit>().setLightTheme();
-              }
-            },
-          ),
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                hintText: 'Enter your email',
-              ),
-            ),
-            const TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                hintText: 'Enter your password',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // TODO: Implement button functionality
-              },
-              child: const Text('Login'),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
