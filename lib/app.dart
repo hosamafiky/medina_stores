@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medina_stores/core/helpers/dependency_helper.dart';
+import 'package:medina_stores/features/user/presentation/cubit/user_cubit.dart';
 
 import 'core/navigation/navigator.dart';
 import 'core/navigation/route_generator.dart';
@@ -21,8 +23,15 @@ class MedinaStoresApp extends StatelessWidget {
       minTextAdapt: true,
       ensureScreenSize: true,
       builder: (context, child) {
-        return BlocProvider(
-          create: (context) => ThemeCubit()..checkForCachedThemeMode(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => ThemeCubit()..checkForCachedThemeMode(),
+            ),
+            BlocProvider(
+              create: (context) => DependencyHelper.instance.get<UserCubit>(),
+            ),
+          ],
           child: BlocBuilder<ThemeCubit, ThemeState>(
             builder: (context, state) {
               return MaterialApp(

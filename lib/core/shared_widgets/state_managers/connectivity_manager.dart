@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +16,7 @@ class ConnectivityManager extends StatefulWidget {
 }
 
 class _ConnectivityManagerState extends State<ConnectivityManager> {
-  bool connected = false;
+  bool isCurrentlyConnected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,10 @@ class _ConnectivityManagerState extends State<ConnectivityManager> {
         Widget item,
       ) {
         final bool connected = !connectivity.contains(ConnectivityResult.none);
+        isCurrentlyConnected = connected;
+        if (connected != isCurrentlyConnected) {
+          log("Connectivity: $connectivity");
+        }
         if (!connected) {
           FocusScope.of(context).unfocus();
         }
