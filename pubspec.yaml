@@ -78,6 +78,7 @@ dependencies:
   pinput: ^5.0.0 # A Flutter package for entering secure pin code.
   socket_io_client: ^2.0.3 # A Dart client for Socket.IO.
   dartz: ^0.10.1 # A functional programming library for Dart.
+  url_launcher: ^6.3.0 # A Flutter plugin for launching a URL in the mobile platform.
 
   flutter_test:
     sdk: flutter
