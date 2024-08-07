@@ -9,7 +9,6 @@ class ApiConstants {
 
 class ApiEndPoints {
   final String PRODUCTS = '/products';
-  final String COUNTERS = '/counters';
   final String POSTS = '/posts';
   final String COMMENTS = '/comments';
   final String ALBUMS = '/albums';
