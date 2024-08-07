@@ -42,11 +42,17 @@ class LocationHelper {
     return permission == LocationPermission.whileInUse || permission == LocationPermission.always;
   }
 
-  static Future<Position> getCurrentPosition() async => await Geolocator.getCurrentPosition();
+  static Future<Position> getCurrentPosition() async {
+    if (!await checkLocationPermission()) {
+      await askForLocationPermission();
+    }
+    Position position = await Geolocator.getCurrentPosition();
+    return position;
+  }
 
-  static Future<Placemark> getPlacemarkFromCoordinates(double latitude, double longitude) async {
+  static Future<Placemark> getPlacemarkFromCoordinates(Position position) async {
     setLocaleIdentifier(AppNavigator.rootContext?.locale.languageCode ?? 'en');
-    List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
     return placemarks.first;
   }
 

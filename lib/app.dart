@@ -9,7 +9,7 @@ import 'core/observers/navigation_observer.dart';
 import 'core/shared_cubits/theme/theme_cubit.dart';
 import 'core/shared_widgets/state_managers/connectivity_manager.dart';
 import 'core/shared_widgets/state_managers/loading_manager.dart';
-import 'features/post/presentation/presentation_imports.dart';
+import 'features/home/presentation/pages/home_page.dart';
 
 class MedinaStoresApp extends StatelessWidget {
   const MedinaStoresApp({super.key});
@@ -42,7 +42,7 @@ class MedinaStoresApp extends StatelessWidget {
                 theme: state.lightThemeData,
                 darkTheme: state.darkThemeData,
                 themeMode: state.themeMode,
-                home: const PostsPage(),
+                home: const HomePage(),
                 builder: (context, child) {
                   return ConnectivityManager(child: LoadingManager(child: child!));
                 },
