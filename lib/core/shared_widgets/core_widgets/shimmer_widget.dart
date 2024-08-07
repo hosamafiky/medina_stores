@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
@@ -60,7 +61,7 @@ class ShimmerWidget extends StatelessWidget {
         baseColor: Colors.grey[200]!,
         highlightColor: Colors.grey[100]!,
         enabled: true,
-        direction: ShimmerDirection.ltr,
+        direction: context.locale.languageCode == 'en' ? ShimmerDirection.ltr : ShimmerDirection.rtl,
         period: const Duration(seconds: 2),
         child: child ??
             Container(

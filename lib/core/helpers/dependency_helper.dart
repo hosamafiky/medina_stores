@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 
 import '../../features/home/di/setup_home_dependencies.dart';
 import '../../features/product/di/setup_product_dependencies.dart';
-import '../../features/post/di/setup_post_dependencies.dart';
 import '../networking/api_service.dart';
 import '../networking/dio_service.dart';
 
@@ -17,7 +16,6 @@ class DependencyHelper {
     setUpGeneralDependencies();
     setUpProductDependencies();
     setUpHomeDependencies();
-    setUpPostDependencies();
   }
 
   void setUpGeneralDependencies() {

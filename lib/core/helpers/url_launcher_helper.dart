@@ -42,7 +42,7 @@ class UrlLauncherHelper {
     return await launchURL(uri);
   }
 
-  static Future<bool> sendSms(
+  static Future<bool> sendSMS(
     String phoneNumber, {
     String? body,
   }) async {
