@@ -6,7 +6,7 @@ class ApiResponse<T extends Object> extends Equatable {
   final String message;
   final T? data;
   final bool isSuceess;
-  final List<Map<String, List<String>>>? errors;
+  final List<MapEntry<String, List<String>>>? errors;
 
   const ApiResponse.success({
     this.statusCode = 200,
@@ -34,8 +34,8 @@ class ApiResponse<T extends Object> extends Equatable {
     final data = response?.data;
     return ApiResponse<T>.error(
       message: data?['message'],
-      isSuceess: data?['success'],
-      errors: (data?['errors'] ?? {} as Map<String, dynamic>).entries.map((e) => {e.key: List<String>.from(e.value)}).toList(),
+      isSuceess: data?['success'] ?? false,
+      errors: List<MapEntry<String, List<String>>>.from(data?['errors'].entries.map((e) => MapEntry<String, List<String>>(e.key, List<String>.from(e.value)))),
     );
   }
 

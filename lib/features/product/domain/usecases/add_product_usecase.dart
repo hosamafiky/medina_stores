@@ -14,7 +14,7 @@ class AddProductUsecase implements UseCase<ApiResponse<Product>, AddProductParam
 class AddProductParams {
   Map<String, dynamic> toMap() {
     return {
-      "en": {"name": "Flutter App Test", "address": "Mansoura"},
+      // "en": {"name": "Flutter App Test", "address": "Mansoura"},
       "ar": {"name": "إختبار تطبيق فلاتر", "address": "المنصورة"},
       "region_id": 1,
       "location": [

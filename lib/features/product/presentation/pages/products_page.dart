@@ -23,6 +23,13 @@ class ProductsPageBody extends StatelessWidget {
       body: BlocSelector<ProductCubit, ProductState, ({UsecaseStatus status, Failure? failure, List<Product> products})>(
         selector: (state) => (status: state.productsStatus, failure: state.productsFailure, products: state.products),
         builder: (context, state) {
+          if (state.status == UsecaseStatus.running) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state.status == UsecaseStatus.error) {
+            return Center(child: Text(state.failure?.response.message ?? 'An error occurred'));
+          } else if (state.products.isEmpty) {
+            return const Center(child: Text('No products found'));
+          }
           return ListView.separated(
             padding: EdgeInsets.symmetric(vertical: 16.h).copyWith(
               top: context.statusBarHeight + 16.h,
