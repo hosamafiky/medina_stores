@@ -28,22 +28,13 @@ class SocialMediaLauncher {
         if (playlistId != null) 'list': playlistId,
       },
     );
-    final isLaunched = await UrlLauncherHelper.launchURL(uri);
-    if (!isLaunched) {
-      return await UrlLauncherHelper.openAppStoreApp(appId: 'id544007664');
-    }
-    return isLaunched;
+    return await UrlLauncherHelper.launchURL(uri);
   }
 
   static Future<bool> launchInstagramApp({
     required String identifier,
   }) async {
-    try {
-      final Uri uri = Uri(scheme: 'instagram', host: identifier);
-      final isLaunched = await UrlLauncherHelper.launchURL(uri);
-      return isLaunched;
-    } catch (e) {
-      return await UrlLauncherHelper.openAppStoreApp(appId: 'id389801252');
-    }
+    final Uri uri = Uri(scheme: 'instagram', host: identifier);
+    return await UrlLauncherHelper.launchURL(uri);
   }
 }
