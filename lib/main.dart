@@ -33,7 +33,6 @@ void main() async {
         await type.navigator.go(data: message.data);
       },
       onNoInitialMessage: () {
-        //TODO: Navigate to the home page
         log('SHOULD GO TO HOME PAGE');
       },
     ).setupNotifications();

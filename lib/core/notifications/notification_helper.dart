@@ -165,13 +165,8 @@ class NotificationHelper {
 
   void _configureNotification() async {
     FirebaseMessaging.onBackgroundMessage(backgroundHandler);
-    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-      log("onMessage: ${event.toMap()}", name: "FirebaseMessaging");
-      _showNotification(event);
-    });
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage event) {
-      _handleNotificationsTap(event);
-    });
+    FirebaseMessaging.onMessage.listen(_showNotification);
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleNotificationsTap);
   }
 
   RemoteMessage? _initialMessage;
