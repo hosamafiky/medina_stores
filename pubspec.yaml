@@ -19,7 +19,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.4.4 <4.0.0"
+  sdk: ^3.5.0
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -33,7 +33,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
+  cupertino_icons: ^1.0.8
   # DEEP LINKS
   app_links: ^6.1.4 # Package for handling deep links and app links in Flutter applications.
   # Firebase dependencies
@@ -57,7 +57,7 @@ dependencies:
   # SHARING
   share_plus: ^10.0.0 # Flutter plugin for sharing content via the platform share UI, using the ACTION_SEND intent on Android and UIActivityViewController on iOS.
   # LOCATION SERVICES
-  google_maps_flutter: ^2.7.1 # A Flutter plugin for integrating Google Maps in iOS and Android applications.
+  google_maps_flutter: ^2.9.0 # A Flutter plugin for integrating Google Maps in iOS and Android applications.
   geolocator: ^12.0.0 # A Flutter geolocation plugin which provides easy access to platform specific location services.
   geocoding: ^3.0.0 # A Flutter geocoding plugin which provides easy access to platform specific geocoding services.
   # ASSETS VIEWER
