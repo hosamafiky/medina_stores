@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/features/home/presentation/pages/home_page.dart';
+import 'package:medina_stores/features/product/presentation/presentation_imports.dart';
 
 import 'core/navigation/navigator.dart';
 import 'core/navigation/route_generator.dart';
@@ -42,7 +42,7 @@ class MedinaStoresApp extends StatelessWidget {
                 theme: state.lightThemeData,
                 darkTheme: state.darkThemeData,
                 themeMode: state.themeMode,
-                home: const HomePage(),
+                home: const ProductsPage(),
                 builder: (context, child) {
                   return ConnectivityManager(child: LoadingManager(child: child!));
                 },

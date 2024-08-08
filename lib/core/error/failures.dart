@@ -1,54 +1,51 @@
 import 'package:equatable/equatable.dart';
+import 'package:medina_stores/core/networking/response_model.dart';
 
 class Failure extends Equatable {
-  final String message;
-  final int statusCode;
+  final ApiResponse response;
 
-  const Failure({this.message = "", this.statusCode = 400});
+  const Failure({required this.response});
 
   @override
-  List<Object> get props => [message, statusCode];
+  List<Object> get props => [response];
 }
 
 class ServerFailure extends Failure {
-  const ServerFailure({super.message, super.statusCode});
-
-  @override
-  List<Object> get props => [message, statusCode];
+  const ServerFailure({required super.response});
 }
 
 class FetchDataFailure extends Failure {
-  const FetchDataFailure({super.message, super.statusCode});
+  const FetchDataFailure({required super.response});
 }
 
 class BadRequestFailure extends Failure {
-  const BadRequestFailure({super.message, super.statusCode});
+  const BadRequestFailure({required super.response});
 }
 
 class UnauthorizedFailure extends Failure {
-  const UnauthorizedFailure({super.message, super.statusCode});
+  const UnauthorizedFailure({required super.response});
 }
 
 class NotFoundFailure extends Failure {
-  const NotFoundFailure({super.message, super.statusCode});
+  const NotFoundFailure({required super.response});
 }
 
 class ConflictFailure extends Failure {
-  const ConflictFailure({super.message, super.statusCode});
+  const ConflictFailure({required super.response});
 }
 
 class InternalServerErrorFailure extends Failure {
-  const InternalServerErrorFailure({super.message, super.statusCode});
+  const InternalServerErrorFailure({required super.response});
 }
 
 class NoInternetConnectionFailure extends Failure {
-  const NoInternetConnectionFailure({super.message, super.statusCode});
+  const NoInternetConnectionFailure({required super.response});
 }
 
 class CacheFailure extends Failure {
-  const CacheFailure({super.message, super.statusCode});
+  const CacheFailure({required super.response});
 }
 
 class UnknownFailure extends Failure {
-  const UnknownFailure({super.message, super.statusCode});
+  const UnknownFailure({required super.response});
 }

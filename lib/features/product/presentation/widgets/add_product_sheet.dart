@@ -48,10 +48,7 @@ class _AddProductSheetState extends State<AddProductSheet> {
                       if (!_formKey.currentState!.validate()) return;
                       if (state.addProductStatus == UsecaseStatus.running) return;
 
-                      widget.productCubit.addProduct(AddProductParams(
-                        title: _titleController.text,
-                        body: _bodyController.text,
-                      ));
+                      widget.productCubit.addProduct(AddProductParams());
                     },
                     child: state.addProductStatus == UsecaseStatus.running ? const CircularProgressIndicator.adaptive() : const Text('Add'),
                   ),

@@ -1,9 +1,10 @@
 import 'api_request.dart';
+import 'response_model.dart';
 
 abstract interface class ApiService {
-  Future<Model> callApi<Model>(
+  Future<ApiResponse<T>> callApi<T extends Object>(
     ApiRequest networkRequest, {
-    Model Function(dynamic json)? mapper,
+    ApiResponse<T> Function(dynamic json)? mapper,
   });
 
   void addTokenToRequest(String token);

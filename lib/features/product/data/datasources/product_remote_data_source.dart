@@ -1,35 +1,41 @@
 part of '../data_imports.dart';
 
 abstract class ProductRemoteDataSource {
-  Future<List<ProductModel>> get getProducts;
-  Future<ProductModel> addProduct(AddProductParams params);
+  Future<ApiResponse<List<ProductModel>>> get getProducts;
+  Future<ApiResponse<ProductModel>> addProduct(AddProductParams params);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   @override
-  Future<List<ProductModel>> get getProducts async {
+  Future<ApiResponse<List<ProductModel>>> get getProducts async {
     final request = ApiRequest(
       method: RequestMethod.get,
-      path: ApiConstants.endPoints.PRODUCTS,
+      path: "/dashboard/branches",
     );
 
-    return await DependencyHelper.instance.get<ApiService>().callApi(
+    return await DependencyHelper.instance.get<ApiService>().callApi<List<ProductModel>>(
           request,
-          mapper: (json) => List<ProductModel>.from(json.map((x) => ProductModel.fromMap(x))),
+          mapper: (json) => ApiResponse.fromMapSuccess(
+            json,
+            mapper: (data) => List<ProductModel>.from(data['data'].map((x) => ProductModel.fromMap(x))),
+          ),
         );
   }
 
   @override
-  Future<ProductModel> addProduct(AddProductParams params) async {
+  Future<ApiResponse<ProductModel>> addProduct(AddProductParams params) async {
     final request = ApiRequest(
       method: RequestMethod.post,
-      path: ApiConstants.endPoints.PRODUCTS,
+      path: "/dashboard/branches",
       body: params.toMap(),
     );
 
-    return await DependencyHelper.instance.get<ApiService>().callApi(
+    return await DependencyHelper.instance.get<ApiService>().callApi<ProductModel>(
           request,
-          mapper: (json) => ProductModel.fromMap(json),
+          mapper: (json) => ApiResponse.fromMapSuccess(
+            json,
+            mapper: (data) => ProductModel.fromMap(data),
+          ),
         );
   }
 }

@@ -20,23 +20,27 @@ class ProductsPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(),
       body: BlocSelector<ProductCubit, ProductState, ({UsecaseStatus status, Failure? failure, List<Product> products})>(
         selector: (state) => (status: state.productsStatus, failure: state.productsFailure, products: state.products),
         builder: (context, state) {
           return ListView.separated(
+            padding: EdgeInsets.symmetric(vertical: 16.h).copyWith(
+              top: context.statusBarHeight + 16.h,
+              bottom: context.bottomBarHeight + 16.h,
+            ),
             itemCount: state.products.length,
             separatorBuilder: (context, index) => SizedBox(height: 16.h),
             itemBuilder: (context, index) {
               final product = state.products[index];
               return ListTile(
                 leading: Text(product.id.toString()),
-                title: Text(product.title),
+                title: Text(product.name),
                 subtitle: Text(
-                  product.body,
+                  product.address,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
+                trailing: Text(DateFormat.jm().format(product.createdAt)),
               );
             },
           );

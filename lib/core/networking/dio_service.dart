@@ -11,6 +11,7 @@ import 'api_constants.dart';
 import 'api_request.dart';
 import 'api_service.dart';
 import 'log_interceptor.dart';
+import 'response_model.dart';
 
 class DioService implements ApiService {
   late final Dio _dio;
@@ -49,7 +50,7 @@ class DioService implements ApiService {
   }
 
   @override
-  Future<Model> callApi<Model>(ApiRequest networkRequest, {Model Function(dynamic json)? mapper}) async {
+  Future<ApiResponse<T>> callApi<T extends Object>(ApiRequest networkRequest, {ApiResponse<T> Function(dynamic json)? mapper}) async {
     try {
       await networkRequest.prepareRequestData();
       final headers = networkRequest.headers ?? {};
@@ -59,7 +60,7 @@ class DioService implements ApiService {
           'Accept-Language',
           Language.currentLanguage?.locale.languageCode ?? Language.english.languageCode,
         ),
-        // if (token != null) MapEntry(HttpHeaders.authorizationHeader, 'Bearer $token'),
+        const MapEntry(HttpHeaders.authorizationHeader, 'Bearer 5|rhdRQ6wCHshfckEvMRmLy1gadCkvb34saVaoXE06f978d7ed'),
       ]);
       final response = await _dio.request(
         networkRequest.path,
@@ -76,13 +77,14 @@ class DioService implements ApiService {
       if (mapper != null) {
         return mapper(response.data);
       } else {
-        return response.data;
+        return ApiResponse.fromMapSuccess(response.data);
       }
     } on DioException catch (e) {
       return _handleError(e);
-    } catch (e) {
-      throw UnknownException("${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}");
     }
+    // catch (e) {
+    //   throw UnknownException("${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}");
+    // }
   }
 
   dynamic _handleError(DioException error) {
@@ -90,57 +92,27 @@ class DioService implements ApiService {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        throw NoInternetConnectionException(LocaleKeys.check_internet.tr(), error.response?.statusCode ?? 0);
+        throw NoInternetConnectionException();
       case DioExceptionType.badResponse:
         switch (error.response!.statusCode) {
           case HttpStatus.badRequest:
-            throw BadRequestException(
-              error.response!.data['message'] ?? LocaleKeys.exception.tr(),
-              error.response!.statusCode!,
-            );
+            throw BadRequestException(ApiResponse.fromMapError(error.response));
           case HttpStatus.unprocessableEntity:
-            throw MissingDataException(
-              error.response?.data['message'] ?? LocaleKeys.exception.tr(),
-              error.response!.statusCode!,
-            );
+            throw MissingDataException(ApiResponse.fromMapError(error.response));
           case HttpStatus.unauthorized:
-            throw UnauthorizedException(
-              error.response?.data['message'] ?? LocaleKeys.exception.tr(),
-              error.response!.statusCode!,
-            );
+            throw UnauthorizedException(ApiResponse.fromMapError(error.response));
           case HttpStatus.notFound:
-            throw NotFoundException(
-              LocaleKeys.exception.tr(),
-              error.response!.statusCode!,
-            );
+            throw NotFoundException(ApiResponse.fromMapError(error.response));
           case HttpStatus.conflict:
-            throw ConflictException(
-              error.response?.data['message'] ?? LocaleKeys.server_error.tr(),
-              error.response!.statusCode!,
-            );
+            throw ConflictException(ApiResponse.fromMapError(error.response));
           case HttpStatus.internalServerError:
-            try {
-              throw InternalServerErrorException(
-                error.response?.data['message'] ?? LocaleKeys.server_error.tr(),
-                error.response!.statusCode!,
-              );
-            } catch (e) {
-              throw InternalServerErrorException(
-                LocaleKeys.server_error.tr(),
-                error.response!.statusCode!,
-              );
-            }
+            throw InternalServerErrorException();
+
           default:
-            throw ServerException(
-              LocaleKeys.server_error.tr(),
-              error.response!.statusCode!,
-            );
+            throw ServerException(ApiResponse.fromMapError(error.response));
         }
       case DioExceptionType.cancel:
-        throw ServerException(
-          LocaleKeys.internet_weakness.tr(),
-          error.response!.statusCode!,
-        );
+        throw ServerException(ApiResponse.fromMapError(error.response));
       case DioExceptionType.unknown:
         throw UnknownException(
           error.response?.data['message'] ?? LocaleKeys.exception.tr(),

@@ -1,51 +1,51 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
+import 'package:medina_stores/core/networking/response_model.dart';
 
 import '../../config/resources/locale_keys.g.dart';
 
 class ServerException extends Equatable implements Exception {
-  final String message;
-  final int statusCode;
+  final ApiResponse response;
 
-  const ServerException(this.message, this.statusCode);
-
-  @override
-  String toString() => "ServerException: $message, statusCode: $statusCode";
+  const ServerException(this.response);
 
   @override
-  List<Object?> get props => [message, statusCode];
+  String toString() => response.toString();
+
+  @override
+  List<Object?> get props => [response];
 }
 
 class FetchDataException extends ServerException {
-  const FetchDataException(super.message, super.statusCode);
+  const FetchDataException(super.response);
 }
 
 class BadRequestException extends ServerException {
-  const BadRequestException(super.message, super.statusCode);
+  const BadRequestException(super.response);
 }
 
 class UnauthorizedException extends ServerException {
-  const UnauthorizedException(super.message, super.statusCode);
+  const UnauthorizedException(super.response);
 }
 
 class MissingDataException extends ServerException {
-  const MissingDataException(super.message, super.statusCode);
+  const MissingDataException(super.response);
 }
 
 class NotFoundException extends ServerException {
-  const NotFoundException(super.message, super.statusCode);
+  const NotFoundException(super.response);
 }
 
 class ConflictException extends ServerException {
-  const ConflictException(super.message, super.statusCode);
+  const ConflictException(super.response);
 }
 
 class InternalServerErrorException extends ServerException {
-  InternalServerErrorException([message, statusCode]) : super(LocaleKeys.check_internet.tr(), statusCode);
+  InternalServerErrorException() : super(ApiResponse.error(message: LocaleKeys.server_error.tr()));
 }
 
 class NoInternetConnectionException extends ServerException {
-  NoInternetConnectionException([message, statusCode]) : super(LocaleKeys.check_internet.tr(), statusCode);
+  NoInternetConnectionException() : super(ApiResponse.error(message: LocaleKeys.check_internet.tr()));
 }
 
 class CacheException implements Exception {}

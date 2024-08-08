@@ -1,30 +1,29 @@
 part of '../domain_imports.dart';
 
-class AddProductUsecase implements UseCase<Product, AddProductParams> {
+class AddProductUsecase implements UseCase<ApiResponse<Product>, AddProductParams> {
   final ProductRepository repository;
 
   const AddProductUsecase({required this.repository});
 
   @override
-  Future<Either<Failure, Product>> call(AddProductParams params) async {
+  Future<Either<Failure, ApiResponse<Product>>> call(AddProductParams params) async {
     return repository.addProduct(params);
   }
 }
 
 class AddProductParams {
-  final String title;
-  final String body;
-
-  const AddProductParams({
-    required this.title,
-    required this.body,
-  });
-
   Map<String, dynamic> toMap() {
     return {
-      'title': title,
-      'body': body,
-      'userId': 1,
+      "en": {"name": "Flutter App Test", "address": "Mansoura"},
+      "ar": {"name": "إختبار تطبيق فلاتر", "address": "المنصورة"},
+      "region_id": 1,
+      "location": [
+        [30.811107371271085, 30.71377132793872],
+        [30.811107371271085, 30.71377132793872],
+        [30.811107371271085, 30.71377132793872],
+        [30.811107371271085, 30.71377132793872],
+        [30.811107371271085, 30.71377132793872]
+      ]
     };
   }
 }

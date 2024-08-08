@@ -6,12 +6,12 @@ class ProductRepositoryImpl implements ProductRepository {
   const ProductRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<Product>>> getProducts() async {
+  Future<Either<Failure, ApiResponse<List<Product>>>> getProducts() async {
     return await remoteDataSource.getProducts.handleCallbackWithFailure;
   }
 
   @override
-  Future<Either<Failure, Product>> addProduct(AddProductParams params) async {
+  Future<Either<Failure, ApiResponse<Product>>> addProduct(AddProductParams params) async {
     return await remoteDataSource.addProduct(params).handleCallbackWithFailure;
   }
 }

@@ -1,4 +1,3 @@
-
 part of '../presentation_imports.dart';
 
 class ProductCubit extends Cubit<ProductState> {
@@ -18,7 +17,7 @@ class ProductCubit extends Cubit<ProductState> {
         emit(state.copyWith(productsStatus: UsecaseStatus.error, productsFailure: failure));
       },
       (products) {
-        emit(state.copyWith(productsStatus: UsecaseStatus.completed, products: products));
+        emit(state.copyWith(productsStatus: UsecaseStatus.completed, products: products.data));
       },
     );
   }
@@ -30,9 +29,9 @@ class ProductCubit extends Cubit<ProductState> {
       (failure) {
         emit(state.copyWith(addProductStatus: UsecaseStatus.error, addProductFailure: failure));
       },
-      (product) {
+      (response) {
         final oldProducts = List<Product>.from(state.products);
-        emit(state.copyWith(addProductStatus: UsecaseStatus.completed, products: oldProducts..insert(0, product)));
+        emit(state.copyWith(addProductStatus: UsecaseStatus.completed, products: oldProducts..insert(0, response.data!)));
       },
     );
   }
