@@ -51,7 +51,8 @@
 		<string>fb</string>
 		<string>youtube</string>
 		<string>instagram</string>
-		
+		<string>whatsapp</string>
+		<string>tg</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
