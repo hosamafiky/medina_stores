@@ -86,6 +86,16 @@
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="whatsapp" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="tg" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
             <data android:mimeType="*/*" />
         </intent>
         <!-- If your application checks for inAppBrowserView launch mode support -->
