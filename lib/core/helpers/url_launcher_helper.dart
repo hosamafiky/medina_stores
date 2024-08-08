@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncherHelper {
@@ -56,6 +58,37 @@ class UrlLauncherHelper {
       queryParameters: body == null ? null : <String, String>{'body': body},
     );
     return await launchURL(smsLaunchUri);
+  }
+
+  static Future<bool> openWhatsApp({
+    required String phoneNumber,
+    String? message,
+  }) async {
+    final Uri uri = Uri(
+      scheme: 'whatsapp',
+      queryParameters: {
+        'send': phoneNumber,
+        if (message != null) 'text': message,
+      },
+    );
+    final fallbackUri = Uri(
+      scheme: 'https',
+      host: 'wa.me',
+      path: '+$phoneNumber',
+      queryParameters: {'text': message},
+    );
+    return await launchURL(uri, fallbackUri: fallbackUri);
+  }
+
+  Future<bool> openTelegram(
+    String phoneNumber, {
+    String? message,
+  }) async {
+    final url = Uri.parse(Platform.isIOS ? 'tg://msg?to=+$phoneNumber&text=$message' : 'tg://resolve?phone=$phoneNumber&text=$message');
+    final fallbackUri = Uri.parse('https://t.me/+$phoneNumber?text=$message');
+
+    final isLaunched = await launchURL(url, fallbackUri: fallbackUri);
+    return isLaunched;
   }
 
   static Future<bool> openGooglePlayMarketApp(String bundleId) async {
