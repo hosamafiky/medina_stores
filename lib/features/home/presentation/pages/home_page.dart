@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:medina_stores/core/extensions/context.dart';
 import 'package:medina_stores/core/helpers/external_map_launcher.dart';
 import 'package:medina_stores/core/helpers/location_helper.dart';
+import 'package:medina_stores/core/helpers/social_media_launcher.dart';
 import 'package:medina_stores/core/helpers/url_launcher_helper.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/main_app_bar.dart';
 
@@ -16,8 +18,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(title: Text('Home Page')),
-      body: Padding(
+      appBar: MainAppBar(
+        title: const Text('Home Page'),
+        actions: [
+          IconButton(
+            icon: Icon(context.isDark ? Icons.light_mode : Icons.dark_mode),
+            onPressed: context.toggleTheme,
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
@@ -27,49 +37,49 @@ class _HomePageState extends State<HomePage> {
                 hintText: 'Enter data',
               ),
             ),
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () async {
-                await UrlLauncherHelper.sendMail(
-                  emails: [_dataController.text],
-                  subject: 'Test subject',
-                  body: 'Test body',
-                );
-              },
+              onPressed: () async => await UrlLauncherHelper.sendMail(
+                emails: [_dataController.text],
+                subject: 'Test subject',
+                body: 'Test body',
+              ),
               child: const Text('Open mail app'),
+            ),
+            ElevatedButton(
+              onPressed: () async => await SocialMediaLauncher.launchFacebookApp(identifier: 'hosam.elfikky'),
+              child: const Text('Open Facebook app'),
+            ),
+            ElevatedButton(
+              onPressed: () async => await SocialMediaLauncher.launchYoutubeApp(channelId: 'arabeem'),
+              child: const Text('Open Youtube app'),
+            ),
+            ElevatedButton(
+              onPressed: () async => await SocialMediaLauncher.launchInstagramApp(identifier: 'eqam86'),
+              child: const Text('Open Instagram app'),
             ),
             ElevatedButton(
               onPressed: () async {
                 final position = await LocationHelper.getCurrentPosition();
                 final placeMark = await LocationHelper.getPlacemarkFromCoordinates(position);
                 await ExternalMapLauncher.launchMapWithCoordinates(
-                  latitude: 24.7136,
-                  longitude: 46.6753,
+                  latitude: position.latitude,
+                  longitude: position.longitude,
                   title: placeMark.thoroughfare,
                 );
               },
               child: const Text('Open map app with coordinates'),
             ),
             ElevatedButton(
-              onPressed: () async {
-                await ExternalMapLauncher.launchMapWithQuery(
-                  'Olaya Street, Riyadh',
-                );
-              },
+              onPressed: () async => await ExternalMapLauncher.launchMapWithQuery(_dataController.text),
               child: const Text('Open map app with QUERY'),
             ),
             ElevatedButton(
-              onPressed: () async {
-                await UrlLauncherHelper.sendSMS(
-                  _dataController.text,
-                  body: 'Test message',
-                );
-              },
+              onPressed: () async => await UrlLauncherHelper.sendSMS(_dataController.text, body: 'Test message'),
               child: const Text('Open SMS app'),
             ),
             ElevatedButton(
-              onPressed: () async {
-                await UrlLauncherHelper.makePhoneCall(_dataController.text);
-              },
+              onPressed: () async => await UrlLauncherHelper.makePhoneCall(_dataController.text),
               child: const Text('Make phone call'),
             ),
           ],

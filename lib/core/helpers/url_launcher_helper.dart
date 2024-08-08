@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 class UrlLauncherHelper {
   static Future<bool> launchURL(
     Uri uri, {
+    Uri? fallbackUri,
     LaunchMode mode = LaunchMode.platformDefault,
     WebViewConfiguration webViewConfiguration = const WebViewConfiguration(),
     BrowserConfiguration browserConfiguration = const BrowserConfiguration(),
@@ -15,7 +16,10 @@ class UrlLauncherHelper {
         browserConfiguration: browserConfiguration,
       );
     } else {
-      throw Exception('Could not launch $uri, check the URL');
+      if (fallbackUri != null) {
+        return await launchURL(fallbackUri);
+      }
+      return false;
     }
   }
 
@@ -52,5 +56,17 @@ class UrlLauncherHelper {
       queryParameters: body == null ? null : <String, String>{'body': body},
     );
     return await launchURL(smsLaunchUri);
+  }
+
+  static Future<bool> openGooglePlayMarketApp(String bundleId) async {
+    final Uri uri = Uri(scheme: 'market', path: 'details', queryParameters: {'id': bundleId});
+
+    return await launchURL(uri);
+  }
+
+  static Future<bool> openAppStoreApp({required String appId}) async {
+    // final Uri uri = Uri(scheme: 'itms-apps', path: '/${'${pathSegment?.first ?? ''}/'}/$appId');
+
+    return await launchURL(Uri.parse('https://apps.apple.com/us/app/id$appId'));
   }
 }

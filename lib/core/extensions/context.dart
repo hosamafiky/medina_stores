@@ -14,7 +14,6 @@ extension ContextExtension on BuildContext {
   double get statusBarHeight => MediaQuery.paddingOf(this).top;
   double get bottomBarHeight => MediaQuery.paddingOf(this).bottom;
   Orientation get orientation => MediaQuery.orientationOf(this);
-  bool get isDark => watch<ThemeCubit>().state.isDarkMode;
   bool get isLtr => Directionality.of(this) == TextDirection.ltr;
   bool get isRtl => Directionality.of(this) == TextDirection.rtl;
 
@@ -22,4 +21,9 @@ extension ContextExtension on BuildContext {
   ThemeData get currentTheme => read<ThemeCubit>().state.themeData;
   ColorPalette get colorPalette => read<ThemeCubit>().state.colorPalette;
   AppTextStyle get appTextStyle => read<ThemeCubit>().state.appTextStyle;
+  bool get isDark => watch<ThemeCubit>().state.isDarkMode;
+  VoidCallback get toggleTheme {
+    if (isDark) return watch<ThemeCubit>().setLightTheme;
+    return watch<ThemeCubit>().setDarkTheme;
+  }
 }
