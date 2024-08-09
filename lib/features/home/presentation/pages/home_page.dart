@@ -39,6 +39,14 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              onPressed: () async {
+                final position = await LocationHelper.getCurrentPosition();
+                var uri = Uri.parse("google.navigation:q=${position.latitude + 20},${position.longitude + 10}&mode=d");
+                await UrlLauncherHelper.launchURL(uri);
+              },
+              child: const Text('Open URL'),
+            ),
+            ElevatedButton(
               onPressed: () async => await UrlLauncherHelper.sendMail(
                 emails: [_dataController.text],
                 subject: 'Test subject',

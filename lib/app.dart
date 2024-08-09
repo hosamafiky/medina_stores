@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/features/product/presentation/presentation_imports.dart';
 
 import 'core/navigation/navigator.dart';
 import 'core/navigation/route_generator.dart';
@@ -10,6 +9,7 @@ import 'core/observers/navigation_observer.dart';
 import 'core/shared_cubits/theme/theme_cubit.dart';
 import 'core/shared_widgets/state_managers/connectivity_manager.dart';
 import 'core/shared_widgets/state_managers/loading_manager.dart';
+import 'features/home/presentation/pages/home_page.dart';
 
 class MedinaStoresApp extends StatelessWidget {
   const MedinaStoresApp({super.key});
@@ -42,7 +42,7 @@ class MedinaStoresApp extends StatelessWidget {
                 theme: state.lightThemeData,
                 darkTheme: state.darkThemeData,
                 themeMode: state.themeMode,
-                home: const ProductsPage(),
+                home: const HomePage(),
                 builder: (context, child) {
                   return ConnectivityManager(child: LoadingManager(child: child!));
                 },
