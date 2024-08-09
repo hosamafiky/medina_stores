@@ -47,6 +47,22 @@ class _HomePageState extends State<HomePage> {
               child: const Text('Open URL'),
             ),
             ElevatedButton(
+              onPressed: () async {
+                final position = await LocationHelper.getCurrentPosition();
+                var uri = Uri(
+                  scheme: 'comgooglemaps',
+                  queryParameters: {
+                    'saddr': '${position.latitude},${position.longitude}',
+                    'daddr': '${position.latitude + 20},${position.longitude + 10}',
+                    'directionsmode': 'driving',
+                    'zoom': '14',
+                  },
+                );
+                await UrlLauncherHelper.launchURL(uri);
+              },
+              child: const Text('Open URL'),
+            ),
+            ElevatedButton(
               onPressed: () async => await UrlLauncherHelper.sendMail(
                 emails: [_dataController.text],
                 subject: 'Test subject',
