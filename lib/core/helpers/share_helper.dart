@@ -7,10 +7,6 @@ class ShareHelper {
     return await Share.share(text);
   }
 
-  static Future<ShareResult> shareFile(File file, {String? text}) async {
-    return await Share.shareXFiles([XFile(file.path)], text: text);
-  }
-
   static Future<ShareResult> shareFiles(List<File> files, {String? text}) async {
     return await Share.shareXFiles(files.map((file) => XFile(file.path)).toList(), text: text);
   }
