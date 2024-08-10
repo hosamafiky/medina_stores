@@ -15,7 +15,7 @@ extension FormFieldExtension on Widget {
     FormFieldBuilder<T>? builder,
   }) {
     TextStyle getErrorStyle(BuildContext context) =>
-        context.isDark ? const DarkAppTextStyles(DarkModeColorPalette()).errorStyle : const LightAppTextStyles(LightModeColorPalette()).errorStyle;
+        context.isDark() ? const DarkAppTextStyles(DarkModeColorPalette()).errorStyle : const LightAppTextStyles(LightModeColorPalette()).errorStyle;
     return FormField<T>(
       validator: validator,
       initialValue: initialValue,

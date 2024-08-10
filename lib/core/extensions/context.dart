@@ -21,9 +21,15 @@ extension ContextExtension on BuildContext {
   ThemeData get currentTheme => read<ThemeCubit>().state.themeData;
   ColorPalette get colorPalette => read<ThemeCubit>().state.colorPalette;
   AppTextStyle get appTextStyle => read<ThemeCubit>().state.appTextStyle;
-  bool get isDark => watch<ThemeCubit>().state.isDarkMode;
-  VoidCallback get toggleTheme {
-    if (isDark) return watch<ThemeCubit>().setLightTheme;
-    return watch<ThemeCubit>().setDarkTheme;
+  bool _watchIsDark() => watch<ThemeCubit>().state.isDarkMode;
+  bool _readIsDark() => read<ThemeCubit>().state.isDarkMode;
+
+  bool isDark([bool isWatch = true]) => isWatch ? _watchIsDark() : _readIsDark();
+
+  void toggleTheme(bool isWatch) {
+    final cubit = isWatch ? watch<ThemeCubit>() : read<ThemeCubit>();
+    final isDark = isWatch ? _watchIsDark() : _readIsDark();
+    if (isDark) return cubit.setLightTheme();
+    return cubit.setDarkTheme();
   }
 }

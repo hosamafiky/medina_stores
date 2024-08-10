@@ -29,6 +29,8 @@ class DarkModeColorPalette implements ColorPalette {
   Color get disabledText => const Color(0xFF757575);
   @override
   Color get hintText => const Color(0xFFA0A0A0);
+  @override
+  Color get fieldFill => const Color(0xFF333333);
 
   @override
   Color get accent => const Color(0xFFFF8A65);
@@ -47,6 +49,8 @@ class DarkModeColorPalette implements ColorPalette {
 
   @override
   Color get buttonBackground => primary;
+  @override
+  Color get buttonDisabled => const Color(0xFF424242);
   @override
   Color get buttonText => const Color(0xFF000000);
 

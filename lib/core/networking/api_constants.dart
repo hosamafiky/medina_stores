@@ -2,8 +2,8 @@
 
 class ApiConstants {
   static const String BASE_URL = 'http://192.168.1.25:8000/api';
-  static const int connectTimeoutDurationInSeconds = 60;
-  static const int recieveTimeoutDuration = 60;
+  static const int connectTimeoutDurationInSeconds = 30;
+  static const int recieveTimeoutDuration = 30;
   static ApiEndPoints endPoints = ApiEndPoints();
 }
 

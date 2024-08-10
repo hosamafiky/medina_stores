@@ -27,7 +27,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: title,
       bottom: bottom,
-      toolbarHeight: toolbarHeight ?? 72.h,
+      toolbarHeight: toolbarHeight ?? kToolbarHeight,
       titleSpacing: titleSpacing,
       titleTextStyle: titleTextStyle,
       backgroundColor: backgroundColor,
@@ -38,5 +38,5 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(toolbarHeight ?? 72.h);
+  Size get preferredSize => Size.fromHeight(toolbarHeight ?? kToolbarHeight);
 }

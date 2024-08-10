@@ -23,8 +23,8 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Home Page'),
         actions: [
           IconButton(
-            icon: Icon(context.isDark ? Icons.light_mode : Icons.dark_mode),
-            onPressed: context.toggleTheme,
+            icon: Icon(context.isDark() ? Icons.light_mode : Icons.dark_mode),
+            onPressed: () => context.toggleTheme(true),
           )
         ],
       ),

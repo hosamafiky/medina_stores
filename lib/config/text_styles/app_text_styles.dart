@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../resources/color_palettes/color_palette.dart';
 import 'app_font_weights.dart';
@@ -14,6 +15,10 @@ abstract class AppTextStyle {
   TextStyle get mandatoryStyle;
   TextStyle get optionalStyle;
   TextStyle get errorStyle;
+
+  /// ElevatedButton text style
+  TextStyle get elevatedButtonTextStyle;
+  TextStyle get disabledElevatedButtonStyle;
 }
 
 class LightAppTextStyles implements AppTextStyle {
@@ -35,6 +40,11 @@ class LightAppTextStyles implements AppTextStyle {
   TextStyle get errorStyle => TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: colorPalette.error);
   @override
   TextStyle get optionalStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.blackColor);
+
+  @override
+  TextStyle get elevatedButtonTextStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
+  @override
+  TextStyle get disabledElevatedButtonStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
 }
 
 class DarkAppTextStyles implements AppTextStyle {
@@ -56,4 +66,9 @@ class DarkAppTextStyles implements AppTextStyle {
   TextStyle get errorStyle => TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: colorPalette.error);
   @override
   TextStyle get optionalStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.blackColor);
+
+  @override
+  TextStyle get elevatedButtonTextStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
+  @override
+  TextStyle get disabledElevatedButtonStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
 }

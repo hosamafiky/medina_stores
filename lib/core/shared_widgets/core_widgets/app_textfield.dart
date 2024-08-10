@@ -27,6 +27,8 @@ class AppTextField extends StatefulWidget {
     this.isMandatory = false,
     this.isOptional = false,
     this.isBordered = true,
+    this.obscureText = false,
+    this.obscuringCharacter = '•',
     this.controller,
     this.focusNode,
     this.fillColor,
@@ -46,7 +48,11 @@ class AppTextField extends StatefulWidget {
     this.onTap,
     this.maxLines = 1,
     this.minLines = 1,
-  }) : label = null;
+  })  : label = null,
+        assert(
+          isOptional && !isMandatory || isMandatory && !isOptional,
+          'isOptional and isMandatory cannot be true at the same time',
+        );
 
   const AppTextField.withLabel({
     super.key,
@@ -71,6 +77,8 @@ class AppTextField extends StatefulWidget {
     this.hintTextDirection,
     this.textInputAction = TextInputAction.next,
     this.readOnly = false,
+    this.obscureText = false,
+    this.obscuringCharacter = '•',
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.inputFormatters = const [],
     this.contentPadding,
@@ -82,17 +90,22 @@ class AppTextField extends StatefulWidget {
     this.onTap,
     this.maxLines = 1,
     this.minLines = 1,
-  }) : assert(label != null, 'Label must not be null');
+  })  : assert(label != null, 'Label must not be null'),
+        assert(
+          isOptional && !isMandatory || isMandatory && !isOptional,
+          'isOptional and isMandatory cannot be true at the same time',
+        );
 
   final int maxLines, minLines;
 
   final String? label;
   final String? hintText, errorText;
+  final String obscuringCharacter;
   final TextStyle? hintStyle, style, labelStyle;
   final Color? fillColor;
   final TextAlign? textAlign;
   final TextDirection? hintTextDirection, textDirection;
-  final bool readOnly, isOptional, isMandatory, isBordered, debounceOnChanged;
+  final bool readOnly, isOptional, isMandatory, isBordered, debounceOnChanged, obscureText;
   final FocusNode? focusNode;
   final AutovalidateMode autovalidateMode;
   final Widget? suffixIcon, prefixIcon, suffix, prefix;
@@ -111,6 +124,7 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> {
   final _debouncer = PublishSubject<String>();
+  final InputBorder _noneBorder = OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10.r));
   @override
   void initState() {
     if (widget.onChanged != null) {
@@ -160,8 +174,10 @@ class _AppTextFieldState extends State<AppTextField> {
           onChanged: widget.onChanged != null && widget.debounceOnChanged ? _debouncer.add : widget.onChanged,
           onSaved: widget.onSaved,
           maxLines: widget.maxLines,
+          obscureText: widget.obscureText,
+          obscuringCharacter: widget.obscuringCharacter,
           minLines: widget.minLines,
-          inputFormatters: widget.inputFormatters..add(ArabicNumbersFormatter()),
+          inputFormatters: List<TextInputFormatter>.from(widget.inputFormatters)..add(ArabicNumbersFormatter()),
           autovalidateMode: widget.autovalidateMode,
           keyboardType: widget.keyboardType,
           textAlignVertical: TextAlignVertical.center,
@@ -179,39 +195,15 @@ class _AppTextFieldState extends State<AppTextField> {
             hintStyle: widget.hintStyle,
             errorText: widget.errorText,
             fillColor: widget.fillColor,
-            border: !widget.isBordered
-                ? OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.r),
-                  )
-                : null,
-            enabledBorder: !widget.isBordered
-                ? OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.r),
-                  )
-                : null,
-            focusedBorder: !widget.isBordered
-                ? OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.r),
-                  )
-                : null,
-            errorBorder: !widget.isBordered
-                ? OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.r),
-                  )
-                : null,
+            border: !widget.isBordered ? _noneBorder : null,
+            enabledBorder: !widget.isBordered ? _noneBorder : null,
+            focusedBorder: !widget.isBordered ? _noneBorder : null,
+            errorBorder: !widget.isBordered ? _noneBorder : null,
             suffixIcon: Padding(
               padding: EdgeInsetsDirectional.only(end: 12.w),
               child: widget.suffixIcon,
             ),
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 20.w,
-              minWidth: 20.w,
-              maxHeight: 20.w,
-            ),
+            suffixIconConstraints: BoxConstraints(minHeight: 20.w, minWidth: 20.w, maxHeight: 20.w),
             prefixIcon: widget.prefixIcon,
             suffix: widget.suffix,
             prefix: widget.prefix,

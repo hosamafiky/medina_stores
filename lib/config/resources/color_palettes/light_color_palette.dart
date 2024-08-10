@@ -29,6 +29,8 @@ class LightModeColorPalette implements ColorPalette {
   Color get disabledText => const Color(0xFF9E9E9E);
   @override
   Color get hintText => const Color(0xFF757575);
+  @override
+  Color get fieldFill => const Color(0xFFF5F5F5);
 
   @override
   Color get accent => const Color(0xFFFF5722);
@@ -47,6 +49,8 @@ class LightModeColorPalette implements ColorPalette {
 
   @override
   Color get buttonBackground => primary;
+  @override
+  Color get buttonDisabled => const Color(0xFFE0E0E0);
   @override
   Color get buttonText => const Color(0xFFFFFFFF);
 

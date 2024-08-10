@@ -32,7 +32,7 @@ class MessageHelper {
   static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showErrorSnackBar(String message) {
     return _showSnackBar(
       message,
-      backgroundColor: AppNavigator.rootContext!.watch<ThemeCubit>().state.colorPalette.error,
+      backgroundColor: AppNavigator.rootContext!.read<ThemeCubit>().state.colorPalette.error,
     );
   }
 

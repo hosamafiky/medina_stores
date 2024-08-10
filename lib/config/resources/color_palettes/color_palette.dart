@@ -21,6 +21,7 @@ abstract class ColorPalette {
   Color get secondaryText;
   Color get disabledText;
   Color get hintText;
+  Color get fieldFill;
 
   Color get accent;
   Color get link;
@@ -32,6 +33,7 @@ abstract class ColorPalette {
   Color get cardShadow;
 
   Color get buttonBackground;
+  Color get buttonDisabled;
   Color get buttonText;
 
   Color get success;
