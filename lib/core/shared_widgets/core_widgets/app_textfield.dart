@@ -6,7 +6,6 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../../config/resources/color_palettes/color_palette.dart';
 import '../../../config/resources/locale_keys.g.dart';
-import '../../../config/text_styles/app_font_weights.dart';
 import '../../../config/text_styles/app_text_styles.dart';
 import '../../extensions/context.dart';
 import '../../extensions/spaced_column.dart';
@@ -193,11 +192,7 @@ class _AppTextFieldState extends State<AppTextField> {
               keyboardType: widget.keyboardType,
               textAlignVertical: TextAlignVertical.center,
               textInputAction: widget.textInputAction,
-              style: widget.style ??
-                  appTextStyle.fieldStyle.copyWith(
-                    fontWeight: AppFontWeight.regular,
-                    height: 1.8,
-                  ),
+              style: widget.style,
               textAlign: widget.textAlign ?? TextAlign.start,
               decoration: InputDecoration(
                 contentPadding: widget.contentPadding,
