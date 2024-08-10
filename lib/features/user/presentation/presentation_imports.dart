@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/core/extensions/context.dart';
+import 'package:medina_stores/core/extensions/spaced_column.dart';
 import 'package:medina_stores/core/helpers/message_helper.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/app_textfield.dart';
 

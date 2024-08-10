@@ -36,7 +36,9 @@ class _LoginPageState extends State<LoginPage> {
             appBar: MainAppBar(
               actions: [
                 IconButton(
-                  icon: Icon(context.isDark() ? Icons.dark_mode : Icons.light_mode),
+                  icon: Icon(
+                    context.isDark() ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+                  ),
                   onPressed: () {
                     context.toggleTheme(false);
                   },
@@ -44,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 LoginForm(
                   formKey: _formKey,
@@ -55,14 +58,14 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      const params = LoginParams(email: 'email', password: 'password');
+                      final params = LoginParams(email: _emailController.text, password: _passwordController.text);
                       context.read<UserCubit>().login(params);
                     },
                     child: state.status == UsecaseStatus.running ? const CircularProgressIndicator.adaptive() : const Text('Login'),
                   ),
                 ),
               ],
-            ),
+            ).withSpacing(spacing: 16.h),
           );
         },
       ),

@@ -28,6 +28,7 @@ class AppTextField extends StatefulWidget {
     this.isOptional = false,
     this.isBordered = true,
     this.obscureText = false,
+    this.showPasswordEye = true,
     this.obscuringCharacter = '•',
     this.controller,
     this.focusNode,
@@ -68,6 +69,7 @@ class AppTextField extends StatefulWidget {
     this.isOptional = false,
     this.isMandatory = false,
     this.isBordered = true,
+    this.showPasswordEye = true,
     required this.label,
     this.fillColor,
     this.controller,
@@ -105,7 +107,7 @@ class AppTextField extends StatefulWidget {
   final Color? fillColor;
   final TextAlign? textAlign;
   final TextDirection? hintTextDirection, textDirection;
-  final bool readOnly, isOptional, isMandatory, isBordered, debounceOnChanged, obscureText;
+  final bool readOnly, isOptional, isMandatory, isBordered, debounceOnChanged, obscureText, showPasswordEye;
   final FocusNode? focusNode;
   final AutovalidateMode autovalidateMode;
   final Widget? suffixIcon, prefixIcon, suffix, prefix;
@@ -131,6 +133,12 @@ class _AppTextFieldState extends State<AppTextField> {
       _debouncer.stream.debounceTime(const Duration(milliseconds: 1000)).listen(widget.onChanged);
     }
     super.initState();
+  }
+
+  final ValueNotifier<bool> _isObscure = ValueNotifier<bool>(false);
+
+  void toggleObscurity() {
+    _isObscure.value = !_isObscure.value;
   }
 
   @override
@@ -163,51 +171,63 @@ class _AppTextFieldState extends State<AppTextField> {
               ],
             ),
           ),
-        TextFormField(
-          onTapOutside: (_) => FocusScope.of(context).unfocus(),
-          focusNode: widget.readOnly ? AlwaysDisabledFocusNode() : widget.focusNode,
-          controller: widget.controller,
-          readOnly: widget.readOnly,
-          onTap: widget.onTap,
-          textDirection: widget.textDirection,
-          validator: widget.validator,
-          onChanged: widget.onChanged != null && widget.debounceOnChanged ? _debouncer.add : widget.onChanged,
-          onSaved: widget.onSaved,
-          maxLines: widget.maxLines,
-          obscureText: widget.obscureText,
-          obscuringCharacter: widget.obscuringCharacter,
-          minLines: widget.minLines,
-          inputFormatters: List<TextInputFormatter>.from(widget.inputFormatters)..add(ArabicNumbersFormatter()),
-          autovalidateMode: widget.autovalidateMode,
-          keyboardType: widget.keyboardType,
-          textAlignVertical: TextAlignVertical.center,
-          textInputAction: widget.textInputAction,
-          style: widget.style ??
-              appTextStyle.fieldStyle.copyWith(
-                fontWeight: AppFontWeight.regular,
-                height: 1.8,
+        ValueListenableBuilder(
+          valueListenable: _isObscure,
+          builder: (context, isObscure, child) {
+            return TextFormField(
+              onTapOutside: (_) => FocusScope.of(context).unfocus(),
+              focusNode: widget.readOnly ? AlwaysDisabledFocusNode() : widget.focusNode,
+              controller: widget.controller,
+              readOnly: widget.readOnly,
+              onTap: widget.onTap,
+              textDirection: widget.textDirection,
+              validator: widget.validator,
+              onChanged: widget.onChanged != null && widget.debounceOnChanged ? _debouncer.add : widget.onChanged,
+              onSaved: widget.onSaved,
+              maxLines: widget.maxLines,
+              obscureText: isObscure && widget.obscureText,
+              obscuringCharacter: widget.obscuringCharacter,
+              minLines: widget.minLines,
+              inputFormatters: List<TextInputFormatter>.from(widget.inputFormatters)..add(ArabicNumbersFormatter()),
+              autovalidateMode: widget.autovalidateMode,
+              keyboardType: widget.keyboardType,
+              textAlignVertical: TextAlignVertical.center,
+              textInputAction: widget.textInputAction,
+              style: widget.style ??
+                  appTextStyle.fieldStyle.copyWith(
+                    fontWeight: AppFontWeight.regular,
+                    height: 1.8,
+                  ),
+              textAlign: widget.textAlign ?? TextAlign.start,
+              decoration: InputDecoration(
+                contentPadding: widget.contentPadding,
+                hintText: widget.hintText,
+                hintTextDirection: widget.hintTextDirection,
+                hintStyle: widget.hintStyle,
+                errorText: widget.errorText,
+                fillColor: widget.fillColor,
+                border: !widget.isBordered ? _noneBorder : null,
+                enabledBorder: !widget.isBordered ? _noneBorder : null,
+                focusedBorder: !widget.isBordered ? _noneBorder : null,
+                errorBorder: !widget.isBordered ? _noneBorder : null,
+                suffixIcon: Padding(
+                  padding: EdgeInsetsDirectional.only(end: 12.w),
+                  child: (widget.showPasswordEye && widget.keyboardType == TextInputType.visiblePassword)
+                      ? GestureDetector(
+                          onTap: toggleObscurity,
+                          child: Icon(
+                            isObscure ? Icons.visibility_off : Icons.visibility,
+                          ),
+                        )
+                      : widget.suffixIcon,
+                ),
+                suffixIconConstraints: BoxConstraints(minHeight: 20.w, minWidth: 20.w, maxHeight: 20.w),
+                prefixIcon: widget.prefixIcon,
+                suffix: widget.suffix,
+                prefix: widget.prefix,
               ),
-          textAlign: widget.textAlign ?? TextAlign.start,
-          decoration: InputDecoration(
-            contentPadding: widget.contentPadding,
-            hintText: widget.hintText,
-            hintTextDirection: widget.hintTextDirection,
-            hintStyle: widget.hintStyle,
-            errorText: widget.errorText,
-            fillColor: widget.fillColor,
-            border: !widget.isBordered ? _noneBorder : null,
-            enabledBorder: !widget.isBordered ? _noneBorder : null,
-            focusedBorder: !widget.isBordered ? _noneBorder : null,
-            errorBorder: !widget.isBordered ? _noneBorder : null,
-            suffixIcon: Padding(
-              padding: EdgeInsetsDirectional.only(end: 12.w),
-              child: widget.suffixIcon,
-            ),
-            suffixIconConstraints: BoxConstraints(minHeight: 20.w, minWidth: 20.w, maxHeight: 20.w),
-            prefixIcon: widget.prefixIcon,
-            suffix: widget.suffix,
-            prefix: widget.prefix,
-          ),
+            );
+          },
         ),
       ],
     ).withSpacing(spacing: 8.h);

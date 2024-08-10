@@ -48,6 +48,7 @@ ThemeData darkTheme(
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w)),
         elevation: const WidgetStatePropertyAll(0),
         backgroundColor: WidgetStateProperty.resolveWith<Color>(
           (states) {
