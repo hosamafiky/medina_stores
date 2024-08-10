@@ -58,4 +58,25 @@ class ExternalMapLauncher {
       return await _launchAppleMapsWithQuery(query);
     }
   }
+
+  static Future<bool> routeBetweenYourPlaceAndOther({
+    required double latitude,
+    required double longitude,
+
+    /// [mode] can be 'd' for driving, 'w' for walking, 'b' for bicycling or 'l' for two-wheeler.
+    String mode = 'd',
+
+    /// [avoid] can be 't' for tolls, 'h' for highways or 'f' for ferries
+    List<String> avoid = const [],
+  }) async {
+    final Uri uri = Uri(
+      scheme: 'google.navigation',
+      queryParameters: {
+        'q': "$latitude,$longitude",
+        'mode': mode,
+        'avoid': avoid.join(''),
+      },
+    );
+    return await UrlLauncherHelper.launchURL(uri);
+  }
 }

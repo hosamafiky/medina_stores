@@ -14,11 +14,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   void checkForCachedThemeMode() async {
     final String? themeMode = CacheHelper.read(CacheKeys.themeMode) as String?;
-    if (themeMode == ThemeMode.dark.name) {
-      setDarkTheme();
-    } else {
-      setLightTheme();
-    }
+    if (themeMode == ThemeMode.dark.name) setDarkTheme();
   }
 
   void setLightTheme() async {

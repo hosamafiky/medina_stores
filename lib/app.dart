@@ -43,9 +43,7 @@ class MedinaStoresApp extends StatelessWidget {
                 darkTheme: state.darkThemeData,
                 themeMode: state.themeMode,
                 home: const HomePage(),
-                builder: (context, child) {
-                  return ConnectivityManager(child: LoadingManager(child: child!));
-                },
+                builder: (context, child) => ConnectivityManager(child: LoadingManager(child: child!)),
               );
             },
           ),
