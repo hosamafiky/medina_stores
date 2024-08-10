@@ -38,6 +38,7 @@ class LoginForm extends StatelessWidget {
               controller: passwordController,
               obscuringCharacter: '*',
               isMandatory: true,
+              obscureText: true,
               showPasswordEye: true,
               keyboardType: TextInputType.visiblePassword,
               label: 'Password',

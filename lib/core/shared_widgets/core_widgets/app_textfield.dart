@@ -212,7 +212,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 errorBorder: !widget.isBordered ? _noneBorder : null,
                 suffixIcon: Padding(
                   padding: EdgeInsetsDirectional.only(end: 12.w),
-                  child: (widget.showPasswordEye && widget.keyboardType == TextInputType.visiblePassword)
+                  child: (widget.showPasswordEye && widget.obscureText)
                       ? GestureDetector(
                           onTap: toggleObscurity,
                           child: Icon(
