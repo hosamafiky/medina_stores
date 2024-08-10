@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:medina_stores/core/extensions/context.dart';
-import 'package:medina_stores/core/helpers/external_map_launcher.dart';
-import 'package:medina_stores/core/helpers/location_helper.dart';
-import 'package:medina_stores/core/helpers/social_media_launcher.dart';
-import 'package:medina_stores/core/helpers/url_launcher_helper.dart';
-import 'package:medina_stores/core/shared_widgets/core_widgets/main_app_bar.dart';
+
+import '../../../../core/extensions/context.dart';
+import '../../../../core/helpers/external_map_launcher.dart';
+import '../../../../core/helpers/location_helper.dart';
+import '../../../../core/helpers/social_media_launcher.dart';
+import '../../../../core/helpers/url_launcher_helper.dart';
+import '../../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

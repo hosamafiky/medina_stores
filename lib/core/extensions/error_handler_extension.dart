@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:medina_stores/core/networking/response_model.dart';
 
 import '../error/exceptions.dart';
 import '../error/failures.dart';
+import '../networking/response_model.dart';
 
 extension ErrorHandler<T extends Object> on Future<ApiResponse<T>> {
   Future<Either<Failure, ApiResponse<T>>> get handleCallbackWithFailure async {

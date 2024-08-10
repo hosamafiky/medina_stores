@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:medina_stores/core/networking/response_model.dart';
+
+import '../networking/response_model.dart';
 
 class Failure extends Equatable {
   final ApiResponse response;

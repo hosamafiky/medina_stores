@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-import 'package:medina_stores/core/networking/response_model.dart';
 
 import '../../config/resources/locale_keys.g.dart';
+import '../networking/response_model.dart';
 
 class ServerException extends Equatable implements Exception {
   final ApiResponse response;

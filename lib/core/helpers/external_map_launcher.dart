@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:medina_stores/core/helpers/url_launcher_helper.dart';
+import 'url_launcher_helper.dart';
 
 class ExternalMapLauncher {
   static Future<bool> _launchGoogleMapsWithCoordinates({
