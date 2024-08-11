@@ -24,6 +24,7 @@ class ApiRequest<GenericModel> {
     this.headers,
     this.onReceiveProgress,
   });
+
   ApiRequest copyWith({
     String? path,
     RequestMethod? method,

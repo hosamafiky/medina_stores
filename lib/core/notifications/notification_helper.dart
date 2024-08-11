@@ -10,30 +10,17 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 part 'notification_navigator.dart';
 part 'notification_types.dart';
 
+@pragma('vm:entry-point')
 Future<void> backgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   log('========= >>> backGroundMessage ${message.data}');
 }
 
 class NotificationHelper {
-  NotificationHelper._({
-    required this.onRoutingMessage,
-    required this.onNoInitialMessage,
-  });
+  NotificationHelper._();
 
-  final Function(RemoteMessage message) onRoutingMessage;
-  final Function() onNoInitialMessage;
-
-  static NotificationHelper? instance;
-  factory NotificationHelper({
-    required void Function(RemoteMessage message) onRoutingMessage,
-    required void Function() onNoInitialMessage,
-  }) {
-    return instance ??= NotificationHelper._(
-      onRoutingMessage: onRoutingMessage,
-      onNoInitialMessage: onNoInitialMessage,
-    );
-  }
+  static NotificationHelper instance = NotificationHelper._();
+  factory NotificationHelper() => instance;
 
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -134,7 +121,13 @@ class NotificationHelper {
 
   void _handleNotificationsTap(RemoteMessage? message) async {
     if (message == null) return;
-    onRoutingMessage(message);
+    navigateBasedOnType(message);
+  }
+
+  void navigateBasedOnType(RemoteMessage message) {
+    final data = message.data;
+    final messageType = NotificationType.fromId(int.parse(data['type'] ?? "2"));
+    messageType.navigator.go(data: data);
   }
 
   Future<void> _saveFcmToken() async {
@@ -157,7 +150,6 @@ class NotificationHelper {
       _setForegroundNotificationOptions(),
       _registerNotification(),
       _requestPermissions(),
-      checkForInitialMessage(),
     ]);
     await _initLocalNotification();
     _configureNotification();
@@ -169,13 +161,10 @@ class NotificationHelper {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleNotificationsTap);
   }
 
-  RemoteMessage? _initialMessage;
   Future<void> checkForInitialMessage() async {
-    _initialMessage = await FirebaseMessaging.instance.getInitialMessage();
-    if (_initialMessage != null) {
-      onRoutingMessage(_initialMessage!);
-    } else {
-      onNoInitialMessage();
-    }
+    final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage == null) return;
+    navigateBasedOnType(initialMessage);
   }
 }

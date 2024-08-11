@@ -5,7 +5,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppBar({
     super.key,
     this.title,
-    this.actions,
+    this.actions = const [],
+    this.padEnd = true,
     this.bottom,
     this.toolbarHeight,
     this.centerTitle,
@@ -16,9 +17,10 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final Widget? title;
   final PreferredSizeWidget? bottom;
-  final List<Widget>? actions;
+  final List<Widget> actions;
   final Color? backgroundColor;
   final bool? centerTitle;
+  final bool padEnd;
   final double? titleSpacing, toolbarHeight;
   final TextStyle? titleTextStyle;
 
@@ -33,7 +35,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor,
       centerTitle: centerTitle,
       surfaceTintColor: Colors.transparent,
-      actions: List<Widget>.from(actions ?? [])..add(SizedBox(width: 24.w)),
+      actions: padEnd ? [...actions, SizedBox(width: 16.w)] : actions,
     );
   }
 

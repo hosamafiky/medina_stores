@@ -7,7 +7,7 @@
   "phone_validation": "Please enter a valid mobile number",
   "confirm_password_validation": "Please enter matching passwords",
   "terms_validation": "Please accept the terms",
-  "empty_validation": "This field is required",
+  "empty_validation": "{field} is required",
   "location_services_disabled": "Location services are disabled.",
   "please_enable_location_services_in_settings": "Please enable location services in settings.",
   "location_permissions_denied": "Location permissions are denied.",

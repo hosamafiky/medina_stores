@@ -5,15 +5,19 @@ class UserModel extends User {
     required super.id,
     required super.name,
     required super.email,
+    required super.phone,
+    required super.dialingCode,
     required super.token,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'],
-      name: map['name'],
-      email: map['email'],
-      token: map['token'],
+      id: map['id'] ?? 0,
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      phone: map['phone'] ?? '',
+      dialingCode: map['dialing_code'] ?? '',
+      token: map['_token'] ?? '',
     );
   }
 
@@ -26,7 +30,9 @@ class UserModel extends User {
       'id': id,
       'name': name,
       'email': email,
-      'token': token,
+      'phone': phone,
+      'dialing_code': dialingCode,
+      '_token': token,
     };
   }
 

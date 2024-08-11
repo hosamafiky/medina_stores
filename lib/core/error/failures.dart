@@ -53,10 +53,10 @@ class UnknownFailure extends Failure {
 
 extension FailureExt on Failure? {
   String? errorMessage(String key) {
-    if (this == null || this!.response.errors == null) return null;
-    final index = this!.response.errors!.map((e) => e.key).toList().indexOf(key);
+    if (this == null || this!.response.errors.isEmpty) return null;
+    final index = this!.response.errors.map((e) => e.key).toList().indexOf(key);
     if (index != -1) {
-      return this!.response.errors![index].value.join(', ');
+      return this!.response.errors[index].value.join(', ');
     }
     return null;
   }

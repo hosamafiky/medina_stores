@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,6 @@ import 'core/navigation/Constants/imports_constants.dart';
 import 'core/navigation/Transition/implementation/slide/Option/slide_animation_option.dart';
 import 'core/navigation/page_router/Implementation/imports_page_router.dart';
 import 'core/navigation/page_router/imports_page_router_builder.dart';
-import 'core/notifications/notification_helper.dart';
 import 'core/observers/bloc_observer.dart';
 import 'firebase_options.dart';
 
@@ -26,17 +23,7 @@ void main() async {
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(),
     CacheHelper.init(),
-  ]).whenComplete(() async {
-    await NotificationHelper(
-      onRoutingMessage: (message) async {
-        final type = NotificationType.fromId(int.parse(message.data['type'] ?? "0"));
-        await type.navigator.go(data: message.data);
-      },
-      onNoInitialMessage: () {
-        log('SHOULD GO TO HOME PAGE');
-      },
-    ).setupNotifications();
-  });
+  ]);
 
   DependencyHelper.instance.registerDependencies();
 

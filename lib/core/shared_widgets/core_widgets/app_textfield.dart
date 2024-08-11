@@ -39,6 +39,7 @@ class AppTextField extends StatefulWidget {
     this.contentPadding,
     this.readOnly = false,
     this.textAlign,
+    this.enableinteractiveSelection = true,
     this.hintTextDirection,
     this.textDirection,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
@@ -86,6 +87,7 @@ class AppTextField extends StatefulWidget {
     this.textDirection,
     this.validator,
     this.debounceOnChanged = true,
+    this.enableinteractiveSelection = true,
     this.onChanged,
     this.onSaved,
     this.onTap,
@@ -110,6 +112,7 @@ class AppTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final AutovalidateMode autovalidateMode;
   final Widget? suffixIcon, prefixIcon, suffix, prefix;
+  final bool enableinteractiveSelection;
   final TextInputType? keyboardType;
   final TextInputAction textInputAction;
   final TextEditingController? controller;
@@ -134,7 +137,7 @@ class _AppTextFieldState extends State<AppTextField> {
     super.initState();
   }
 
-  final ValueNotifier<bool> _isObscure = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _isObscure = ValueNotifier<bool>(true);
 
   void toggleObscurity() {
     _isObscure.value = !_isObscure.value;
@@ -187,11 +190,13 @@ class _AppTextFieldState extends State<AppTextField> {
               obscureText: isObscure && widget.obscureText,
               obscuringCharacter: widget.obscuringCharacter,
               minLines: widget.minLines,
+              enableSuggestions: !widget.enableinteractiveSelection,
               inputFormatters: List<TextInputFormatter>.from(widget.inputFormatters)..add(ArabicNumbersFormatter()),
               autovalidateMode: widget.autovalidateMode,
               keyboardType: widget.keyboardType,
               textAlignVertical: TextAlignVertical.center,
               textInputAction: widget.textInputAction,
+              enableInteractiveSelection: widget.enableinteractiveSelection,
               style: widget.style,
               textAlign: widget.textAlign ?? TextAlign.start,
               decoration: InputDecoration(

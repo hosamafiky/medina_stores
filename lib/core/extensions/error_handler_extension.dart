@@ -4,7 +4,7 @@ import '../error/exceptions.dart';
 import '../error/failures.dart';
 import '../networking/response_model.dart';
 
-extension ErrorHandler<T extends Object> on Future<ApiResponse<T>> {
+extension ErrorHandler<T extends Object?> on Future<ApiResponse<T>> {
   Future<Either<Failure, ApiResponse<T>>> get handleCallbackWithFailure async {
     try {
       final result = await this;

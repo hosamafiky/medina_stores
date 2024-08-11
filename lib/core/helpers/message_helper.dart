@@ -25,7 +25,7 @@ class MessageHelper {
   static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSuccessSnackBar(String message) {
     return _showSnackBar(
       message,
-      backgroundColor: AppNavigator.rootContext!.watch<ThemeCubit>().state.colorPalette.success,
+      backgroundColor: AppNavigator.rootContext!.read<ThemeCubit>().state.colorPalette.success,
     );
   }
 

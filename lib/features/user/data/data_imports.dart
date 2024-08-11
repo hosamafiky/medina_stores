@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' hide id;
 
 import '../../../../core/helpers/dependency_helper.dart';
 import '../../../../core/networking/api_request.dart';

@@ -7,7 +7,7 @@
   "phone_validation": "من فضلك ادخل الجوال صحيحا",
   "confirm_password_validation": "من فضلك ادخل كلمة المرورمتطابق",
   "terms_validation": "يرجى قبول الشروط",
-  "empty_validation": "هذا الحقل مطلوب",
+  "empty_validation": "{field} مطلوب",
   "location_services_disabled": "خدمات الموقع معطلة.",
   "please_enable_location_services_in_settings": "يرجى تمكين خدمات الموقع في الإعدادات.",
   "location_permissions_denied": "أذونات الموقع مرفوضة.",

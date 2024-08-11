@@ -18,9 +18,6 @@ class LoginParams {
   const LoginParams({required this.email, required this.password});
 
   Map<String, dynamic> toMap() {
-    return {
-      'email': email,
-      'password': password,
-    };
+    return {"email": email, "password": password};
   }
 }

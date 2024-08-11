@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medina_stores/core/navigation/navigator.dart';
 
 import '../../config/resources/languages.dart';
 import '../../config/resources/locale_keys.g.dart';
+import '../../features/user/presentation/presentation_imports.dart';
 import '../error/exceptions.dart';
 import 'api_constants.dart';
 import 'api_request.dart';
@@ -50,17 +53,17 @@ class DioService implements ApiService {
   }
 
   @override
-  Future<ApiResponse<T>> callApi<T extends Object>(ApiRequest networkRequest, {ApiResponse<T> Function(dynamic json)? mapper}) async {
+  Future<ApiResponse<T>> callApi<T extends Object?>(ApiRequest networkRequest, {ApiResponse<T> Function(dynamic json)? mapper}) async {
     try {
       await networkRequest.prepareRequestData();
       final headers = networkRequest.headers ?? {};
-      // final token = AppNavigator.rootContext!.read<UserCubit>().state.user?.token;
+      final token = AppNavigator.rootContext!.read<UserCubit>().state.user?.data?.token;
       headers.addEntries([
         MapEntry(
           'Accept-Language',
           Language.currentLanguage?.locale.languageCode ?? Language.english.languageCode,
         ),
-        const MapEntry(HttpHeaders.authorizationHeader, 'Bearer 5|rhdRQ6wCHshfckEvMRmLy1gadCkvb34saVaoXE06f978d7ed'),
+        MapEntry(HttpHeaders.authorizationHeader, 'Bearer $token'),
       ]);
       final response = await _dio.request(
         networkRequest.path,

@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../../core/extensions/context.dart';
-import '../../../../core/helpers/external_map_launcher.dart';
-import '../../../../core/helpers/location_helper.dart';
-import '../../../../core/helpers/social_media_launcher.dart';
-import '../../../../core/helpers/url_launcher_helper.dart';
-import '../../../../core/shared_widgets/core_widgets/main_app_bar.dart';
+part of '../presentation_imports.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,86 +8,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _dataController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    NotificationHelper.instance.checkForInitialMessage();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppBar(
-        title: const Text('Home Page'),
-        actions: [
-          IconButton(
-            icon: Icon(context.isDark() ? Icons.light_mode : Icons.dark_mode),
-            onPressed: () => context.toggleTheme(true),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _dataController,
-              decoration: const InputDecoration(
-                hintText: 'Enter data',
-              ),
+    return HomePageListener(
+      child: Scaffold(
+        appBar: MainAppBar(
+          title: const Text('Home Page'),
+          padEnd: false,
+          actions: [
+            IconButton(
+              icon: Icon(context.isDark() ? Icons.light_mode : Icons.dark_mode),
+              onPressed: () => context.toggleTheme(false),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await ExternalMapLauncher.routeBetweenYourPlaceAndOther(
-                  latitude: 31.1107,
-                  longitude: 30.9388,
-                  mode: 'w',
-                  avoid: ['t', 'h', 'f'],
-                );
+            IconButton(
+              onPressed: () {
+                context.read<UserCubit>().logout();
               },
-              child: const Text('Open URL'),
-            ),
-            ElevatedButton(
-              onPressed: () async => await UrlLauncherHelper.sendMail(
-                emails: [_dataController.text],
-                subject: 'Test subject',
-                body: 'Test body',
-              ),
-              child: const Text('Open mail app'),
-            ),
-            ElevatedButton(
-              onPressed: () async => await SocialMediaLauncher.launchFacebookApp(identifier: 'hosam.elfikky'),
-              child: const Text('Open Facebook app'),
-            ),
-            ElevatedButton(
-              onPressed: () async => await SocialMediaLauncher.launchYoutubeApp(channelId: 'arabeem'),
-              child: const Text('Open Youtube app'),
-            ),
-            ElevatedButton(
-              onPressed: () async => await SocialMediaLauncher.launchInstagramApp(identifier: 'eqam86'),
-              child: const Text('Open Instagram app'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                final position = await LocationHelper.getCurrentPosition();
-                final placeMark = await LocationHelper.getPlacemarkFromCoordinates(position);
-                await ExternalMapLauncher.launchMapWithCoordinates(
-                  latitude: position.latitude,
-                  longitude: position.longitude,
-                  title: placeMark.thoroughfare,
-                );
-              },
-              child: const Text('Open map app with coordinates'),
-            ),
-            ElevatedButton(
-              onPressed: () async => await ExternalMapLauncher.launchMapWithQuery(_dataController.text),
-              child: const Text('Open map app with QUERY'),
-            ),
-            ElevatedButton(
-              onPressed: () async => await UrlLauncherHelper.sendSMS(_dataController.text, body: 'Test message'),
-              child: const Text('Open SMS app'),
-            ),
-            ElevatedButton(
-              onPressed: () async => await UrlLauncherHelper.makePhoneCall(_dataController.text),
-              child: const Text('Make phone call'),
+              icon: const Icon(Icons.logout),
             ),
           ],
+        ),
+        body: const SingleChildScrollView(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            children: [],
+          ),
         ),
       ),
     );

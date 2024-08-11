@@ -14,21 +14,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserCubit, UserState>(
-      listener: (context, state) async {
-        if (state.loginStatus == UsecaseStatus.completed && state.user != null) {
-          await Future.wait([
-            SecureStorage.write(CacheKeys.token, state.user!.token),
-            CacheHelper.write(CacheKeys.user, state.user!.modelize.toJson()),
-          ]);
-
-          AppNavigator.offAll(const HomePage());
-        }
-
-        if (state.loginStatus == UsecaseStatus.error && state.loginFailure != null) {
-          MessageHelper.showErrorSnackBar(state.loginFailure!.response.message);
-        }
-      },
+    return LoginPageListener(
       child: BlocSelector<UserCubit, UserState, ({UsecaseStatus status, Failure? failure})>(
         selector: (state) => (status: state.loginStatus, failure: state.loginFailure),
         builder: (context, state) {
@@ -61,9 +47,10 @@ class _LoginPageState extends State<LoginPage> {
                       final params = LoginParams(email: _emailController.text, password: _passwordController.text);
                       context.read<UserCubit>().login(params);
                     },
-                    child: state.status == UsecaseStatus.running ? const CircularProgressIndicator.adaptive() : const Text('Login'),
+                    child: const Text('Login'),
                   ),
                 ),
+                const RegisterNowWidget(),
               ],
             ).withSpacing(spacing: 16.h),
           );

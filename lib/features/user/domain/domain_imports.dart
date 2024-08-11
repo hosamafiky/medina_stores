@@ -9,3 +9,6 @@ import '../../../core/standards/use_case.dart';
 part '../domain/entities/user.dart';
 part '../domain/repositories/user_repository.dart';
 part 'usecases/login_usecase.dart';
+part 'usecases/logout_usecase.dart';
+part 'usecases/register_usecase.dart';
+part 'usecases/send_otp_usecase.dart';
