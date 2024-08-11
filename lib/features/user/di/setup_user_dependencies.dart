@@ -5,12 +5,13 @@ import '../presentation/presentation_imports.dart';
 
 void setUpUserDependencies() async {
   // CUBIT
-  DependencyHelper.instance.serviceLocator.registerFactory(
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => UserCubit(
       loginUsecase: DependencyHelper.instance.serviceLocator(),
       logoutUsecase: DependencyHelper.instance.serviceLocator(),
       registerUsecase: DependencyHelper.instance.serviceLocator(),
       sendOTPUseCase: DependencyHelper.instance.serviceLocator(),
+      verifyOTPUseCase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
@@ -26,6 +27,9 @@ void setUpUserDependencies() async {
   );
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => SendOTPUseCase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => VerifyOTPUseCase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES

@@ -12,3 +12,4 @@ part 'usecases/login_usecase.dart';
 part 'usecases/logout_usecase.dart';
 part 'usecases/register_usecase.dart';
 part 'usecases/send_otp_usecase.dart';
+part 'usecases/verify_otp_usecase.dart';

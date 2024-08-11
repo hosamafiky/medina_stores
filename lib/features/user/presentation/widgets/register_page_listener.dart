@@ -12,7 +12,7 @@ class RegisterPageListener extends StatelessWidget {
         if (state.sendOTPStatus == UsecaseStatus.completed) {
           LoadingManager.hide();
           MessageHelper.showSuccessSnackBar(state.user!.message);
-          // TODO: GO TO OTP SCREEN
+          AppNavigator.to(const OtpPage());
         }
 
         if (state.sendOTPStatus == UsecaseStatus.error && state.sendOTPFailure != null) {

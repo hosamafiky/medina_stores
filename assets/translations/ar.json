@@ -1,7 +1,7 @@
 {
   "photo_library": "مكتبة الصور",
   "camera": "الكاميرا",
-  "password_validation": "من فضلك ادخل علي الاقل 6 حروف او ارقام",
+  "password_validation": "من فضلك ادخل علي الاقل 8 حروف او ارقام",
   "pincode_validation": "من فضلك ادخل عدد الارقام المطلوبة وهي ",
   "email_validation": "من فضلك ادخل البريد صحيحا",
   "phone_validation": "من فضلك ادخل الجوال صحيحا",
@@ -91,6 +91,8 @@
   "id_number": "رقم الهوية",
   "email": "البريد الإلكتروني",
   "email_hint": "الرجاء ادخال البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "password_hint": "الرجاء ادخال كلمة المرور",
   "already_have_account": "لديك حساب بالفعل ؟",
   "activation_code": "كود التفعيل",
   "enter_otp_code": "يرجى ادخال كود التفعيل المرسل علي رقم الجوال",

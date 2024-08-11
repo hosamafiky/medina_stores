@@ -24,4 +24,9 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, ApiResponse<Null>>> sendOTP(SendOTPParams params) async {
     return await remoteDataSource.sendOTP(params).handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, ApiResponse<User>>> verifyOTP(String otp) async {
+    return await remoteDataSource.verifyOTP(otp).handleCallbackWithFailure;
+  }
 }

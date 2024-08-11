@@ -44,6 +44,8 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
+                      if (!_formKey.currentState!.validate()) return;
+                      if (state.status == UsecaseStatus.running) return;
                       final params = LoginParams(email: _emailController.text, password: _passwordController.text);
                       context.read<UserCubit>().login(params);
                     },

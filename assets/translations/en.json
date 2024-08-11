@@ -1,7 +1,7 @@
 {
   "photo_library": "Photo Library",
   "camera": "Camera",
-  "password_validation": "Please enter at least 6 characters or numbers",
+  "password_validation": "Please enter at least 8 characters or numbers",
   "pincode_validation": "Please enter the required number of digits, which is ",
   "email_validation": "Please enter a valid email",
   "phone_validation": "Please enter a valid mobile number",
@@ -91,6 +91,8 @@
   "id_number": "ID Number",
   "email": "Email",
   "email_hint": "Please enter your email",
+  "password": "Password",
+  "password_hint": "Please enter your password",
   "already_have_account": "Already have an account?",
   "activation_code": "Activation Code",
   "enter_otp_code": "Please enter the activation code sent to your mobile number",

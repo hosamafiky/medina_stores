@@ -6,12 +6,14 @@ class UserCubit extends Cubit<UserState> {
     required this.logoutUsecase,
     required this.registerUsecase,
     required this.sendOTPUseCase,
+    required this.verifyOTPUseCase,
   }) : super(const UserState());
 
   final LoginUsecase loginUsecase;
   final LogoutUsecase logoutUsecase;
   final RegisterUsecase registerUsecase;
   final SendOTPUseCase sendOTPUseCase;
+  final VerifyOTPUseCase verifyOTPUseCase;
 
   Future<User?> checkForCachedToken() async {
     final cachedToken = await SecureStorage.read(CacheKeys.token);
@@ -73,6 +75,17 @@ class UserCubit extends Cubit<UserState> {
     result.fold(
       (failure) => emit(state.copyWith(sendOTPStatus: UsecaseStatus.error, sendOTPFailure: failure)),
       (r) => emit(state.copyWith(sendOTPStatus: UsecaseStatus.completed, user: state.user!.copyWith(message: r.message))),
+    );
+  }
+
+  Future<void> verifyOTP(String otp) async {
+    if (state.verifyOTPStatus == UsecaseStatus.running) return;
+    emit(state.copyWith(verifyOTPStatus: UsecaseStatus.running));
+    final result = await verifyOTPUseCase(otp);
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(state.copyWith(verifyOTPStatus: UsecaseStatus.error, verifyOTPFailure: failure)),
+      (user) => emit(state.copyWith(verifyOTPStatus: UsecaseStatus.completed, user: user)),
     );
   }
 }

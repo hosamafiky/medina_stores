@@ -11,6 +11,8 @@ class UserState extends Equatable {
     this.registerFailure,
     this.sendOTPStatus = UsecaseStatus.idle,
     this.sendOTPFailure,
+    this.verifyOTPStatus = UsecaseStatus.idle,
+    this.verifyOTPFailure,
   });
 
   final UsecaseStatus loginStatus;
@@ -25,6 +27,9 @@ class UserState extends Equatable {
   final UsecaseStatus sendOTPStatus;
   final Failure? sendOTPFailure;
 
+  final UsecaseStatus verifyOTPStatus;
+  final Failure? verifyOTPFailure;
+
   final ApiResponse<User?>? user;
 
   UserState copyWith({
@@ -36,6 +41,8 @@ class UserState extends Equatable {
     Failure? registerFailure,
     UsecaseStatus? sendOTPStatus,
     Failure? sendOTPFailure,
+    UsecaseStatus? verifyOTPStatus,
+    Failure? verifyOTPFailure,
     ApiResponse<User?>? user,
   }) {
     return UserState(
@@ -47,6 +54,8 @@ class UserState extends Equatable {
       registerFailure: registerFailure,
       sendOTPStatus: sendOTPStatus ?? UsecaseStatus.idle,
       sendOTPFailure: sendOTPFailure,
+      verifyOTPStatus: verifyOTPStatus ?? UsecaseStatus.idle,
+      verifyOTPFailure: verifyOTPFailure,
       user: user ?? this.user,
     );
   }
@@ -62,6 +71,8 @@ class UserState extends Equatable {
       registerFailure,
       sendOTPStatus,
       sendOTPFailure,
+      verifyOTPStatus,
+      verifyOTPFailure,
       user,
     ];
   }
