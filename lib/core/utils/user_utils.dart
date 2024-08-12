@@ -11,6 +11,8 @@ class UserUtils {
         final user = UserModel.fromJson(cachedUser).copyWith(token: cachedToken);
         return user;
       }
+    } else {
+      await CacheHelper.delete(CacheKeys.user);
     }
     return null;
   }
