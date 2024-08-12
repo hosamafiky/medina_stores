@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../config/resources/color_palettes/color_palette.dart';
 import '../../../config/resources/locale_keys.g.dart';
 import '../../../config/text_styles/app_text_styles.dart';
 import '../../extensions/context.dart';
@@ -23,7 +22,7 @@ class AppTextField extends StatefulWidget {
     this.hintStyle,
     this.labelStyle,
     this.style,
-    this.isMandatory = false,
+    this.isMandatory = true,
     this.isOptional = false,
     this.isBordered = true,
     this.obscureText = false,
@@ -67,7 +66,7 @@ class AppTextField extends StatefulWidget {
     this.style,
     this.labelStyle,
     this.isOptional = false,
-    this.isMandatory = false,
+    this.isMandatory = true,
     this.isBordered = true,
     this.showPasswordEye = true,
     required this.label,
@@ -152,7 +151,6 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     final AppTextStyle appTextStyle = context.appTextStyle;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -168,7 +166,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 if (widget.isOptional)
                   TextSpan(
                     text: ' (${LocaleKeys.optional.tr()})',
-                    style: appTextStyle.optionalStyle.copyWith(color: ColorPalette.blackColor, fontWeight: FontWeight.w400),
+                    style: appTextStyle.optionalStyle,
                   ),
               ],
             ),

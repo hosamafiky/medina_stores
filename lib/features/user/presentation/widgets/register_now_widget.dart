@@ -14,7 +14,7 @@ class RegisterNowWidget extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: context.tr(LocaleKeys.dont_have_account),
+            text: context.tr(LocaleKeys.dont_have_an_account),
             style: TextStyle(
               fontWeight: AppFontWeight.regular,
               fontSize: 12.sp,
@@ -24,11 +24,10 @@ class RegisterNowWidget extends StatelessWidget {
           ),
           const TextSpan(text: ' '),
           TextSpan(
-            text: context.tr(LocaleKeys.new_register),
+            text: context.tr(LocaleKeys.create_account),
             style: TextStyle(
               fontWeight: AppFontWeight.regular,
               fontSize: 12.sp,
-              fontFamily: 'Kaff',
               decoration: TextDecoration.underline,
               color: palette.secondary,
             ),

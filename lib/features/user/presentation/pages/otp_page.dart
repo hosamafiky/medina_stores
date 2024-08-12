@@ -1,7 +1,9 @@
 part of '../presentation_imports.dart';
 
 class OtpPage extends StatefulWidget {
-  const OtpPage({super.key});
+  const OtpPage({super.key, this.isResetPassword = false});
+
+  final bool isResetPassword;
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -12,29 +14,8 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserCubit, UserState>(
-      listener: (context, state) async {
-        if (state.verifyOTPStatus == UsecaseStatus.running) {
-          LoadingManager.show();
-        }
-
-        if (state.verifyOTPStatus == UsecaseStatus.completed && state.user?.data != null) {
-          await Future.wait([
-            CacheHelper.write(CacheKeys.user, state.user!.data!.modelize.toJson()),
-            SecureStorage.write(CacheKeys.token, state.user!.data!.token),
-          ]);
-          LoadingManager.hide();
-          MessageHelper.showSuccessSnackBar(state.user!.message);
-          AppNavigator.to(const HomePage());
-        }
-
-        if (state.verifyOTPStatus == UsecaseStatus.error && state.verifyOTPFailure != null) {
-          LoadingManager.hide();
-          if (state.verifyOTPFailure!.response.errors.isEmpty) {
-            MessageHelper.showErrorSnackBar(state.verifyOTPFailure!.response.message);
-          }
-        }
-      },
+    return OtpPageListener(
+      otp: _otpController,
       child: Scaffold(
         appBar: AppBar(
           title: Text(LocaleKeys.activation_code.tr()),
@@ -51,19 +32,25 @@ class _OtpPageState extends State<OtpPage> {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
                   children: [
-                    const Text("Enter OTP"),
+                    const Text("Enter OTP sent to your phone"),
                     Pinput(
                       controller: _otpController,
                       length: 6,
                       errorText: state.failure.errorMessage("token"),
                     ),
                     SizedBox(height: 14.h),
-                    OtpTimerWidget(user: state.user),
+                    OtpTimerWidget(
+                      user: state.user,
+                    ),
                     ElevatedButton(
                       onPressed: () {
-                        context.read<UserCubit>().verifyOTP(_otpController.text);
+                        if (widget.isResetPassword) {
+                          context.read<UserCubit>().verifyPasswordOTP(_otpController.text);
+                        } else {
+                          context.read<UserCubit>().verifyOTP(_otpController.text);
+                        }
                       },
-                      child: const Text("Verify"),
+                      child: Text(LocaleKeys.send.tr()),
                     ),
                   ],
                 ).withSpacing(spacing: 16.h),

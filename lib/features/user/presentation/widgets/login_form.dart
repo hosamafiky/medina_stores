@@ -21,35 +21,29 @@ class LoginForm extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AppTextField.withLabel(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              label: LocaleKeys.email.tr(),
-              isMandatory: true,
-              hintText: LocaleKeys.email_hint.tr(),
-              validator: (val) => ValidationHelper.validateEmail(val),
-              errorText: failure.errorMessage('email'),
-            ),
+          AppTextField.withLabel(
+            controller: emailController,
+            keyboardType: TextInputType.emailAddress,
+            label: LocaleKeys.email.tr(),
+            isMandatory: true,
+            hintText: LocaleKeys.email_hint.tr(),
+            validator: (val) => ValidationHelper.validateEmail(val),
+            errorText: failure.errorMessage('email'),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AppTextField.withLabel(
-              controller: passwordController,
-              obscuringCharacter: '*',
-              isMandatory: true,
-              obscureText: true,
-              showPasswordEye: true,
-              validator: (val) => ValidationHelper.validatePassword(val),
-              keyboardType: TextInputType.visiblePassword,
-              label: LocaleKeys.password.tr(),
-              hintText: LocaleKeys.password_hint.tr(),
-              errorText: failure.errorMessage('password'),
-            ),
+          AppTextField.withLabel(
+            controller: passwordController,
+            obscuringCharacter: '*',
+            isMandatory: true,
+            obscureText: true,
+            showPasswordEye: true,
+            validator: (val) => ValidationHelper.validatePassword(val),
+            keyboardType: TextInputType.visiblePassword,
+            label: LocaleKeys.password.tr(),
+            hintText: LocaleKeys.password_hint.tr(),
+            errorText: failure.errorMessage('password'),
           ),
         ],
-      ),
+      ).withSpacing(spacing: 14.h),
     );
   }
 }

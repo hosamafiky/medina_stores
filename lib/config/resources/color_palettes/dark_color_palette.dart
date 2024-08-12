@@ -55,6 +55,13 @@ class DarkModeColorPalette implements ColorPalette {
   Color get buttonText => const Color(0xFF000000);
 
   @override
+  Color get bottomNavigationSelected => primary;
+  @override
+  Color get bottomNavigationUnselected => const Color(0xFF757575);
+  @override
+  Color get bottomNavigationBackground => const Color(0xFF121212);
+
+  @override
   Color get success => const Color(0xFF81C784);
   @override
   Color get warning => const Color(0xFFFFD54F);

@@ -11,5 +11,7 @@ part '../domain/repositories/user_repository.dart';
 part 'usecases/login_usecase.dart';
 part 'usecases/logout_usecase.dart';
 part 'usecases/register_usecase.dart';
+part 'usecases/reset_password_usecase.dart';
 part 'usecases/send_otp_usecase.dart';
 part 'usecases/verify_otp_usecase.dart';
+part 'usecases/verify_pass_otp_usecase.dart';

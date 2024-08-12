@@ -36,6 +36,10 @@ abstract class ColorPalette {
   Color get buttonDisabled;
   Color get buttonText;
 
+  Color get bottomNavigationSelected;
+  Color get bottomNavigationUnselected;
+  Color get bottomNavigationBackground;
+
   Color get success;
   Color get warning;
   Color get info;

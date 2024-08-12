@@ -9,6 +9,10 @@ class RegisterPageListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) async {
+        final route = ModalRoute.of(context);
+        final isCurrentRoute = route?.isCurrent ?? false;
+        if (!isCurrentRoute) return;
+
         if (state.sendOTPStatus == UsecaseStatus.completed) {
           LoadingManager.hide();
           MessageHelper.showSuccessSnackBar(state.user!.message);

@@ -9,6 +9,10 @@ class LoginPageListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) async {
+        final route = ModalRoute.of(context);
+        final isCurrentRoute = route?.isCurrent ?? false;
+        if (!isCurrentRoute) return;
+
         if (state.loginStatus == UsecaseStatus.running) {
           LoadingManager.show(dismissOnTap: true);
         }
@@ -19,7 +23,7 @@ class LoginPageListener extends StatelessWidget {
           ]);
           LoadingManager.hide();
           MessageHelper.showSuccessSnackBar(state.user!.message);
-          AppNavigator.offAll(const HomePage());
+          AppNavigator.offAll(const LayoutPage());
         }
 
         if (state.loginStatus == UsecaseStatus.error && state.loginFailure != null) {

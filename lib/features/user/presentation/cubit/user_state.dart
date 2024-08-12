@@ -13,6 +13,10 @@ class UserState extends Equatable {
     this.sendOTPFailure,
     this.verifyOTPStatus = UsecaseStatus.idle,
     this.verifyOTPFailure,
+    this.verifyPasswordOTPStatus = UsecaseStatus.idle,
+    this.verifyPasswordOTPFailure,
+    this.resetPasswordStatus = UsecaseStatus.idle,
+    this.resetPasswordFailure,
   });
 
   final UsecaseStatus loginStatus;
@@ -30,6 +34,12 @@ class UserState extends Equatable {
   final UsecaseStatus verifyOTPStatus;
   final Failure? verifyOTPFailure;
 
+  final UsecaseStatus verifyPasswordOTPStatus;
+  final Failure? verifyPasswordOTPFailure;
+
+  final UsecaseStatus resetPasswordStatus;
+  final Failure? resetPasswordFailure;
+
   final ApiResponse<User?>? user;
 
   UserState copyWith({
@@ -43,6 +53,10 @@ class UserState extends Equatable {
     Failure? sendOTPFailure,
     UsecaseStatus? verifyOTPStatus,
     Failure? verifyOTPFailure,
+    UsecaseStatus? verifyPasswordOTPStatus,
+    Failure? verifyPasswordOTPFailure,
+    UsecaseStatus? resetPasswordStatus,
+    Failure? resetPasswordFailure,
     ApiResponse<User?>? user,
   }) {
     return UserState(
@@ -56,6 +70,10 @@ class UserState extends Equatable {
       sendOTPFailure: sendOTPFailure,
       verifyOTPStatus: verifyOTPStatus ?? UsecaseStatus.idle,
       verifyOTPFailure: verifyOTPFailure,
+      verifyPasswordOTPStatus: verifyPasswordOTPStatus ?? UsecaseStatus.idle,
+      verifyPasswordOTPFailure: verifyPasswordOTPFailure,
+      resetPasswordStatus: resetPasswordStatus ?? UsecaseStatus.idle,
+      resetPasswordFailure: resetPasswordFailure,
       user: user ?? this.user,
     );
   }
@@ -73,6 +91,10 @@ class UserState extends Equatable {
       sendOTPFailure,
       verifyOTPStatus,
       verifyOTPFailure,
+      verifyPasswordOTPStatus,
+      verifyPasswordOTPFailure,
+      resetPasswordStatus,
+      resetPasswordFailure,
       user,
     ];
   }

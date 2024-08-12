@@ -8,11 +8,11 @@ class ApiConstants {
 }
 
 class ApiEndPoints {
-  final String PRODUCTS = '/products';
-  final String POSTS = '/posts';
-  final String COMMENTS = '/comments';
-  final String ALBUMS = '/albums';
-  final String PHOTOS = '/photos';
-  final String TODOS = '/todos';
-  final String USERS = '/users';
+  final String login = '/login';
+  final String register = '/register';
+  final String logout = '/logout';
+  final String sendOTP = '/otp/send';
+  final String verifyOTP = '/otp/verify';
+  final String verifyPasswordOTP = '/password/otp/verify';
+  final String resetPassword = '/password/reset';
 }

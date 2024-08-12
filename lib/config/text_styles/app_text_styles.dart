@@ -19,6 +19,14 @@ abstract class AppTextStyle {
   /// ElevatedButton text style
   TextStyle get elevatedButtonTextStyle;
   TextStyle get disabledElevatedButtonStyle;
+
+  /// TEXT BUTTON STYLE
+  TextStyle get textButtonTextStyle;
+  TextStyle get textButtonDisabledTextStyle;
+
+  /// BOTTOM NAVIGATION BAR
+  TextStyle get bottomNavigationSelectedLabelStyle;
+  TextStyle get bottomNavigationUnselectedLabelStyle;
 }
 
 class LightAppTextStyles implements AppTextStyle {
@@ -45,6 +53,16 @@ class LightAppTextStyles implements AppTextStyle {
   TextStyle get elevatedButtonTextStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
   @override
   TextStyle get disabledElevatedButtonStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
+
+  @override
+  TextStyle get textButtonTextStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
+  @override
+  TextStyle get textButtonDisabledTextStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
+
+  @override
+  TextStyle get bottomNavigationSelectedLabelStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.bold);
+  @override
+  TextStyle get bottomNavigationUnselectedLabelStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.bold);
 }
 
 class DarkAppTextStyles implements AppTextStyle {
@@ -65,10 +83,20 @@ class DarkAppTextStyles implements AppTextStyle {
   @override
   TextStyle get errorStyle => TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: colorPalette.error);
   @override
-  TextStyle get optionalStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.blackColor);
+  TextStyle get optionalStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.whiteColor);
 
   @override
   TextStyle get elevatedButtonTextStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
   @override
   TextStyle get disabledElevatedButtonStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
+
+  @override
+  TextStyle get textButtonTextStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
+  @override
+  TextStyle get textButtonDisabledTextStyle => TextStyle(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
+
+  @override
+  TextStyle get bottomNavigationSelectedLabelStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.bold);
+  @override
+  TextStyle get bottomNavigationUnselectedLabelStyle => const TextStyle(fontSize: 12, fontWeight: AppFontWeight.bold);
 }

@@ -29,4 +29,14 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, ApiResponse<User>>> verifyOTP(String otp) async {
     return await remoteDataSource.verifyOTP(otp).handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, ApiResponse<Null>>> verifyPasswordOTP(String otp) async {
+    return await remoteDataSource.verifyPasswordOTP(otp).handleCallbackWithFailure;
+  }
+
+  @override
+  Future<Either<Failure, ApiResponse<Null>>> resetPassword(ResetPasswordParams params) async {
+    return await remoteDataSource.resetPassword(params).handleCallbackWithFailure;
+  }
 }

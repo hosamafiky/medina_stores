@@ -13,14 +13,34 @@ ThemeData darkTheme(
     dividerColor: palette.divider,
     cardColor: palette.cardBackground,
     shadowColor: palette.cardShadow,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
     appBarTheme: AppBarTheme(
       elevation: 0,
       surfaceTintColor: Colors.transparent,
       iconTheme: const IconThemeData(color: ColorPalette.whiteColor),
+      actionsIconTheme: const IconThemeData(color: ColorPalette.whiteColor),
       titleTextStyle: appTextStyle.appBarTitleStyle,
     ),
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: ColorPalette.whiteColor,
+    ),
+    checkboxTheme: const CheckboxThemeData(
+      visualDensity: VisualDensity.compact,
+    ),
+    listTileTheme: ListTileThemeData(
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+      visualDensity: VisualDensity.compact,
+      dense: true,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: palette.background,
+      showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: palette.bottomNavigationSelected,
+      unselectedItemColor: palette.bottomNavigationUnselected,
+      selectedLabelStyle: appTextStyle.bottomNavigationSelectedLabelStyle,
+      unselectedLabelStyle: appTextStyle.bottomNavigationUnselectedLabelStyle,
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.symmetric(vertical: 14.w, horizontal: 16.w),
@@ -46,9 +66,28 @@ ThemeData darkTheme(
         borderSide: BorderSide(color: palette.error, width: 1.sp),
       ),
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        visualDensity: VisualDensity.compact,
+        padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        foregroundColor: WidgetStateProperty.resolveWith<Color>(
+          (states) {
+            if (states.contains(WidgetState.disabled)) return palette.buttonDisabled;
+            return palette.buttonBackground;
+          },
+        ),
+        textStyle: WidgetStateProperty.resolveWith(
+          (states) {
+            if (states.contains(WidgetState.disabled)) return appTextStyle.textButtonDisabledTextStyle;
+            return appTextStyle.textButtonTextStyle;
+          },
+        ),
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w)),
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 14.h, horizontal: 24.w)),
         elevation: const WidgetStatePropertyAll(0),
         backgroundColor: WidgetStateProperty.resolveWith<Color>(
           (states) {
@@ -65,8 +104,8 @@ ThemeData darkTheme(
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
         ),
-        minimumSize: WidgetStatePropertyAll(Size(1.sw, 48.h)),
-        maximumSize: WidgetStatePropertyAll(Size(1.sw, 48.h)),
+        minimumSize: WidgetStatePropertyAll(Size(1.sw, 50.h)),
+        maximumSize: WidgetStatePropertyAll(Size(1.sw, 50.h)),
         textStyle: WidgetStateProperty.resolveWith(
           (states) {
             if (states.contains(WidgetState.disabled)) return appTextStyle.disabledElevatedButtonStyle;

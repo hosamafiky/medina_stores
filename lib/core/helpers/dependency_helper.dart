@@ -1,8 +1,10 @@
 import 'package:get_it/get_it.dart';
 
-import '../../features/home/di/setup_home_dependencies.dart';
+import '../../features/layout/di/setup_layout_dependencies.dart';
+import '../../features/main/di/setup_main_dependencies.dart';
+import '../../features/order/di/setup_order_dependencies.dart';
+import '../../features/profile/di/setup_profile_dependencies.dart';
 import '../../features/user/di/setup_user_dependencies.dart';
-import '../../features/product/di/setup_product_dependencies.dart';
 import '../networking/api_service.dart';
 import '../networking/dio_service.dart';
 
@@ -15,9 +17,11 @@ class DependencyHelper {
 
   void registerDependencies() {
     setUpGeneralDependencies();
+    setUpProfileDependencies();
+    setUpOrderDependencies();
+    setUpMainDependencies();
+    setUpLayoutDependencies();
     setUpUserDependencies();
-    setUpProductDependencies();
-    setUpHomeDependencies();
   }
 
   void setUpGeneralDependencies() {

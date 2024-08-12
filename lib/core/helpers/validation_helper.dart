@@ -26,12 +26,14 @@ class ValidationHelper {
 
     if (value != null && value.isNotEmpty) {
       if (value.length < 3) {
-        return '$fieldName must be at least 3 characters';
+        return LocaleKeys.name_validation.tr(
+          namedArgs: {'field': fieldName, 'length': '3'},
+        );
       }
       const namePattern = r'^[a-zA-Z\s]+$';
       final regex = RegExp(namePattern);
       if (!regex.hasMatch(value)) {
-        return '$fieldName must contain only alphabets';
+        return LocaleKeys.name_format_validation.tr(namedArgs: {'field': fieldName});
       }
     }
     return null;
@@ -40,7 +42,8 @@ class ValidationHelper {
   // Validates if the email is in correct format and is required
   static String? validateEmail(String? value, {bool isRequired = true}) {
     if (isRequired) {
-      final requiredError = _validateRequiredField(value, 'Email');
+      final requiredError = _validateRequiredField(value, LocaleKeys.email.tr());
+
       if (requiredError != null) {
         return requiredError;
       }
@@ -59,29 +62,30 @@ class ValidationHelper {
   // Validates if the password meets minimum length and is required
   static String? validatePassword(String? value, {int minLength = 8, bool isRequired = true}) {
     if (isRequired) {
-      final requiredError = _validateRequiredField(value, 'Password');
+      final requiredError = _validateRequiredField(value, LocaleKeys.password.tr());
+
       if (requiredError != null) {
         return requiredError;
       }
     }
 
     if (value != null && value.isNotEmpty && value.length < minLength) {
-      return 'Password must be at least $minLength characters';
+      return LocaleKeys.password_validation.tr(namedArgs: {'length': minLength.toString()});
     }
     return null;
   }
 
   // Validates if the password and confirm password fields match and are required
-  static String? validateConfirmPassword(String? password, String confirmPassword, {bool isRequired = true}) {
+  static String? validateConfirmPassword(String? password, String confirmPassword, {bool isRequired = true, String? message}) {
     if (isRequired) {
-      final requiredError = _validateRequiredField(confirmPassword, 'Confirm Password');
+      final requiredError = _validateRequiredField(confirmPassword, LocaleKeys.confirm_password.tr());
       if (requiredError != null) {
         return requiredError;
       }
     }
 
     if (confirmPassword.isNotEmpty && password != confirmPassword) {
-      return LocaleKeys.confirm_password_validation.tr();
+      return message ?? LocaleKeys.confirm_password_validation.tr();
     }
     return null;
   }
@@ -99,7 +103,9 @@ class ValidationHelper {
       const numericPattern = r'^\d+$';
       final regex = RegExp(numericPattern);
       if (!regex.hasMatch(value)) {
-        return '$fieldName must contain only digits';
+        return LocaleKeys.name_validation.tr(
+          namedArgs: {'field': fieldName, 'length': '3'},
+        );
       }
     }
     return null;
@@ -108,7 +114,7 @@ class ValidationHelper {
   // Validates if the field contains a valid phone number and is required
   static String? validatePhoneNumber(String? value, {bool isRequired = true}) {
     if (isRequired) {
-      final requiredError = _validateRequiredField(value, 'Phone number');
+      final requiredError = _validateRequiredField(value, LocaleKeys.phone.tr());
       if (requiredError != null) return requiredError;
     }
 
@@ -121,26 +127,4 @@ class ValidationHelper {
     }
     return null;
   }
-
-  // Validates if the input is a valid date and is required
-  static String? validateDate(String value, {String format = 'dd/MM/yyyy', bool isRequired = true}) {
-    if (isRequired) {
-      final requiredError = _validateRequiredField(value, 'Date');
-      if (requiredError != null) {
-        return requiredError;
-      }
-    }
-
-    if (value.isNotEmpty) {
-      try {
-        final dateFormat = DateFormat(format);
-        dateFormat.parseStrict(value);
-      } catch (e) {
-        return 'Enter a valid date in $format format';
-      }
-    }
-    return null;
-  }
-
-  // Example: Add your own custom validation methods as needed, ensuring to include the required check.
 }

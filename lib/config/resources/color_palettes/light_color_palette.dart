@@ -55,6 +55,13 @@ class LightModeColorPalette implements ColorPalette {
   Color get buttonText => const Color(0xFFFFFFFF);
 
   @override
+  Color get bottomNavigationSelected => primary;
+  @override
+  Color get bottomNavigationUnselected => const Color(0xFF616161);
+  @override
+  Color get bottomNavigationBackground => const Color(0xFFFFFFFF);
+
+  @override
   Color get success => const Color(0xFF4CAF50);
   @override
   Color get warning => const Color(0xFFFFC107);

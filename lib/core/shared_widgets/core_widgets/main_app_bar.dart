@@ -5,6 +5,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppBar({
     super.key,
     this.title,
+    this.leading,
     this.actions = const [],
     this.padEnd = true,
     this.bottom,
@@ -15,7 +16,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleTextStyle,
   });
 
-  final Widget? title;
+  final Widget? title, leading;
   final PreferredSizeWidget? bottom;
   final List<Widget> actions;
   final Color? backgroundColor;
@@ -28,6 +29,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: title,
+      leading: leading,
       bottom: bottom,
       toolbarHeight: toolbarHeight ?? kToolbarHeight,
       titleSpacing: titleSpacing,

@@ -63,7 +63,7 @@ class _OtpTimerWidgetState extends State<OtpTimerWidget> {
                   //   color: duration != Duration.zero ? palette.hintText.withOpacity(0.5) : palette.secondary,
                   // ),
                   Text(
-                    LocaleKeys.resend_code.tr(),
+                    LocaleKeys.resend.tr(),
                     style: appTextStyles.labelTextStyle.copyWith(
                       color: duration != Duration.zero ? palette.hintText.withOpacity(0.5) : palette.secondary,
                     ),

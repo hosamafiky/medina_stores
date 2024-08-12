@@ -13,7 +13,7 @@ class LoginNowWidget extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: context.tr(LocaleKeys.already_have_account),
+            text: context.tr(LocaleKeys.already_have_an_account),
             style: TextStyle(
               fontWeight: AppFontWeight.regular,
               fontSize: 12.sp,
