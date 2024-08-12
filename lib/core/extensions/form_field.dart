@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../config/resources/color_palettes/color_palette.dart';
 import '../../config/text_styles/app_text_styles.dart';
@@ -12,10 +13,17 @@ extension FormFieldExtension on Widget {
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     bool enabled = true,
     FormFieldSetter<T>? onSaved,
+    EdgeInsetsGeometry? errorTextPadding,
     FormFieldBuilder<T>? builder,
   }) {
-    TextStyle getErrorStyle(BuildContext context) =>
-        context.isDark() ? const DarkAppTextStyles(DarkModeColorPalette()).errorStyle : const LightAppTextStyles(LightModeColorPalette()).errorStyle;
+    TextStyle getErrorStyle(BuildContext context) {
+      if (context.isDark()) {
+        return const DarkAppTextStyles(DarkModeColorPalette()).errorStyle;
+      } else {
+        return const LightAppTextStyles(LightModeColorPalette()).errorStyle;
+      }
+    }
+
     return FormField<T>(
       validator: validator,
       initialValue: initialValue,
@@ -29,7 +37,7 @@ extension FormFieldExtension on Widget {
             this,
             if (state.errorText != null)
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: errorTextPadding ?? EdgeInsetsDirectional.only(start: 25.w),
                 child: Text(
                   state.errorText!,
                   style: getErrorStyle(state.context),

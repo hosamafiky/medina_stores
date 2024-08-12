@@ -13,6 +13,14 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _formKey.currentState?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LoginPageListener(
       child: BlocSelector<UserCubit, UserState, ({UsecaseStatus status, Failure? failure})>(

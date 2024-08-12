@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medina_stores/core/utils/user_utils.dart';
 
 import 'app.dart';
 import 'config/resources/languages.dart';
@@ -26,6 +27,8 @@ void main() async {
   ]);
 
   DependencyHelper.instance.registerDependencies();
+
+  final cachedUser = await UserUtils.getCachedUser();
 
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
@@ -56,7 +59,7 @@ void main() async {
       path: 'assets/translations',
       saveLocale: true,
       fallbackLocale: const Locale('ar'),
-      child: const MedinaStoresApp(),
+      child: MedinaStoresApp(cachedUser: cachedUser),
     ),
   );
 }

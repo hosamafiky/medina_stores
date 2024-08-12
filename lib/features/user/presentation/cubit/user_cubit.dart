@@ -15,20 +15,9 @@ class UserCubit extends Cubit<UserState> {
   final SendOTPUseCase sendOTPUseCase;
   final VerifyOTPUseCase verifyOTPUseCase;
 
-  Future<User?> checkForCachedToken() async {
-    final cachedToken = await SecureStorage.read(CacheKeys.token);
-    if (cachedToken != null && cachedToken.isNotEmpty) {
-      final cachedUser = await CacheHelper.read(CacheKeys.user);
-      if (cachedUser != null && cachedUser.isNotEmpty) {
-        final user = UserModel.fromJson(cachedUser).copyWith(token: cachedToken);
-        final apiResponse = ApiResponse<User>.success(data: user);
-        emit(state.copyWith(user: apiResponse));
-        return user;
-      }
-    } else {
-      await CacheHelper.delete(CacheKeys.user);
-    }
-    return null;
+  void initWithCachedUser(User? user) {
+    if (user == null) return;
+    emit(state.copyWith(user: ApiResponse.success(data: user)));
   }
 
   Future<void> logout() async {

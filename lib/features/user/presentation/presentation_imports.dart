@@ -10,6 +10,7 @@ import 'package:medina_stores/config/resources/color_palettes/color_palette.dart
 import 'package:medina_stores/config/text_styles/app_font_weights.dart';
 import 'package:medina_stores/core/extensions/context.dart';
 import 'package:medina_stores/core/extensions/duration.dart';
+import 'package:medina_stores/core/extensions/form_field.dart';
 import 'package:medina_stores/core/extensions/spaced_column.dart';
 import 'package:medina_stores/core/extensions/spaced_row.dart';
 import 'package:medina_stores/core/helpers/message_helper.dart';
@@ -26,7 +27,6 @@ import '../../../core/navigation/navigator.dart';
 import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 import '../../../core/standards/usecase_status.dart';
 import '../../home/presentation/presentation_imports.dart';
-import '../data/data_imports.dart';
 import '../domain/domain_imports.dart';
 
 part '../presentation/cubit/user_cubit.dart';

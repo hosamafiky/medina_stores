@@ -16,6 +16,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  void register() async {
+    final params = RegisterParams(
+      dialingCode: '+965',
+      fName: fNameController.text,
+      lName: lNameController.text,
+      email: emailController.text,
+      phone: phoneController.text,
+      password: passwordController.text,
+      confirmPassword: confirmPasswordController.text,
+    );
+    context.read<UserCubit>().register(params);
+  }
+
+  @override
+  void dispose() {
+    fNameController.dispose();
+    lNameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    formKey.currentState?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RegisterPageListener(
@@ -26,6 +51,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           builder: (context, state) {
             return Center(
               child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 14.w).copyWith(
+                  bottom: context.bottomBarHeight,
+                  top: 16.h + context.statusBarHeight,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -45,16 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () {
                           if (!formKey.currentState!.validate()) return;
                           if (state.status == UsecaseStatus.running) return;
-                          final params = RegisterParams(
-                            dialingCode: '+965',
-                            fName: fNameController.text,
-                            lName: lNameController.text,
-                            email: emailController.text,
-                            phone: phoneController.text,
-                            password: passwordController.text,
-                            confirmPassword: confirmPasswordController.text,
-                          );
-                          context.read<UserCubit>().register(params);
+                          register();
                         },
                         child: const Text('Register'),
                       ),

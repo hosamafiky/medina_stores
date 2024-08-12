@@ -1,6 +1,8 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+// ignore_for_file: constant_identifier_names
+
+abstract class LocaleKeys {
   static const photo_library = 'photo_library';
   static const camera = 'camera';
   static const password_validation = 'password_validation';
@@ -294,5 +296,4 @@ abstract class  LocaleKeys {
   static const accept_terms = 'accept_terms';
   static const plz_select_terms = 'plz_select_terms';
   static const edit = 'edit';
-
 }

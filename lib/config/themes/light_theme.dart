@@ -46,6 +46,14 @@ ThemeData lightTheme(
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: ColorPalette.blackColor,
     ),
+    checkboxTheme: const CheckboxThemeData(
+      visualDensity: VisualDensity.compact,
+    ),
+    listTileTheme: ListTileThemeData(
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+      visualDensity: VisualDensity.compact,
+      dense: true,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         elevation: const WidgetStatePropertyAll(0),

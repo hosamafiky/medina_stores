@@ -16,14 +16,15 @@ import 'features/user/domain/domain_imports.dart';
 import 'features/user/presentation/presentation_imports.dart';
 
 class MedinaStoresApp extends StatefulWidget {
-  const MedinaStoresApp({super.key});
+  const MedinaStoresApp({super.key, this.cachedUser});
+
+  final User? cachedUser;
 
   @override
   State<MedinaStoresApp> createState() => _MedinaStoresAppState();
 }
 
 class _MedinaStoresAppState extends State<MedinaStoresApp> {
-  User? cachedUser;
   @override
   void initState() {
     setUpNotifications();
@@ -32,8 +33,6 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
 
   void setUpNotifications() async {
     await NotificationHelper.instance.setupNotifications();
-    cachedUser = await DependencyHelper.instance.serviceLocator<UserCubit>().checkForCachedToken();
-    setState(() {});
   }
 
   @override
@@ -50,7 +49,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
               create: (context) => ThemeCubit()..checkForCachedThemeMode(),
             ),
             BlocProvider(
-              create: (context) => DependencyHelper.instance.serviceLocator<UserCubit>(),
+              create: (context) => DependencyHelper.instance.serviceLocator<UserCubit>()..initWithCachedUser(widget.cachedUser),
             ),
           ],
           child: BlocBuilder<ThemeCubit, ThemeState>(
@@ -67,7 +66,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
                 theme: tState.lightThemeData,
                 darkTheme: tState.darkThemeData,
                 themeMode: tState.themeMode,
-                home: cachedUser == null ? const LoginPage() : const HomePage(),
+                home: widget.cachedUser == null ? const LoginPage() : const HomePage(),
                 builder: (context, child) => ConnectivityManager(child: LoadingManager(child: child!)),
               );
             },

@@ -1,6 +1,6 @@
 part of '../presentation_imports.dart';
 
-class RegisterForm extends StatelessWidget {
+class RegisterForm extends StatefulWidget {
   const RegisterForm({
     super.key,
     this.failure,
@@ -24,63 +24,70 @@ class RegisterForm extends StatelessWidget {
   final Failure? failure;
 
   @override
+  State<RegisterForm> createState() => _RegisterFormState();
+}
+
+class _RegisterFormState extends State<RegisterForm> {
+  ValueNotifier<bool> acceptTerms = ValueNotifier(false);
+  void toggleAcceptance() => acceptTerms.value = !acceptTerms.value;
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: AppTextField.withLabel(
-              controller: fNameController,
+              controller: widget.fNameController,
               keyboardType: TextInputType.name,
               validator: (val) => ValidationHelper.validateName(val, 'First Name'),
               label: 'First Name',
               isMandatory: true,
               hintText: 'Enter your first name',
-              errorText: failure.errorMessage('first_name'),
+              errorText: widget.failure.errorMessage('first_name'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: AppTextField.withLabel(
-              controller: lNameController,
+              controller: widget.lNameController,
               keyboardType: TextInputType.name,
               validator: (val) => ValidationHelper.validateName(val, 'Last Name'),
               label: 'Last Name',
               isMandatory: true,
               hintText: 'Enter your last name',
-              errorText: failure.errorMessage('last_name'),
+              errorText: widget.failure.errorMessage('last_name'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: AppTextField.withLabel(
-              controller: emailController,
+              controller: widget.emailController,
               keyboardType: TextInputType.emailAddress,
               validator: (val) => ValidationHelper.validateEmail(val, isRequired: false),
               label: LocaleKeys.email.tr(),
               isOptional: true,
               hintText: LocaleKeys.email_hint.tr(),
-              errorText: failure.errorMessage('email'),
+              errorText: widget.failure.errorMessage('email'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: AppTextField.withLabel(
-              controller: phoneController,
+              controller: widget.phoneController,
               keyboardType: TextInputType.phone,
               label: LocaleKeys.phone_number.tr(),
               validator: (val) => ValidationHelper.validatePhoneNumber(val),
               isMandatory: true,
               hintText: LocaleKeys.phone_number_hint.tr(),
-              errorText: failure.errorMessage('phone'),
+              errorText: widget.failure.errorMessage('phone'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: AppTextField.withLabel(
-              controller: passwordController,
+              controller: widget.passwordController,
               obscuringCharacter: '*',
               enableinteractiveSelection: false,
               isMandatory: true,
@@ -90,24 +97,34 @@ class RegisterForm extends StatelessWidget {
               keyboardType: TextInputType.visiblePassword,
               label: 'Password',
               hintText: 'Enter your password',
-              errorText: failure.errorMessage('password'),
+              errorText: widget.failure.errorMessage('password'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: AppTextField.withLabel(
-              controller: confirmPasswordController,
+              controller: widget.confirmPasswordController,
               obscuringCharacter: '*',
               enableinteractiveSelection: false,
               isMandatory: true,
               obscureText: true,
               showPasswordEye: true,
               keyboardType: TextInputType.visiblePassword,
-              validator: (val) => ValidationHelper.validateConfirmPassword(val, passwordController.text),
+              validator: (val) => ValidationHelper.validateConfirmPassword(val, widget.passwordController.text),
               label: 'Confirm Password',
               hintText: 'Re-enter your password',
-              errorText: failure.errorMessage('confirm_password'),
+              errorText: widget.failure.errorMessage('confirm_password'),
             ),
+          ),
+          ValueListenableBuilder(
+            valueListenable: acceptTerms,
+            builder: (context, isAccepted, child) {
+              return CheckboxListTile(
+                value: isAccepted,
+                onChanged: (_) => toggleAcceptance(),
+                title: Text(LocaleKeys.accept_terms.tr()),
+              ).asFormField(validator: (_) => !isAccepted ? LocaleKeys.terms_validation.tr() : null);
+            },
           ),
         ],
       ),

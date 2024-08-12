@@ -8,12 +8,12 @@ class User extends Equatable {
   final String token;
 
   const User({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.dialingCode,
-    required this.token,
+    this.id = 0,
+    this.name = '',
+    this.email = '',
+    this.phone = '',
+    this.dialingCode = '',
+    this.token = '',
   });
 
   User copyWith({
