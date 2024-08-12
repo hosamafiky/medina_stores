@@ -9,8 +9,14 @@ import '../../helpers/cache_helper.dart';
 
 part 'theme_state.dart';
 
+extension ThemeModeExtension on String? {
+  ThemeMode get asThemeMode {
+    return ThemeMode.values.firstWhere((e) => e.name == this);
+  }
+}
+
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit() : super(InitialThemeState());
+  ThemeCubit([ThemeMode? mode]) : super(InitialThemeState(initialThemeMode: mode));
 
   void checkForCachedThemeMode() async {
     final String? themeMode = CacheHelper.read(CacheKeys.themeMode) as String?;

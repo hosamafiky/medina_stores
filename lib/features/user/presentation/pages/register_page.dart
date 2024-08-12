@@ -45,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return RegisterPageListener(
       child: Scaffold(
-        appBar: MainAppBar(title: Text(LocaleKeys.register.tr())),
+        appBar: AppBar(title: Text(LocaleKeys.register.tr())),
         body: BlocSelector<UserCubit, UserState, ({UsecaseStatus status, Failure? failure})>(
           selector: (state) => (status: state.registerStatus, failure: state.registerFailure),
           builder: (context, state) {

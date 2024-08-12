@@ -16,9 +16,14 @@ import 'features/user/domain/domain_imports.dart';
 import 'features/user/presentation/presentation_imports.dart';
 
 class MedinaStoresApp extends StatefulWidget {
-  const MedinaStoresApp({super.key, this.cachedUser});
+  const MedinaStoresApp({
+    super.key,
+    this.cachedUser,
+    this.cachedThemeMode,
+  });
 
   final User? cachedUser;
+  final ThemeMode? cachedThemeMode;
 
   @override
   State<MedinaStoresApp> createState() => _MedinaStoresAppState();
@@ -46,7 +51,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => ThemeCubit()..checkForCachedThemeMode(),
+              create: (context) => ThemeCubit(widget.cachedThemeMode),
             ),
             BlocProvider(
               create: (context) => DependencyHelper.instance.serviceLocator<UserCubit>()..initWithCachedUser(widget.cachedUser),

@@ -22,11 +22,13 @@ sealed class ThemeState extends Equatable {
 }
 
 class InitialThemeState extends ThemeState {
-  InitialThemeState()
-      : super(
-          colorPalette: const LightModeColorPalette(),
-          appTextStyle: const LightAppTextStyles(LightModeColorPalette()),
-          themeData: ThemeData.light(),
+  InitialThemeState({
+    ThemeMode? initialThemeMode,
+  }) : super(
+          colorPalette: initialThemeMode == ThemeMode.light ? const LightModeColorPalette() : const DarkModeColorPalette(),
+          appTextStyle:
+              initialThemeMode == ThemeMode.light ? const LightAppTextStyles(LightModeColorPalette()) : const DarkAppTextStyles(DarkModeColorPalette()),
+          themeData: initialThemeMode == ThemeMode.light ? ThemeData.light() : ThemeData.dark(),
         );
 }
 
