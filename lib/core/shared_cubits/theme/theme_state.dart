@@ -25,6 +25,7 @@ class InitialThemeState extends ThemeState {
   InitialThemeState({
     ThemeMode? initialThemeMode,
   }) : super(
+          themeMode: initialThemeMode ?? ThemeMode.light,
           colorPalette: initialThemeMode == ThemeMode.light ? const LightModeColorPalette() : const DarkModeColorPalette(),
           appTextStyle:
               initialThemeMode == ThemeMode.light ? const LightAppTextStyles(LightModeColorPalette()) : const DarkAppTextStyles(DarkModeColorPalette()),
