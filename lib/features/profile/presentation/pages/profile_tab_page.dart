@@ -43,6 +43,7 @@ class ProfileTabBody extends StatelessWidget {
                 children: [
                   const Text("Current User Data"),
                   Text(state.user!.data!.modelize.toMap().prettify),
+                  const LanguagesDropdownWidget(),
                 ],
               ).withSpacing(spacing: 16.h);
             },

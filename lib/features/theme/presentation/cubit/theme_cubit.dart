@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../config/resources/color_palettes/color_palette.dart';
-import '../../../config/text_styles/app_text_styles.dart';
-import '../../../config/themes/app_themes.dart';
-import '../../helpers/cache_helper.dart';
+import '../../../../config/resources/color_palettes/color_palette.dart';
+import '../../../../config/text_styles/app_text_styles.dart';
+import '../../../../config/themes/app_themes.dart';
+import '../../../../core/helpers/cache_helper.dart';
 
 part 'theme_state.dart';
 
@@ -17,11 +17,6 @@ extension ThemeModeExtension on String? {
 
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit([ThemeMode? mode]) : super(InitialThemeState(initialThemeMode: mode));
-
-  void checkForCachedThemeMode() async {
-    final String? themeMode = CacheHelper.read(CacheKeys.themeMode) as String?;
-    if (themeMode == ThemeMode.dark.name) setDarkTheme();
-  }
 
   void setLightTheme() async {
     const ThemeMode themeMode = ThemeMode.light;

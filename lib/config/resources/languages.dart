@@ -7,6 +7,10 @@ enum Language {
   english(Locale('en'), 'English', "en"),
   arabic(Locale('ar'), 'Arabic', "ar");
 
+  static Language byLanguageCode(String code) {
+    return Language.values.firstWhere((element) => element.languageCode == code, orElse: () => Language.english);
+  }
+
   final String title;
   final Locale locale;
   final String languageCode;

@@ -14,7 +14,9 @@ abstract class LocaleKeys {
   static const something_went_wrong = 'something_went_wrong';
   static const exception = 'exception';
   static const optional = 'optional';
-  static const _AUTH = '_AUTH';
+  static const ar = 'ar';
+  static const en = 'en';
+  static const _ = '_';
   static const register = 'register';
   static const login = 'login';
   static const activation_code = 'activation_code';

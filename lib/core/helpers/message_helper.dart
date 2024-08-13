@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../features/theme/presentation/cubit/theme_cubit.dart';
 import '../navigation/navigator.dart';
-import '../shared_cubits/theme/theme_cubit.dart';
 
 class MessageHelper {
   static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _showSnackBar(

@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medina_stores/core/shared_cubits/theme/theme_cubit.dart';
 import 'package:medina_stores/core/utils/user_utils.dart';
+import 'package:medina_stores/features/theme/presentation/cubit/theme_cubit.dart';
 
 import 'app.dart';
 import 'config/resources/languages.dart';
@@ -61,7 +61,6 @@ void main() async {
       supportedLocales: Language.supportedLocales,
       path: 'assets/translations',
       fallbackLocale: const Locale('ar'),
-      startLocale: const Locale('ar'),
       child: MedinaStoresApp(
         cachedUser: cachedUser,
         cachedThemeMode: cachedThemeMode,
