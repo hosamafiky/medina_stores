@@ -26,10 +26,11 @@ class InitialThemeState extends ThemeState {
     ThemeMode? initialThemeMode,
   }) : super(
           themeMode: initialThemeMode ?? ThemeMode.light,
-          colorPalette: initialThemeMode == ThemeMode.light ? const LightModeColorPalette() : const DarkModeColorPalette(),
-          appTextStyle:
-              initialThemeMode == ThemeMode.light ? const LightAppTextStyles(LightModeColorPalette()) : const DarkAppTextStyles(DarkModeColorPalette()),
-          themeData: initialThemeMode == ThemeMode.light ? ThemeData.light() : ThemeData.dark(),
+          colorPalette: (initialThemeMode ?? ThemeMode.light) == ThemeMode.light ? const LightModeColorPalette() : const DarkModeColorPalette(),
+          appTextStyle: (initialThemeMode ?? ThemeMode.light) == ThemeMode.light
+              ? const LightAppTextStyles(LightModeColorPalette())
+              : const DarkAppTextStyles(DarkModeColorPalette()),
+          themeData: (initialThemeMode ?? ThemeMode.light) == ThemeMode.light ? ThemeData.light() : ThemeData.dark(),
         );
 }
 

@@ -60,8 +60,8 @@ void main() async {
     EasyLocalization(
       supportedLocales: Language.supportedLocales,
       path: 'assets/translations',
-      saveLocale: true,
       fallbackLocale: const Locale('ar'),
+      startLocale: const Locale('ar'),
       child: MedinaStoresApp(
         cachedUser: cachedUser,
         cachedThemeMode: cachedThemeMode,
