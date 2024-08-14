@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:medina_stores/core/helpers/validation_helper.dart';
 import 'package:medina_stores/features/user/data/data_imports.dart';
 
 import '../../../core/error/failures.dart';

@@ -20,7 +20,6 @@ class LoginParams {
   Map<String, dynamic> toMap() {
     return {
       "email": emailOrPhone,
-      'dialing_code': ValidationHelper.isPhone(emailOrPhone) ? '+965' : null,
       "password": password,
     };
   }
