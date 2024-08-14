@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:medina_stores/core/extensions/context.dart';
+import 'package:medina_stores/core/navigation/navigator.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
 
 class ImageWidget extends StatelessWidget {
@@ -32,16 +34,17 @@ class ImageWidget extends StatelessWidget {
   }
 
   Widget get errorWidget => Stack(
+        alignment: Alignment.center,
         children: [
           ShimmerWidget.horizontal(
             width: width,
             height: height,
             borderRadius: borderRadius,
           ),
-          const Center(
+          Center(
             child: Icon(
               Icons.error,
-              color: Colors.red,
+              color: AppNavigator.rootContext!.colorPalette.error,
               size: 30,
             ),
           ),
