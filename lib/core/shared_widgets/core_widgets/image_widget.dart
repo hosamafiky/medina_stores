@@ -9,11 +9,16 @@ class ImageWidget extends StatelessWidget {
     this.height,
     this.width,
     this.borderRadius,
-  });
+    this.shape = BoxShape.rectangle,
+  }) : assert(
+          (shape == BoxShape.rectangle || (borderRadius == null && shape == BoxShape.circle)),
+          'You can only use borderRadius with BoxShape.rectangle',
+        );
 
   final String imageUrl;
   final double? height, width;
   final BorderRadiusGeometry? borderRadius;
+  final BoxShape shape;
 
   @override
   Widget build(BuildContext context) {
