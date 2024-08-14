@@ -5,6 +5,9 @@ class SliderShimmerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ShimmerWidget.horizontal(width: 150, height: 90);
+    return Padding(
+      padding: REdgeInsets.symmetric(horizontal: 10),
+      child: const ShimmerWidget.horizontal(height: 90),
+    );
   }
 }
