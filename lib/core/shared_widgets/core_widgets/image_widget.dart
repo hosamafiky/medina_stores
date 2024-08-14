@@ -25,23 +25,50 @@ class ImageWidget extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       fit: BoxFit.cover,
-      errorWidget: (context, url, error) => const Icon(Icons.error),
-      placeholder: (context, url) => ShimmerWidget.horizontal(
+      errorWidget: (context, url, error) => errorWidget,
+      placeholder: (context, url) => placeHolder,
+      imageBuilder: (context, imageProvider) => imageWidget,
+    );
+  }
+
+  Widget get errorWidget => Stack(
+        children: [
+          ShimmerWidget.horizontal(
+            width: width,
+            height: height,
+            borderRadius: borderRadius,
+          ),
+          const Center(
+            child: Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 30,
+            ),
+          ),
+        ],
+      );
+
+  Widget get placeHolder => ShimmerWidget.horizontal(
         width: width,
         height: height,
         borderRadius: borderRadius,
-      ),
-      imageBuilder: (context, imageProvider) => Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          borderRadius: borderRadius,
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.cover,
+      );
+
+  Widget get imageWidget => CachedNetworkImage(
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        errorWidget: (context, url, error) => errorWidget,
+        placeholder: (context, url) => placeHolder,
+        imageBuilder: (context, imageProvider) => Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            borderRadius: borderRadius,
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

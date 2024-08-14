@@ -9,9 +9,4 @@ class SliderRepositoryImpl implements SliderRepository {
   Future<Either<Failure, ApiResponse<List<Slider>>>> getSliders() async {
     return await remoteDataSource.getSliders.handleCallbackWithFailure;
   }
-
-  @override
-  Future<Either<Failure, ApiResponse<Slider>>> addSlider(AddSliderParams params) async {
-    return await remoteDataSource.addSlider(params).handleCallbackWithFailure;
-  }
 }

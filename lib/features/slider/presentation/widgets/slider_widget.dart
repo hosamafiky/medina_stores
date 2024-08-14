@@ -10,7 +10,7 @@ class SliderWidget extends StatelessWidget {
     return Padding(
       padding: REdgeInsets.symmetric(horizontal: 10),
       child: ImageWidget(
-        imageUrl: slider.imageUrl,
+        imageUrl: slider.media,
         borderRadius: BorderRadius.circular(10.r),
         height: 150.h,
       ),

@@ -8,17 +8,12 @@ void setUpSliderDependencies() async {
   DependencyHelper.instance.serviceLocator.registerFactory(
     () => SliderCubit(
       getSlidersUsecase: DependencyHelper.instance.serviceLocator(),
-      addSliderUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
   // USECASES
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => GetSlidersUsecase(repository: DependencyHelper.instance.serviceLocator()),
-  );
-
-  DependencyHelper.instance.serviceLocator.registerLazySingleton(
-    () => AddSliderUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES

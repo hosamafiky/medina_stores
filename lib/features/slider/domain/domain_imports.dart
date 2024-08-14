@@ -7,5 +7,4 @@ import '../../../core/standards/use_case.dart';
 
 part '../domain/entities/slider.dart';
 part '../domain/repositories/slider_repository.dart';
-part '../domain/usecases/add_slider_usecase.dart';
 part '../domain/usecases/get_sliders_usecase.dart';

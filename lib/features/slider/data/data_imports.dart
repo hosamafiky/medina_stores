@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../core/helpers/dependency_helper.dart';
 import '../../../../core/networking/api_request.dart';

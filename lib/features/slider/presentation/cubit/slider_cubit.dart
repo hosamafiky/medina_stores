@@ -3,7 +3,6 @@ part of '../presentation_imports.dart';
 class SliderCubit extends Cubit<SliderState> {
   SliderCubit({
     required this.getSlidersUsecase,
-    required this.addSliderUsecase,
   }) : super(const SliderState()) {
     WidgetsBinding.instance.addPostFrameCallback((_) => init());
   }
@@ -28,7 +27,6 @@ class SliderCubit extends Cubit<SliderState> {
   void restartTimer() => init();
 
   final GetSlidersUsecase getSlidersUsecase;
-  final AddSliderUsecase addSliderUsecase;
 
   Future<void> getSliders() async {
     emit(state.copyWith(slidersStatus: UsecaseStatus.running));
