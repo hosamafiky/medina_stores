@@ -41,11 +41,20 @@ class DarkModeColorPalette implements ColorPalette {
   Color get divider => const Color(0xFF424242);
   @override
   Color get border => const Color(0xFF616161);
+  @override
+  Color get shimmerBaseColor => const Color(0xFF333333);
+  @override
+  Color get shimmerHighlightColor => const Color(0xFF424242);
 
   @override
   Color get cardBackground => const Color(0xFF1E1E1E);
   @override
   Color get cardShadow => const Color(0x29000000); // Black with 16% opacity
+
+  @override
+  Color get currentSliderDotColor => const Color(0xFFBB86FC);
+  @override
+  Color get otherSliderDotColor => const Color(0xFF616161);
 
   @override
   Color get buttonBackground => primary;

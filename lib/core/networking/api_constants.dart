@@ -8,6 +8,7 @@ class ApiConstants {
 }
 
 class ApiEndPoints {
+  final String SLIDERS = '/sliders';
   final String LANGUAGES = '/languages';
   final String THEMES = '/themes';
   final String login = '/login';

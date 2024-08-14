@@ -5,8 +5,15 @@ class MainTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DependencyHelper.instance.get<MainCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<MainCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<SliderCubit>()..getSliders(),
+        ),
+      ],
       child: const MainTabPageBody(),
     );
   }
@@ -17,19 +24,19 @@ class MainTabPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: MainAppBar(
+    return Scaffold(
+      appBar: const MainAppBar(
         title: Text('Main Tab Page'),
         padEnd: false,
         actions: [ThemeIconButton()],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: REdgeInsets.symmetric(vertical: 16),
+        child: const Column(
           children: [
-            Text('Main Tab Page'),
+            SlidersAnimatingWidget(),
           ],
-        ),
+        ).withSpacing(spacing: 16.h),
       ),
     );
   }

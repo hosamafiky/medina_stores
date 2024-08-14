@@ -28,9 +28,14 @@ abstract class ColorPalette {
 
   Color get divider;
   Color get border;
+  Color get shimmerBaseColor;
+  Color get shimmerHighlightColor;
 
   Color get cardBackground;
   Color get cardShadow;
+
+  Color get currentSliderDotColor;
+  Color get otherSliderDotColor;
 
   Color get buttonBackground;
   Color get buttonDisabled;

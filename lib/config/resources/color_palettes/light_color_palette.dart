@@ -41,11 +41,20 @@ class LightModeColorPalette implements ColorPalette {
   Color get divider => const Color(0xFFBDBDBD);
   @override
   Color get border => const Color(0xFFE0E0E0);
+  @override
+  Color get shimmerBaseColor => const Color(0xFFE0E0E0);
+  @override
+  Color get shimmerHighlightColor => const Color(0xFFF5F5F5);
 
   @override
   Color get cardBackground => const Color(0xFFFFFFFF);
   @override
   Color get cardShadow => const Color(0x29000000);
+
+  @override
+  Color get currentSliderDotColor => const Color(0xFF6200EE);
+  @override
+  Color get otherSliderDotColor => const Color(0xFFBDBDBD);
 
   @override
   Color get buttonBackground => primary;

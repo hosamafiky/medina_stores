@@ -4,6 +4,7 @@ import '../../features/layout/di/setup_layout_dependencies.dart';
 import '../../features/main/di/setup_main_dependencies.dart';
 import '../../features/order/di/setup_order_dependencies.dart';
 import '../../features/profile/di/setup_profile_dependencies.dart';
+import '../../features/slider/di/setup_slider_dependencies.dart';
 import '../../features/user/di/setup_user_dependencies.dart';
 import '../networking/api_service.dart';
 import '../networking/dio_service.dart';
@@ -17,6 +18,7 @@ class DependencyHelper {
 
   void registerDependencies() {
     setUpGeneralDependencies();
+    setUpSliderDependencies();
     setUpProfileDependencies();
     setUpOrderDependencies();
     setUpMainDependencies();

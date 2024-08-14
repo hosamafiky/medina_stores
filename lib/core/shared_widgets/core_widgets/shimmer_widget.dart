@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medina_stores/core/extensions/context.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../config/resources/color_palettes/color_palette.dart';
@@ -55,11 +56,14 @@ class ShimmerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final palette = context.colorPalette;
+    final isDark = context.isDark();
+
     return Opacity(
       opacity: 0.5,
       child: Shimmer.fromColors(
-        baseColor: Colors.grey[200]!,
-        highlightColor: Colors.grey[100]!,
+        baseColor: palette.shimmerBaseColor,
+        highlightColor: palette.shimmerHighlightColor,
         enabled: true,
         direction: context.locale.languageCode == 'en' ? ShimmerDirection.ltr : ShimmerDirection.rtl,
         period: const Duration(seconds: 2),
@@ -68,8 +72,8 @@ class ShimmerWidget extends StatelessWidget {
               width: _width,
               height: _height,
               decoration: BoxDecoration(
-                color: ColorPalette.whiteColor,
-                borderRadius: _boxShape == BoxShape.circle ? null : _borderRadius ?? BorderRadius.circular(6.r),
+                color: isDark ? ColorPalette.whiteColor.withOpacity(0.5) : ColorPalette.whiteColor,
+                borderRadius: _boxShape == BoxShape.circle ? null : _borderRadius ?? BorderRadius.circular(10.r),
                 shape: _boxShape,
               ),
             ),
