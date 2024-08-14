@@ -12,12 +12,16 @@ class LoginUsecase implements UseCase<ApiResponse<User>, LoginParams> {
 }
 
 class LoginParams {
-  final String email;
+  final String emailOrPhone;
   final String password;
 
-  const LoginParams({required this.email, required this.password});
+  const LoginParams({required this.emailOrPhone, required this.password});
 
   Map<String, dynamic> toMap() {
-    return {"email": email, "password": password};
+    return {
+      "email": emailOrPhone,
+      'dialing_code': ValidationHelper.isPhone(emailOrPhone) ? '+965' : null,
+      "password": password,
+    };
   }
 }

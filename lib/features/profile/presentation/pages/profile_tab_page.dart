@@ -20,7 +20,7 @@ class ProfileTabBody extends StatelessWidget {
     return ProfilePageListener(
       child: Scaffold(
         appBar: MainAppBar(
-          title: const Text('Profile Tab Page'),
+          title: Text(LocaleKeys.profile.tr(context: context)),
           leading: IconButton(
             onPressed: () {
               context.read<UserCubit>().logout();

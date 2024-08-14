@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:medina_stores/core/extensions/map_string.dart';
 import 'package:medina_stores/core/extensions/spaced_column.dart';
 import 'package:medina_stores/features/language/presentation/presentation_imports.dart';
 
+import '../../../config/resources/locale_keys.g.dart';
 import '../../../core/error/failures.dart';
 import '../../../core/helpers/cache_helper.dart';
 import '../../../core/helpers/dependency_helper.dart';

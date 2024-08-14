@@ -2,6 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:medina_stores/config/resources/locale_keys.g.dart';
 
 class ValidationHelper {
+  static bool isEmail(String input) {
+    const emailPattern = r'^[^@]+@[^@]+\.[^@]+';
+    return RegExp(emailPattern).hasMatch(input);
+  }
+
+  static bool isPhone(String input) {
+    const phonePattern = r'^[5|0|3|6|4|9|1|8|7]\d{7}$';
+    return RegExp(phonePattern).hasMatch(input);
+  }
+
   // General required field validator used internally
   static String? _validateRequiredField(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
@@ -54,6 +64,29 @@ class ValidationHelper {
       final regex = RegExp(emailPattern);
       if (!regex.hasMatch(value)) {
         return LocaleKeys.email_validation.tr();
+      }
+    }
+    return null;
+  }
+
+  static String? validateEmailOrPhone(String? value, {bool isRequired = true}) {
+    if (isRequired) {
+      final requiredError = _validateRequiredField(value, LocaleKeys.email_or_phone.tr());
+
+      if (requiredError != null) {
+        return requiredError;
+      }
+    }
+
+    if (value != null && value.isNotEmpty) {
+      const emailPattern = r'^[^@]+@[^@]+\.[^@]+';
+      final regex = RegExp(emailPattern);
+      if (!regex.hasMatch(value)) {
+        const phonePattern = r'^[5|0|3|6|4|9|1|8|7]\d{7}$';
+        final regex = RegExp(phonePattern);
+        if (!regex.hasMatch(value)) {
+          return LocaleKeys.email_validation.tr();
+        }
       }
     }
     return null;

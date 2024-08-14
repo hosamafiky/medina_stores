@@ -7,12 +7,17 @@ class SliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<SliderCubit>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: ImageWidget(
-        imageUrl: slider.imageUrl,
-        borderRadius: BorderRadius.circular(10.r),
-        height: 150.h,
+      child: GestureDetector(
+        onLongPressDown: (_) => cubit.pauseTimer(),
+        onLongPressUp: () => cubit.restartTimer(),
+        child: ImageWidget(
+          imageUrl: slider.imageUrl,
+          borderRadius: BorderRadius.circular(10.r),
+          height: 150.h,
+        ),
       ),
     );
   }

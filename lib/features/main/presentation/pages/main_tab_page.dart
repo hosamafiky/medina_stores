@@ -25,10 +25,10 @@ class MainTabPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(
-        title: Text('Main Tab Page'),
+      appBar: MainAppBar(
+        title: Text(LocaleKeys.home.tr()),
         padEnd: false,
-        actions: [ThemeIconButton()],
+        actions: const [ThemeIconButton()],
       ),
       body: Padding(
         padding: REdgeInsets.symmetric(vertical: 16),

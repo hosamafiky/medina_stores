@@ -5,12 +5,12 @@ class LoginForm extends StatelessWidget {
     super.key,
     this.failure,
     required this.formKey,
-    required this.emailController,
+    required this.emailOrPhoneController,
     required this.passwordController,
   });
 
   final GlobalKey<FormState> formKey;
-  final TextEditingController emailController;
+  final TextEditingController emailOrPhoneController;
   final TextEditingController passwordController;
 
   final Failure? failure;
@@ -22,13 +22,12 @@ class LoginForm extends StatelessWidget {
       child: Column(
         children: [
           AppTextField.withLabel(
-            controller: emailController,
-            keyboardType: TextInputType.emailAddress,
-            label: LocaleKeys.email.tr(),
+            controller: emailOrPhoneController,
+            label: LocaleKeys.email_or_phone.tr(),
             isMandatory: true,
-            hintText: LocaleKeys.email_hint.tr(),
-            validator: (val) => ValidationHelper.validateEmail(val),
-            errorText: failure.errorMessage('email'),
+            hintText: LocaleKeys.email_or_phone_hint.tr(),
+            validator: (val) => ValidationHelper.validateEmailOrPhone(val),
+            errorText: failure.errorMessage('email', 'phone'),
           ),
           AppTextField.withLabel(
             controller: passwordController,

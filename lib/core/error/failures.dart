@@ -52,11 +52,17 @@ class UnknownFailure extends Failure {
 }
 
 extension FailureExt on Failure? {
-  String? errorMessage(String key) {
+  String? errorMessage(String key, [String? fallbackKey]) {
     if (this == null || this!.response.errors.isEmpty) return null;
     final index = this!.response.errors.map((e) => e.key).toList().indexOf(key);
     if (index != -1) {
       return this!.response.errors[index].value.join(', ');
+    }
+    if (fallbackKey != null) {
+      final index = this!.response.errors.map((e) => e.key).toList().indexOf(fallbackKey);
+      if (index != -1) {
+        return this!.response.errors[index].value.join(', ');
+      }
     }
     return null;
   }

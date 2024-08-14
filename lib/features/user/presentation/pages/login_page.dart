@@ -9,12 +9,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _emailOrPhoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _emailOrPhoneController.dispose();
     _passwordController.dispose();
     _formKey.currentState?.dispose();
     super.dispose();
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   LoginForm(
                     formKey: _formKey,
-                    emailController: _emailController,
+                    emailOrPhoneController: _emailOrPhoneController,
                     passwordController: _passwordController,
                     failure: state.failure,
                   ),
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         if (!_formKey.currentState!.validate()) return;
                         if (state.status == UsecaseStatus.running) return;
-                        final params = LoginParams(email: _emailController.text, password: _passwordController.text);
+                        final params = LoginParams(emailOrPhone: _emailOrPhoneController.text, password: _passwordController.text);
                         context.read<UserCubit>().login(params);
                       },
                       child: Text(LocaleKeys.login.tr()),

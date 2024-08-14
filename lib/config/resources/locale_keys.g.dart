@@ -29,6 +29,7 @@ abstract class LocaleKeys {
   static const last_name_hint = 'last_name_hint';
   static const email = 'email';
   static const email_or_phone = 'email_or_phone';
+  static const email_or_phone_hint = 'email_or_phone_hint';
   static const email_hint = 'email_hint';
   static const email_validation = 'email_validation';
   static const phone = 'phone';
@@ -46,6 +47,7 @@ abstract class LocaleKeys {
   static const forgot_password = 'forgot_password';
   static const reset_password = 'reset_password';
   static const send = 'send';
+  static const verify = 'verify';
   static const resend = 'resend';
   static const change_password = 'change_password';
   static const change = 'change';

@@ -50,7 +50,7 @@ class _OtpPageState extends State<OtpPage> {
                           context.read<UserCubit>().verifyOTP(_otpController.text);
                         }
                       },
-                      child: Text(LocaleKeys.send.tr()),
+                      child: Text(LocaleKeys.verify.tr()),
                     ),
                   ],
                 ).withSpacing(spacing: 16.h),
