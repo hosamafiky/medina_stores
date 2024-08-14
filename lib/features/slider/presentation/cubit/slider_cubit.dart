@@ -23,9 +23,6 @@ class SliderCubit extends Cubit<SliderState> {
     });
   }
 
-  void pauseTimer() => timer?.cancel();
-  void restartTimer() => init();
-
   final GetSlidersUsecase getSlidersUsecase;
 
   Future<void> getSliders() async {
