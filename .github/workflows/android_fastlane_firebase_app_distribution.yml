@@ -47,5 +47,5 @@ jobs:
           FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
           ANDROID_APP_ID: ${{ secrets.ANDROID_APP_ID }}
         run: |
-          bundle exec fastlane android firebase_android_production_app_distribution
+          bundle exec fastlane android firebase_distribution
         working-directory: android
