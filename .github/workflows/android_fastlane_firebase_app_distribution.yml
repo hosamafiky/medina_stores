@@ -37,7 +37,7 @@ jobs:
 
       - name: UPDATE PROJECT VERSION
         run: |
-          pub global activate pub_version_plus
+          flutter pub global activate pub_version_plus
           dart run pub_version_plus:main patch
           dart run pub_version_plus:main build
 
