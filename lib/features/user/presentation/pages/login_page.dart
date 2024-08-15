@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return LoginPageListener(
+      emailOrPhoneController: _emailOrPhoneController,
       child: BlocSelector<UserCubit, UserState, ({UsecaseStatus status, Failure? failure})>(
         selector: (state) => (status: state.loginStatus, failure: state.loginFailure),
         builder: (context, state) {

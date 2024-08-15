@@ -1,9 +1,14 @@
 part of '../presentation_imports.dart';
 
 class LoginPageListener extends StatelessWidget {
-  const LoginPageListener({super.key, required this.child});
+  const LoginPageListener({
+    super.key,
+    required this.child,
+    required this.emailOrPhoneController,
+  });
 
   final Widget child;
+  final TextEditingController emailOrPhoneController;
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +17,10 @@ class LoginPageListener extends StatelessWidget {
         final route = ModalRoute.of(context);
         final isCurrentRoute = route?.isCurrent ?? false;
         if (!isCurrentRoute) return;
+
+        if (state.sendOTPStatus == UsecaseStatus.completed) {
+          AppNavigator.to(const OtpPage());
+        }
 
         if (state.loginStatus == UsecaseStatus.running) {
           LoadingManager.show(dismissOnTap: true);
@@ -28,6 +37,11 @@ class LoginPageListener extends StatelessWidget {
 
         if (state.loginStatus == UsecaseStatus.error && state.loginFailure != null) {
           LoadingManager.hide();
+          if (state.loginFailure!.response.statusCode == 401) {
+            if (!context.mounted) return;
+            context.read<UserCubit>().sendOTP(SendOTPParams(phone: emailOrPhoneController.text));
+            MessageHelper.showErrorSnackBar(state.loginFailure!.response.message);
+          }
           if (state.loginFailure!.response.errors.isEmpty) MessageHelper.showErrorSnackBar(state.loginFailure!.response.message);
         }
       },
