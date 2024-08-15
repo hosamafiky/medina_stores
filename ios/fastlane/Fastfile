@@ -1,0 +1,41 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Lane to build and distribute the iOS app"
+  lane :firebase_distribution do
+    sh "pod deintegrate; rm -r Podfile.lock; pod install --repo-update"
+    build_ios_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          "com.example.medinaStores" => "Hussam's iPhone"
+        }
+      },
+    )
+    firebase_app_distribution(
+      app: "1:978985818662:ios:e218668a440f88861ae4e7",
+      firebase_cli_token: "1//03aHl0HtGhOVDCgYIARAAGAMSNwF-L9IrmYFtSkNVxSInCwB9_qdMW7xS28ceA9lc9EsoQu3Wzhn1TWJqZ8wno5lIm2MdudtGYvQ",
+      ipa_path: "build/ios/iphoneos/Runner.ipa",
+      ipa_artifact_type: "IPA",
+      testers: "hosamafiky@gmail.com, heshamheder674@gmail.com, ", # Add your testers' emails here
+      release_notes: "Hello from fastlane!"
+    )
+  end
+end

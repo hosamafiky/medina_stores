@@ -22,9 +22,13 @@ class MessageHelper {
     );
   }
 
-  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSuccessSnackBar(String message) {
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSuccessSnackBar(
+    String message, {
+    Duration duration = const Duration(seconds: 2),
+  }) {
     return _showSnackBar(
       message,
+      duration: duration,
       backgroundColor: AppNavigator.rootContext!.read<ThemeCubit>().state.colorPalette.success,
     );
   }

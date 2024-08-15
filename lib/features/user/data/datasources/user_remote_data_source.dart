@@ -42,9 +42,15 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<ApiResponse<Null>> sendOTP(SendOTPParams params) async {
     final request = ApiRequest(method: RequestMethod.post, path: ApiConstants.endPoints.sendOTP, body: params.toMap());
     return await DependencyHelper.instance.get<ApiService>().callApi<Null>(
-          request,
-          mapper: (json) => ApiResponse.fromMapSuccess(json),
+      request,
+      mapper: (json) {
+        MessageHelper.showSuccessSnackBar(
+          "OTP sent successfully : ${json['data']['token']}",
+          duration: const Duration(seconds: 10),
         );
+        return ApiResponse.fromMapSuccess(json);
+      },
+    );
   }
 
   @override
