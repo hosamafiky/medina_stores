@@ -27,10 +27,10 @@ jobs:
 
       - name: Install Ruby
         uses: actions/setup-ruby@v1
-        with:
-          ruby-version: "2.6.5"
-          # bundler-cache: true
-          # working-directory: android
+        # with:
+        # ruby-version: "2.6.5"
+        # bundler-cache: true
+        # working-directory: android
 
       - name: Build and Distribute Android App
         env:
