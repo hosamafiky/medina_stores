@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'medina-stores.appspot.com',
     iosBundleId: 'com.example.medinaStores',
   );
+
 }

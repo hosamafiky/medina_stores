@@ -1,0 +1,33 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Lane to build and distribute the android app"
+  lane :firebase_distribution do
+    sh "flutter clean"
+    sh "flutter build apk --release --no-tree-shake-icons"
+    firebase_app_distribution(
+      app: "1:978985818662:android:e46fb416ea2d39c21ae4e7",
+      firebase_cli_token: "1//03aHl0HtGhOVDCgYIARAAGAMSNwF-L9IrmYFtSkNVxSInCwB9_qdMW7xS28ceA9lc9EsoQu3Wzhn1TWJqZ8wno5lIm2MdudtGYvQ",
+      android_artifact_type: "APK",
+      android_artifact_path: "../build/app/outputs/apk/release/app-release.apk",
+      testers: "hosamafiky@gmail.com, heshamheder674@gmail.com, ",
+      release_notes: "This is a beta release of the app",
+    )
+  end
+end
+
