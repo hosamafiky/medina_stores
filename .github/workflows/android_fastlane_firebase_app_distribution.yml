@@ -22,6 +22,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: "3.22.3"
           channel: stable
 
       - name: Install Ruby
@@ -34,5 +35,5 @@ jobs:
         run: |
           flutter clean
           flutter pub get
-          flutter build apk --release
+          flutter build apk --release --no-tree-shake-icons
           fastlane android firebase_distribution
