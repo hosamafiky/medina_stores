@@ -1,39 +1,49 @@
-name: Android Fastlane Firebase App Distribution
+name: FIREBASE_APP_DISTRIBUTION
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  distribute_to_firebase:
+    runs-on: macos-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v2
+      - name: SETUP NODE
+        uses: actions/setup-node@v2
         with:
-          distribution: "temurin"
-          java-version: "17"
+          node-version: "20"
 
-      - name: Install Flutter
+      - name: CHECKOUT MY REPO CODE
+        uses: actions/checkout@v3
+
+      - name: SETUP JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17.0.9"
+          distribution: "temurin"
+
+      - name: SETUP FLUTTER
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.22.3"
           channel: stable
 
-      - name: Install Ruby
-        uses: actions/setup-ruby@v1
+      - name: SETUP RUBY
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2.2"
+          bundler-cache: true
+          working-directory: android
 
-      - name: Build and Distribute Android App
+      - name: UPDATE PROJECT VERSION
+        run: |
+          dart run pub_version_plus:main patch
+          dart run pub_version_plus:main build
+
+      - name: BUILD AND DISTRIBUTE ANDROID APP
         env:
           FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
           ANDROID_APP_ID: ${{ secrets.ANDROID_APP_ID }}
         run: |
-          flutter clean
-          flutter pub get
-          flutter build apk --release --no-tree-shake-icons
-          fastlane android firebase_distribution
+          bundle exec fastlane android firebase_android_production_app_distribution
+        working-directory: android
