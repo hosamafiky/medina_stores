@@ -33,5 +33,6 @@ jobs:
           ANDROID_APP_ID: ${{ secrets.ANDROID_APP_ID }}
         run: |
           flutter clean
+          flutter pub get
           flutter build apk --release
           fastlane android firebase_distribution
