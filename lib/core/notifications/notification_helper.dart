@@ -25,7 +25,7 @@ class NotificationHelper {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static const AndroidNotificationChannel _androidNotificationChannel = AndroidNotificationChannel(
-    'com.example.medina_stores',
+    'com.medina.app.stores',
     'High Importance Notifications',
     importance: Importance.high,
   );
