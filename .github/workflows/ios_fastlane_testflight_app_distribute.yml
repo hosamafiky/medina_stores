@@ -27,5 +27,5 @@ jobs:
           GIT_URL: ${{ secrets.GIT_URL }}
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
         run: |
-          bundle exec fastlane beta
+          bundle exec fastlane beta --verbose
         working-directory: ios
