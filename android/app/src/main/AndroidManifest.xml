@@ -38,7 +38,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id"
-                   android:value="com.example.medina_stores" />
+                   android:value="com.medina.app.stores" />
         <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
                    android:resource="@drawable/ic_stat_name" />
         <meta-data android:name="com.google.android.geo.API_KEY"

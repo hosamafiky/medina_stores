@@ -1,0 +1,31 @@
+name: TESTFLIGHT_APP_DISTRIBUTION
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  distribute_to_testfight:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SETUP RUBY
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2.2"
+          bundler-cache: true
+          working-directory: ios
+
+      - name: Install Fastlane
+        run: gem install fastlane -N
+
+      - name: Build and distribute to TestFlight
+        env:
+          GIT_URL: ${{ secrets.GIT_URL }}
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        run: |
+          bundle exec fastlane beta
+        working-directory: ios

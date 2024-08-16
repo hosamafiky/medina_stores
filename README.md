@@ -12,8 +12,8 @@ Replace this with your Firebase account information.
 
 ## Bundle ID
 
-android : com.example.medina_stores
-ios: com.example.medinaStores
+android : com.medina.app.stores
+ios: com.medina.app.stores
 
 ## Team
 

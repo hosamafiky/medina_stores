@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:978985818662:android:e46fb416ea2d39c21ae4e7",
+        "mobilesdk_app_id": "1:978985818662:android:449f454e10a1d4401ae4e7",
         "android_client_info": {
-          "package_name": "com.example.medina_stores"
+          "package_name": "com.medina.app.stores"
         }
       },
       "oauth_client": [],
