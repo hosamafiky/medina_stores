@@ -10,11 +10,11 @@ import '../../config/resources/languages.dart';
 import '../../config/resources/locale_keys.g.dart';
 import '../../features/user/presentation/presentation_imports.dart';
 import '../error/exceptions.dart';
+import '../standards/response_model.dart';
 import 'api_constants.dart';
 import 'api_request.dart';
 import 'api_service.dart';
 import 'log_interceptor.dart';
-import 'response_model.dart';
 
 class DioService implements ApiService {
   late final Dio _dio;
@@ -84,9 +84,10 @@ class DioService implements ApiService {
       }
     } on DioException catch (e) {
       return _handleError(e);
-    } catch (e) {
-      throw UnknownException("${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}");
     }
+    // catch (e) {
+    //   throw UnknownException("${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}");
+    // }
   }
 
   dynamic _handleError(DioException error) {

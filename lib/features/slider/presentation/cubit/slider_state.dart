@@ -4,20 +4,20 @@ class SliderState extends Equatable {
   const SliderState({
     this.slidersStatus = UsecaseStatus.idle,
     this.slidersFailure,
-    this.sliders = const [],
+    required this.sliders,
     this.sliderIndex = 0,
   });
 
   final UsecaseStatus slidersStatus;
   final Failure? slidersFailure;
-  final List<Slider> sliders;
+  final ApiResponse<PaginatedList<Slider>> sliders;
 
   final int sliderIndex;
 
   SliderState copyWith({
     UsecaseStatus? slidersStatus,
     Failure? slidersFailure,
-    List<Slider>? sliders,
+    ApiResponse<PaginatedList<Slider>>? sliders,
     int? sliderIndex,
   }) {
     return SliderState(

@@ -3,7 +3,7 @@ part of '../presentation_imports.dart';
 class SliderCubit extends Cubit<SliderState> {
   SliderCubit({
     required this.getSlidersUsecase,
-  }) : super(const SliderState()) {
+  }) : super(const SliderState(sliders: ApiResponse<PaginatedList<Slider>>.success(data: PaginatedList<Slider>(data: [])))) {
     WidgetsBinding.instance.addPostFrameCallback((_) => init());
   }
 
@@ -11,13 +11,13 @@ class SliderCubit extends Cubit<SliderState> {
 
   final PageController pageController = PageController(viewportFraction: 0.9);
   void onPageChanged(int index) {
-    int newIndex = index % state.sliders.length;
+    int newIndex = index % (state.sliders.data?.data.length ?? 1);
     emit(state.copyWith(sliderIndex: newIndex));
   }
 
   void init() {
     timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      if (state.sliders.isEmpty) return;
+      if (state.sliders.data?.data.isEmpty ?? false) return;
       if (!pageController.hasClients) return;
       pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
     });
@@ -32,8 +32,8 @@ class SliderCubit extends Cubit<SliderState> {
       (failure) {
         emit(state.copyWith(slidersStatus: UsecaseStatus.error, slidersFailure: failure));
       },
-      (sliders) {
-        emit(state.copyWith(slidersStatus: UsecaseStatus.completed, sliders: sliders.data));
+      (paginatedSliders) {
+        emit(state.copyWith(slidersStatus: UsecaseStatus.completed, sliders: paginatedSliders));
         init();
       },
     );

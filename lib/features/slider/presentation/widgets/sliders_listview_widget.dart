@@ -5,8 +5,8 @@ class SlidersAnimatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SliderCubit, SliderState, ({UsecaseStatus status, List<Slider> sliders, Failure? failure})>(
-      selector: (state) => (status: state.slidersStatus, sliders: state.sliders, failure: state.slidersFailure),
+    return BlocSelector<SliderCubit, SliderState, ({UsecaseStatus status, PaginatedList<Slider>? sliders, Failure? failure})>(
+      selector: (state) => (status: state.slidersStatus, sliders: state.sliders.data, failure: state.slidersFailure),
       builder: (context, state) {
         return state.status.when(
           context,

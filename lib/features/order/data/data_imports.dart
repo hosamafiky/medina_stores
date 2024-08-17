@@ -7,7 +7,7 @@ import '../../../../core/networking/api_request.dart';
 import '../../../../core/networking/api_service.dart';
 import '../../../core/error/failures.dart';
 import '../../../core/extensions/error_handler_extension.dart';
-import '../../../core/networking/response_model.dart';
+import '../../../core/standards/response_model.dart';
 import '../domain/domain_imports.dart';
 
 part '../data/datasources/order_remote_data_source.dart';

@@ -6,7 +6,7 @@ class SliderRepositoryImpl implements SliderRepository {
   const SliderRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, ApiResponse<List<Slider>>>> getSliders() async {
+  Future<Either<Failure, ApiResponse<PaginatedList<Slider>>>> getSliders() async {
     return await remoteDataSource.getSliders.handleCallbackWithFailure;
   }
 }

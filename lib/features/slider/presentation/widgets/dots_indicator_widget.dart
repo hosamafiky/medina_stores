@@ -17,14 +17,14 @@ class SliderDotsIndicator extends StatelessWidget {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final maxWidth = constraints.maxWidth;
-              final width = maxWidth / state.sliders.length;
+              final width = maxWidth / state.sliders.data!.data.length;
               final spacing = 0.01.sw;
               final dotWidth = width - spacing;
 
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  state.sliders.length,
+                  state.sliders.data!.data.length,
                   (index) {
                     return AnimatedContainer(
                       duration: const Duration(milliseconds: 200),

@@ -12,6 +12,7 @@ class SlidersWidget extends StatelessWidget {
     return BlocBuilder<SliderCubit, SliderState>(
       builder: (context, state) {
         final sliderCubit = context.read<SliderCubit>();
+
         return Column(
           children: [
             SizedBox(
@@ -23,8 +24,7 @@ class SlidersWidget extends StatelessWidget {
                 onPageChanged: sliderCubit.onPageChanged,
                 itemBuilder: (context, index) {
                   if (_isSkeleton) return const SliderShimmerWidget();
-                  final slider = state.sliders[index % state.sliders.length];
-
+                  final slider = state.sliders.data!.data[index % state.sliders.data!.data.length];
                   return SliderWidget(slider);
                 },
               ),

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../error/exceptions.dart';
 import '../error/failures.dart';
-import '../networking/response_model.dart';
+import '../standards/response_model.dart';
 
 extension ErrorHandler<T extends Object?> on Future<ApiResponse<T>> {
   Future<Either<Failure, ApiResponse<T>>> get handleCallbackWithFailure async {
