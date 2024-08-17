@@ -22,15 +22,15 @@
 
 - Flutter:
 
-  1. [Hussam Abed](https://github.com/hosamafiky)
+  1. [HUSSAM ABED](https://github.com/hosamafiky)
 
 - Backend:
 
-  1. [Mustafa Anwar](Github link)
+  1. [MUSTAFA ANWAR](https://github.com/mustafaAnwar2020)
 
 - UI/UX:
 
-  1. [DESIGNER NAME](Github link)
+  1. [DESIGNER NAME](DESIGNER PROFILE LINK)
 
 ## Design
 
@@ -38,7 +38,7 @@ Replace this with the link to the design resources.
 
 ## Postman Collection or Swagger Documentation
 
-Replace this with the link to the Postman collection.
+Replace this with the link to the Postman Collection or Swagger Documentation.
 
 ## Additional Information
 
