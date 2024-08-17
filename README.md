@@ -15,10 +15,10 @@
 
 ## Bundle ID
 
-android : com.medina.app.stores
-ios: com.medina.app.stores
+- android : `com.medina.app.stores`
+- ios: `com.medina.app.stores`
 
-## Team
+## Team Members
 
 - Flutter:
 
