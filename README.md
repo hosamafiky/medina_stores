@@ -4,11 +4,14 @@
 
 ## App Name
 
-Replace this with your app name.
+- App Name: `Medina Stores`
 
 ## Firebase Account
 
-Replace this with your Firebase account information.
+- Firebase Account Email: `hosamafiky@gmail.com`
+- Firebase Project URL: [Firebase Console](https://console.firebase.google.com/u/0/project/medina-stores/overview)
+- Firebase Project Name: `medina-stores`
+- Firebase Project ID: `medina-stores`
 
 ## Bundle ID
 
@@ -19,11 +22,11 @@ ios: com.medina.app.stores
 
 - Flutter:
 
-  1. [Hussam Abed](Github link)
+  1. [Hussam Abed](https://github.com/hosamafiky)
 
 - Backend:
 
-  1. [DEVELOPER NAME](Github link)
+  1. [Mustafa Anwar](Github link)
 
 - UI/UX:
 
@@ -39,4 +42,8 @@ Replace this with the link to the Postman collection.
 
 ## Additional Information
 
-Add any other relevant information about the project here.
+- Future plans for the project.
+  - Integrate IOS CI/CD for uploading the app to firebase app distribution.
+  - Integrate IOS CI/CD for uploading the app to TestFlight.
+  - Integrate IOS CI/CD for uploading the app to App Store.
+  - Integrate Android CI/CD for uploading the app to Google Play Store.
