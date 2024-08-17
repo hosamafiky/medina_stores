@@ -32,6 +32,10 @@
 
   1. [DESIGNER NAME](DESIGNER PROFILE LINK)
 
+- QA:
+
+  1. [QA NAME](QA PROFILE LINK)
+
 ## Design
 
 Replace this with the link to the design resources.
