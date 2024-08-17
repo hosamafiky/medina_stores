@@ -11,6 +11,7 @@ import 'package:medina_stores/core/shared_widgets/core_widgets/image_widget.dart
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
 
 import '../../../core/error/failures.dart';
+import '../../../core/shared_widgets/core_widgets/video_widget.dart';
 import '../../../core/standards/usecase_status.dart';
 import '../domain/domain_imports.dart';
 

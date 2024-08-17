@@ -16,7 +16,7 @@ class SliderCubit extends Cubit<SliderState> {
   }
 
   void init() {
-    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       if (state.sliders.isEmpty) return;
       if (!pageController.hasClients) return;
       pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
