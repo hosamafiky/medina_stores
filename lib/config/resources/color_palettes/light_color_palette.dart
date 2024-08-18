@@ -52,9 +52,9 @@ class LightModeColorPalette implements ColorPalette {
   Color get cardShadow => const Color(0x29000000);
 
   @override
-  Color get currentSliderDotColor => const Color(0xFF6200EE);
+  Color get currentAdDotColor => const Color(0xFF6200EE);
   @override
-  Color get otherSliderDotColor => const Color(0xFFBDBDBD);
+  Color get otherAdDotColor => const Color(0xFFBDBDBD);
 
   @override
   Color get buttonBackground => primary;

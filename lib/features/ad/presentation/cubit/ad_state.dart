@@ -4,6 +4,7 @@ class AdState extends Equatable {
   const AdState({
     this.adsStatus = UsecaseStatus.idle,
     this.adsFailure,
+    this.adIndex = 0,
     this.ads = const ApiResponse.success(data: PaginatedList(data: [])),
   });
 
@@ -11,21 +12,25 @@ class AdState extends Equatable {
   final Failure? adsFailure;
   final ApiResponse<PaginatedList<Ad>> ads;
 
+  final int adIndex;
+
   AdState copyWith({
     UsecaseStatus? adsStatus,
     Failure? adsFailure,
     ApiResponse<PaginatedList<Ad>>? ads,
+    int? adIndex,
   }) {
     return AdState(
       adsStatus: adsStatus ?? this.adsStatus,
       adsFailure: adsFailure ?? this.adsFailure,
       ads: ads ?? this.ads,
+      adIndex: adIndex ?? this.adIndex,
     );
   }
 
   @override
   String toString() {
-    return 'AdState(adsStatus: $adsStatus, adsFailure: $adsFailure, ads: $ads)';
+    return 'AdState(adsStatus: $adsStatus, adsFailure: $adsFailure, ads: $ads, adIndex: $adIndex)';
   }
 
   @override
@@ -33,5 +38,6 @@ class AdState extends Equatable {
         adsStatus,
         adsFailure,
         ads,
+        adIndex,
       ];
 }

@@ -52,9 +52,9 @@ class DarkModeColorPalette implements ColorPalette {
   Color get cardShadow => const Color(0x29000000); // Black with 16% opacity
 
   @override
-  Color get currentSliderDotColor => const Color(0xFFBB86FC);
+  Color get currentAdDotColor => const Color(0xFFBB86FC);
   @override
-  Color get otherSliderDotColor => const Color(0xFF616161);
+  Color get otherAdDotColor => const Color(0xFF616161);
 
   @override
   Color get buttonBackground => primary;

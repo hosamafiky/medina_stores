@@ -5,6 +5,26 @@ class AdCubit extends Cubit<AdState> {
     required this.getAdsUsecase,
   }) : super(const AdState());
 
+  Timer? timer;
+  final pageController = PageController(initialPage: 2, viewportFraction: 0.8);
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+      if (state.ads.data!.data.isEmpty) return;
+      if (!pageController.hasClients) return;
+      pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+    });
+  }
+
+  void onPageChanged(int index) => emit(state.copyWith(adIndex: index));
+
+  void stopTimer() => timer?.cancel();
+  void disposeController() => pageController.dispose();
+
+  void initSlider() {
+    startTimer();
+  }
+
   final GetAdsUsecase getAdsUsecase;
 
   Future<void> getAds() async {
@@ -28,6 +48,7 @@ class AdCubit extends Cubit<AdState> {
             ),
           ));
         } else {
+          initSlider();
           final newAds = List<Ad>.from(ads.data!.data);
           emit(state.copyWith(
             adsStatus: UsecaseStatus.completed,
