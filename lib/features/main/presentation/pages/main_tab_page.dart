@@ -10,6 +10,9 @@ class MainTab extends StatelessWidget {
         BlocProvider(
           create: (context) => DependencyHelper.instance.get<MainCubit>(),
         ),
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<AdCubit>()..getAds(),
+        ),
       ],
       child: const MainTabPageBody(),
     );
@@ -30,7 +33,9 @@ class MainTabPageBody extends StatelessWidget {
       body: Padding(
         padding: REdgeInsets.symmetric(vertical: 16),
         child: const Column(
-          children: [],
+          children: [
+            AdsScrollingWidget(),
+          ],
         ).withSpacing(spacing: 16.h),
       ),
     );

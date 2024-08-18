@@ -34,8 +34,8 @@ abstract class ColorPalette {
   Color get cardBackground;
   Color get cardShadow;
 
-  Color get currentSliderDotColor;
-  Color get otherSliderDotColor;
+  Color get currentAdDotColor;
+  Color get otherAdDotColor;
 
   Color get buttonBackground;
   Color get buttonDisabled;
