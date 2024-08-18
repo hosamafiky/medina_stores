@@ -8,6 +8,8 @@ class ApiConstants {
 }
 
 class ApiEndPoints {
+  // Home
+  final String ADS = '/home/sliders';
   // Auth
   final String login = '/login';
   final String register = '/register';

@@ -1,24 +1,48 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 class PaginatedList<T extends Object> {
   final List<T> data;
   final int currentPage;
   final int lastPage;
   final int itemsCount;
 
+  final bool hasReachedEnd;
+
   const PaginatedList({
     this.data = const [],
-    this.currentPage = 1,
+    this.currentPage = 0,
     this.lastPage = 1,
     this.itemsCount = 1,
+    this.hasReachedEnd = false,
   });
 
-  factory PaginatedList.fromMap(Map<String, dynamic> map, {T Function(Map<String, dynamic>)? mapper}) {
+  factory PaginatedList.fromMap(
+    Map<String, dynamic> map, {
+    T Function(Map<String, dynamic>)? mapper,
+  }) {
     return PaginatedList<T>(
       data: mapper == null ? map['data'] : List<T>.from(map['data']['data'].map((x) => mapper(x))),
       itemsCount: map['data']['items_count'] ?? 1,
       currentPage: map['data']['current_page'] ?? 1,
       lastPage: map['data']['last_page'] ?? 1,
+    );
+  }
+
+  PaginatedList<T> copyWith({
+    List<T>? data,
+    int? currentPage,
+    int? lastPage,
+    int? itemsCount,
+    bool? hasReachedEnd,
+  }) {
+    return PaginatedList<T>(
+      data: data ?? this.data,
+      currentPage: currentPage ?? this.currentPage,
+      lastPage: lastPage ?? this.lastPage,
+      itemsCount: itemsCount ?? this.itemsCount,
+      hasReachedEnd: hasReachedEnd ?? this.hasReachedEnd,
     );
   }
 
@@ -37,4 +61,27 @@ class PaginatedList<T extends Object> {
   String toString() {
     return 'PaginatedList(data: $data, currentPage: $currentPage, lastPage: $lastPage, itemsCount: $itemsCount)';
   }
+}
+
+class GetPaginatedListParams extends Equatable {
+  final int page;
+  final int perPage;
+
+  const GetPaginatedListParams({
+    this.page = 1,
+    this.perPage = 10,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'page': page,
+      'per_page': perPage,
+    };
+  }
+
+  @override
+  String toString() => 'GetPaginatedListParams(page: $page, perPage: $perPage)';
+
+  @override
+  List<Object?> get props => [page, perPage];
 }

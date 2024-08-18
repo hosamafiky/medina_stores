@@ -10,9 +10,6 @@ class MainTab extends StatelessWidget {
         BlocProvider(
           create: (context) => DependencyHelper.instance.get<MainCubit>(),
         ),
-        BlocProvider(
-          create: (context) => DependencyHelper.instance.get<SliderCubit>()..getSliders(),
-        ),
       ],
       child: const MainTabPageBody(),
     );
@@ -33,9 +30,7 @@ class MainTabPageBody extends StatelessWidget {
       body: Padding(
         padding: REdgeInsets.symmetric(vertical: 16),
         child: const Column(
-          children: [
-            SlidersAnimatingWidget(),
-          ],
+          children: [],
         ).withSpacing(spacing: 16.h),
       ),
     );

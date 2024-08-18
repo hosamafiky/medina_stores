@@ -1,25 +1,25 @@
 part of '../domain_imports.dart';
 
-enum SliderMediaType {
+enum MediaType {
   image,
   video;
 
-  static SliderMediaType fromString(String type) {
-    return SliderMediaType.values.firstWhere((e) => e.name == type, orElse: () => SliderMediaType.image);
+  static MediaType fromString(String value) {
+    return MediaType.values.firstWhere((e) => e.name == value, orElse: () => MediaType.image);
   }
 }
 
-class Slider extends Equatable {
+class Ad extends Equatable {
   final int id;
   final String title;
   final String description;
   final String url;
-  final SliderMediaType type;
+  final MediaType type;
   final int order;
   final String media;
   final DateTime createdAt;
 
-  const Slider({
+  const Ad({
     required this.id,
     required this.title,
     required this.description,
@@ -30,17 +30,17 @@ class Slider extends Equatable {
     required this.createdAt,
   });
 
-  Slider copyWith({
+  Ad copyWith({
     int? id,
     String? title,
     String? description,
     String? url,
-    SliderMediaType? type,
+    MediaType? type,
     int? order,
     String? media,
     DateTime? createdAt,
   }) {
-    return Slider(
+    return Ad(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
@@ -53,16 +53,5 @@ class Slider extends Equatable {
   }
 
   @override
-  List<Object> get props {
-    return [
-      id,
-      title,
-      description,
-      url,
-      type,
-      order,
-      media,
-      createdAt,
-    ];
-  }
+  List<Object?> get props => [id, title, description, url, type, order, media, createdAt];
 }
