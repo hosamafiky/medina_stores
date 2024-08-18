@@ -7,10 +7,7 @@ abstract class SliderRemoteDataSource {
 class SliderRemoteDataSourceImpl implements SliderRemoteDataSource {
   @override
   Future<ApiResponse<List<SliderModel>>> get getSliders async {
-    final request = ApiRequest(
-      method: RequestMethod.get,
-      path: "/home/sliders",
-    );
+    final request = ApiRequest(method: RequestMethod.get, path: "/home/sliders");
 
     return await DependencyHelper.instance.get<ApiService>().callApi<List<SliderModel>>(
           request,

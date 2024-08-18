@@ -9,11 +9,20 @@ class SliderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: REdgeInsets.symmetric(horizontal: 10),
-      child: ImageWidget(
-        imageUrl: slider.media,
-        borderRadius: BorderRadius.circular(10.r),
-        height: 150.h,
-      ),
+      child: _buildSliderWidget(),
     );
+  }
+
+  Widget _buildSliderWidget() {
+    switch (slider.type) {
+      case SliderMediaType.image:
+        return ImageWidget(
+          imageUrl: slider.media,
+          borderRadius: BorderRadius.circular(10.r),
+          height: 150.h,
+        );
+      case SliderMediaType.video:
+        return VideoWidget(mediaUrl: slider.media);
+    }
   }
 }
