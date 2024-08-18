@@ -67,4 +67,11 @@ class AdCubit extends Cubit<AdState> {
       },
     );
   }
+
+  @override
+  Future<void> close() {
+    stopTimer();
+    disposeController();
+    return super.close();
+  }
 }
