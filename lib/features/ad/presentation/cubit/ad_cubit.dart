@@ -6,7 +6,7 @@ class AdCubit extends Cubit<AdState> {
   }) : super(const AdState());
 
   Timer? timer;
-  final pageController = PageController(initialPage: 2, viewportFraction: 0.8);
+  final pageController = PageController(viewportFraction: 0.8);
 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 30), (timer) {
@@ -16,7 +16,10 @@ class AdCubit extends Cubit<AdState> {
     });
   }
 
-  void onPageChanged(int index) => emit(state.copyWith(adIndex: index));
+  void onPageChanged(int index) {
+    final newIndex = index % state.ads.data!.data.length;
+    emit(state.copyWith(adIndex: newIndex));
+  }
 
   void stopTimer() => timer?.cancel();
   void disposeController() => pageController.dispose();
