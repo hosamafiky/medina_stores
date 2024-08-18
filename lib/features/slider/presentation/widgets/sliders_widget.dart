@@ -24,12 +24,11 @@ class SlidersWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   if (_isSkeleton) return const SliderShimmerWidget();
                   final slider = state.sliders[index % state.sliders.length];
-
                   return SliderWidget(slider);
                 },
               ),
             ),
-            const SliderDotsIndicator(),
+            if (!_isSkeleton) const SliderDotsIndicator(),
           ],
         ).withSpacing(spacing: 10.h);
       },

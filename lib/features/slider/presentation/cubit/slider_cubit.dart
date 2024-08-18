@@ -3,24 +3,26 @@ part of '../presentation_imports.dart';
 class SliderCubit extends Cubit<SliderState> {
   SliderCubit({
     required this.getSlidersUsecase,
-  }) : super(const SliderState()) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => init());
-  }
+  }) : super(const SliderState());
 
   Timer? timer;
+  final pageController = PageController(initialPage: 2, viewportFraction: 0.8);
 
-  final PageController pageController = PageController(viewportFraction: 0.9);
-  void onPageChanged(int index) {
-    int newIndex = index % state.sliders.length;
-    emit(state.copyWith(sliderIndex: newIndex));
-  }
-
-  void init() {
-    timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 30), (timer) {
       if (state.sliders.isEmpty) return;
       if (!pageController.hasClients) return;
-      pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
+      pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
     });
+  }
+
+  void onPageChanged(int index) => emit(state.copyWith(sliderIndex: index));
+
+  void stopTimer() => timer?.cancel();
+  void disposeController() => pageController.dispose();
+
+  void initSlider() {
+    startTimer();
   }
 
   final GetSlidersUsecase getSlidersUsecase;
@@ -34,15 +36,15 @@ class SliderCubit extends Cubit<SliderState> {
       },
       (sliders) {
         emit(state.copyWith(slidersStatus: UsecaseStatus.completed, sliders: sliders.data));
-        init();
+        initSlider();
       },
     );
   }
 
   @override
   Future<void> close() {
-    timer?.cancel();
-    pageController.dispose();
+    stopTimer();
+    disposeController();
     return super.close();
   }
 }

@@ -49,8 +49,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
       minTextAdapt: true,
       ensureScreenSize: true,
       builder: (context, child) {
-        final savedLocale = context.savedLocale;
-
+        final savedLocale = context.savedLocale ?? context.deviceLocale;
         return MultiBlocProvider(
           providers: [
             BlocProvider(
