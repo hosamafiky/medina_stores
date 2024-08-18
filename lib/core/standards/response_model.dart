@@ -22,13 +22,16 @@ class ApiResponse<T extends Object?> extends Equatable {
     this.errors = const [],
   }) : data = null;
 
-  factory ApiResponse.fromMapSuccess(Map<String, dynamic> map, {T Function(Map<String, dynamic>)? mapper}) {
+  factory ApiResponse.fromMapSuccess(
+    Map<String, dynamic> map, {
+    T Function(Map<String, dynamic>)? mapper,
+  }) {
     return ApiResponse<T>.success(
       message: map['message'],
       data: T == Null
           ? null
           : mapper != null
-              ? mapper(map['data'])
+              ? mapper(map)
               : map['data'],
       isSuceess: map['success'],
     );

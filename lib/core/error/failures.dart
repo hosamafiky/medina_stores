@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../networking/response_model.dart';
+import '../standards/response_model.dart';
 
 class Failure extends Equatable {
   final ApiResponse response;
