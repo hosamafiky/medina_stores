@@ -15,6 +15,8 @@
 
 default_platform(:android)
 
+ENV["ANDROID_APP_ID"] = "1:978985818662:android:449f454e10a1d4401ae4e7"
+
 platform :android do
   desc "Lane to build and distribute the android app"
   lane :firebase_distribution do
