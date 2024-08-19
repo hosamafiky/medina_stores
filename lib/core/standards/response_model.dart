@@ -31,7 +31,7 @@ class ApiResponse<T extends Object?> extends Equatable {
       data: T == Null
           ? null
           : mapper != null
-              ? mapper(map)
+              ? mapper(map['data'])
               : map['data'],
       isSuceess: map['success'],
     );

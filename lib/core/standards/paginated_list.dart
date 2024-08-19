@@ -20,13 +20,13 @@ class PaginatedList<T extends Object> {
 
   factory PaginatedList.fromMap(
     Map<String, dynamic> map, {
-    T Function(Map<String, dynamic>)? mapper,
+    required T Function(Map<String, dynamic>) mapper,
   }) {
     return PaginatedList<T>(
-      data: mapper == null ? map['data'] : List<T>.from(map['data']['data'].map((x) => mapper(x))),
-      itemsCount: map['data']['items_count'] ?? 1,
-      currentPage: map['data']['current_page'] ?? 1,
-      lastPage: map['data']['last_page'] ?? 1,
+      data: List<T>.from(map['data'].map((x) => mapper(x))),
+      itemsCount: map['items_count'] ?? 1,
+      currentPage: map['current_page'] ?? 1,
+      lastPage: map['last_page'] ?? 1,
     );
   }
 
@@ -46,7 +46,11 @@ class PaginatedList<T extends Object> {
     );
   }
 
-  factory PaginatedList.fromJson(String source) => PaginatedList.fromMap(jsonDecode(source));
+  factory PaginatedList.fromJson(
+    String source, {
+    required T Function(Map<String, dynamic>) mapper,
+  }) =>
+      PaginatedList.fromMap(jsonDecode(source), mapper: mapper);
 
   Map<String, dynamic> toMap(Map<String, dynamic> Function(T) mapper) => {
         "data": List<Map<String, dynamic>>.from(data.map((x) => mapper(x))),
