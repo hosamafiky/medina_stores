@@ -26,6 +26,11 @@ class ImageHelper {
     return await _cropImage(sourcePath: image.path);
   }
 
+  static Future<List<File>> pickImages() async {
+    final images = await _picker.pickMultiImage();
+    return images.map((e) => File(e.path)).toList();
+  }
+
   static Future<File?> _cropImage({required String sourcePath}) async {
     CroppedFile? croppedFile = await _cropper.cropImage(
       sourcePath: sourcePath,
@@ -58,6 +63,18 @@ class ImageHelper {
       return await _showIOSSheet(key.currentContext!);
     }
     return await _showAndroidMenuPopup(key);
+  }
+
+  static Future<List<File>> showImagesPicker() async {
+    final images = await pickImages();
+    List<File> croppedImages = [];
+    for (var image in images) {
+      final cropped = await _cropImage(sourcePath: image.path);
+      if (cropped == null) continue;
+      croppedImages.add(cropped);
+    }
+
+    return croppedImages;
   }
 
   static Future<File?> _showIOSSheet(BuildContext context) async {

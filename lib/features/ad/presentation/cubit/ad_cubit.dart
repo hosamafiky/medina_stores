@@ -6,7 +6,7 @@ class AdCubit extends Cubit<AdState> {
   }) : super(const AdState());
 
   Timer? timer;
-  final pageController = PageController(initialPage: 2, viewportFraction: 0.8);
+  final pageController = PageController(viewportFraction: 0.8);
 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 30), (timer) {
@@ -16,7 +16,10 @@ class AdCubit extends Cubit<AdState> {
     });
   }
 
-  void onPageChanged(int index) => emit(state.copyWith(adIndex: index));
+  void onPageChanged(int index) {
+    final newIndex = index % state.ads.data!.data.length;
+    emit(state.copyWith(adIndex: newIndex));
+  }
 
   void stopTimer() => timer?.cancel();
   void disposeController() => pageController.dispose();
@@ -30,7 +33,7 @@ class AdCubit extends Cubit<AdState> {
   Future<void> getAds() async {
     if (state.ads.data?.hasReachedEnd == true) return;
     if (state.ads.data?.currentPage == 0) emit(state.copyWith(adsStatus: UsecaseStatus.running));
-    final params = GetPaginatedListParams(page: (state.ads.data!.currentPage) + 1, perPage: 5);
+    final params = GetPaginatedListParams(page: (state.ads.data!.currentPage) + 1, perPage: 99999);
     final result = await getAdsUsecase(params);
     result.fold(
       (failure) => emit(state.copyWith(
@@ -63,5 +66,12 @@ class AdCubit extends Cubit<AdState> {
         }
       },
     );
+  }
+
+  @override
+  Future<void> close() {
+    stopTimer();
+    disposeController();
+    return super.close();
   }
 }
