@@ -1,0 +1,54 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Create App on App Store Connect and enable services"
+  lane :create_app do
+    produce(
+      username: 'kljhhasdkjlhasdoiajskdhuoa@gmail.com',
+      app_identifier: 'com.medina.app.stores',
+      app_name: 'Medina Stores',
+      sku: 'medina-stores',
+      language: 'en-US',
+      enable_services: {
+        push_notification: "on",  # Enable Push Notifications
+        associated_domains: "on", # Enable Associated Domains
+      },
+    )
+  end
+
+  desc "Build release version of the app for iOS"
+  lane :build_release_ios do
+    match
+    gym(
+      scheme: 'Runner',
+      workspace: 'Runner.xcworkspace',
+      configuration: 'Release',
+    )
+  end
+
+  desc "Deploy app beta-version to Firebase App Distribution"
+  lane :beta do
+    build_release_ios
+    firebase_app_distribution(
+      app: '1:978985818662:ios:ccc816c2929bd0711ae4e7',
+      firebase_cli_token: "1//03wSgwWGdJHlvCgYIARAAGAMSNwF-L9Ir8i8irSXxw-ke55bRAz_22No1coxTEE1UmgoJr5JMpKbKpgDkF0qOiJvwjpTv7DndMUA",
+      groups: 'internal-testers',
+      release_notes: 'New beta release',
+    )
+  end
+end
