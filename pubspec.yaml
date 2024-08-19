@@ -144,7 +144,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_gen:
-  output: lib/core/resources
+  output: lib/config/resources
   line_length: 80
 
   assets:
