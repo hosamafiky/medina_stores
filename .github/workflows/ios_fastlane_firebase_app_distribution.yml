@@ -42,5 +42,6 @@ jobs:
           FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
           IOS_APP_ID: ${{ secrets.IOS_APP_ID }}
         run: |
+          cd ~/.ssh/; ssh-add
           bundle exec fastlane ios firebase_distribution
         working-directory: ios
