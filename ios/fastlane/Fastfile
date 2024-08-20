@@ -42,7 +42,7 @@ platform :ios do
   end
 
   desc "Deploy app beta-version to Firebase App Distribution"
-  lane :beta do
+  lane :firebase_distribution do
     build_release_ios
     firebase_app_distribution(
       app: '1:978985818662:ios:ccc816c2929bd0711ae4e7',
