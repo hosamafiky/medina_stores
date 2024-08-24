@@ -43,6 +43,11 @@ platform :ios do
 
   desc "Deploy app beta-version to Firebase App Distribution"
   lane :firebase_distribution do
+    cocoapods(
+      clean_install: true,
+      repo_update: true,
+
+    )  
     build_release_ios
     firebase_app_distribution(
       app: '1:978985818662:ios:ccc816c2929bd0711ae4e7',
