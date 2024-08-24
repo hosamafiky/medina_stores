@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medina_stores/core/helpers/firebase_remote_config_helper.dart';
 import 'package:medina_stores/core/utils/user_utils.dart';
 import 'package:medina_stores/features/theme/presentation/cubit/theme_cubit.dart';
 
@@ -26,6 +27,8 @@ void main() async {
     EasyLocalization.ensureInitialized(),
     CacheHelper.init(),
   ]);
+
+  await FirebaseRemoteConfigHelper.instance.initialize();
 
   DependencyHelper.instance.registerDependencies();
 
