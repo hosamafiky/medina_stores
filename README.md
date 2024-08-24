@@ -47,7 +47,6 @@ Replace this with the link to the Postman Collection or Swagger Documentation.
 ## Additional Information
 
 - Future plans for the project.
-  - Integrate IOS CI/CD for uploading the app to firebase app distribution.
   - Integrate IOS CI/CD for uploading the app to TestFlight.
   - Integrate IOS CI/CD for uploading the app to App Store.
   - Integrate Android CI/CD for uploading the app to Google Play Store.
