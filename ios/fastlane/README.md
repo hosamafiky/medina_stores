@@ -31,10 +31,10 @@ Create App on App Store Connect and enable services
 
 Build release version of the app for iOS
 
-### ios beta
+### ios firebase_distribution
 
 ```sh
-[bundle exec] fastlane ios beta
+[bundle exec] fastlane ios firebase_distribution
 ```
 
 Deploy app beta-version to Firebase App Distribution
