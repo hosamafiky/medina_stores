@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Create App on App Store Connect and enable services
 
+### ios increment_version
+
+```sh
+[bundle exec] fastlane ios increment_version
+```
+
+Increment build number
+
 ### ios build_release_ios
 
 ```sh

@@ -31,13 +31,23 @@ platform :ios do
     )
   end
 
+  desc "Increment build number"
+  lane :increment_version do
+    latest_release = firebase_app_distribution_get_latest_release(
+      app: '1:978985818662:ios:ccc816c2929bd0711ae4e7',
+    )
+    increment_build_number({ build_number: latest_release[:buildVersion].to_i + 1 })
+  end
+
   desc "Build release version of the app for iOS"
   lane :build_release_ios do
     match
+    increment_version
     gym(
       scheme: 'Runner',
       workspace: 'Runner.xcworkspace',
       configuration: 'Release',
+      output_name: 'Medina-Stores.ipa',
     )
   end
 
@@ -46,13 +56,13 @@ platform :ios do
     cocoapods(
       clean_install: true,
       repo_update: true,
-
-    )  
+    )
     build_release_ios
     firebase_app_distribution(
       app: '1:978985818662:ios:ccc816c2929bd0711ae4e7',
       firebase_cli_token: "1//03wSgwWGdJHlvCgYIARAAGAMSNwF-L9Ir8i8irSXxw-ke55bRAz_22No1coxTEE1UmgoJr5JMpKbKpgDkF0qOiJvwjpTv7DndMUA",
       groups: 'internal-testers',
+      ipa_path: '/Users/hussam/Desktop/medina/medina_stores/ios/Medina-Stores.ipa',
       release_notes: 'New beta release',
     )
   end
