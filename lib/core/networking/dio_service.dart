@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medina_stores/core/helpers/firebase_remote_config_helper.dart';
 import 'package:medina_stores/core/navigation/navigator.dart';
 
 import '../../config/resources/languages.dart';
@@ -25,7 +26,7 @@ class DioService implements ApiService {
 
   void _initDio() {
     _dio = Dio()
-      ..options.baseUrl = ApiConstants.BASE_URL
+      ..options.baseUrl = FirebaseRemoteConfigHelper.instance.baseUrl
       ..options.connectTimeout = const Duration(
         seconds: ApiConstants.connectTimeoutDurationInSeconds,
       )
