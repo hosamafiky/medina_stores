@@ -18,9 +18,18 @@ default_platform(:android)
 ENV["ANDROID_APP_ID"] = "1:978985818662:android:449f454e10a1d4401ae4e7"
 
 platform :android do
+  desc "Increment build number"
+  lane :increment_version do
+    latest_release = firebase_app_distribution_get_latest_release(
+      app: "1:978985818662:android:449f454e10a1d4401ae4e7",
+    )
+    increment_build_number({ build_number: latest_release[:buildVersion].to_i + 1 })
+  end
+
   desc "Lane to build and distribute the android app"
   lane :firebase_distribution do
     sh "flutter clean"
+    increment_version
     sh "flutter build apk --release --no-tree-shake-icons"
     firebase_app_distribution(
       app: ENV["ANDROID_APP_ID"],
