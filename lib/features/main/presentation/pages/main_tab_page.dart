@@ -5,15 +5,8 @@ class MainTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => DependencyHelper.instance.get<MainCubit>(),
-        ),
-        BlocProvider(
-          create: (context) => DependencyHelper.instance.get<AdCubit>()..getAds(),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => DependencyHelper.instance.get<MainCubit>(),
       child: const MainTabPageBody(),
     );
   }
@@ -25,11 +18,7 @@ class MainTabPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(
-        title: Text(LocaleKeys.home.tr()),
-        padEnd: false,
-        actions: const [ThemeIconButton()],
-      ),
+      appBar: MainAppBar(title: Text(LocaleKeys.home.tr())),
       body: Padding(
         padding: REdgeInsets.symmetric(vertical: 16),
         child: const Column(
