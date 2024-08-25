@@ -5,8 +5,15 @@ class LayoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DependencyHelper.instance.get<LayoutCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<LayoutCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<AdCubit>()..getAds(),
+        ),
+      ],
       child: const LayoutPageBody(),
     );
   }

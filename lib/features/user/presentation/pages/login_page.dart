@@ -28,18 +28,7 @@ class _LoginPageState extends State<LoginPage> {
         selector: (state) => (status: state.loginStatus, failure: state.loginFailure),
         builder: (context, state) {
           return Scaffold(
-            appBar: MainAppBar(
-              actions: [
-                IconButton(
-                  icon: Icon(
-                    context.isDark() ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
-                  ),
-                  onPressed: () {
-                    context.toggleTheme(false);
-                  },
-                ),
-              ],
-            ),
+            appBar: const MainAppBar(),
             body: Padding(
               padding: REdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
