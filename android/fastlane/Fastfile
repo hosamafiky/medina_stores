@@ -18,20 +18,32 @@ default_platform(:android)
 ENV["ANDROID_APP_ID"] = "1:978985818662:android:449f454e10a1d4401ae4e7"
 
 platform :android do
-  desc "Increment build number"
-  lane :increment_version do
+  lane :increment_build_and_version_number do
+    gradle_file = "./app/build.gradle"
     latest_release = firebase_app_distribution_get_latest_release(
       app: ENV["ANDROID_APP_ID"],
       firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
     )
-    increment_build_number({ build_number: latest_release[:buildVersion].to_i + 1 })
+    current_version = latest_release[:displayVersion]
+    current_build = latest_release[:buildVersion]
+
+    # Split the version number into its components
+    version_parts = current_version.split(".")
+    
+    # Increment the minor version and reset the patch version
+    version_parts[1] = (version_parts[1].to_i + 1).to_s
+    version_parts[2] = "0"
+    
+    new_version = version_parts.join(".")
+
+    # if you want to increment version name add `--build-name=#{new_version}` to the command
+    sh "flutter build apk --release --no-tree-shake-icons --build-number=#{current_build.to_i + 1}"
   end
 
   desc "Lane to build and distribute the android app"
   lane :firebase_distribution do
     sh "flutter clean"
-    increment_version
-    sh "flutter build apk --release --no-tree-shake-icons"
+    increment_build_and_version_number
     firebase_app_distribution(
       app: ENV["ANDROID_APP_ID"],
       firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
