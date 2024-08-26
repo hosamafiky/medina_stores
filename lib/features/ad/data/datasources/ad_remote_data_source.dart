@@ -17,7 +17,7 @@ class AdRemoteDataSourceImpl implements AdRemoteDataSource {
           request,
           mapper: (json) => ApiResponse.fromMapSuccess(
             json,
-            mapper: (data) => PaginatedList.fromMap(data, mapper: (x) => AdModel.fromMap(x)),
+            mapper: (data) => PaginatedList.fromMap(data['data'], mapper: (x) => AdModel.fromMap(x)),
           ),
         );
   }

@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import '../../features/sub_category/di/setup_sub_category_dependencies.dart';
+import '../../features/category/di/setup_category_dependencies.dart';
 
 import '../../features/ad/di/setup_ad_dependencies.dart';
 import '../../features/layout/di/setup_layout_dependencies.dart';
@@ -18,6 +20,8 @@ class DependencyHelper {
 
   void registerDependencies() {
     setUpGeneralDependencies();
+    setUpSubCategoryDependencies();
+    setUpCategoryDependencies();
     setUpAdDependencies();
     setUpProfileDependencies();
     setUpOrderDependencies();
