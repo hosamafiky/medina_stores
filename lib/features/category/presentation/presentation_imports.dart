@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/config/resources/locale_keys.g.dart';
+import 'package:medina_stores/core/extensions/string.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
 
 import '../../../core/error/failures.dart';
 import '../../../core/extensions/context.dart';
-import '../../../core/extensions/sheet.dart';
 import '../../../core/extensions/spaced_column.dart';
 import '../../../core/helpers/dependency_helper.dart';
 import '../../../core/navigation/navigator.dart';

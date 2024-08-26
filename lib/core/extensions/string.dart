@@ -3,8 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:medina_stores/core/navigation/navigator.dart';
 
 extension FormatString on String {
-  String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1)}";
+  String get capitalize {
+    final words = split(' ');
+    final capitalizedWords = words.map((word) {
+      final firstLetter = word[0].toUpperCase();
+      final rest = word.substring(1);
+      return '$firstLetter$rest';
+    });
+    return capitalizedWords.join(' ');
   }
 
   String asCurrency() {

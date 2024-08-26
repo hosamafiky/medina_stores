@@ -13,9 +13,6 @@ class LayoutPage extends StatelessWidget {
         BlocProvider(
           create: (context) => DependencyHelper.instance.get<AdCubit>()..getAds(),
         ),
-        BlocProvider(
-          create: (context) => DependencyHelper.instance.get<CategoryCubit>()..getCategories(),
-        ),
       ],
       child: const LayoutPageBody(),
     );

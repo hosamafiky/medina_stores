@@ -19,20 +19,12 @@ class CategoriesPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const MainAppBar(),
-      body: const Column(
+    return const Scaffold(
+      appBar: MainAppBar(),
+      body: Column(
         children: [
-          CategoriesHorizontalList(),
+          // CategoriesHorizontalList(),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final cubit = context.read<CategoryCubit>();
-          await context.showSheet<Category>(child: AddCategorySheet(categoryCubit: cubit));
-        },
-        child: const Icon(Icons.add),
       ),
     );
   }
