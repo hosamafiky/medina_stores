@@ -60,5 +60,9 @@
   "home": "Home",
   "profile": "Me",
   "whats_new": "New",
-  "my_orders": "My Orders"
+  "my_orders": "My Orders",
+  "sub_categories": "Sub Categories",
+  "empty_sub_categories": "No sub categories found",
+  "categories": "Categories",
+  "empty_categories": "No categories found"
 }

@@ -61,5 +61,9 @@
   "home": "الرئيسية",
   "profile": "أنا",
   "whats_new": "الجديد",
-  "my_orders": "طلباتي"
+  "my_orders": "طلباتي",
+  "sub-categories": "الأقسام الفرعية",
+  "empty-sub-categories": "لا توجد أقسام فرعية",
+  "categories": "الأقسام",
+  "empty-categories": "لا توجد أقسام"
 }
