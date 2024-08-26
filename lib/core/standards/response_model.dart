@@ -31,7 +31,7 @@ class ApiResponse<T extends Object?> extends Equatable {
       data: T == Null
           ? null
           : mapper != null
-              ? mapper(map['data'])
+              ? mapper(map)
               : map['data'],
       isSuceess: map['success'],
     );
@@ -45,12 +45,7 @@ class ApiResponse<T extends Object?> extends Equatable {
       errors: data?['errors'] == null
           ? []
           : List<MapEntry<String, List<String>>>.from(
-              data?['errors'].entries.map(
-                    (e) => MapEntry<String, List<String>>(
-                      e.key,
-                      List<String>.from(e.value),
-                    ),
-                  ),
+              (data!['errors'] as Map<String, List<String>>).entries,
             ),
     );
   }

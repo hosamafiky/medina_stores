@@ -24,6 +24,7 @@ class MainTabPageBody extends StatelessWidget {
         child: const Column(
           children: [
             AdsScrollingWidget(),
+            CategoriesHorizontalList(),
           ],
         ).withSpacing(spacing: 16.h),
       ),

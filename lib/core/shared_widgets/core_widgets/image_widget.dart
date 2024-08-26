@@ -39,7 +39,7 @@ class ImageWidget extends StatelessWidget {
           ShimmerWidget.horizontal(
             width: width,
             height: height,
-            borderRadius: borderRadius,
+            borderRadius: shape == BoxShape.circle ? BorderRadius.circular(50) : borderRadius,
           ),
           Center(
             child: Icon(
@@ -54,7 +54,7 @@ class ImageWidget extends StatelessWidget {
   Widget get placeHolder => ShimmerWidget.horizontal(
         width: width,
         height: height,
-        borderRadius: borderRadius,
+        borderRadius: shape == BoxShape.circle ? BorderRadius.circular(50) : borderRadius,
       );
 
   Widget get imageWidget => CachedNetworkImage(
@@ -67,6 +67,7 @@ class ImageWidget extends StatelessWidget {
           width: width,
           decoration: BoxDecoration(
             borderRadius: borderRadius,
+            shape: shape,
             image: DecorationImage(
               image: imageProvider,
               fit: BoxFit.cover,
