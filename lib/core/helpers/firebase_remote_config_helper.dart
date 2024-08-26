@@ -4,7 +4,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:medina_stores/core/networking/api_constants.dart';
 
 class FirebaseRemoteConfigKeys {
-  static const String baseUrl = 'base_url';
+  static const String domain = 'domain';
 }
 
 class FirebaseRemoteConfigHelper {
@@ -29,7 +29,7 @@ class FirebaseRemoteConfigHelper {
 
   Future<void> _setDefaults() async => _remoteConfig.setDefaults(
         const {
-          FirebaseRemoteConfigKeys.baseUrl: ApiConstants.BASE_URL,
+          FirebaseRemoteConfigKeys.domain: ApiConstants.domain,
         },
       );
 
@@ -48,5 +48,5 @@ class FirebaseRemoteConfigHelper {
     await fetchAndActivate();
   }
 
-  String get baseUrl => getString(FirebaseRemoteConfigKeys.baseUrl);
+  String get domain => getString(FirebaseRemoteConfigKeys.domain);
 }
