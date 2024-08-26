@@ -10,12 +10,12 @@ class SubCategory extends Equatable {
   final DateTime createdAt;
 
   const SubCategory({
-    required this.id,
-    required this.name,
-    required this.parent,
-    required this.active,
-    required this.slug,
-    required this.image,
+    this.id = 0,
+    this.name = '',
+    this.parent = const DropdownItem(),
+    this.active = 0,
+    this.slug = '',
+    this.image = '',
     required this.createdAt,
   });
 

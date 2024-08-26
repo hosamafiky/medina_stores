@@ -5,47 +5,52 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000245">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000198">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: cocoapods" time="3.432778">
+      <testcase classname="fastlane.lanes" name="1: rm -r /Users/hussam/Desktop/medina/medina_stores/ios/Podfile.lock" time="0.004613">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: Switch to ios build_release_ios lane" time="0.000284">
+      <testcase classname="fastlane.lanes" name="2: cocoapods" time="3.754437">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: match" time="6.937043">
+      <testcase classname="fastlane.lanes" name="3: Switch to ios build_release_ios lane" time="0.000528">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: Switch to ios increment_version lane" time="0.000193">
+      <testcase classname="fastlane.lanes" name="4: match" time="8.503135">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: firebase_app_distribution_get_latest_release" time="1.369757">
+      <testcase classname="fastlane.lanes" name="5: Switch to ios increment_version lane" time="0.000206">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: increment_build_number" time="0.912991">
+      <testcase classname="fastlane.lanes" name="6: firebase_app_distribution_get_latest_release" time="1.265391">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: gym" time="82.114657">
+      <testcase classname="fastlane.lanes" name="7: increment_build_number" time="0.215633">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: firebase_app_distribution" time="60.447159">
+      <testcase classname="fastlane.lanes" name="8: gym" time="105.638642">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="9: firebase_app_distribution" time="63.339456">
         
       </testcase>
     

@@ -16,6 +16,7 @@ class ShimmerWidget extends StatelessWidget {
   })  : _height = height,
         _width = width,
         _boxShape = boxShape,
+        isLoading = true,
         _borderRadius = borderRadius,
         child = null;
 
@@ -28,6 +29,7 @@ class ShimmerWidget extends StatelessWidget {
   })  : _width = width,
         _height = height,
         _boxShape = boxShape,
+        isLoading = true,
         _borderRadius = borderRadius,
         child = null;
 
@@ -39,10 +41,12 @@ class ShimmerWidget extends StatelessWidget {
         _height = diameter,
         _boxShape = BoxShape.circle,
         _borderRadius = null,
+        isLoading = true,
         child = null;
 
   const ShimmerWidget.fromChild({
     super.key,
+    this.isLoading = true,
     required this.child,
   })  : _height = null,
         _width = null,
@@ -54,10 +58,16 @@ class ShimmerWidget extends StatelessWidget {
   final BorderRadiusGeometry? _borderRadius;
   final Widget? child;
 
+  final bool isLoading;
+
   @override
   Widget build(BuildContext context) {
     final palette = context.colorPalette;
     final isDark = context.isDark();
+
+    if (!isLoading) {
+      return child ?? Container();
+    }
 
     return Opacity(
       opacity: 0.5,

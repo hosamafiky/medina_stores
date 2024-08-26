@@ -10,14 +10,16 @@ class Category extends Equatable {
   final DateTime createdAt;
 
   const Category({
-    required this.id,
-    required this.name,
-    required this.parent,
-    required this.active,
-    required this.slug,
-    required this.image,
+    this.id = 0,
+    this.name = '',
+    this.parent = '',
+    this.active = 0,
+    this.slug = '',
+    this.image = '',
     required this.createdAt,
   });
+
+  factory Category.empty() => Category(createdAt: DateTime.now());
 
   Category copyWith({
     int? id,
