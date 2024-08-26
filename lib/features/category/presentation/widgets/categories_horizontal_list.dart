@@ -10,20 +10,18 @@ class CategoriesHorizontalList extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Text("Categories", style: context.appTextStyle.elevatedButtonTextStyle),
+          child: Text(LocaleKeys.categories.tr(), style: context.appTextStyle.elevatedButtonTextStyle),
         ),
         BlocSelector<CategoryCubit, CategoryState, ({UsecaseStatus status, Failure? failure, List<Category> categories})>(
           selector: (state) => (status: state.categoriesStatus, failure: state.categoriesFailure, categories: state.categories),
           builder: (context, state) {
             final isLoading = state.status == UsecaseStatus.running;
-            if (isLoading) {
-              return const _CategoriesList.skeleton();
-            }
+            if (isLoading) return const _CategoriesList.skeleton();
             if (state.failure != null) {
               return Center(child: Text("Failed to load categories ${state.failure!.response.message}"));
             }
             if (state.categories.isEmpty) {
-              return const Center(child: Text("No categories found"));
+              return Center(child: Text(LocaleKeys.empty_categories.tr()));
             }
             return _CategoriesList(state.categories);
           },

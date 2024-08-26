@@ -28,7 +28,7 @@ class CategoryCard extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             Text(
-              _isSkeleton ? 'Category' : category.name,
+              _isSkeleton ? 'Category' : category.name.capitalize,
               style: context.appTextStyle.elevatedButtonTextStyle,
             ),
           ],

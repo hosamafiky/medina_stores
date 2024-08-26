@@ -50,3 +50,9 @@ Replace this with the link to the Postman Collection or Swagger Documentation.
   - Integrate IOS CI/CD for uploading the app to TestFlight.
   - Integrate IOS CI/CD for uploading the app to App Store.
   - Integrate Android CI/CD for uploading the app to Google Play Store.
+
+### Run this Command to generate localization files
+
+```bash
+dart run easy_localization:generate -O lib/config/resources -f keys -o locale_keys.g.dart --source-dir ./assets/translations
+```

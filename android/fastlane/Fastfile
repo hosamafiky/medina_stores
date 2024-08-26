@@ -21,7 +21,8 @@ platform :android do
   desc "Increment build number"
   lane :increment_version do
     latest_release = firebase_app_distribution_get_latest_release(
-      app: "1:978985818662:android:449f454e10a1d4401ae4e7",
+      app: ENV["ANDROID_APP_ID"],
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
     )
     increment_build_number({ build_number: latest_release[:buildVersion].to_i + 1 })
   end

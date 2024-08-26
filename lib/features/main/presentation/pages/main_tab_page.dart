@@ -5,8 +5,15 @@ class MainTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DependencyHelper.instance.get<MainCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<MainCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<CategoryCubit>()..getCategories(),
+        ),
+      ],
       child: const MainTabPageBody(),
     );
   }
