@@ -37,7 +37,7 @@ platform :android do
     new_version = version_parts.join(".")
 
     # if you want to increment version name add `--build-name=#{new_version}` to the command
-    sh "flutter build apk --release --no-tree-shake-icons --build-number=#{current_build.to_i + 1}"
+    sh "flutter build apk --release --no-tree-shake-icons --build-name=#{current_version} --build-number=#{current_build.to_i + 1}"
   end
 
   desc "Lane to build and distribute the android app"
