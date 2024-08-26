@@ -5,26 +5,35 @@ class SubCategoriesHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 150.h,
-      child: BlocSelector<SubCategoryCubit, SubCategoryState, ({UsecaseStatus status, Failure? failure, List<SubCategory> subCategories})>(
-        selector: (state) => (status: state.subCategoriesStatus, failure: state.subCategoriesFailure, subCategories: state.subCategories),
-        builder: (context, state) {
-          final isLoading = state.status == UsecaseStatus.running;
-          if (isLoading) {
-            return const _SubCategoriesList.skeleton();
-          }
-          if (state.failure != null) {
-            return Center(child: Text("Failed to load sub categories ${state.failure!.response.message}"));
-          }
-          if (state.subCategories.isEmpty) {
-            return const Center(child: Text("No sub categories found"));
-          }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          child: Text(LocaleKeys.sub_categories.tr(), style: context.appTextStyle.elevatedButtonTextStyle),
+        ),
+        SizedBox(
+          height: 150.h,
+          child: BlocSelector<SubCategoryCubit, SubCategoryState, ({UsecaseStatus status, Failure? failure, List<SubCategory> subCategories})>(
+            selector: (state) => (status: state.subCategoriesStatus, failure: state.subCategoriesFailure, subCategories: state.subCategories),
+            builder: (context, state) {
+              final isLoading = state.status == UsecaseStatus.running;
+              if (isLoading) {
+                return const _SubCategoriesList.skeleton();
+              }
+              if (state.failure != null) {
+                return Center(child: Text("Failed to load sub categories ${state.failure!.response.message}"));
+              }
+              if (state.subCategories.isEmpty) {
+                return Center(child: Text(LocaleKeys.empty_sub_categories.tr()));
+              }
 
-          return _SubCategoriesList(state.subCategories);
-        },
-      ),
-    );
+              return _SubCategoriesList(state.subCategories);
+            },
+          ),
+        ),
+      ],
+    ).withSpacing(spacing: 8.h);
   }
 }
 

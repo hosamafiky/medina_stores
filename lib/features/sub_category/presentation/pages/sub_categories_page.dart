@@ -22,19 +22,11 @@ class SubCategoriesPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(title: Text('Sub Categories')),
+      appBar: MainAppBar(title: Text(LocaleKeys.sub_categories.tr())),
       body: const Column(
         children: [
-          SubCategoriesHorizontalList(),
+          // SubCategoriesHorizontalList(),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final cubit = context.read<SubCategoryCubit>();
-          await context.showSheet<SubCategory>(child: AddSubCategorySheet(subCategoryCubit: cubit));
-        },
-        child: const Icon(Icons.add),
       ),
     );
   }
