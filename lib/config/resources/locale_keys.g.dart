@@ -65,4 +65,8 @@ abstract class LocaleKeys {
   static const profile = 'profile';
   static const whats_new = 'whats_new';
   static const my_orders = 'my_orders';
+  static const sub_categories = 'sub-categories';
+  static const empty_sub_categories = 'empty_sub_categories';
+  static const categories = 'categories';
+  static const empty_categories = 'empty_categories';
 }
