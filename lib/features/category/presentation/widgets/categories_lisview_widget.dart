@@ -9,13 +9,10 @@ class CategoriesLisViewWidget extends StatelessWidget {
       selector: (state) => (status: state.categoriesStatus, failure: state.categoriesFailure, categories: state.categories),
       builder: (context, cState) {
         final isLoading = cState.status == UsecaseStatus.running;
-        if (isLoading) {
-          return CategoryWithSubsCard.skeleton();
-        }
         if (cState.failure != null) {
           return Center(child: Text("Failed to load sub categories ${cState.failure!.response.message}"));
         }
-        if (cState.categories.isEmpty) {
+        if (cState.categories.isEmpty && !isLoading) {
           return Center(child: Text(LocaleKeys.empty_sub_categories.tr()));
         }
 
@@ -23,11 +20,12 @@ class CategoriesLisViewWidget extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
+            if (isLoading) return CategoryWithSubsCard.skeleton();
             final category = cState.categories[index];
             return CategoryWithSubsCard(category);
           },
           separatorBuilder: (context, index) => SizedBox(height: 16.h),
-          itemCount: cState.categories.length,
+          itemCount: isLoading ? 4 : cState.categories.length,
         );
       },
     );
