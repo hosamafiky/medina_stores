@@ -26,19 +26,34 @@ class MainTab extends StatelessWidget {
 class MainTabPageBody extends StatelessWidget {
   const MainTabPageBody({super.key});
 
+  Future<void> _onRefresh(BuildContext context) async {
+    await Future.wait([
+      context.read<AdCubit>().getAds(),
+      context.read<CategoryCubit>().getCategories(),
+      context.read<BrandCubit>().getBrands(),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(title: Text(LocaleKeys.home.tr())),
-      body: SingleChildScrollView(
-        padding: REdgeInsets.symmetric(vertical: 16),
-        child: const Column(
-          children: [
-            AdsScrollingWidget(),
-            BrandsHorizontalList(),
-            CategoriesLisViewWidget(),
-          ],
-        ).withSpacing(spacing: 16.h),
+      body: RefreshIndicator.adaptive(
+        onRefresh: () => _onRefresh(context),
+        child: Padding(
+          padding: REdgeInsets.symmetric(vertical: 16),
+          child: CustomScrollView(
+            slivers: [
+              SliverList.list(
+                children: const [
+                  AdsScrollingWidget(),
+                  BrandsHorizontalList(),
+                ].withSpacing(spacing: 16.h),
+              ),
+              const CategoriesLisViewWidget(),
+            ],
+          ),
+        ),
       ),
     );
   }

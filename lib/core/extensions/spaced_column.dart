@@ -37,3 +37,14 @@ extension SpacedColumnExt on Column {
     );
   }
 }
+
+extension SpacedListX on List<Widget> {
+  List<Widget> withSpacing({double spacing = 10}) {
+    var spacedChildren = expand((widget) => [widget, SizedBox(height: spacing.toDouble())]).toList();
+    if (spacedChildren.isNotEmpty) {
+      spacedChildren.removeLast(); // Remove the extra SizedBox
+    }
+
+    return spacedChildren;
+  }
+}
