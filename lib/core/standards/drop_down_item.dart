@@ -16,9 +16,10 @@ class DropdownItem extends Equatable {
 }
 
 class DropdownItemModel extends DropdownItem {
-  const DropdownItemModel({required super.id, required super.name});
+  const DropdownItemModel({super.id, super.name});
 
-  factory DropdownItemModel.fromMap(Map<String, dynamic> json) {
+  factory DropdownItemModel.fromMap(Map<String, dynamic>? json) {
+    if (json == null) return const DropdownItemModel();
     return DropdownItemModel(
       id: json['id'],
       name: json['name'],
