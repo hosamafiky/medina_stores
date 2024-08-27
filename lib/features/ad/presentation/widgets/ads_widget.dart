@@ -23,7 +23,7 @@ class AdsWidget extends StatelessWidget {
                 onPageChanged: adCubit.onPageChanged,
                 itemBuilder: (context, index) {
                   if (_isSkeleton) return const AdShimmerWidget();
-                  final ad = state.ads.data!.data[index % state.ads.data!.data.length];
+                  final ad = state.ads.data!.data[index % (state.ads.data!.data.isEmpty ? 1 : state.ads.data!.data.length)];
 
                   return AdWidget(ad);
                 },

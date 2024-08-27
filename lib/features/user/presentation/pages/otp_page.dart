@@ -33,15 +33,18 @@ class _OtpPageState extends State<OtpPage> {
                 child: Column(
                   children: [
                     const Text("Enter OTP sent to your phone"),
-                    Pinput(
-                      controller: _otpController,
-                      length: 6,
-                      errorText: state.failure.errorMessage("token"),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Pinput(
+                        controller: _otpController,
+                        length: 6,
+                        forceErrorState: state.failure.errorMessage("token") != null,
+                        errorText: state.failure.errorMessage("token"),
+                        errorTextStyle: context.appTextStyle.errorStyle,
+                      ),
                     ),
                     SizedBox(height: 14.h),
-                    OtpTimerWidget(
-                      user: state.user,
-                    ),
+                    OtpTimerWidget(user: state.user),
                     ElevatedButton(
                       onPressed: () {
                         if (widget.isResetPassword) {

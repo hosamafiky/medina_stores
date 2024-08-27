@@ -16,7 +16,10 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final request = ApiRequest(method: RequestMethod.post, path: ApiConstants.endPoints.login, body: params.toMap());
     return await DependencyHelper.instance.get<ApiService>().callApi<UserModel>(
           request,
-          mapper: (json) => ApiResponse.fromMapSuccess(json, mapper: UserModel.fromMap),
+          mapper: (json) => ApiResponse.fromMapSuccess(
+            json,
+            mapper: (data) => UserModel.fromMap(data['data']),
+          ),
         );
   }
 
@@ -58,7 +61,10 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final request = ApiRequest(method: RequestMethod.post, path: ApiConstants.endPoints.verifyOTP, body: {"token": otp});
     return await DependencyHelper.instance.get<ApiService>().callApi<UserModel>(
           request,
-          mapper: (json) => ApiResponse.fromMapSuccess(json, mapper: UserModel.fromMap),
+          mapper: (json) => ApiResponse.fromMapSuccess(
+            json,
+            mapper: (data) => UserModel.fromMap(data['data']),
+          ),
         );
   }
 

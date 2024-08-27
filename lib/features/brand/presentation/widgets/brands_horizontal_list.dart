@@ -5,35 +5,33 @@ class BrandsHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BrandCubit, BrandState>(
-      listener: (context, state) {
-        if (state.brandsStatus == UsecaseStatus.error) {
-          MessageHelper.showErrorSnackBar("Failed to load brands ${state.brandsFailure!.response.message}");
-        }
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Text(
-              LocaleKeys.brands.tr(),
-              style: context.appTextStyle.elevatedButtonTextStyle,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Text(
+            LocaleKeys.brands.tr(),
+            style: context.appTextStyle.elevatedButtonTextStyle,
           ),
-          BlocSelector<BrandCubit, BrandState, ({UsecaseStatus status, Failure? failure, List<Brand> brands})>(
-            selector: (state) => (status: state.brandsStatus, failure: state.brandsFailure, brands: state.brands),
-            builder: (context, state) {
-              final isLoading = state.status == UsecaseStatus.running;
-              if (isLoading) return const _BrandsList.skeleton();
-              if (state.failure != null) return Center(child: Text("Failed to load brands ${state.failure!.response.message}"));
-              if (state.brands.isEmpty) return Center(child: Text(LocaleKeys.empty_brands.tr()));
+        ),
+        BlocSelector<BrandCubit, BrandState, ({UsecaseStatus status, Failure? failure, List<Brand> brands})>(
+          selector: (state) => (status: state.brandsStatus, failure: state.brandsFailure, brands: state.brands),
+          builder: (context, state) {
+            final isLoading = state.status == UsecaseStatus.running;
+            if (isLoading) return const _BrandsList.skeleton();
+            if (state.failure != null) return Center(child: Text("Failed to load brands ${state.failure!.response.message}"));
+            if (state.brands.isEmpty) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Text(LocaleKeys.empty_brands.tr()),
+              );
+            }
 
-              return _BrandsList(state.brands);
-            },
-          ),
-        ],
-      ),
+            return _BrandsList(state.brands);
+          },
+        ),
+      ],
     );
   }
 }

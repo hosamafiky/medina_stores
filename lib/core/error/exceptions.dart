@@ -4,57 +4,58 @@ import 'package:equatable/equatable.dart';
 import '../../config/resources/locale_keys.g.dart';
 import '../standards/response_model.dart';
 
-class ServerException extends Equatable implements Exception {
+class AppException extends Equatable implements Exception {
   final ApiResponse response;
 
-  const ServerException(this.response);
+  const AppException(this.response);
 
   @override
-  String toString() => response.toString();
+  String toString() => response.message;
 
   @override
-  List<Object?> get props => [response];
+  List<Object?> get props => [response.statusCode, response.message];
 }
 
-class FetchDataException extends ServerException {
+class FetchDataException extends AppException {
   const FetchDataException(super.response);
 }
 
-class BadRequestException extends ServerException {
+class BadRequestException extends AppException {
   const BadRequestException(super.response);
 }
 
-class UnauthorizedException extends ServerException {
+class CancelException extends AppException {
+  const CancelException(super.response);
+}
+
+class UnauthorizedException extends AppException {
   const UnauthorizedException(super.response);
 }
 
-class MissingDataException extends ServerException {
+class MissingDataException extends AppException {
   const MissingDataException(super.response);
 }
 
-class NotFoundException extends ServerException {
+class NotFoundException extends AppException {
   const NotFoundException(super.response);
 }
 
-class ConflictException extends ServerException {
+class ConflictException extends AppException {
   const ConflictException(super.response);
 }
 
-class InternalServerErrorException extends ServerException {
+class InternalServerErrorException extends AppException {
   InternalServerErrorException() : super(ApiResponse.error(message: LocaleKeys.server_error.tr()));
 }
 
-class NoInternetConnectionException extends ServerException {
+class NoInternetConnectionException extends AppException {
   NoInternetConnectionException() : super(ApiResponse.error(message: LocaleKeys.check_internet.tr()));
 }
 
-class CacheException implements Exception {}
+class CacheException extends AppException {
+  const CacheException(super.response);
+}
 
-class UnknownException implements Exception {
-  final String message;
-
-  const UnknownException(this.message);
-
-  @override
-  String toString() => "UnknownException: $message";
+class UnknownException extends AppException {
+  const UnknownException(super.response);
 }

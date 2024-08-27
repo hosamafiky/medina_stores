@@ -11,10 +11,6 @@ class Failure extends Equatable {
   List<Object> get props => [response];
 }
 
-class ServerFailure extends Failure {
-  const ServerFailure({required super.response});
-}
-
 class FetchDataFailure extends Failure {
   const FetchDataFailure({required super.response});
 }
@@ -23,12 +19,20 @@ class BadRequestFailure extends Failure {
   const BadRequestFailure({required super.response});
 }
 
+class CancelFailure extends Failure {
+  const CancelFailure({required super.response});
+}
+
 class UnauthorizedFailure extends Failure {
   const UnauthorizedFailure({required super.response});
 }
 
 class NotFoundFailure extends Failure {
   const NotFoundFailure({required super.response});
+}
+
+class MissingDataFailure extends Failure {
+  const MissingDataFailure({required super.response});
 }
 
 class ConflictFailure extends Failure {
