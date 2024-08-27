@@ -31,19 +31,18 @@ class CategoryWithSubsCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(LocaleKeys.empty_sub_categories.tr()),
           ),
-        if (category.children.isNotEmpty)
-          DynamicHeightGridView(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            crossAxisCount: 4,
-            itemCount: _isSkeleton ? 4 : category.children.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            builder: (context, index) {
-              if (_isSkeleton) return SubCategoryCard.skeleton();
-              final subCategory = category.children[index];
-              return SubCategoryCard(subCategory);
-            },
-          ),
+        DynamicHeightGridView(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          crossAxisCount: 4,
+          itemCount: _isSkeleton ? 4 : category.children.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          builder: (context, index) {
+            if (_isSkeleton) return SubCategoryCard.skeleton();
+            final subCategory = category.children[index];
+            return SubCategoryCard(subCategory);
+          },
+        ),
       ],
     );
   }
