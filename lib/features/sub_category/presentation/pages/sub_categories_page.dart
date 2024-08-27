@@ -25,7 +25,7 @@ class SubCategoriesPageBody extends StatelessWidget {
       appBar: MainAppBar(title: Text(LocaleKeys.sub_categories.tr())),
       body: const Column(
         children: [
-          // SubCategoriesHorizontalList(),
+          SubCategoriesHorizontalList(),
         ],
       ),
     );

@@ -19,7 +19,7 @@ class SubCategoryModel extends SubCategory {
       active: map['active'],
       slug: map['slug'],
       image: map['image'],
-      createdAt: DateFormat('yyyy MMM dd hh:mm:ss').parse(map['created_at']),
+      createdAt: DateFormat(ApiConstants.dateFormat).parse(map['created_at']),
     );
   }
 
@@ -33,7 +33,7 @@ class SubCategoryModel extends SubCategory {
       'active': active,
       'slug': slug,
       'image': image,
-      'created_at': DateFormat('yyyy MMM dd hh:mm:ss').format(createdAt),
+      'created_at': DateFormat(ApiConstants.dateFormat).format(createdAt),
     };
   }
 

@@ -21,7 +21,7 @@ class AdModel extends Ad {
       type: MediaType.fromString(map['type']),
       order: map['order'],
       media: map['media'],
-      createdAt: DateFormat('yyyy MMM dd hh:mm:ss').parse(map['created_at']),
+      createdAt: DateFormat(ApiConstants.dateFormat).parse(map['created_at']),
     );
   }
 
@@ -36,7 +36,7 @@ class AdModel extends Ad {
       'type': type.name,
       'order': order,
       'media': media,
-      'created_at': DateFormat('yyyy MMM dd hh:mm:ss').format(createdAt),
+      'created_at': DateFormat(ApiConstants.dateFormat).format(createdAt),
     };
   }
 

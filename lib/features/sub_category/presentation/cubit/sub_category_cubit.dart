@@ -17,7 +17,9 @@ class SubCategoryCubit extends Cubit<SubCategoryState> {
         emit(state.copyWith(subCategoriesStatus: UsecaseStatus.error, subCategoriesFailure: failure));
       },
       (subCategories) {
-        emit(state.copyWith(subCategoriesStatus: UsecaseStatus.completed, subCategories: subCategories.data));
+        final oldSubCategories = List<SubCategory>.from(state.subCategories);
+        final newSubCategories = oldSubCategories..addAll(subCategories.data!);
+        emit(state.copyWith(subCategoriesStatus: UsecaseStatus.completed, subCategories: newSubCategories));
       },
     );
   }

@@ -33,22 +33,26 @@ class ImageWidget extends StatelessWidget {
     );
   }
 
-  Widget get errorWidget => Stack(
-        alignment: Alignment.center,
-        children: [
-          ShimmerWidget.horizontal(
-            width: width,
-            height: height,
-            borderRadius: shape == BoxShape.circle ? BorderRadius.circular(50) : borderRadius,
-          ),
-          Center(
-            child: Icon(
-              Icons.error,
-              color: AppNavigator.rootContext!.colorPalette.error,
-              size: 30,
+  Widget get errorWidget => SizedBox(
+        height: height,
+        width: width,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            ShimmerWidget.horizontal(
+              width: width,
+              height: height,
+              borderRadius: shape == BoxShape.circle ? BorderRadius.circular(50) : borderRadius,
             ),
-          ),
-        ],
+            Center(
+              child: Icon(
+                Icons.error,
+                color: AppNavigator.rootContext!.colorPalette.error,
+                size: 30,
+              ),
+            ),
+          ],
+        ),
       );
 
   Widget get placeHolder => ShimmerWidget.horizontal(

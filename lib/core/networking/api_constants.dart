@@ -9,6 +9,7 @@ class ApiConstants {
 
   static const int connectTimeoutDurationInSeconds = 30;
   static const int recieveTimeoutDuration = 30;
+  static const String dateFormat = 'yyyy MMM dd hh:mm:ss';
   static ApiEndPoints endPoints = ApiEndPoints();
 }
 
@@ -17,6 +18,7 @@ class ApiEndPoints {
   final String ADS = '/home/sliders';
   final String CATEGORIES = '/home/categories';
   final String SUB_CATEGORIES = '/sub-categories';
+  final String BRANDS = '/home/brands';
 
   // Auth
   final String login = '/login';

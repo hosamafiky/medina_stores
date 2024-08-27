@@ -2,24 +2,26 @@ part of '../data_imports.dart';
 
 class CategoryModel extends Category {
   const CategoryModel({
-    required super.id,
-    required super.name,
+    super.id,
+    super.name,
     super.parent,
-    required super.active,
-    required super.slug,
-    required super.image,
+    super.active,
+    super.slug,
+    super.image,
     required super.createdAt,
+    super.children,
   });
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       id: map['id'],
       name: map['name'],
-      parent: map['parent'],
+      parent: map['parent'] ?? '',
       active: map['active'],
       slug: map['slug'],
       image: map['image'],
-      createdAt: DateFormat('yyyy MMM dd hh:mm:ss').parse(map['created_at']),
+      createdAt: DateFormat(ApiConstants.dateFormat).parse(map['created_at']),
+      children: List<SubCategoryModel>.from(map['children'].map((e) => SubCategoryModel.fromMap(e))),
     );
   }
 
@@ -33,7 +35,8 @@ class CategoryModel extends Category {
       'active': active,
       'slug': slug,
       'image': image,
-      'created_at': DateFormat('yyyy MMM dd hh:mm:ss').format(createdAt),
+      'created_at': DateFormat(ApiConstants.dateFormat).format(createdAt),
+      'children': children.map((e) => (e as SubCategoryModel).toMap())
     };
   }
 

@@ -8,6 +8,7 @@ class Category extends Equatable {
   final String slug;
   final String image;
   final DateTime createdAt;
+  final List<SubCategory> children;
 
   const Category({
     this.id = 0,
@@ -17,6 +18,7 @@ class Category extends Equatable {
     this.slug = '',
     this.image = '',
     required this.createdAt,
+    this.children = const [],
   });
 
   factory Category.empty() => Category(createdAt: DateTime.now());
@@ -29,6 +31,7 @@ class Category extends Equatable {
     String? slug,
     String? image,
     DateTime? createdAt,
+    List<SubCategory>? children,
   }) {
     return Category(
       id: id ?? this.id,
@@ -38,6 +41,7 @@ class Category extends Equatable {
       slug: slug ?? this.slug,
       image: image ?? this.image,
       createdAt: createdAt ?? this.createdAt,
+      children: children ?? this.children,
     );
   }
 
@@ -51,6 +55,7 @@ class Category extends Equatable {
       slug,
       image,
       createdAt,
+      children,
     ];
   }
 }
