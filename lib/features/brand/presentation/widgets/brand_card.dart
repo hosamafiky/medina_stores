@@ -1,13 +1,13 @@
 part of '../presentation_imports.dart';
 
-class SubCategoryCard extends StatelessWidget {
-  const SubCategoryCard(this.subCategory, {super.key}) : _isSkeleton = false;
+class BrandCard extends StatelessWidget {
+  const BrandCard(this.brand, {super.key}) : _isSkeleton = false;
 
-  SubCategoryCard.skeleton({super.key})
-      : subCategory = SubCategory(createdAt: DateTime.now()),
+  BrandCard.skeleton({super.key})
+      : brand = Brand.empty,
         _isSkeleton = true;
 
-  final SubCategory subCategory;
+  final Brand brand;
   final bool _isSkeleton;
 
   @override
@@ -17,19 +17,20 @@ class SubCategoryCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (_isSkeleton) return;
-          // AppNavigator.to(ProductsPage(subCategoryId: subCategory.id));
         },
         child: Column(
           children: [
             ImageWidget(
-              imageUrl: subCategory.image,
+              imageUrl: brand.media,
               height: 70.r,
               width: 70.r,
               shape: BoxShape.circle,
             ),
             Text(
-              _isSkeleton ? LocaleKeys.sub_category.tr() : subCategory.name.capitalize,
+              _isSkeleton ? LocaleKeys.brand.tr() : brand.name.capitalize,
               textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: context.appTextStyle.elevatedButtonTextStyle,
             ),
           ],

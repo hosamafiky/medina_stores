@@ -61,8 +61,13 @@
   "profile": "Me",
   "whats_new": "New",
   "my_orders": "My Orders",
+  "sub_category": "Sub Category",
   "sub_categories": "Sub Categories",
-  "empty_sub_categories": "No sub categories found",
+  "empty_sub_categories": "Currently, No sub categories found",
+  "category": "Category",
   "categories": "Categories",
-  "empty_categories": "No categories found"
+  "empty_categories": "Currently, No categories found",
+  "brand": "Brand",
+  "brands": "Brands",
+  "empty_brands": "Currently, No brands found"
 }
