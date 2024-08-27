@@ -73,7 +73,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (!formKey.currentState!.validate()) return;
-                          if (state.status == UsecaseStatus.running) return;
                           register();
                         },
                         child: Text(LocaleKeys.register.tr()),

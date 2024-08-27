@@ -44,7 +44,7 @@ class AdCubit extends Cubit<AdState> {
         if (ads.data!.data.isEmpty) {
           emit(state.copyWith(
             adsStatus: UsecaseStatus.completed,
-            ads: ads.copyWith(
+            ads: ads.copyWithSuccess(
               data: state.ads.data!.copyWith(
                 hasReachedEnd: true,
               ),
@@ -55,7 +55,7 @@ class AdCubit extends Cubit<AdState> {
           final newAds = List<Ad>.from(ads.data!.data);
           emit(state.copyWith(
             adsStatus: UsecaseStatus.completed,
-            ads: ads.copyWith(
+            ads: ads.copyWithSuccess(
               data: state.ads.data!.copyWith(
                 data: [...state.ads.data!.data, ...newAds],
                 currentPage: ads.data!.currentPage,

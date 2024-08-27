@@ -9,23 +9,23 @@ extension ErrorHandler<T extends Object?> on Future<ApiResponse<T>> {
     try {
       final result = await this;
       return Right(result);
-    } on ServerException catch (e) {
-      switch (e.response.statusCode) {
-        case 400:
+    } on AppException catch (e) {
+      switch (e.runtimeType) {
+        case const (BadRequestException):
           return Left(BadRequestFailure(response: e.response));
-        case 401:
+        case const (UnauthorizedException):
           return Left(UnauthorizedFailure(response: e.response));
-        case 404:
+        case const (NotFoundException):
           return Left(NotFoundFailure(response: e.response));
-        case 409:
+        case const (MissingDataException):
+          return Left(MissingDataFailure(response: e.response));
+        case const (ConflictException):
           return Left(ConflictFailure(response: e.response));
-        case 500:
+        case const (InternalServerErrorException):
           return Left(InternalServerErrorFailure(response: e.response));
         default:
-          return Left(ServerFailure(response: e.response));
+          return Left(UnknownFailure(response: e.response));
       }
-    } on UnknownException catch (e) {
-      return Left(UnknownFailure(response: ApiResponse.error(message: e.message)));
     }
   }
 }

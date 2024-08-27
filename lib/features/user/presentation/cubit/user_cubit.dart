@@ -35,7 +35,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> login(LoginParams params) async {
-    if (state.loginStatus == UsecaseStatus.running) return;
+    // if (state.loginStatus == UsecaseStatus.running) return;
     emit(state.copyWith(loginStatus: UsecaseStatus.running));
     final result = await loginUsecase(params);
     if (isClosed) return;
@@ -46,7 +46,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> register(RegisterParams params) async {
-    if (state.registerStatus == UsecaseStatus.running) return;
+    // if (state.registerStatus == UsecaseStatus.running) return;
     emit(state.copyWith(registerStatus: UsecaseStatus.running));
     final result = await registerUsecase(params);
     if (isClosed) return;
@@ -104,7 +104,8 @@ class UserCubit extends Cubit<UserState> {
     if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(verifyPasswordOTPStatus: UsecaseStatus.error, verifyPasswordOTPFailure: failure)),
-      (r) => emit(state.copyWith(verifyPasswordOTPStatus: UsecaseStatus.completed, user: state.user == null ? r : state.user!.copyWith(message: r.message))),
+      (r) => emit(
+          state.copyWith(verifyPasswordOTPStatus: UsecaseStatus.completed, user: state.user == null ? r : state.user!.copyWithSuccess(message: r.message))),
     );
   }
 
@@ -115,7 +116,7 @@ class UserCubit extends Cubit<UserState> {
     if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(resetPasswordStatus: UsecaseStatus.error, resetPasswordFailure: failure)),
-      (r) => emit(state.copyWith(resetPasswordStatus: UsecaseStatus.completed, user: state.user == null ? r : state.user!.copyWith(message: r.message))),
+      (r) => emit(state.copyWith(resetPasswordStatus: UsecaseStatus.completed, user: state.user == null ? r : state.user!.copyWithSuccess(message: r.message))),
     );
   }
 }
