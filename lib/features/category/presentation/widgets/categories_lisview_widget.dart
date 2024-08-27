@@ -10,22 +10,20 @@ class CategoriesLisViewWidget extends StatelessWidget {
       builder: (context, cState) {
         final isLoading = cState.status == UsecaseStatus.running;
         if (cState.failure != null) {
-          return Center(child: Text("Failed to load sub categories ${cState.failure!.response.message}"));
+          return Center(child: Text(cState.failure!.response.message));
         }
         if (cState.categories.isEmpty && !isLoading) {
           return Center(child: Text(LocaleKeys.empty_sub_categories.tr()));
         }
 
-        return ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+        return SliverList.separated(
           itemBuilder: (context, index) {
             if (isLoading) return CategoryWithSubsCard.skeleton();
             final category = cState.categories[index];
             return CategoryWithSubsCard(category);
           },
           separatorBuilder: (context, index) => SizedBox(height: 16.h),
-          itemCount: isLoading ? 4 : cState.categories.length,
+          itemCount: isLoading ? 2 : cState.categories.length,
         );
       },
     );
