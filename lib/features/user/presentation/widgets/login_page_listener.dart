@@ -19,11 +19,16 @@ class LoginPageListener extends StatelessWidget {
         if (!isCurrentRoute) return;
 
         if (state.sendOTPStatus == UsecaseStatus.completed) {
+          LoadingManager.hide();
           AppNavigator.to(const OtpPage());
+        }
+        if (state.sendOTPStatus == UsecaseStatus.error && state.sendOTPFailure != null) {
+          LoadingManager.hide();
+          MessageHelper.showErrorSnackBar(state.sendOTPFailure!.response.message);
         }
 
         if (state.loginStatus == UsecaseStatus.running) {
-          LoadingManager.show(dismissOnTap: true);
+          LoadingManager.show();
         }
         if (state.loginStatus == UsecaseStatus.completed && state.user?.data != null) {
           await Future.wait([
@@ -36,13 +41,13 @@ class LoginPageListener extends StatelessWidget {
         }
 
         if (state.loginStatus == UsecaseStatus.error && state.loginFailure != null) {
-          LoadingManager.hide();
           if (state.loginFailure!.response.statusCode == 401) {
             if (!context.mounted) return;
             context.read<UserCubit>().sendOTP(SendOTPParams(phone: emailOrPhoneController.text));
-            MessageHelper.showErrorSnackBar(state.loginFailure!.response.message);
+          } else {
+            LoadingManager.hide();
+            if (state.loginFailure!.response.errors.isEmpty) MessageHelper.showErrorSnackBar(state.loginFailure!.response.message);
           }
-          if (state.loginFailure!.response.errors.isEmpty) MessageHelper.showErrorSnackBar(state.loginFailure!.response.message);
         }
       },
       child: child,
