@@ -84,10 +84,9 @@ class DioService implements ApiService {
       }
     } on DioException catch (e) {
       return _handleError(e);
+    } catch (e) {
+      throw UnknownException("${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}");
     }
-    // catch (e) {
-    //   throw UnknownException("${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}");
-    // }
   }
 
   dynamic _handleError(DioException error) {
