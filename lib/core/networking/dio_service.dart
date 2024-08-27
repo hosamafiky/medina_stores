@@ -90,52 +90,56 @@ class DioService implements ApiService {
   }
 
   dynamic _handleError(DioException error) {
-    switch (error.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.receiveTimeout:
-        throw NoInternetConnectionException();
-      case DioExceptionType.badResponse:
-        switch (error.response!.statusCode) {
-          case HttpStatus.badRequest:
-            throw BadRequestException(ApiResponse.fromMapError(error.response).copyWith(
-              statusCode: error.response?.statusCode,
-            ));
-          case HttpStatus.unprocessableEntity:
-            throw MissingDataException(ApiResponse.fromMapError(error.response).copyWith(
-              statusCode: error.response?.statusCode,
-            ));
-          case HttpStatus.unauthorized:
-            throw UnauthorizedException(ApiResponse.fromMapError(error.response).copyWith(
-              statusCode: error.response?.statusCode,
-            ));
-          case HttpStatus.notFound:
-            throw NotFoundException(ApiResponse.fromMapError(error.response).copyWith(
-              statusCode: error.response?.statusCode,
-            ));
-          case HttpStatus.conflict:
-            throw ConflictException(ApiResponse.fromMapError(error.response).copyWith(
-              statusCode: error.response?.statusCode,
-            ));
-          case HttpStatus.internalServerError:
-            throw InternalServerErrorException();
-          default:
-            throw ServerException(ApiResponse.fromMapError(error.response).copyWith(
-              statusCode: error.response?.statusCode,
-            ));
-        }
-      case DioExceptionType.cancel:
-        throw ServerException(ApiResponse.fromMapError(error.response).copyWith(
-          statusCode: error.response?.statusCode,
-        ));
-      case DioExceptionType.unknown:
-        throw UnknownException(
-          error.response?.data['message'] ?? LocaleKeys.exception.tr(),
-        );
-      default:
-        throw UnknownException(
-          error.response?.data['message'] ?? LocaleKeys.exception.tr(),
-        );
+    try {
+      switch (error.type) {
+        case DioExceptionType.connectionTimeout:
+        case DioExceptionType.sendTimeout:
+        case DioExceptionType.receiveTimeout:
+          throw NoInternetConnectionException();
+        case DioExceptionType.badResponse:
+          switch (error.response!.statusCode) {
+            case HttpStatus.badRequest:
+              throw BadRequestException(ApiResponse.fromMapError(error.response).copyWith(
+                statusCode: error.response?.statusCode,
+              ));
+            case HttpStatus.unprocessableEntity:
+              throw MissingDataException(ApiResponse.fromMapError(error.response).copyWith(
+                statusCode: error.response?.statusCode,
+              ));
+            case HttpStatus.unauthorized:
+              throw UnauthorizedException(ApiResponse.fromMapError(error.response).copyWith(
+                statusCode: error.response?.statusCode,
+              ));
+            case HttpStatus.notFound:
+              throw NotFoundException(ApiResponse.fromMapError(error.response).copyWith(
+                statusCode: error.response?.statusCode,
+              ));
+            case HttpStatus.conflict:
+              throw ConflictException(ApiResponse.fromMapError(error.response).copyWith(
+                statusCode: error.response?.statusCode,
+              ));
+            case HttpStatus.internalServerError:
+              throw InternalServerErrorException();
+            default:
+              throw ServerException(ApiResponse.fromMapError(error.response).copyWith(
+                statusCode: error.response?.statusCode,
+              ));
+          }
+        case DioExceptionType.cancel:
+          throw ServerException(ApiResponse.fromMapError(error.response).copyWith(
+            statusCode: error.response?.statusCode,
+          ));
+        case DioExceptionType.unknown:
+          throw UnknownException(
+            error.response?.data['message'] ?? LocaleKeys.exception.tr(),
+          );
+        default:
+          throw UnknownException(
+            error.response?.data['message'] ?? LocaleKeys.exception.tr(),
+          );
+      }
+    } catch (e) {
+      throw UnknownException("${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}");
     }
   }
 }
