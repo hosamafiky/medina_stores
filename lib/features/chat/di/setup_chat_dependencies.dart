@@ -8,12 +8,16 @@ void setUpChatDependencies() async {
   DependencyHelper.instance.serviceLocator.registerFactory(
     () => ChatCubit(
       getChatsUsecase: DependencyHelper.instance.serviceLocator(),
+      getMessagesUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
   // USECASES
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => GetChatsUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => GetMessagesUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES

@@ -153,6 +153,7 @@ class _AppTextFieldState extends State<AppTextField> {
     final AppTextStyle appTextStyle = context.appTextStyle;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.label != null)
           RichText(

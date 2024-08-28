@@ -9,6 +9,16 @@ class ChatMessageModel extends ChatMessage {
     super.mediaUrl,
   });
 
+  factory ChatMessageModel.fromMessage(ChatMessage message) {
+    return ChatMessageModel(
+      messageType: message.messageType,
+      messageStatus: message.messageStatus,
+      isSender: message.isSender,
+      text: message.text,
+      mediaUrl: message.mediaUrl,
+    );
+  }
+
   factory ChatMessageModel.fromMap(Map<String, dynamic> map) {
     return ChatMessageModel(
       messageType: ChatMessageType.fromString(map['message_type']),

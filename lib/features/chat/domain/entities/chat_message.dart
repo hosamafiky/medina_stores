@@ -34,7 +34,11 @@ class ChatMessage extends Equatable {
     required this.messageType,
     required this.messageStatus,
     required this.isSender,
-  });
+  }) : assert(
+          ((messageType == ChatMessageType.image || messageType == ChatMessageType.audio || messageType == ChatMessageType.video) && mediaUrl != null) ||
+              (messageType == ChatMessageType.text),
+          'MediaUrl must be provided for image, audio and video messages',
+        );
 
   static ChatMessage empty() => const ChatMessage(
         text: '',
@@ -60,5 +64,5 @@ class ChatMessage extends Equatable {
   }
 
   @override
-  List<Object?> get props => [text, messageType, messageStatus, isSender];
+  List<Object?> get props => [text, messageType, mediaUrl, messageStatus, isSender];
 }

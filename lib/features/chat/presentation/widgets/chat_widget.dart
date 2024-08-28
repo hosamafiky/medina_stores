@@ -16,7 +16,7 @@ class ChatWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (_isSkeleton) return;
-        //TODO: Navigate to the chat page
+        AppNavigator.to(ChatPage(chat));
       },
       child: Container(
         padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -39,8 +39,8 @@ class ChatWidget extends StatelessWidget {
                     right: 0,
                     bottom: 0,
                     child: Container(
-                      height: 16,
-                      width: 16,
+                      height: 16.h,
+                      width: 16.h,
                       decoration: BoxDecoration(
                         color: palette.success,
                         shape: BoxShape.circle,

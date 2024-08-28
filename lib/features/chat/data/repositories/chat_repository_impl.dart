@@ -9,4 +9,9 @@ class ChatRepositoryImpl implements ChatRepository {
   Future<Either<Failure, ApiResponse<PaginatedList<Chat>>>> getChats(GetPaginatedListParams params) async {
     return await remoteDataSource.getChats(params).handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, ApiResponse<PaginatedList<ChatMessage>>>> getChatMessages(GetMessagesParams params) async {
+    return await remoteDataSource.getChat(params).handleCallbackWithFailure;
+  }
 }
