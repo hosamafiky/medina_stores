@@ -69,23 +69,59 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
       data: PaginatedList<ChatMessageModel>(
         currentPage: params.page,
         lastPage: 3,
-        data: List<ChatMessageModel>.generate(
-          30,
-          (index) {
-            final status = MessageStatus.values[Random().nextInt(MessageStatus.values.length)];
-            final messageType = ChatMessageType.values[Random().nextInt(ChatMessageType.values.length)];
-
-            return ChatMessageModel(
-              messageStatus: status,
-              messageType: messageType,
-              mediaUrl: messageType == ChatMessageType.audio || messageType == ChatMessageType.video || messageType == ChatMessageType.image
-                  ? 'https://picsum.photos/200/300?random=${index + params.page}'
-                  : null,
-              text: 'Message ${index + params.page}',
-              isSender: index.isEven,
-            );
-          },
-        ),
+        data: [
+          const ChatMessageModel(
+            id: 1,
+            text: 'Hello',
+            messageType: ChatMessageType.text,
+            messageStatus: MessageStatus.notSent,
+            isSender: true,
+          ),
+          const ChatMessageModel(
+            id: 2,
+            text: 'Hi',
+            messageType: ChatMessageType.text,
+            messageStatus: MessageStatus.notView,
+            isSender: false,
+          ),
+          const ChatMessageModel(
+            id: 3,
+            text: 'How are you?',
+            messageType: ChatMessageType.image,
+            mediaUrl: 'https://picsum.photos/200/300?random=1',
+            messageStatus: MessageStatus.viewed,
+            isSender: true,
+          ),
+          const ChatMessageModel(
+            id: 4,
+            text: 'I am fine',
+            messageType: ChatMessageType.text,
+            messageStatus: MessageStatus.viewed,
+            isSender: false,
+          ),
+          const ChatMessageModel(
+            id: 5,
+            text: 'What about you?',
+            messageType: ChatMessageType.text,
+            messageStatus: MessageStatus.notSent,
+            isSender: true,
+          ),
+          const ChatMessageModel(
+            id: 8,
+            text: 'Check out this video!',
+            messageType: ChatMessageType.video,
+            mediaUrl: 'https://www.taxmann.com/emailer/images/CompaniesAct.mp4',
+            messageStatus: MessageStatus.notSent,
+            isSender: true,
+          ),
+          const ChatMessageModel(
+            id: 7,
+            text: 'How is your day going?',
+            messageType: ChatMessageType.text,
+            messageStatus: MessageStatus.viewed,
+            isSender: true,
+          ),
+        ],
       ),
     );
   }

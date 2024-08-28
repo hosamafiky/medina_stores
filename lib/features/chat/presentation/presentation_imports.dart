@@ -12,6 +12,7 @@ import 'package:medina_stores/core/navigation/navigator.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/app_textfield.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/image_widget.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
+import 'package:medina_stores/core/shared_widgets/core_widgets/video_widget.dart';
 import 'package:medina_stores/core/standards/paginated_list.dart';
 import 'package:medina_stores/core/standards/response_model.dart';
 import 'package:medina_stores/features/chat/data/data_imports.dart';

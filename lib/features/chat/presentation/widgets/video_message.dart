@@ -11,37 +11,17 @@ class VideoMessageState extends State<VideoMessage> {
   @override
   Widget build(BuildContext context) {
     final appStyles = context.appTextStyle;
-    final palette = context.colorPalette;
     return Column(
       crossAxisAlignment: widget.message.isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        Stack(
-          alignment: Alignment.center,
+        Row(
           children: [
-            Row(
-              children: [
-                ImageWidget(
-                  height: 130.h,
-                  width: 0.55.sw,
-                  borderRadius: BorderRadius.circular(8),
-                  imageUrl: widget.message.mediaUrl!,
-                ),
-                if (widget.message.isSender) MessageStatusDot(status: widget.message.messageStatus),
-              ],
+            VideoWidget(
+              height: 130.h,
+              width: 0.55.sw,
+              mediaUrl: widget.message.mediaUrl!,
             ),
-            Container(
-              height: 25.r,
-              width: 25.r,
-              decoration: BoxDecoration(
-                color: palette.primary,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.play_arrow,
-                size: 16,
-                color: Colors.white,
-              ),
-            )
+            if (widget.message.isSender) MessageStatusDot(status: widget.message.messageStatus),
           ],
         ),
         if (widget.message.text.isNotEmpty)

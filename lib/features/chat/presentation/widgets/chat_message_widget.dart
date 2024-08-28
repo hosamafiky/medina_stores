@@ -43,7 +43,13 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
           mainAxisAlignment: widget.message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
             if (!widget.message.isSender) ...[
-              ImageWidget(imageUrl: chat!.receiverProfileImage, height: 40, width: 40, shape: BoxShape.circle),
+              ImageWidget(
+                imageUrl: chat!.receiverProfileImage,
+                height: 40,
+                width: 40,
+                shape: BoxShape.circle,
+                isClickable: false,
+              ),
               const SizedBox(width: 20 / 2),
             ],
             if (widget.message.messageType == ChatMessageType.audio || widget.message.messageType == ChatMessageType.text)

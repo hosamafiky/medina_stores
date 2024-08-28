@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:medina_stores/core/extensions/context.dart';
 import 'package:medina_stores/core/navigation/navigator.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
+import 'package:medina_stores/features/media_view/presentation/presentation_imports.dart';
 
 class ImageWidget extends StatelessWidget {
   const ImageWidget({
@@ -12,6 +13,7 @@ class ImageWidget extends StatelessWidget {
     this.width,
     this.borderRadius,
     this.shape = BoxShape.rectangle,
+    this.isClickable = true,
   }) : assert(
           (shape == BoxShape.rectangle || (borderRadius == null && shape == BoxShape.circle)),
           'You can only use borderRadius with BoxShape.rectangle',
@@ -21,6 +23,7 @@ class ImageWidget extends StatelessWidget {
   final double? height, width;
   final BorderRadiusGeometry? borderRadius;
   final BoxShape shape;
+  final bool isClickable;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class ImageWidget extends StatelessWidget {
       fit: BoxFit.cover,
       errorWidget: (context, url, error) => errorWidget,
       placeholder: (context, url) => placeHolder,
-      imageBuilder: (context, imageProvider) => imageWidget,
+      imageBuilder: (context, imageProvider) => imageWidget(imageProvider),
     );
   }
 
@@ -61,20 +64,20 @@ class ImageWidget extends StatelessWidget {
         borderRadius: shape == BoxShape.circle ? BorderRadius.circular(50) : borderRadius,
       );
 
-  Widget get imageWidget => CachedNetworkImage(
-        imageUrl: imageUrl,
-        fit: BoxFit.cover,
-        errorWidget: (context, url, error) => errorWidget,
-        placeholder: (context, url) => placeHolder,
-        imageBuilder: (context, imageProvider) => Container(
-          height: height,
-          width: width,
-          decoration: BoxDecoration(
-            borderRadius: borderRadius,
-            shape: shape,
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
+  Widget imageWidget(ImageProvider imageProvider) => InkWell(
+        onTap: !isClickable ? null : () => AppNavigator.to(ImageViewPage(imageUrl)),
+        child: Hero(
+          tag: imageUrl,
+          child: Container(
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              shape: shape,
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),

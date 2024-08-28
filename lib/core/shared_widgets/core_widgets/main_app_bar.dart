@@ -14,6 +14,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor,
     this.titleSpacing,
     this.titleTextStyle,
+    this.iconColor,
   });
 
   final Widget? title, leading;
@@ -24,6 +25,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool padEnd;
   final double? titleSpacing, toolbarHeight;
   final TextStyle? titleTextStyle;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       bottom: bottom,
       toolbarHeight: toolbarHeight ?? kToolbarHeight,
       titleSpacing: titleSpacing,
+      iconTheme: iconColor != null ? IconThemeData(color: iconColor) : null,
+      actionsIconTheme: iconColor != null ? IconThemeData(color: iconColor) : null,
       titleTextStyle: titleTextStyle,
       backgroundColor: backgroundColor,
       centerTitle: centerTitle,

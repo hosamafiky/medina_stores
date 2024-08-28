@@ -2,6 +2,7 @@ part of '../data_imports.dart';
 
 class ChatMessageModel extends ChatMessage {
   const ChatMessageModel({
+    required super.id,
     required super.messageType,
     required super.messageStatus,
     required super.isSender,
@@ -11,6 +12,7 @@ class ChatMessageModel extends ChatMessage {
 
   factory ChatMessageModel.fromMessage(ChatMessage message) {
     return ChatMessageModel(
+      id: message.id,
       messageType: message.messageType,
       messageStatus: message.messageStatus,
       isSender: message.isSender,
@@ -21,6 +23,7 @@ class ChatMessageModel extends ChatMessage {
 
   factory ChatMessageModel.fromMap(Map<String, dynamic> map) {
     return ChatMessageModel(
+      id: map['id'],
       messageType: ChatMessageType.fromString(map['message_type']),
       messageStatus: MessageStatus.fromString(map['message_status']),
       isSender: map['is_sender'],
@@ -33,6 +36,7 @@ class ChatMessageModel extends ChatMessage {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'message_type': messageType.name,
       'message_status': messageStatus.name,
       'is_sender': isSender,

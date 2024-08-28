@@ -22,6 +22,7 @@ enum MessageStatus {
 }
 
 class ChatMessage extends Equatable {
+  final int id;
   final String text;
   final String? mediaUrl;
   final ChatMessageType messageType;
@@ -29,6 +30,7 @@ class ChatMessage extends Equatable {
   final bool isSender;
 
   const ChatMessage({
+    required this.id,
     this.text = '',
     this.mediaUrl,
     required this.messageType,
@@ -41,6 +43,7 @@ class ChatMessage extends Equatable {
         );
 
   static ChatMessage empty() => const ChatMessage(
+        id: 0,
         text: '',
         messageType: ChatMessageType.text,
         messageStatus: MessageStatus.notSent,
@@ -48,6 +51,7 @@ class ChatMessage extends Equatable {
       );
 
   ChatMessage copyWith({
+    int? id,
     String? text,
     String? mediaUrl,
     ChatMessageType? messageType,
@@ -55,6 +59,7 @@ class ChatMessage extends Equatable {
     bool? isSender,
   }) {
     return ChatMessage(
+      id: id ?? this.id,
       text: text ?? this.text,
       mediaUrl: mediaUrl ?? this.mediaUrl,
       messageType: messageType ?? this.messageType,
@@ -64,5 +69,5 @@ class ChatMessage extends Equatable {
   }
 
   @override
-  List<Object?> get props => [text, messageType, mediaUrl, messageStatus, isSender];
+  List<Object?> get props => [id, text, messageType, mediaUrl, messageStatus, isSender];
 }
