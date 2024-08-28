@@ -37,6 +37,7 @@ class _VideoWidgetState extends State<VideoWidget> {
     );
     await controller.setLooping(true);
     await controller.initialize().then((_) => setState(() {}));
+    await controller.setVolume(0.0);
     if (widget.autoStart) await controller.play();
   }
 
@@ -51,52 +52,119 @@ class _VideoWidgetState extends State<VideoWidget> {
     final palette = context.colorPalette;
 
     return SizedBox(
-      width: widget.width,
+      width: widget.width ?? context.screenWidth,
       height: widget.height,
       child: Stack(
         alignment: Alignment.center,
         children: [
-          InkWell(
-            onTap: () {
-              AppNavigator.to(VideoViewPage(controller));
-            },
-            child: AspectRatio(
-              aspectRatio: controller.value.aspectRatio,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.r),
-                child: VideoPlayer(controller),
-              ),
+          Container(
+            height: widget.height,
+            width: widget.width ?? context.screenWidth,
+            decoration: BoxDecoration(
+              color: palette.primary.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10.r),
             ),
           ),
-          ValueListenableBuilder(
-            valueListenable: controller,
-            builder: (context, value, child) {
-              return InkWell(
-                onTap: () {
-                  if (value.isPlaying) {
-                    controller.pause();
-                  } else {
-                    controller.play();
-                  }
-                },
-                child: Container(
-                  height: 25.r,
-                  width: 25.r,
-                  decoration: BoxDecoration(
-                    color: palette.primary.withOpacity(0.2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    value.isPlaying ? Icons.pause : Icons.play_arrow,
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              );
-            },
+          InkWell(
+            onTap: () => AppNavigator.to(VideoViewPage(controller)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.r),
+              child: VideoPlayer(controller),
+            ),
+          ),
+          PlayPauseButton(controller: controller),
+          PositionedDirectional(
+            end: 10.w,
+            bottom: 10.h,
+            child: VolumeButton(controller: controller),
           ),
         ],
       ),
+    );
+  }
+}
+
+class PlayPauseButton extends StatelessWidget {
+  const PlayPauseButton({
+    super.key,
+    required this.controller,
+  });
+
+  final VideoPlayerController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.colorPalette;
+    return ValueListenableBuilder(
+      valueListenable: controller,
+      builder: (context, value, child) {
+        return InkWell(
+          onTap: () {
+            if (value.isPlaying) {
+              controller.pause();
+            } else {
+              controller.play();
+            }
+          },
+          child: Container(
+            height: 50.r,
+            width: 50.r,
+            decoration: BoxDecoration(
+              color: palette.primary.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: !value.isInitialized
+                ? const CircularProgressIndicator.adaptive()
+                : Icon(
+                    value.isPlaying ? Icons.pause : Icons.play_arrow,
+                    size: 32,
+                    color: Colors.white,
+                  ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class VolumeButton extends StatelessWidget {
+  const VolumeButton({
+    super.key,
+    required this.controller,
+  });
+
+  final VideoPlayerController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.colorPalette;
+
+    return ValueListenableBuilder<VideoPlayerValue>(
+      valueListenable: controller,
+      builder: (context, value, child) {
+        return InkWell(
+          onTap: () {
+            if (value.volume > 0) {
+              controller.setVolume(0.0);
+              return;
+            }
+            controller.setVolume(1.0);
+          },
+          child: Container(
+            height: 20.r,
+            width: 20.r,
+            decoration: BoxDecoration(
+              color: palette.primary.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              value.volume > 0 ? Icons.volume_up : Icons.volume_off,
+              size: 15,
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
     );
   }
 }
