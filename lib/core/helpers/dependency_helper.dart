@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import '../../features/chat/di/setup_chat_dependencies.dart';
 import '../../features/brand/di/setup_brand_dependencies.dart';
 import '../../features/sub_category/di/setup_sub_category_dependencies.dart';
 import '../../features/category/di/setup_category_dependencies.dart';
@@ -21,6 +22,7 @@ class DependencyHelper {
 
   void registerDependencies() {
     setUpGeneralDependencies();
+    setUpChatDependencies();
     setUpBrandDependencies();
     setUpSubCategoryDependencies();
     setUpCategoryDependencies();

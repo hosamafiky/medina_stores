@@ -28,7 +28,7 @@ extension UsecaseStatusX on UsecaseStatus {
       case UsecaseStatus.running:
         return running(context);
       case UsecaseStatus.completed:
-        return completed(context);
+        return completed.call(context);
       case UsecaseStatus.error:
         return error?.call(context) ?? Container();
     }

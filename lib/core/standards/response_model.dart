@@ -78,13 +78,13 @@ class ApiResponse<T extends Object?> extends Equatable {
     int? statusCode,
     String? message,
     T? data,
-    bool? isSuceess,
+    bool? isSuccess,
   }) {
     return ApiResponse<T>.success(
       statusCode: statusCode ?? this.statusCode,
       message: message ?? this.message,
       data: data ?? this.data,
-      isSuceess: isSuceess ?? this.isSuceess,
+      isSuceess: isSuccess ?? this.isSuceess,
     );
   }
 

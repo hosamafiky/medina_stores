@@ -19,6 +19,8 @@ class ApiEndPoints {
   final String CATEGORIES = '/home/categories';
   final String SUB_CATEGORIES = '/sub-categories';
   final String BRANDS = '/home/brands';
+  final String CHATS = '/chats';
+  final String CHAT_MESSAGES = '/chat/messages';
 
   // Auth
   final String login = '/login';
