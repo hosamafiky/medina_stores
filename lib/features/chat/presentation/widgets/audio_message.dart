@@ -74,53 +74,63 @@ class AudioMessageState extends State<AudioMessage> {
         vertical: 20 / 2.5,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: palette.primary.withOpacity(widget.message.isSender ? 1 : 0.1),
+        color: palette.primary.withOpacity(widget.message.isSender ? 0.5 : 0.1),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: widget.message.isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          IconButton(
-            onPressed: () {
-              if (isPlaying) {
-                pause();
-                return;
-              }
-              play();
-            },
-            icon: Icon(
-              isPlaying ? Icons.pause : Icons.play_arrow,
-              color: widget.message.isSender ? Colors.white : palette.primary,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20 / 2),
-              child: SliderTheme(
-                data: SliderThemeData(
-                  trackHeight: 2,
-                  thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
-                  overlayShape: const RoundSliderOverlayShape(overlayRadius: 2),
-                  inactiveTrackColor: getInActiveTrackColor(),
-                  activeTrackColor: getActiveTrackColor(),
-                  trackShape: const RoundedRectSliderTrackShape(),
-                  thumbColor: widget.message.isSender ? ColorPalette.whiteColor : palette.primary,
-                ),
-                child: Slider(
-                  value: _currentPosition.inSeconds.toDouble(),
-                  min: 0,
-                  thumbColor: palette.primary,
-                  max: _audioDuration.inSeconds.toDouble(),
-                  onChanged: (position) {
-                    //TODO: Implement seek functionality
-                  },
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  if (isPlaying) {
+                    pause();
+                    return;
+                  }
+                  play();
+                },
+                icon: Icon(
+                  isPlaying ? Icons.pause : Icons.play_arrow,
+                  color: widget.message.isSender ? Colors.white : palette.primary,
                 ),
               ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20 / 2),
+                  child: SliderTheme(
+                    data: SliderThemeData(
+                      trackHeight: 2,
+                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 2),
+                      inactiveTrackColor: getInActiveTrackColor(),
+                      activeTrackColor: getActiveTrackColor(),
+                      trackShape: const RoundedRectSliderTrackShape(),
+                      thumbColor: widget.message.isSender ? ColorPalette.whiteColor : palette.primary,
+                    ),
+                    child: Slider(
+                      value: _currentPosition.inSeconds.toDouble(),
+                      min: 0,
+                      thumbColor: palette.primary,
+                      max: _audioDuration.inSeconds.toDouble(),
+                      onChanged: (position) {
+                        //TODO: Implement seek functionality
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                "${(isPlaying ? _currentPosition : _audioDuration).inMinutes.padNumber}:${(isPlaying ? _currentPosition : _audioDuration).inSeconds.padNumber}",
+                style: TextStyle(fontSize: 12, color: widget.message.isSender ? Colors.white : null),
+              ),
+            ],
+          ),
+          if (widget.message.text.isNotEmpty)
+            Text(
+              widget.message.text,
+              maxLines: 10,
+              style: context.appTextStyle.fieldStyle,
             ),
-          ),
-          Text(
-            "${(isPlaying ? _currentPosition : _audioDuration).inMinutes.padNumber}:${(isPlaying ? _currentPosition : _audioDuration).inSeconds.padNumber}",
-            style: TextStyle(fontSize: 12, color: widget.message.isSender ? Colors.white : null),
-          ),
         ],
       ),
     );

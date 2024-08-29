@@ -36,18 +36,18 @@ class VideoMessageState extends State<VideoMessage> {
                 color: palette.primary,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.play_arrow,
-                size: 16,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.play_arrow, size: 16.sp, color: ColorPalette.whiteColor),
             )
           ],
         ),
         if (widget.message.text.isNotEmpty)
           Padding(
             padding: REdgeInsetsDirectional.only(end: widget.message.isSender ? 20 : 0),
-            child: Text(widget.message.text, style: appStyles.fieldStyle),
+            child: Text(
+              widget.message.text,
+              maxLines: 10,
+              style: appStyles.fieldStyle,
+            ),
           ),
       ],
     ).withSpacing(spacing: 16.h);

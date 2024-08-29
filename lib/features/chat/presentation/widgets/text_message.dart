@@ -1,34 +1,29 @@
 part of '../presentation_imports.dart';
 
-class TextMessage extends StatelessWidget {
-  const TextMessage({
-    super.key,
-    this.message,
-  });
+class TextMessage extends ChatMessageWidget {
+  const TextMessage(super.message, {super.key});
 
-  final ChatMessage? message;
+  @override
+  TextMessageState createState() => TextMessageState();
+}
 
+class TextMessageState extends State<TextMessage> {
   @override
   Widget build(BuildContext context) {
     final palette = context.colorPalette;
+    final appStyles = context.appTextStyle;
 
     return Container(
-      // color: MediaQuery.of(context).platformBrightness == Brightness.dark
-      //     ? Colors.white
-      //     : Colors.black,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20.0 * 0.75,
-        vertical: 20.0 / 2,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0 * 0.75, vertical: 20.0 / 2),
       decoration: BoxDecoration(
-        color: palette.primary.withOpacity(message!.isSender ? 1 : 0.1),
-        borderRadius: BorderRadius.circular(30),
+        color: palette.primary.withOpacity(
+          widget.message.isSender ? 0.5 : 0.1,
+        ),
       ),
       child: Text(
-        message!.text,
-        style: TextStyle(
-          color: message!.isSender ? Colors.white : Theme.of(context).textTheme.bodyLarge!.color,
-        ),
+        widget.message.text,
+        maxLines: 10,
+        style: appStyles.fieldStyle,
       ),
     );
   }

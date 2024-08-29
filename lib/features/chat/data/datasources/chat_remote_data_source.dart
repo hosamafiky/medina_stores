@@ -82,7 +82,7 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
                   ? 'https://picsum.photos/200/300?random=${index + params.page}'
                   : null,
               text: 'Message ${index + params.page}',
-              isSender: index.isEven,
+              isSender: Random().nextBool(),
             );
           },
         ),
