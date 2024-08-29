@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/core/extensions/context.dart';
+import 'package:medina_stores/core/navigation/navigator.dart';
 import 'package:medina_stores/features/chat/domain/domain_imports.dart';
 
 import '../../features/chat/presentation/presentation_imports.dart';
 
 mixin ChatUtils {
+  final context = AppNavigator.rootContext!;
+
   Widget messageContaint(ChatMessage message) {
     switch (message.messageType) {
       case ChatMessageType.text:
@@ -21,7 +24,7 @@ mixin ChatUtils {
     }
   }
 
-  Color getMessageColor(BuildContext context, ChatMessage message) {
+  Color getMessageColor(ChatMessage message) {
     final bool isCurrentMessageSender = message.isSender;
     final MessageStatus status = message.messageStatus;
 
@@ -133,5 +136,19 @@ mixin ChatUtils {
       );
     }
     return BorderRadius.circular(20.r);
+  }
+
+  Color dotColor(MessageStatus status) {
+    switch (status) {
+      case MessageStatus.notSent:
+        return context.colorPalette.error;
+      case MessageStatus.notView:
+        return Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.1);
+      case MessageStatus.viewed:
+        return context.colorPalette.primary;
+
+      default:
+        return Colors.transparent;
+    }
   }
 }

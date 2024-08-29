@@ -28,7 +28,6 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> with ChatUtils {
   Widget build(BuildContext context) {
     final bool isCurrentMessageSender = widget.message.isSender;
     final MessageStatus status = widget.message.messageStatus;
-
     final chat = context.select((ChatCubit cubit) => cubit.state.currentChat);
     final fBorderRadius = borderRadius(message: widget.message, nextMessage: widget.nextMessage, previousMessage: widget.previousMessage);
     return ShimmerWidget.fromChild(
@@ -37,10 +36,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> with ChatUtils {
         child: Row(
           mainAxisAlignment: isCurrentMessageSender ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
-            if (showReceiverImage(
-              widget.message,
-              widget.nextMessage,
-            )) ...[
+            if (showReceiverImage(widget.message, widget.nextMessage)) ...[
               Align(
                 alignment: AlignmentDirectional.bottomStart,
                 child: ImageWidget(
@@ -59,14 +55,14 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> with ChatUtils {
                   ? DecoratedBox(
                       decoration: BoxDecoration(
                         borderRadius: fBorderRadius,
-                        color: getMessageColor(context, widget.message),
+                        color: getMessageColor(widget.message),
                       ),
                       child: messageContaint(widget.message),
                     )
                   : Container(
                       padding: REdgeInsets.symmetric(horizontal: 20.0 * 0.75, vertical: 20.0 / 2),
                       decoration: BoxDecoration(
-                        color: getMessageColor(context, widget.message),
+                        color: getMessageColor(widget.message),
                         borderRadius: fBorderRadius,
                       ),
                       child: messageContaint(widget.message),
@@ -85,28 +81,12 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> with ChatUtils {
   }
 }
 
-class MessageStatusDot extends StatelessWidget {
+class MessageStatusDot extends StatelessWidget with ChatUtils {
   final MessageStatus? status;
 
-  const MessageStatusDot({super.key, this.status});
+  MessageStatusDot({super.key, this.status});
   @override
   Widget build(BuildContext context) {
-    final palette = context.colorPalette;
-
-    Color dotColor(MessageStatus status) {
-      switch (status) {
-        case MessageStatus.notSent:
-          return palette.error;
-        case MessageStatus.notView:
-          return Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.1);
-        case MessageStatus.viewed:
-          return palette.primary;
-
-        default:
-          return Colors.transparent;
-      }
-    }
-
     return Container(
       margin: REdgeInsets.only(left: 20 / 2),
       height: 12,
