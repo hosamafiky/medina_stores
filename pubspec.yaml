@@ -83,8 +83,8 @@ dependencies:
   url_launcher: ^6.3.0 # A Flutter plugin for launching a URL in the mobile platform.
   intl: ^0.19.0 # This package provides internationalization and localization facilities, including message translation
   redacted: ^1.0.12 # A Flutter package to show loading of some widget.
-  video_player: ^2.9.1 # Flutter plugin for displaying inline video with other Flutter widgets on Android and iOS.
-  photo_view: ^0.15.0
+  cached_video_player_plus: ^3.0.3 # Flutter plugin for displaying inline video with other Flutter widgets on Android and iOS.
+  photo_view: ^0.15.0 # A simple zoomable image widget for Flutter.
 
   flutter_test:
     sdk: flutter
@@ -96,6 +96,7 @@ dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   firebase_remote_config: ^5.0.4
+  chewie: ^1.8.3
 
 dev_dependencies:
   build_runner:
