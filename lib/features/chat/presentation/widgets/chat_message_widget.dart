@@ -23,141 +23,24 @@ class ChatMessageWidget extends StatefulWidget {
   State<ChatMessageWidget> createState() => _ChatMessageWidgetState();
 }
 
-class _ChatMessageWidgetState extends State<ChatMessageWidget> {
-  BorderRadiusGeometry get borderRadius {
-    final bool isNextMessageSender = widget.nextMessage?.isSender ?? false;
-    final bool isCurrentMessageSender = widget.message.isSender;
-    final bool isPreviousMessageSender = widget.previousMessage?.isSender ?? false;
-    if (widget.previousMessage == null || widget.nextMessage == null) {
-      return BorderRadius.circular(20);
-    }
-    final isSender = (isCurrentMessageSender && isNextMessageSender);
-    if (isSender) {
-      if (!isPreviousMessageSender) {
-        return BorderRadiusDirectional.only(
-          topStart: Radius.circular(20.r),
-          topEnd: Radius.circular(20.r),
-          bottomStart: Radius.circular(20.r),
-          bottomEnd: Radius.circular(5.r),
-        );
-      }
-
-      if (isPreviousMessageSender && isNextMessageSender) {
-        return BorderRadiusDirectional.horizontal(
-          start: Radius.circular(20.r),
-          end: Radius.circular(5.r),
-        );
-      }
-
-      return BorderRadiusDirectional.horizontal(
-        start: Radius.circular(20.r),
-        end: Radius.circular(5.r),
-      );
-    }
-    final isReceiver = (!isCurrentMessageSender && !isNextMessageSender);
-    if (isReceiver) {
-      if (isPreviousMessageSender) {
-        return BorderRadiusDirectional.only(
-          topStart: Radius.circular(20.r),
-          topEnd: Radius.circular(20.r),
-          bottomStart: Radius.circular(5.r),
-          bottomEnd: Radius.circular(20.r),
-        );
-      }
-      if (!isPreviousMessageSender && !isNextMessageSender) {
-        return BorderRadiusDirectional.horizontal(
-          start: Radius.circular(5.r),
-          end: Radius.circular(20.r),
-        );
-      }
-      return BorderRadiusDirectional.horizontal(
-        start: Radius.circular(20.r),
-        end: Radius.circular(20.r),
-      );
-    }
-    final ifLastMessageSent = (isCurrentMessageSender && !isNextMessageSender && isPreviousMessageSender);
-    if (ifLastMessageSent) {
-      return BorderRadiusDirectional.only(
-        topStart: Radius.circular(20.r),
-        topEnd: Radius.circular(5.r),
-        bottomStart: Radius.circular(20.r),
-        bottomEnd: Radius.circular(20.r),
-      );
-    }
-    final ifLastMessageReceived = (!isCurrentMessageSender && isNextMessageSender && !isPreviousMessageSender);
-    if (ifLastMessageReceived) {
-      return BorderRadiusDirectional.only(
-        topStart: Radius.circular(5.r),
-        topEnd: Radius.circular(20.r),
-        bottomStart: Radius.circular(20.r),
-        bottomEnd: Radius.circular(20.r),
-      );
-    }
-    return BorderRadius.circular(20.r);
-  }
-
-  Color getMessageColor() {
-    final bool isCurrentMessageSender = widget.message.isSender;
-    final MessageStatus status = widget.message.messageStatus;
-
-    if (isCurrentMessageSender) {
-      if (status == MessageStatus.notSent) {
-        return context.colorPalette.error.withOpacity(0.6);
-      }
-      return context.colorPalette.primary.withOpacity(0.5);
-    }
-    return context.colorPalette.primary.withOpacity(0.1);
-  }
-
-  bool get showMessageStatus {
-    final bool isCurrentMessageSender = widget.message.isSender;
-    final MessageStatus status = widget.message.messageStatus;
-
-    if (!isCurrentMessageSender) return false;
-
-    if (status == MessageStatus.notSent || (isCurrentMessageSender && widget.nextMessage == null && !isCurrentMessageSender)) {
-      return status == MessageStatus.notSent;
-    }
-    return false;
-  }
-
-  bool get showReceiverImage {
-    final bool isCurrentMessageReceiver = !widget.message.isSender;
-    final bool isNextMessageReceiver = !(widget.nextMessage?.isSender ?? false);
-    if (!isCurrentMessageReceiver) return false;
-    if (isNextMessageReceiver) return false;
-    if (!isNextMessageReceiver) return true;
-    return false;
-  }
-
+class _ChatMessageWidgetState extends State<ChatMessageWidget> with ChatUtils {
   @override
   Widget build(BuildContext context) {
     final bool isCurrentMessageSender = widget.message.isSender;
     final MessageStatus status = widget.message.messageStatus;
 
     final chat = context.select((ChatCubit cubit) => cubit.state.currentChat);
-    Widget messageContaint(ChatMessage message) {
-      switch (message.messageType) {
-        case ChatMessageType.text:
-          return TextMessage(message);
-        case ChatMessageType.image:
-          return ImageMessage(message);
-        case ChatMessageType.audio:
-          return AudioMessage(message);
-        case ChatMessageType.video:
-          return VideoMessage(message);
-        default:
-          return const SizedBox();
-      }
-    }
-
+    final fBorderRadius = borderRadius(message: widget.message, nextMessage: widget.nextMessage, previousMessage: widget.previousMessage);
     return ShimmerWidget.fromChild(
       isLoading: widget._isSkeleton,
       child: Center(
         child: Row(
           mainAxisAlignment: isCurrentMessageSender ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
-            if (showReceiverImage) ...[
+            if (showReceiverImage(
+              widget.message,
+              widget.nextMessage,
+            )) ...[
               Align(
                 alignment: AlignmentDirectional.bottomStart,
                 child: ImageWidget(
@@ -175,21 +58,21 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
               child: (widget.message.messageType == ChatMessageType.audio || widget.message.messageType == ChatMessageType.text)
                   ? DecoratedBox(
                       decoration: BoxDecoration(
-                        borderRadius: borderRadius,
-                        color: getMessageColor(),
+                        borderRadius: fBorderRadius,
+                        color: getMessageColor(context, widget.message),
                       ),
                       child: messageContaint(widget.message),
                     )
                   : Container(
                       padding: REdgeInsets.symmetric(horizontal: 20.0 * 0.75, vertical: 20.0 / 2),
                       decoration: BoxDecoration(
-                        color: getMessageColor(),
-                        borderRadius: borderRadius,
+                        color: getMessageColor(context, widget.message),
+                        borderRadius: fBorderRadius,
                       ),
                       child: messageContaint(widget.message),
                     ),
             ),
-            if (showMessageStatus) ...[
+            if (showMessageStatus(widget.message, widget.nextMessage)) ...[
               Align(
                 alignment: Alignment.centerRight,
                 child: MessageStatusDot(status: status),
