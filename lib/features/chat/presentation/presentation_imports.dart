@@ -16,6 +16,7 @@ import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.da
 import 'package:medina_stores/core/shared_widgets/video_widgets/video_widget.dart';
 import 'package:medina_stores/core/standards/paginated_list.dart';
 import 'package:medina_stores/core/standards/response_model.dart';
+import 'package:medina_stores/core/utils/chat_utils.dart';
 import 'package:medina_stores/features/chat/data/data_imports.dart';
 
 import '../../../core/error/failures.dart';

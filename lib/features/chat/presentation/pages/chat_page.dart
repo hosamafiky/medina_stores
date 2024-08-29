@@ -38,8 +38,22 @@ class ChatPageBody extends StatelessWidget {
             },
             child: ListView.separated(
               padding: REdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
-              itemBuilder: (context, index) => ChatMessageWidget(state.messages!.data[index]),
-              separatorBuilder: (context, index) => SizedBox(height: 20.h),
+              itemBuilder: (context, index) {
+                final message = state.messages!.data[index];
+                final nextMessage = index + 1 < state.messages!.data.length ? state.messages!.data[index + 1] : null;
+                final previousMessage = index > 0 ? state.messages!.data[index - 1] : null;
+                return ChatMessageWidget(
+                  message,
+                  previousMessage: previousMessage,
+                  nextMessage: nextMessage,
+                );
+              },
+              separatorBuilder: (context, index) {
+                final nextMessage = state.messages!.data[index + 1];
+                final currentMessage = state.messages!.data[index];
+                final isTheSameSender = (nextMessage.isSender && currentMessage.isSender) || (!nextMessage.isSender && !currentMessage.isSender);
+                return isTheSameSender ? SizedBox(height: 6.h) : SizedBox(height: 20.h);
+              },
               itemCount: state.messages!.data.length,
             ),
           );

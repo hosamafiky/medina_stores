@@ -21,7 +21,12 @@ class ImageMessageState extends State<ImageMessage> {
           borderRadius: BorderRadius.circular(8),
           imageUrl: widget.message.mediaUrl!,
         ),
-        if (widget.message.text.isNotEmpty) Text(widget.message.text, style: appStyles.fieldStyle),
+        if (widget.message.text.isNotEmpty)
+          Text(
+            widget.message.text,
+            maxLines: 10,
+            style: appStyles.fieldStyle,
+          ),
       ],
     ).withSpacing(spacing: 16.h);
   }

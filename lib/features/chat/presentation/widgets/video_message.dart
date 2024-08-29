@@ -27,7 +27,11 @@ class VideoMessageState extends State<VideoMessage> {
         if (widget.message.text.isNotEmpty)
           Padding(
             padding: REdgeInsetsDirectional.only(end: widget.message.isSender ? 20 : 0),
-            child: Text(widget.message.text, style: appStyles.fieldStyle),
+            child: Text(
+              widget.message.text,
+              maxLines: 10,
+              style: appStyles.fieldStyle,
+            ),
           ),
       ],
     ).withSpacing(spacing: 16.h);
