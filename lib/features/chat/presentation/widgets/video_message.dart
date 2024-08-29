@@ -18,16 +18,11 @@ class VideoMessageState extends State<VideoMessage> {
         Stack(
           alignment: Alignment.center,
           children: [
-            Row(
-              children: [
-                ImageWidget(
-                  height: 130.h,
-                  width: 0.55.sw,
-                  borderRadius: BorderRadius.circular(8),
-                  imageUrl: widget.message.mediaUrl!,
-                ),
-                if (widget.message.isSender) MessageStatusDot(status: widget.message.messageStatus),
-              ],
+            ImageWidget(
+              height: 130.h,
+              width: 0.55.sw,
+              borderRadius: BorderRadius.circular(8),
+              imageUrl: widget.message.mediaUrl!,
             ),
             Container(
               height: 25.r,

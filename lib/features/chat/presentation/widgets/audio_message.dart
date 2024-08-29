@@ -73,9 +73,6 @@ class AudioMessageState extends State<AudioMessage> {
         horizontal: 20 * 0.75,
         vertical: 20 / 2.5,
       ),
-      decoration: BoxDecoration(
-        color: palette.primary.withOpacity(widget.message.isSender ? 0.5 : 0.1),
-      ),
       child: Column(
         crossAxisAlignment: widget.message.isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [

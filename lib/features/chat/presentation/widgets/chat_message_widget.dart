@@ -25,78 +25,117 @@ class ChatMessageWidget extends StatefulWidget {
 
 class _ChatMessageWidgetState extends State<ChatMessageWidget> {
   BorderRadiusGeometry get borderRadius {
+    final bool isNextMessageSender = widget.nextMessage?.isSender ?? false;
+    final bool isCurrentMessageSender = widget.message.isSender;
+    final bool isPreviousMessageSender = widget.previousMessage?.isSender ?? false;
     if (widget.previousMessage == null || widget.nextMessage == null) {
       return BorderRadius.circular(20);
     }
-    final isSender = (widget.message.isSender && widget.nextMessage!.isSender);
+    final isSender = (isCurrentMessageSender && isNextMessageSender);
     if (isSender) {
-      if (!widget.previousMessage!.isSender) {
-        return const BorderRadiusDirectional.only(
-          topStart: Radius.circular(20),
-          topEnd: Radius.circular(20),
-          bottomStart: Radius.circular(20),
-          bottomEnd: Radius.circular(5),
+      if (!isPreviousMessageSender) {
+        return BorderRadiusDirectional.only(
+          topStart: Radius.circular(20.r),
+          topEnd: Radius.circular(20.r),
+          bottomStart: Radius.circular(20.r),
+          bottomEnd: Radius.circular(5.r),
         );
       }
 
-      if (widget.previousMessage!.isSender && widget.nextMessage!.isSender) {
-        return const BorderRadiusDirectional.horizontal(
-          start: Radius.circular(20),
-          end: Radius.circular(5),
+      if (isPreviousMessageSender && isNextMessageSender) {
+        return BorderRadiusDirectional.horizontal(
+          start: Radius.circular(20.r),
+          end: Radius.circular(5.r),
         );
       }
 
-      return const BorderRadiusDirectional.horizontal(
-        start: Radius.circular(20),
-        end: Radius.circular(5),
+      return BorderRadiusDirectional.horizontal(
+        start: Radius.circular(20.r),
+        end: Radius.circular(5.r),
       );
     }
-    final isReceiver = (!widget.message.isSender && !widget.nextMessage!.isSender);
+    final isReceiver = (!isCurrentMessageSender && !isNextMessageSender);
     if (isReceiver) {
-      if (widget.previousMessage!.isSender) {
-        return const BorderRadiusDirectional.only(
-          topStart: Radius.circular(20),
-          topEnd: Radius.circular(20),
-          bottomStart: Radius.circular(5),
-          bottomEnd: Radius.circular(20),
+      if (isPreviousMessageSender) {
+        return BorderRadiusDirectional.only(
+          topStart: Radius.circular(20.r),
+          topEnd: Radius.circular(20.r),
+          bottomStart: Radius.circular(5.r),
+          bottomEnd: Radius.circular(20.r),
         );
       }
-      if (!widget.previousMessage!.isSender && !widget.nextMessage!.isSender) {
-        return const BorderRadiusDirectional.horizontal(
-          start: Radius.circular(5),
-          end: Radius.circular(20),
+      if (!isPreviousMessageSender && !isNextMessageSender) {
+        return BorderRadiusDirectional.horizontal(
+          start: Radius.circular(5.r),
+          end: Radius.circular(20.r),
         );
       }
-      return const BorderRadiusDirectional.horizontal(
-        start: Radius.circular(20),
-        end: Radius.circular(20),
+      return BorderRadiusDirectional.horizontal(
+        start: Radius.circular(20.r),
+        end: Radius.circular(20.r),
       );
     }
-    final ifLastMessageSent = (widget.message.isSender && !widget.nextMessage!.isSender && widget.previousMessage!.isSender);
+    final ifLastMessageSent = (isCurrentMessageSender && !isNextMessageSender && isPreviousMessageSender);
     if (ifLastMessageSent) {
-      return const BorderRadiusDirectional.only(
-        topStart: Radius.circular(20),
-        topEnd: Radius.circular(5),
-        bottomStart: Radius.circular(20),
-        bottomEnd: Radius.circular(20),
+      return BorderRadiusDirectional.only(
+        topStart: Radius.circular(20.r),
+        topEnd: Radius.circular(5.r),
+        bottomStart: Radius.circular(20.r),
+        bottomEnd: Radius.circular(20.r),
       );
     }
-    final ifLastMessageReceived = (!widget.message.isSender && widget.nextMessage!.isSender && !widget.previousMessage!.isSender);
+    final ifLastMessageReceived = (!isCurrentMessageSender && isNextMessageSender && !isPreviousMessageSender);
     if (ifLastMessageReceived) {
-      return const BorderRadiusDirectional.only(
-        topStart: Radius.circular(5),
-        topEnd: Radius.circular(20),
-        bottomStart: Radius.circular(20),
-        bottomEnd: Radius.circular(20),
+      return BorderRadiusDirectional.only(
+        topStart: Radius.circular(5.r),
+        topEnd: Radius.circular(20.r),
+        bottomStart: Radius.circular(20.r),
+        bottomEnd: Radius.circular(20.r),
       );
     }
-    return BorderRadius.circular(20);
+    return BorderRadius.circular(20.r);
+  }
+
+  Color getMessageColor() {
+    final bool isCurrentMessageSender = widget.message.isSender;
+    final MessageStatus status = widget.message.messageStatus;
+
+    if (isCurrentMessageSender) {
+      if (status == MessageStatus.notSent) {
+        return context.colorPalette.error.withOpacity(0.6);
+      }
+      return context.colorPalette.primary.withOpacity(0.5);
+    }
+    return context.colorPalette.primary.withOpacity(0.1);
+  }
+
+  bool get showMessageStatus {
+    final bool isCurrentMessageSender = widget.message.isSender;
+    final MessageStatus status = widget.message.messageStatus;
+
+    if (!isCurrentMessageSender) return false;
+
+    if (status == MessageStatus.notSent || (isCurrentMessageSender && widget.nextMessage == null && !isCurrentMessageSender)) {
+      return status == MessageStatus.notSent;
+    }
+    return false;
+  }
+
+  bool get showReceiverImage {
+    final bool isCurrentMessageReceiver = !widget.message.isSender;
+    final bool isNextMessageReceiver = !(widget.nextMessage?.isSender ?? false);
+    if (!isCurrentMessageReceiver) return false;
+    if (isNextMessageReceiver) return false;
+    if (!isNextMessageReceiver) return true;
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
+    final bool isCurrentMessageSender = widget.message.isSender;
+    final MessageStatus status = widget.message.messageStatus;
+
     final chat = context.select((ChatCubit cubit) => cubit.state.currentChat);
-    final palette = context.colorPalette;
     Widget messageContaint(ChatMessage message) {
       switch (message.messageType) {
         case ChatMessageType.text:
@@ -114,30 +153,50 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
 
     return ShimmerWidget.fromChild(
       isLoading: widget._isSkeleton,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: widget.message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
-        children: [
-          if (!widget.message.isSender) ...[
-            ImageWidget(imageUrl: chat!.receiverProfileImage, height: 40, width: 40, shape: BoxShape.circle),
-            const SizedBox(width: 20 / 2),
-          ],
-          if (widget.message.messageType == ChatMessageType.audio || widget.message.messageType == ChatMessageType.text) ...[
-            ClipRRect(
-              borderRadius: borderRadius,
-              child: messageContaint(widget.message),
-            )
-          ] else ...[
-            Container(
-              padding: REdgeInsets.symmetric(horizontal: 20.0 * 0.75, vertical: 20.0 / 2),
-              decoration: BoxDecoration(
-                color: palette.primary.withOpacity(widget.message.isSender ? 0.5 : 0.1),
-                borderRadius: borderRadius,
+      child: Center(
+        child: Row(
+          mainAxisAlignment: isCurrentMessageSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: [
+            if (showReceiverImage) ...[
+              Align(
+                alignment: AlignmentDirectional.bottomStart,
+                child: ImageWidget(
+                  imageUrl: chat!.receiverProfileImage,
+                  height: 40.w,
+                  width: 40.w,
+                  shape: BoxShape.circle,
+                ),
               ),
-              child: messageContaint(widget.message),
+              SizedBox(width: 10.w),
+            ] else ...[
+              SizedBox(width: 50.w),
+            ],
+            Align(
+              child: (widget.message.messageType == ChatMessageType.audio || widget.message.messageType == ChatMessageType.text)
+                  ? DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: borderRadius,
+                        color: getMessageColor(),
+                      ),
+                      child: messageContaint(widget.message),
+                    )
+                  : Container(
+                      padding: REdgeInsets.symmetric(horizontal: 20.0 * 0.75, vertical: 20.0 / 2),
+                      decoration: BoxDecoration(
+                        color: getMessageColor(),
+                        borderRadius: borderRadius,
+                      ),
+                      child: messageContaint(widget.message),
+                    ),
             ),
+            if (showMessageStatus) ...[
+              Align(
+                alignment: Alignment.centerRight,
+                child: MessageStatusDot(status: status),
+              ),
+            ]
           ],
-        ],
+        ),
       ),
     );
   }
