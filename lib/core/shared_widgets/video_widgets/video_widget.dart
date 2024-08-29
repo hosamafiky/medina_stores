@@ -1,10 +1,10 @@
 import 'package:cached_video_player_plus/cached_video_player_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/core/extensions/context.dart';
-import 'package:medina_stores/core/extensions/int.dart';
 
 import '../../../features/media_view/presentation/presentation_imports.dart';
+import '../../extensions/context.dart';
+import '../../extensions/int.dart';
 import '../../navigation/navigator.dart';
 
 part 'duration_widget.dart';

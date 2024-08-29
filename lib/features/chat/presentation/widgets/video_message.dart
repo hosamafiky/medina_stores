@@ -14,25 +14,13 @@ class VideoMessageState extends State<VideoMessage> {
     return Column(
       crossAxisAlignment: widget.message.isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            VideoWidget(
-              height: 130.h,
-              width: 0.55.sw,
-              mediaUrl: widget.message.mediaUrl!,
-            ),
-            if (widget.message.isSender) MessageStatusDot(status: widget.message.messageStatus),
-          ],
-        ),
-        if (widget.message.text.isNotEmpty)
+        VideoWidget(height: 130.h, width: 0.55.sw, mediaUrl: widget.message.mediaUrl!),
+        if (widget.message.text.isNotEmpty) ...[
           Padding(
             padding: REdgeInsetsDirectional.only(end: widget.message.isSender ? 20 : 0),
-            child: Text(
-              widget.message.text,
-              maxLines: 10,
-              style: appStyles.fieldStyle,
-            ),
+            child: Text(widget.message.text, maxLines: 10, style: appStyles.fieldStyle),
           ),
+        ],
       ],
     ).withSpacing(spacing: 16.h);
   }

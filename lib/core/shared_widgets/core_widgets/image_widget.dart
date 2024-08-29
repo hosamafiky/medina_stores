@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:medina_stores/core/extensions/context.dart';
-import 'package:medina_stores/core/navigation/navigator.dart';
-import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
-import 'package:medina_stores/features/media_view/presentation/presentation_imports.dart';
+
+import '../../../features/media_view/presentation/presentation_imports.dart';
+import '../../extensions/context.dart';
+import '../../navigation/navigator.dart';
+import 'shimmer_widget.dart';
 
 class ImageWidget extends StatelessWidget {
   const ImageWidget({

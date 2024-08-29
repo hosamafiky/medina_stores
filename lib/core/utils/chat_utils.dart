@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/core/extensions/context.dart';
-import 'package:medina_stores/core/navigation/navigator.dart';
-import 'package:medina_stores/features/chat/domain/domain_imports.dart';
 
+import '../../features/chat/domain/domain_imports.dart';
 import '../../features/chat/presentation/presentation_imports.dart';
+import '../extensions/context.dart';
+import '../navigation/navigator.dart';
 
 mixin ChatUtils {
   final context = AppNavigator.rootContext!;
