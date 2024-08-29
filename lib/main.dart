@@ -3,19 +3,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medina_stores/core/helpers/firebase_remote_config_helper.dart';
-import 'package:medina_stores/core/utils/user_utils.dart';
-import 'package:medina_stores/features/theme/presentation/cubit/theme_cubit.dart';
 
 import 'app.dart';
 import 'config/resources/languages.dart';
 import 'core/helpers/cache_helper.dart';
 import 'core/helpers/dependency_helper.dart';
+import 'core/helpers/firebase_remote_config_helper.dart';
 import 'core/navigation/Constants/imports_constants.dart';
 import 'core/navigation/Transition/implementation/slide/Option/slide_animation_option.dart';
 import 'core/navigation/page_router/Implementation/imports_page_router.dart';
 import 'core/navigation/page_router/imports_page_router_builder.dart';
 import 'core/observers/bloc_observer.dart';
+import 'core/utils/user_utils.dart';
+import 'features/theme/presentation/cubit/theme_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {

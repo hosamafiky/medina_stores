@@ -82,7 +82,7 @@ class ChatCubit extends Cubit<ChatState> {
         } else {
           final oldChats = List<ChatMessageModel>.from(state.messages.data!.data.map((e) => ChatMessageModel.fromMessage(e)));
           final paginatedList = PaginatedList<ChatMessageModel>(
-            data: [...oldChats, ...newChats],
+            data: [...oldChats, ...newChats, ...newChats, ...newChats],
             currentPage: messages.data!.currentPage,
             lastPage: messages.data!.lastPage,
             itemsCount: messages.data!.itemsCount,

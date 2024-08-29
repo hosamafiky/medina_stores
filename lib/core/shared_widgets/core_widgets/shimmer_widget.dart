@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/core/extensions/context.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../config/resources/color_palettes/color_palette.dart';
+import '../../extensions/context.dart';
 
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget.horizontal({
