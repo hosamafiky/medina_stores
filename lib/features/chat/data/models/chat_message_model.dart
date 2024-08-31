@@ -36,12 +36,12 @@ class ChatMessageModel extends ChatMessage {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'message_type': messageType.name,
-      'message_status': messageStatus.name,
-      'is_sender': isSender,
-      'text': text,
-      'media_url': mediaUrl,
+      "id": id,
+      "message_type": messageType.name,
+      "message_status": messageStatus.name,
+      "is_sender": isSender,
+      "text": text,
+      "media_url": mediaUrl,
     };
   }
 

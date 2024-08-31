@@ -50,7 +50,7 @@ class AudioMessageState extends State<AudioMessage> with ChatUtils, AudioUtils {
     return SizedBox(
       width: 0.55.sw,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: REdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: widget.message.isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
@@ -63,15 +63,15 @@ class AudioMessageState extends State<AudioMessage> with ChatUtils, AudioUtils {
                       return const CircularProgressIndicator.adaptive();
                     }
                     final isPlaying = snapshot.data?.playing ?? false;
-                    return IconButton(
-                      onPressed: () {
+                    return GestureDetector(
+                      onTap: () {
                         if (isPlaying) {
                           pause();
                           return;
                         }
                         play();
                       },
-                      icon: Icon(
+                      child: Icon(
                         isPlaying ? Icons.pause : Icons.play_arrow,
                         color: widget.message.isSender ? ColorPalette.whiteColor : palette.primary,
                       ),

@@ -30,12 +30,12 @@ class ChatMessage extends Equatable {
   final bool isSender;
 
   const ChatMessage({
-    required this.id,
+    this.id = 0,
     this.text = '',
     this.mediaUrl,
-    required this.messageType,
-    required this.messageStatus,
-    required this.isSender,
+    this.messageType = ChatMessageType.text,
+    this.messageStatus = MessageStatus.viewed,
+    this.isSender = true,
   }) : assert(
           ((messageType == ChatMessageType.image || messageType == ChatMessageType.audio || messageType == ChatMessageType.video) && mediaUrl != null) ||
               (messageType == ChatMessageType.text),

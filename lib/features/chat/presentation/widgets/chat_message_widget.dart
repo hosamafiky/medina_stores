@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 part of '../presentation_imports.dart';
 
 class ChatMessageWidget extends StatefulWidget {
@@ -29,7 +31,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> with ChatUtils {
     final bool isCurrentMessageSender = widget.message.isSender;
     final MessageStatus status = widget.message.messageStatus;
     final chat = context.select((ChatCubit cubit) => cubit.state.currentChat);
-    final fBorderRadius = borderRadius(message: widget.message, nextMessage: widget.nextMessage, previousMessage: widget.previousMessage);
+    final fBorderRadius = chatBubleBorderRadius(message: widget.message, nextMessage: widget.nextMessage, previousMessage: widget.previousMessage);
     return ShimmerWidget.fromChild(
       isLoading: widget._isSkeleton,
       child: Center(
@@ -82,10 +84,16 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> with ChatUtils {
   }
 }
 
-class MessageStatusDot extends StatelessWidget with ChatUtils {
+class MessageStatusDot extends StatefulWidget {
   final MessageStatus? status;
 
-  MessageStatusDot({super.key, this.status});
+  const MessageStatusDot({super.key, this.status});
+
+  @override
+  State<MessageStatusDot> createState() => _MessageStatusDotState();
+}
+
+class _MessageStatusDotState extends State<MessageStatusDot> with ChatUtils {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -93,11 +101,11 @@ class MessageStatusDot extends StatelessWidget with ChatUtils {
       height: 12,
       width: 12,
       decoration: BoxDecoration(
-        color: dotColor(status!),
+        color: dotColor(widget.status!),
         shape: BoxShape.circle,
       ),
       child: Icon(
-        status == MessageStatus.notSent ? Icons.close : Icons.done,
+        widget.status == MessageStatus.notSent ? Icons.close : Icons.done,
         size: 8.r,
         color: Theme.of(context).scaffoldBackgroundColor,
       ),
