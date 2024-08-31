@@ -2,22 +2,31 @@ import 'dart:developer';
 
 import 'package:pusher_client/pusher_client.dart';
 
+class PusherClientEvents {
+  static const String receivedMessage = 'received_message';
+  static const String sentMessage = 'sent_message';
+}
+
 class PusherClientHelper {
   late PusherClient _pusher;
   late Channel _channel;
 
-  PusherClientHelper(String apiKey, String cluster) {
+  PusherClientHelper() {
     _pusher = PusherClient(
-      apiKey,
-      PusherOptions(cluster: cluster, encrypted: true),
-      autoConnect: false,
+      'f65af03edae1bb39aeff',
+      PusherOptions(
+        cluster: 'eu',
+        encrypted: true,
+      ),
     );
   }
 
   void connect() {
     _pusher.connect();
     _pusher.onConnectionStateChange((state) {
-      log("Connection state: ${state!.currentState}", name: "PusherClientHelper");
+      if (state?.currentState == 'connected') {
+        log("Connected to pusher", name: "PusherClientHelper");
+      }
     });
 
     _pusher.onConnectionError((error) {
@@ -25,11 +34,14 @@ class PusherClientHelper {
     });
   }
 
-  void subscribe(String channelName, String eventName, Function onEvent) {
-    _channel = _pusher.subscribe(channelName);
-    _channel.bind(eventName, (PusherEvent? event) {
-      onEvent(event?.data);
-    });
+  void subscribe(String channelName) => _channel = _pusher.subscribe(channelName);
+
+  Future<void> bind(String eventName, Function(PusherEvent?) onEvent) async {
+    return await _channel.bind(eventName, onEvent);
+  }
+
+  Future<void> trigger(String eventName, String data) async {
+    return await _channel.trigger(eventName, data);
   }
 
   Future<void> unsubscribe(String channelName) async {

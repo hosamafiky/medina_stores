@@ -41,6 +41,7 @@ class _VideoWidgetState extends State<VideoWidget> {
     await controller.setLooping(true);
     await controller.initialize().then((_) => setState(() {}));
     await controller.setVolume(0.0);
+    await controller.setLooping(false);
     if (widget.autoStart) await controller.play();
   }
 

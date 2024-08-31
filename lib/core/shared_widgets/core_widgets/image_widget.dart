@@ -33,7 +33,7 @@ class ImageWidget extends StatelessWidget {
       fit: BoxFit.cover,
       errorWidget: (context, url, error) => errorWidget,
       placeholder: (context, url) => placeHolder,
-      imageBuilder: (context, imageProvider) => imageWidget(imageProvider),
+      imageBuilder: (context, imageProvider) => image(imageWidget(imageProvider)),
     );
   }
 
@@ -65,22 +65,18 @@ class ImageWidget extends StatelessWidget {
         borderRadius: shape == BoxShape.circle ? BorderRadius.circular(50) : borderRadius,
       );
 
-  Widget imageWidget(ImageProvider imageProvider) => InkWell(
-        onTap: !isClickable ? null : () => AppNavigator.to(ImageViewPage(imageUrl)),
-        child: Hero(
-          tag: imageUrl,
-          child: Container(
-            height: height,
-            width: width,
-            decoration: BoxDecoration(
-              borderRadius: borderRadius,
-              shape: shape,
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
+  Widget imageWidget(ImageProvider imageProvider) => GestureDetector(
+        onTap: () => AppNavigator.to(ImageViewPage(imageUrl, hasHero: isClickable)),
+        child: Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            borderRadius: borderRadius,
+            shape: shape,
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
           ),
         ),
       );
+
+  Widget image(Widget child) => isClickable ? Hero(tag: imageUrl, child: child) : child;
 }

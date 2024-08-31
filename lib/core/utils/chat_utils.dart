@@ -8,6 +8,8 @@ import '../navigation/navigator.dart';
 
 mixin ChatUtils {
   final context = AppNavigator.rootContext!;
+  ValueNotifier<bool> showSendButton = ValueNotifier<bool>(false);
+  void setShowingSendButton(bool value) => showSendButton.value = value;
 
   Widget messageContaint(ChatMessage message) {
     switch (message.messageType) {
@@ -55,14 +57,16 @@ mixin ChatUtils {
   ) {
     final isCurrentMessageSender = message.isSender;
     final isNextMessageSender = nextMessage?.isSender ?? false;
+    final isLastSentMessage = (isCurrentMessageSender && !isNextMessageSender || nextMessage == null);
 
-    if (isCurrentMessageSender) return false;
-    if (!isNextMessageSender) return false;
+    if (isCurrentMessageSender || !isNextMessageSender) return false;
+    if (isLastSentMessage) return true;
     if (isNextMessageSender) return true;
+
     return false;
   }
 
-  BorderRadiusGeometry borderRadius({
+  BorderRadiusGeometry chatBubleBorderRadius({
     required ChatMessage message,
     required ChatMessage? nextMessage,
     required ChatMessage? previousMessage,
@@ -70,12 +74,30 @@ mixin ChatUtils {
     final bool isNextMessageSender = nextMessage?.isSender ?? false;
     final bool isCurrentMessageSender = message.isSender;
     final bool isPreviousMessageSender = previousMessage?.isSender ?? false;
-    if (previousMessage == null || nextMessage == null) {
-      return BorderRadius.circular(20);
-    }
-    final isSender = (isCurrentMessageSender && isNextMessageSender);
-    if (isSender) {
-      if (!isPreviousMessageSender) {
+
+    final bool isNextMessageReceiver = !isNextMessageSender;
+    final bool isCurrentMessageReceiver = !isCurrentMessageSender;
+    final bool isPreviousMessageReceiver = !isPreviousMessageSender;
+
+    if (previousMessage == null && nextMessage == null) return BorderRadius.circular(20.r);
+
+    if (isCurrentMessageSender) {
+      if (!isPreviousMessageSender && !isNextMessageSender) return BorderRadius.circular(20.r);
+      if (!isPreviousMessageSender || previousMessage == null && !isNextMessageSender) {
+        return BorderRadiusDirectional.only(
+          topStart: Radius.circular(20.r),
+          bottomEnd: Radius.circular(20.r),
+          bottomStart: Radius.circular(20.r),
+          topEnd: Radius.circular(5.r),
+        );
+      }
+      if (isNextMessageSender && isPreviousMessageSender) {
+        return BorderRadiusDirectional.horizontal(
+          start: Radius.circular(20.r),
+          end: Radius.circular(5.r),
+        );
+      }
+      if (!isNextMessageSender || nextMessage == null) {
         return BorderRadiusDirectional.only(
           topStart: Radius.circular(20.r),
           topEnd: Radius.circular(20.r),
@@ -84,21 +106,30 @@ mixin ChatUtils {
         );
       }
 
-      if (isPreviousMessageSender && isNextMessageSender) {
-        return BorderRadiusDirectional.horizontal(
-          start: Radius.circular(20.r),
-          end: Radius.circular(5.r),
-        );
-      }
-
       return BorderRadiusDirectional.horizontal(
         start: Radius.circular(20.r),
-        end: Radius.circular(5.r),
+        end: Radius.circular(20.r),
       );
     }
-    final isReceiver = (!isCurrentMessageSender && !isNextMessageSender);
-    if (isReceiver) {
-      if (isPreviousMessageSender) {
+
+    if (isCurrentMessageReceiver) {
+      if (!isPreviousMessageReceiver && !isNextMessageReceiver) return BorderRadius.circular(20.r);
+
+      if (!isPreviousMessageReceiver || previousMessage == null && !isNextMessageReceiver) {
+        return BorderRadiusDirectional.only(
+          topStart: Radius.circular(5.r),
+          bottomEnd: Radius.circular(20.r),
+          bottomStart: Radius.circular(20.r),
+          topEnd: Radius.circular(20.r),
+        );
+      }
+      if (isNextMessageReceiver && isPreviousMessageReceiver) {
+        return BorderRadiusDirectional.horizontal(
+          start: Radius.circular(5.r),
+          end: Radius.circular(20.r),
+        );
+      }
+      if (!isNextMessageReceiver || nextMessage == null) {
         return BorderRadiusDirectional.only(
           topStart: Radius.circular(20.r),
           topEnd: Radius.circular(20.r),
@@ -106,33 +137,10 @@ mixin ChatUtils {
           bottomEnd: Radius.circular(20.r),
         );
       }
-      if (!isPreviousMessageSender && !isNextMessageSender) {
-        return BorderRadiusDirectional.horizontal(
-          start: Radius.circular(5.r),
-          end: Radius.circular(20.r),
-        );
-      }
+
       return BorderRadiusDirectional.horizontal(
         start: Radius.circular(20.r),
         end: Radius.circular(20.r),
-      );
-    }
-    final ifLastMessageSent = (isCurrentMessageSender && !isNextMessageSender && isPreviousMessageSender);
-    if (ifLastMessageSent) {
-      return BorderRadiusDirectional.only(
-        topStart: Radius.circular(20.r),
-        topEnd: Radius.circular(5.r),
-        bottomStart: Radius.circular(20.r),
-        bottomEnd: Radius.circular(20.r),
-      );
-    }
-    final ifLastMessageReceived = (!isCurrentMessageSender && isNextMessageSender && !isPreviousMessageSender);
-    if (ifLastMessageReceived) {
-      return BorderRadiusDirectional.only(
-        topStart: Radius.circular(5.r),
-        topEnd: Radius.circular(20.r),
-        bottomStart: Radius.circular(20.r),
-        bottomEnd: Radius.circular(20.r),
       );
     }
     return BorderRadius.circular(20.r);

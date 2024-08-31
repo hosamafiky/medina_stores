@@ -10,15 +10,22 @@ class ChatPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => DependencyHelper.instance.serviceLocator<ChatCubit>()
         ..setCurrentChat(chat)
-        ..getChatMessages(),
+        ..getChatMessages()
+        ..subscribeAndBind()
+        ..initScrollListener(),
       child: const ChatPageBody(),
     );
   }
 }
 
-class ChatPageBody extends StatelessWidget {
+class ChatPageBody extends StatefulWidget {
   const ChatPageBody({super.key});
 
+  @override
+  State<ChatPageBody> createState() => _ChatPageBodyState();
+}
+
+class _ChatPageBodyState extends State<ChatPageBody> {
   @override
   Widget build(BuildContext context) {
     final chat = context.select((ChatCubit cubit) => cubit.state.currentChat);
@@ -33,33 +40,34 @@ class ChatPageBody extends StatelessWidget {
         },
         builder: (context, state) {
           return RefreshIndicator.adaptive(
-            onRefresh: () async {
-              context.read<ChatCubit>().getChatMessages(1);
-            },
+            onRefresh: () async => context.read<ChatCubit>().getChatMessages(1),
             child: ListView.separated(
+              reverse: true,
+              controller: context.read<ChatCubit>().scrollController,
               padding: REdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
               itemBuilder: (context, index) {
-                final message = state.messages!.data[index];
-                final nextMessage = index + 1 < state.messages!.data.length ? state.messages!.data[index + 1] : null;
-                final previousMessage = index > 0 ? state.messages!.data[index - 1] : null;
-                return ChatMessageWidget(
-                  message,
-                  previousMessage: previousMessage,
-                  nextMessage: nextMessage,
-                );
+                final message = state.messages!.data.reversed.toList()[index];
+                final nextMessage = index + 1 < state.messages!.data.reversed.length ? state.messages!.data.reversed.toList()[index + 1] : null;
+                final previousMessage = index > 0 ? state.messages!.data.reversed.toList()[index - 1] : null;
+                return ChatMessageWidget(message, previousMessage: previousMessage, nextMessage: nextMessage);
               },
               separatorBuilder: (context, index) {
-                final nextMessage = state.messages!.data[index + 1];
-                final currentMessage = state.messages!.data[index];
+                final nextMessage = state.messages!.data.reversed.toList()[index + 1];
+                final currentMessage = state.messages!.data.reversed.toList()[index];
                 final isTheSameSender = (nextMessage.isSender && currentMessage.isSender) || (!nextMessage.isSender && !currentMessage.isSender);
                 return isTheSameSender ? SizedBox(height: 6.h) : SizedBox(height: 20.h);
               },
-              itemCount: state.messages!.data.length,
+              itemCount: state.messages!.data.reversed.length,
             ),
           );
         },
       ),
-      bottomNavigationBar: const ChatInputField(),
+      bottomNavigationBar: ChatInputField(
+        onMicPressed: () {},
+        onEmojiPressed: () {},
+        onAttachmentPressed: () {},
+        onCameraPressed: () {},
+      ),
     );
   }
 }

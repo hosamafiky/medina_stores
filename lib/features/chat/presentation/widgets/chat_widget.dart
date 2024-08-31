@@ -31,6 +31,7 @@ class ChatWidget extends StatelessWidget {
                 ImageWidget(
                   height: 48.r,
                   width: 48.r,
+                  isClickable: false,
                   shape: BoxShape.circle,
                   imageUrl: chat.receiverProfileImage,
                 ),
