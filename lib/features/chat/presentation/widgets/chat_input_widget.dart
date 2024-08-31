@@ -3,12 +3,14 @@ part of '../presentation_imports.dart';
 class ChatInputField extends StatefulWidget {
   const ChatInputField({
     super.key,
+    required this.controller,
     required this.onMicPressed,
     required this.onEmojiPressed,
     required this.onAttachmentPressed,
     required this.onCameraPressed,
   });
 
+  final TextEditingController controller;
   final Function() onMicPressed;
   final Function() onEmojiPressed;
   final Function() onAttachmentPressed;
@@ -19,20 +21,6 @@ class ChatInputField extends StatefulWidget {
 }
 
 class _ChatInputFieldState extends State<ChatInputField> with ChatUtils {
-  final _messageController = TextEditingController();
-
-  @override
-  void initState() {
-    _messageController.addListener(() {
-      if (_messageController.text.isNotEmpty) {
-        setShowingSendButton(true);
-      } else {
-        setShowingSendButton(false);
-      }
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final palette = context.colorPalette;
@@ -61,7 +49,7 @@ class _ChatInputFieldState extends State<ChatInputField> with ChatUtils {
                   visible: !value,
                   replacement: InkWell(
                     onTap: () {
-                      final message = ChatMessage(text: _messageController.text);
+                      final message = ChatMessage(text: widget.controller.text);
                       context.read<ChatCubit>().sendMessage(message);
                     },
                     child: Transform.flip(
@@ -96,7 +84,7 @@ class _ChatInputFieldState extends State<ChatInputField> with ChatUtils {
                     SizedBox(width: 20.h / 4),
                     Expanded(
                       child: AppTextField(
-                        controller: _messageController,
+                        controller: widget.controller,
                         hintText: "Type message",
                         isBordered: false,
                       ),

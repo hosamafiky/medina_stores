@@ -16,6 +16,7 @@ import '../../../core/extensions/context.dart';
 import '../../../core/extensions/spaced_column.dart';
 import '../../../core/extensions/spaced_row.dart';
 import '../../../core/helpers/dependency_helper.dart';
+import '../../../core/helpers/file_picker_helper.dart';
 import '../../../core/navigation/navigator.dart';
 import '../../../core/shared_widgets/core_widgets/app_textfield.dart';
 import '../../../core/shared_widgets/core_widgets/image_widget.dart';

@@ -6,6 +6,7 @@ class ChatMessageModel extends ChatMessage {
     required super.messageType,
     required super.messageStatus,
     required super.isSender,
+    super.files,
     super.text = '',
     super.mediaUrl,
   });
@@ -15,6 +16,7 @@ class ChatMessageModel extends ChatMessage {
       id: message.id,
       messageType: message.messageType,
       messageStatus: message.messageStatus,
+      files: message.files,
       isSender: message.isSender,
       text: message.text,
       mediaUrl: message.mediaUrl,
@@ -40,6 +42,7 @@ class ChatMessageModel extends ChatMessage {
       "message_type": messageType.name,
       "message_status": messageStatus.name,
       "is_sender": isSender,
+      "files": files?.map((e) => e.path).toList(),
       "text": text,
       "media_url": mediaUrl,
     };

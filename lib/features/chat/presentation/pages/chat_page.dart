@@ -25,7 +25,21 @@ class ChatPageBody extends StatefulWidget {
   State<ChatPageBody> createState() => _ChatPageBodyState();
 }
 
-class _ChatPageBodyState extends State<ChatPageBody> {
+class _ChatPageBodyState extends State<ChatPageBody> with ChatUtils {
+  final _messageController = TextEditingController();
+
+  @override
+  void initState() {
+    _messageController.addListener(() {
+      if (_messageController.text.isNotEmpty) {
+        setShowingSendButton(true);
+      } else {
+        setShowingSendButton(false);
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final chat = context.select((ChatCubit cubit) => cubit.state.currentChat);
@@ -63,9 +77,21 @@ class _ChatPageBodyState extends State<ChatPageBody> {
         },
       ),
       bottomNavigationBar: ChatInputField(
+        controller: _messageController,
         onMicPressed: () {},
         onEmojiPressed: () {},
-        onAttachmentPressed: () {},
+        onAttachmentPressed: () async {
+          final files = await FilePickerHelper.pickFiles();
+          if (files != null) {
+            final message = ChatMessage(
+              files: files,
+              text: _messageController.text,
+              messageType: ChatMessageType.attachment,
+            );
+            if (!context.mounted) return;
+            context.read<ChatCubit>().sendMessage(message);
+          }
+        },
         onCameraPressed: () {},
       ),
     );
