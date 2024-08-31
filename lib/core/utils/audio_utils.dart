@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
-import 'package:medina_stores/core/extensions/context.dart';
-import 'package:medina_stores/core/extensions/int.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../config/resources/color_palettes/color_palette.dart';
+import '../extensions/context.dart';
+import '../extensions/int.dart';
 import '../navigation/navigator.dart';
 
 mixin AudioUtils {
