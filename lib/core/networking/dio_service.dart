@@ -53,7 +53,7 @@ class DioService implements ApiService {
   }
 
   @override
-  Future<ApiResponse<T>> callApi<T extends Object?>(ApiRequest networkRequest, {ApiResponse<T> Function(dynamic json)? mapper}) async {
+  Future<ApiResponseModel<T>> callApi<T extends Object?>(ApiRequest networkRequest, {ApiResponseModel<T> Function(dynamic json)? mapper}) async {
     try {
       await networkRequest.prepareRequestData();
       final headers = networkRequest.headers ?? {};
@@ -78,55 +78,57 @@ class DioService implements ApiService {
         options: Options(method: networkRequest.asString(), headers: headers),
       );
       if (mapper != null) return mapper(response.data);
-      return ApiResponse.fromMapSuccess(response.data);
+      return ApiResponseModel.fromMap(response.data);
     } on DioException catch (e) {
       throw _handleError(e);
-    } catch (e) {
-      throw UnknownException(ApiResponse.error(message: "${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}"));
     }
+    // catch (e) {
+    //   throw UnknownException(ApiResponse.error(message: "${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}"));
+    // }
   }
 
   AppException _handleError(DioException error) {
+    final data = error.response?.data;
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
         return NoInternetConnectionException();
       case DioExceptionType.cancel:
-        return CancelException(ApiResponse.fromMapError(error.response).copyWithError(
+        return CancelException(ApiResponseModel.fromMap(data).copyWith(
           statusCode: error.response?.statusCode,
         ));
       case DioExceptionType.unknown:
-        return UnknownException(ApiResponse.error(message: "${LocaleKeys.something_went_wrong.tr()} : ${error.response?.data['message']}"));
+        return UnknownException(ApiResponse(message: "${LocaleKeys.something_went_wrong.tr()} : ${error.response?.data['message']}"));
       case DioExceptionType.badResponse:
         switch (error.response!.statusCode) {
           case HttpStatus.badRequest:
-            return BadRequestException(ApiResponse.fromMapError(error.response).copyWithError(
+            return BadRequestException(ApiResponseModel.fromMap(data).copyWith(
               statusCode: HttpStatus.badRequest,
             ));
           case HttpStatus.unprocessableEntity:
-            return MissingDataException(ApiResponse.fromMapError(error.response).copyWithError(
+            return MissingDataException(ApiResponseModel.fromMap(data).copyWith(
               statusCode: HttpStatus.unprocessableEntity,
             ));
           case HttpStatus.unauthorized:
-            return UnauthorizedException(ApiResponse.fromMapError(error.response).copyWithError(
+            return UnauthorizedException(ApiResponseModel.fromMap(data).copyWith(
               statusCode: HttpStatus.unauthorized,
             ));
           case HttpStatus.notFound:
-            return NotFoundException(ApiResponse.fromMapError(error.response).copyWithError(
+            return NotFoundException(ApiResponseModel.fromMap(data).copyWith(
               statusCode: HttpStatus.notFound,
             ));
           case HttpStatus.conflict:
-            return ConflictException(ApiResponse.fromMapError(error.response).copyWithError(
+            return ConflictException(ApiResponseModel.fromMap(data).copyWith(
               statusCode: HttpStatus.conflict,
             ));
           case HttpStatus.internalServerError:
             return InternalServerErrorException();
           default:
-            return UnknownException(ApiResponse.error(message: "${LocaleKeys.something_went_wrong.tr()} : ${error.response?.data['message']}"));
+            return UnknownException(ApiResponse(message: "${LocaleKeys.something_went_wrong.tr()} : ${data?.data['message']}"));
         }
       default:
-        return UnknownException(ApiResponse.error(message: "${LocaleKeys.something_went_wrong.tr()} : ${error.response?.data['message']}"));
+        return UnknownException(ApiResponse(message: "${LocaleKeys.something_went_wrong.tr()} : ${data?.data['message']}"));
     }
   }
 }

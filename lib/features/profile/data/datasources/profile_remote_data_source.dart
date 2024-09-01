@@ -1,13 +1,13 @@
 part of '../data_imports.dart';
 
 abstract class ProfileRemoteDataSource {
-  Future<ApiResponse<List<ProfileModel>>> get getProfiles;
-  Future<ApiResponse<ProfileModel>> addProfile(AddProfileParams params);
+  Future<ApiResponseModel<List<ProfileModel>>> get getProfiles;
+  Future<ApiResponseModel<ProfileModel>> addProfile(AddProfileParams params);
 }
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   @override
-  Future<ApiResponse<List<ProfileModel>>> get getProfiles async {
+  Future<ApiResponseModel<List<ProfileModel>>> get getProfiles async {
     final request = ApiRequest(
       method: RequestMethod.get,
       path: "/dashboard/branches",
@@ -15,7 +15,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
     return await DependencyHelper.instance.get<ApiService>().callApi<List<ProfileModel>>(
           request,
-          mapper: (json) => ApiResponse.fromMapSuccess(
+          mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => List<ProfileModel>.from(data['data'].map((x) => ProfileModel.fromMap(x))),
           ),
@@ -23,7 +23,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   @override
-  Future<ApiResponse<ProfileModel>> addProfile(AddProfileParams params) async {
+  Future<ApiResponseModel<ProfileModel>> addProfile(AddProfileParams params) async {
     final request = ApiRequest(
       method: RequestMethod.post,
       path: "/dashboard/branches",
@@ -32,7 +32,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
     return await DependencyHelper.instance.get<ApiService>().callApi<ProfileModel>(
           request,
-          mapper: (json) => ApiResponse.fromMapSuccess(
+          mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => ProfileModel.fromMap(data),
           ),

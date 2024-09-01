@@ -17,7 +17,7 @@ class SubCategoryCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (_isSkeleton) return;
-          // AppNavigator.to(ProductsPage(subCategoryId: subCategory.id));
+          AppNavigator.to(ProductsPage.subCategory(subCategory));
         },
         child: Column(
           children: [
