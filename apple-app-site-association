@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "PF7P9JNKZ3.com.medina.app.stores"
+        ],
+        "components": [
+          {
+            "/": "*",
+            "comment": "Matches all other URLs"
+          }
+        ]
+      }
+    ]
+  }
+}

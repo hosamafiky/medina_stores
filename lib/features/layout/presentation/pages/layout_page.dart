@@ -19,10 +19,21 @@ class LayoutPage extends StatelessWidget {
   }
 }
 
-class LayoutPageBody extends StatelessWidget {
+class LayoutPageBody extends StatefulWidget {
   const LayoutPageBody({super.key});
 
+  @override
+  State<LayoutPageBody> createState() => _LayoutPageBodyState();
+}
+
+class _LayoutPageBodyState extends State<LayoutPageBody> {
   final List<Widget> views = const [MainTab(), MainTab(), MainTab(), ProfileTab()];
+
+  @override
+  void initState() {
+    DynamicLinksHelper.handleDynamicLinkWhenAppTerminated();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
