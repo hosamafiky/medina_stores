@@ -50,13 +50,16 @@ class ProductPageBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageWidget(
-                    imageUrl: productDetails.data.images.first.image,
-                    height: 300,
-                    width: double.infinity,
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  const SizedBox(height: 16),
+                  if (productDetails.data.images.isNotEmpty) ...[
+                    // Product Image
+                    ImageWidget(
+                      imageUrl: productDetails.data.images.first.image,
+                      height: 300,
+                      width: double.infinity,
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                   // Product Name and Brand
                   Text(
                     productDetails.data.name,
