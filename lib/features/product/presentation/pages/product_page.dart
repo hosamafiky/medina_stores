@@ -140,9 +140,17 @@ class ProductPageBody extends StatelessWidget {
                         ],
                       )),
                   // Category and SKU
-                  Chip(
-                    label: Text(productDetails.data.categories.first.name),
-                  ),
+                  if (productDetails.data.categories.isNotEmpty) ...[
+                    Wrap(
+                      spacing: 8,
+                      children: productDetails.data.categories.map((category) {
+                        return Chip(
+                          label: Text(category.name),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+
                   const SizedBox(height: 8),
                   Text(
                     'SKU: ${productDetails.data.sku}',
