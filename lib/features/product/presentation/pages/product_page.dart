@@ -117,28 +117,30 @@ class ProductPageBody extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   // Option Selection
-                  ...productDetails.optionCategories.map((category) => Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(category.name),
-                              DropdownButton<Option>(
-                                value: category.options.first,
-                                items: category.options.map<DropdownMenuItem<Option>>((option) {
-                                  return DropdownMenuItem<Option>(
-                                    value: option,
-                                    child: Text(option.optionName.name),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  // Handle option selection change
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                      )),
+                  ...productDetails.optionCategories.map(
+                    (category) => Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(category.name),
+                            DropdownButton<Option>(
+                              value: category.options.first,
+                              items: category.options.map<DropdownMenuItem<Option>>((option) {
+                                return DropdownMenuItem<Option>(
+                                  value: option,
+                                  child: Text(option.optionName.name),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                // Handle option selection change
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
                   // Category and SKU
                   if (productDetails.data.categories.isNotEmpty) ...[
                     Wrap(
@@ -150,7 +152,6 @@ class ProductPageBody extends StatelessWidget {
                       }).toList(),
                     ),
                   ],
-
                   const SizedBox(height: 8),
                   Text(
                     'SKU: ${productDetails.data.sku}',
