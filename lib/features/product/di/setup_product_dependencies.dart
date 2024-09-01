@@ -8,10 +8,11 @@ import '../presentation/presentation_imports.dart';
 
 void setUpProductDependencies() async {
   // CUBIT
-  DependencyHelper.instance.serviceLocator.registerFactoryParam<ProductCubit, SubCategory, Brand?>(
+  DependencyHelper.instance.serviceLocator.registerFactoryParam<ProductCubit, SubCategory?, Brand?>(
     (subCategory, brand) => ProductCubit(
       getProductsUsecase: DependencyHelper.instance.serviceLocator(),
       getBrandProductsUsecase: DependencyHelper.instance.serviceLocator(),
+      getProductDetailsUsecase: DependencyHelper.instance.serviceLocator(),
       subCategory: subCategory,
       brand: brand,
     ),
@@ -24,6 +25,10 @@ void setUpProductDependencies() async {
 
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => GetBrandProductsUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => GetProductDetailsUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES
