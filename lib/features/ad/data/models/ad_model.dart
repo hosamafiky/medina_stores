@@ -25,6 +25,19 @@ class AdModel extends Ad {
     );
   }
 
+  factory AdModel.fromAd(Ad ad) {
+    return AdModel(
+      id: ad.id,
+      title: ad.title,
+      description: ad.description,
+      url: ad.url,
+      type: ad.type,
+      order: ad.order,
+      media: ad.media,
+      createdAt: ad.createdAt,
+    );
+  }
+
   factory AdModel.fromJson(String source) => AdModel.fromMap(json.decode(source));
 
   Map<String, dynamic> toMap() {

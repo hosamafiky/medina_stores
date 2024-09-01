@@ -17,6 +17,7 @@ class BrandCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (_isSkeleton) return;
+          AppNavigator.to(ProductsPage.brand(brand));
         },
         child: Column(
           children: [

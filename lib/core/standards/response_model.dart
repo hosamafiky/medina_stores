@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 class ApiResponse<T extends Object?> extends Equatable {
@@ -8,38 +7,59 @@ class ApiResponse<T extends Object?> extends Equatable {
   final bool isSuceess;
   final List<MapEntry<String, List<String>>> errors;
 
-  const ApiResponse.success({
-    this.statusCode = 200,
-    this.message = '',
-    required this.data,
-    this.isSuceess = true,
-  }) : errors = const [];
-
-  const ApiResponse.error({
+  const ApiResponse({
     this.statusCode = 0,
-    required this.message,
+    this.message = '',
+    this.data,
     this.isSuceess = false,
     this.errors = const [],
-  }) : data = null;
+  });
 
-  factory ApiResponse.fromMapSuccess(
-    Map<String, dynamic> map, {
-    T Function(Map<String, dynamic>)? mapper,
-  }) {
-    return ApiResponse<T>.success(
-      message: map['message'],
-      data: T == Null
-          ? null
-          : mapper != null
-              ? mapper(map)
-              : map['data'],
-      isSuceess: map['success'],
+  ApiResponse<R> map<R>(R Function(T) mapper) {
+    return ApiResponse<R>(
+      statusCode: statusCode,
+      message: message,
+      data: data != null ? mapper(data as T) : null,
+      isSuceess: isSuceess,
     );
   }
 
-  factory ApiResponse.fromMapError(Response? response) {
-    final data = response?.data;
+  @override
+  String toString() => 'ApiResponse(message: $message, data: $data, isSuceess: $isSuceess, errors: $errors)';
 
+  ApiResponse<T> copyWith({
+    int? statusCode,
+    T? data,
+    String? message,
+    List<MapEntry<String, List<String>>>? errors,
+  }) {
+    return ApiResponse<T>(
+      statusCode: statusCode ?? this.statusCode,
+      data: data ?? this.data,
+      message: message ?? this.message,
+      errors: errors ?? this.errors,
+    );
+  }
+
+  @override
+  List<Object?> get props => [message, data, isSuceess, errors];
+}
+
+class ApiResponseModel<T extends Object?> extends ApiResponse<T> {
+  const ApiResponseModel({
+    super.statusCode = 0,
+    super.message = '',
+    super.data,
+    super.isSuceess = false,
+    super.errors = const [],
+  });
+
+  const ApiResponseModel.error({required super.message});
+
+  factory ApiResponseModel.fromMap(
+    Map<String, dynamic> map, {
+    T Function(Map<String, dynamic>)? mapper,
+  }) {
     List<MapEntry<String, List<String>>> getErrors(Map<String, dynamic>? data) {
       if (data == null) return [];
 
@@ -50,44 +70,17 @@ class ApiResponse<T extends Object?> extends Equatable {
       return errors;
     }
 
-    final errors = getErrors(data['errors']);
+    final errors = getErrors(map['errors']);
 
-    return ApiResponse<T>.error(
-      message: data?['message'],
-      isSuceess: data?['success'] ?? false,
+    return ApiResponseModel<T>(
+      message: map['message'],
+      data: T == Null
+          ? null
+          : mapper != null
+              ? mapper(map)
+              : map['data'],
+      isSuceess: map['success'],
       errors: errors,
     );
   }
-
-  @override
-  String toString() => 'ApiResponse(message: $message, data: $data, isSuceess: $isSuceess, errors: $errors)';
-
-  ApiResponse<T> copyWithError({
-    int? statusCode,
-    String? message,
-    List<MapEntry<String, List<String>>>? errors,
-  }) {
-    return ApiResponse<T>.error(
-      statusCode: statusCode ?? this.statusCode,
-      message: message ?? this.message,
-      errors: errors ?? this.errors,
-    );
-  }
-
-  ApiResponse<T> copyWithSuccess({
-    int? statusCode,
-    String? message,
-    T? data,
-    bool? isSuceess,
-  }) {
-    return ApiResponse<T>.success(
-      statusCode: statusCode ?? this.statusCode,
-      message: message ?? this.message,
-      data: data ?? this.data,
-      isSuceess: isSuceess ?? this.isSuceess,
-    );
-  }
-
-  @override
-  List<Object?> get props => [message, data, isSuceess, errors];
 }

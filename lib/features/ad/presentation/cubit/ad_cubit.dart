@@ -44,7 +44,7 @@ class AdCubit extends Cubit<AdState> {
         if (ads.data!.data.isEmpty) {
           emit(state.copyWith(
             adsStatus: UsecaseStatus.completed,
-            ads: ads.copyWithSuccess(
+            ads: ads.copyWith(
               data: state.ads.data!.copyWith(
                 hasReachedEnd: true,
               ),
@@ -52,15 +52,20 @@ class AdCubit extends Cubit<AdState> {
           ));
         } else {
           initSlider();
-          final newAds = List<Ad>.from(ads.data!.data);
+          final oldAds = List<AdModel>.from(state.ads.data!.data.map((e) => AdModel.fromAd(e)));
+          final newAds = List<AdModel>.from(ads.data!.data.map((e) => AdModel.fromAd(e)));
+
+          final paginatedList = PaginatedList<AdModel>(
+            data: [...oldAds, ...newAds],
+            currentPage: ads.data!.currentPage,
+            lastPage: ads.data!.lastPage,
+            itemsCount: ads.data!.itemsCount,
+            hasReachedEnd: ads.data!.hasReachedEnd,
+          );
           emit(state.copyWith(
             adsStatus: UsecaseStatus.completed,
-            ads: ads.copyWithSuccess(
-              data: state.ads.data!.copyWith(
-                data: [...state.ads.data!.data, ...newAds],
-                currentPage: ads.data!.currentPage,
-                hasReachedEnd: ads.data!.hasReachedEnd,
-              ),
+            ads: ads.copyWith(
+              data: PaginatedListModel<AdModel>.from(paginatedList),
             ),
           ));
         }

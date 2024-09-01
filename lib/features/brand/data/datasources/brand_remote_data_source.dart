@@ -1,13 +1,13 @@
 part of '../data_imports.dart';
 
 abstract class BrandRemoteDataSource {
-  Future<ApiResponse<List<BrandModel>>> get getBrands;
-  Future<ApiResponse<BrandModel>> addBrand(AddBrandParams params);
+  Future<ApiResponseModel<List<BrandModel>>> get getBrands;
+  Future<ApiResponseModel<BrandModel>> addBrand(AddBrandParams params);
 }
 
 class BrandRemoteDataSourceImpl implements BrandRemoteDataSource {
   @override
-  Future<ApiResponse<List<BrandModel>>> get getBrands async {
+  Future<ApiResponseModel<List<BrandModel>>> get getBrands async {
     final request = ApiRequest(
       method: RequestMethod.get,
       path: ApiConstants.endPoints.BRANDS,
@@ -15,7 +15,7 @@ class BrandRemoteDataSourceImpl implements BrandRemoteDataSource {
 
     return await DependencyHelper.instance.get<ApiService>().callApi<List<BrandModel>>(
           request,
-          mapper: (json) => ApiResponse.fromMapSuccess(
+          mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => List<BrandModel>.from(data['data'].map((x) => BrandModel.fromMap(x))),
           ),
@@ -23,7 +23,7 @@ class BrandRemoteDataSourceImpl implements BrandRemoteDataSource {
   }
 
   @override
-  Future<ApiResponse<BrandModel>> addBrand(AddBrandParams params) async {
+  Future<ApiResponseModel<BrandModel>> addBrand(AddBrandParams params) async {
     final request = ApiRequest(
       method: RequestMethod.post,
       path: "/dashboard/branches",
@@ -32,7 +32,7 @@ class BrandRemoteDataSourceImpl implements BrandRemoteDataSource {
 
     return await DependencyHelper.instance.get<ApiService>().callApi<BrandModel>(
           request,
-          mapper: (json) => ApiResponse.fromMapSuccess(
+          mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => BrandModel.fromMap(data),
           ),

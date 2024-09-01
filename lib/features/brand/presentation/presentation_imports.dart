@@ -12,9 +12,11 @@ import '../../../core/error/failures.dart';
 import '../../../core/extensions/context.dart';
 import '../../../core/extensions/spaced_column.dart';
 import '../../../core/helpers/dependency_helper.dart';
+import '../../../core/navigation/navigator.dart';
 import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 import '../../../core/shared_widgets/core_widgets/shimmer_widget.dart';
 import '../../../core/standards/usecase_status.dart';
+import '../../product/presentation/presentation_imports.dart';
 import '../domain/domain_imports.dart';
 
 part '../presentation/cubit/brand_cubit.dart';

@@ -5,7 +5,7 @@ class AdState extends Equatable {
     this.adsStatus = UsecaseStatus.idle,
     this.adsFailure,
     this.adIndex = 0,
-    this.ads = const ApiResponse.success(data: PaginatedList(data: [])),
+    this.ads = const ApiResponse(data: PaginatedList(data: [])),
   });
 
   final UsecaseStatus adsStatus;
