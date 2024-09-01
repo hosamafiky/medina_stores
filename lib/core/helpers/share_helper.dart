@@ -23,7 +23,7 @@ class ShareHelper {
     );
   }
 
-  static Future<ShareResult> shareLink(String url, {Rect? sharePositionOrigin}) async {
-    return await Share.shareUri(Uri.parse(url), sharePositionOrigin: sharePositionOrigin);
+  static Future<ShareResult> shareLink(Uri uri, {Rect? sharePositionOrigin}) async {
+    return await Share.shareUri(uri, sharePositionOrigin: sharePositionOrigin);
   }
 }

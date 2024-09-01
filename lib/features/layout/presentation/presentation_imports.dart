@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medina_stores/core/helpers/dynamic_links_helper.dart';
 import 'package:medina_stores/features/ad/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/main/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/profile/presentation/presentation_imports.dart';

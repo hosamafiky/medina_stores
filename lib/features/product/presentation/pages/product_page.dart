@@ -29,8 +29,13 @@ class ProductPageBody extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.share),
-            onPressed: () {
-              // Share.share(product.name);
+            onPressed: () async {
+              final uri = Uri(
+                scheme: 'http',
+                host: ApiConstants.domain.split('//').last,
+                pathSegments: ['products', Uri.encodeComponent(product.slug)],
+              );
+              await ShareHelper.shareLink(uri);
             },
           ),
         ],
