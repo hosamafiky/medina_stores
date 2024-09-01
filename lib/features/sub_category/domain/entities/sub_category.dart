@@ -19,6 +19,8 @@ class SubCategory extends Equatable {
     required this.createdAt,
   });
 
+  static SubCategory empty() => SubCategory(createdAt: DateTime.now());
+
   SubCategory copyWith({
     int? id,
     String? name,

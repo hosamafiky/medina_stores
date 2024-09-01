@@ -1,0 +1,38 @@
+import 'package:medina_stores/features/sub_category/domain/domain_imports.dart';
+
+import '../../../core/helpers/dependency_helper.dart';
+import '../../brand/domain/domain_imports.dart';
+import '../data/data_imports.dart';
+import '../domain/domain_imports.dart';
+import '../presentation/presentation_imports.dart';
+
+void setUpProductDependencies() async {
+  // CUBIT
+  DependencyHelper.instance.serviceLocator.registerFactoryParam<ProductCubit, SubCategory, Brand?>(
+    (subCategory, brand) => ProductCubit(
+      getProductsUsecase: DependencyHelper.instance.serviceLocator(),
+      getBrandProductsUsecase: DependencyHelper.instance.serviceLocator(),
+      subCategory: subCategory,
+      brand: brand,
+    ),
+  );
+
+  // USECASES
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => GetCategoryProductsUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => GetBrandProductsUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+
+  // REPOSITORIES
+  DependencyHelper.instance.serviceLocator.registerLazySingleton<ProductRepository>(
+    () => ProductRepositoryImpl(remoteDataSource: DependencyHelper.instance.serviceLocator()),
+  );
+
+  // DATASOURCES
+  DependencyHelper.instance.serviceLocator.registerLazySingleton<ProductRemoteDataSource>(
+    () => ProductRemoteDataSourceImpl(),
+  );
+}

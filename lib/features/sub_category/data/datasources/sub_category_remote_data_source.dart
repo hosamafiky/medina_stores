@@ -1,13 +1,13 @@
 part of '../data_imports.dart';
 
 abstract class SubCategoryRemoteDataSource {
-  Future<ApiResponse<List<SubCategoryModel>>> getSubCategories(int categoryId);
-  Future<ApiResponse<SubCategoryModel>> addSubCategory(AddSubCategoryParams params);
+  Future<ApiResponseModel<List<SubCategoryModel>>> getSubCategories(int categoryId);
+  Future<ApiResponseModel<SubCategoryModel>> addSubCategory(AddSubCategoryParams params);
 }
 
 class SubCategoryRemoteDataSourceImpl implements SubCategoryRemoteDataSource {
   @override
-  Future<ApiResponse<List<SubCategoryModel>>> getSubCategories(int categoryId) async {
+  Future<ApiResponseModel<List<SubCategoryModel>>> getSubCategories(int categoryId) async {
     final request = ApiRequest(
       method: RequestMethod.get,
       path: '${ApiConstants.endPoints.CATEGORIES}/$categoryId/${ApiConstants.endPoints.SUB_CATEGORIES}',
@@ -15,7 +15,7 @@ class SubCategoryRemoteDataSourceImpl implements SubCategoryRemoteDataSource {
 
     return await DependencyHelper.instance.get<ApiService>().callApi<List<SubCategoryModel>>(
           request,
-          mapper: (json) => ApiResponse.fromMapSuccess(
+          mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => List<SubCategoryModel>.from(data['data'].map((x) => SubCategoryModel.fromMap(x))),
           ),
@@ -23,7 +23,7 @@ class SubCategoryRemoteDataSourceImpl implements SubCategoryRemoteDataSource {
   }
 
   @override
-  Future<ApiResponse<SubCategoryModel>> addSubCategory(AddSubCategoryParams params) async {
+  Future<ApiResponseModel<SubCategoryModel>> addSubCategory(AddSubCategoryParams params) async {
     final request = ApiRequest(
       method: RequestMethod.post,
       path: "/dashboard/branches",
@@ -32,7 +32,7 @@ class SubCategoryRemoteDataSourceImpl implements SubCategoryRemoteDataSource {
 
     return await DependencyHelper.instance.get<ApiService>().callApi<SubCategoryModel>(
           request,
-          mapper: (json) => ApiResponse.fromMapSuccess(
+          mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => SubCategoryModel.fromMap(data),
           ),

@@ -45,11 +45,11 @@ class ConflictException extends AppException {
 }
 
 class InternalServerErrorException extends AppException {
-  InternalServerErrorException() : super(ApiResponse.error(message: LocaleKeys.server_error.tr()));
+  InternalServerErrorException() : super(ApiResponse(message: LocaleKeys.server_error.tr()));
 }
 
 class NoInternetConnectionException extends AppException {
-  NoInternetConnectionException() : super(ApiResponse.error(message: LocaleKeys.check_internet.tr()));
+  NoInternetConnectionException() : super(ApiResponse(message: LocaleKeys.check_internet.tr()));
 }
 
 class CacheException extends AppException {
