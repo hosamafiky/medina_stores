@@ -29,8 +29,13 @@ class ProductPageBody extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.share),
-            onPressed: () {
-              // Share.share(product.name);
+            onPressed: () async {
+              final uri = Uri(
+                scheme: 'http',
+                host: ApiConstants.domain.split('//').last,
+                pathSegments: ['products', Uri.encodeComponent(product.slug)],
+              );
+              await ShareHelper.shareLink(uri);
             },
           ),
         ],
@@ -112,32 +117,41 @@ class ProductPageBody extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   // Option Selection
-                  ...productDetails.optionCategories.map((category) => Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(category.name),
-                              DropdownButton<Option>(
-                                value: category.options.first,
-                                items: category.options.map<DropdownMenuItem<Option>>((option) {
-                                  return DropdownMenuItem<Option>(
-                                    value: option,
-                                    child: Text(option.optionName.name),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  // Handle option selection change
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                      )),
-                  // Category and SKU
-                  Chip(
-                    label: Text(productDetails.data.categories.first.name),
+                  ...productDetails.optionCategories.map(
+                    (category) => Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(category.name),
+                            DropdownButton<Option>(
+                              value: category.options.first,
+                              items: category.options.map<DropdownMenuItem<Option>>((option) {
+                                return DropdownMenuItem<Option>(
+                                  value: option,
+                                  child: Text(option.optionName.name),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                // Handle option selection change
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
                   ),
+                  // Category and SKU
+                  if (productDetails.data.categories.isNotEmpty) ...[
+                    Wrap(
+                      spacing: 8,
+                      children: productDetails.data.categories.map((category) {
+                        return Chip(
+                          label: Text(category.name),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                   const SizedBox(height: 8),
                   Text(
                     'SKU: ${productDetails.data.sku}',

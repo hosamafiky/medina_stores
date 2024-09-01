@@ -6,6 +6,7 @@ import 'package:medina_stores/core/helpers/dependency_helper.dart';
 import 'package:medina_stores/features/language/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/layout/presentation/presentation_imports.dart';
 
+import 'core/helpers/dynamic_links_helper.dart';
 import 'core/navigation/navigator.dart';
 import 'core/navigation/route_generator.dart';
 import 'core/notifications/notification_helper.dart';
@@ -39,6 +40,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
 
   void setUpNotifications() async {
     await NotificationHelper.instance.setupNotifications();
+    DynamicLinksHelper.handleDynamicLinkWhenAppIsOpened();
   }
 
   @override
