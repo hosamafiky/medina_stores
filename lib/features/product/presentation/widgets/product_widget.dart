@@ -9,7 +9,8 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // AppNavigator.to(ProductDetailsPage(product));
+        final cubit = context.read<ProductCubit>();
+        AppNavigator.to(ProductPage(product, cubit: cubit));
       },
       child: Card(
         elevation: 4,

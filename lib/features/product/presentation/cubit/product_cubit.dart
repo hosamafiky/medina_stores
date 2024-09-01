@@ -4,12 +4,14 @@ class ProductCubit extends Cubit<ProductState> {
   ProductCubit({
     required this.getProductsUsecase,
     required this.getBrandProductsUsecase,
+    required this.getProductDetailsUsecase,
     Brand? brand,
-    required SubCategory subCategory,
+    SubCategory? subCategory,
   }) : super(ProductState(subCategory: subCategory, brand: brand));
 
   final GetCategoryProductsUsecase getProductsUsecase;
   final GetBrandProductsUsecase getBrandProductsUsecase;
+  final GetProductDetailsUsecase getProductDetailsUsecase;
 
   Future<void> getProducts(Brand? brand, SubCategory subCategory) async {
     if (brand != null) {
@@ -20,10 +22,11 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> getProductsByCategoryId() async {
+    assert(state.subCategory?.id != null, 'SubCategory ID is required');
     if (state.products.data?.hasReachedEnd == true) return;
     if (state.products.data?.currentPage == 0) emit(state.copyWith(productsStatus: UsecaseStatus.running));
     final params = GetCategoryProductsParams(
-      subCategoryId: state.subCategory.id,
+      subCategoryId: state.subCategory!.id,
       page: (state.products.data!.currentPage) + 1,
       perPage: 5,
     );
@@ -68,6 +71,7 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> getProductsByBrandId() async {
+    assert(state.brand?.id != null, 'Brand ID is required');
     if (state.products.data?.hasReachedEnd == true) return;
     if (state.products.data?.currentPage == 0) emit(state.copyWith(productsStatus: UsecaseStatus.running));
     final params = GetBrandProductsParams(
@@ -111,6 +115,21 @@ class ProductCubit extends Cubit<ProductState> {
           ));
         }
       },
+    );
+  }
+
+  Future<void> getProductDetails(String slug) async {
+    emit(state.copyWith(productDetailsStatus: UsecaseStatus.running));
+    final result = await getProductDetailsUsecase(slug);
+    result.fold(
+      (failure) => emit(state.copyWith(
+        productDetailsStatus: UsecaseStatus.error,
+        productDetailsFailure: failure,
+      )),
+      (product) => emit(state.copyWith(
+        productDetailsStatus: UsecaseStatus.completed,
+        productDetails: product,
+      )),
     );
   }
 }
