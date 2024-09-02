@@ -57,7 +57,7 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
     return Scaffold(
       appBar: MainAppBar(centerTitle: true, title: Text(brand?.name ?? subCategory!.name)),
       body: BlocSelector<ProductCubit, ProductState, ({UsecaseStatus status, Failure? failure, PaginatedList<Product> products})>(
-        selector: (state) => (status: state.productsStatus, failure: state.productsFailure, products: state.products.data!),
+        selector: (state) => (status: state.productsStatus, failure: state.productsFailure, products: state.categoryOrBrandProducts.data!),
         builder: (context, state) {
           return state.status.when(
             context,

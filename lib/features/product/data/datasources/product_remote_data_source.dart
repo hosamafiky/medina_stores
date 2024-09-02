@@ -6,6 +6,7 @@ abstract class ProductRemoteDataSource {
   Future<ApiResponseModel<ProductDetailsModel>> getProductDetails(String slug);
   Future<ApiResponseModel<List<ProductModel>>> getRelatedProducts(String slug);
   Future<ApiResponseModel<List<ProductModel>>> getYouMayLikeProducts(String slug);
+  Future<ApiResponseModel<bool>> toggleFavorite(int productId);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -93,6 +94,22 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => List<ProductModel>.from(data['data'].map((e) => ProductModel.fromMap(e))),
+          ),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<bool>> toggleFavorite(int productId) async {
+    final request = ApiRequest(
+      method: RequestMethod.post,
+      path: '${ApiConstants.endPoints.PRODUCT}/$productId/toggle-favorite',
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<bool>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => data['data']['is_favourite'],
           ),
         );
   }
