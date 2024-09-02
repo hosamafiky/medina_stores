@@ -52,10 +52,12 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
 
   @override
   Widget build(BuildContext context) {
+    final subCategory = context.watch<ProductCubit>().state.subCategory;
+    final brand = context.watch<ProductCubit>().state.brand;
     return Scaffold(
-      appBar: const MainAppBar(),
+      appBar: MainAppBar(centerTitle: true, title: Text(brand?.name ?? subCategory!.name)),
       body: BlocSelector<ProductCubit, ProductState, ({UsecaseStatus status, Failure? failure, PaginatedList<Product> products})>(
-        selector: (state) => (status: state.productsStatus, failure: state.productsFailure, products: state.products.data!),
+        selector: (state) => (status: state.productsStatus, failure: state.productsFailure, products: state.categoryOrBrandProducts.data!),
         builder: (context, state) {
           return state.status.when(
             context,
@@ -63,7 +65,7 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
             running: (context) => const Center(child: CircularProgressIndicator.adaptive()),
             completed: (context) {
               if (state.products.data.isEmpty) {
-                return const Center(child: Text('No products found'));
+                return Center(child: Text(LocaleKeys.empty_products.tr()));
               }
               return CustomScrollView(
                 slivers: [

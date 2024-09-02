@@ -42,7 +42,7 @@ class ProductDataModel extends ProductData {
   factory ProductDataModel.fromMap(Map<String, dynamic> map) {
     return ProductDataModel(
       id: map["id"],
-      name: map["name"],
+      name: (map["name"] as String).capitalize,
       slug: map["slug"],
       brand: DropdownItemModel.fromMap(map["brand"]),
       categories: List<DropdownItemModel>.from(map["categories"].map((x) => DropdownItemModel.fromMap(x))),

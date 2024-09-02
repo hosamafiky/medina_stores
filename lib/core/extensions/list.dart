@@ -7,4 +7,11 @@ extension ListExtension<T> on List<T> {
       }
     }
   }
+
+  List<Model> updateProductAtIndex<Model extends Object>(int index, Model product) {
+    final List<Model> products = List<Model>.from(this);
+    products.removeAt(index);
+    products.insert(index, product);
+    return List<Model>.from(products);
+  }
 }

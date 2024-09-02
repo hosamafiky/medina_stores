@@ -28,7 +28,7 @@ class CategoryModel extends Category {
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       id: map['id'],
-      name: map['name'],
+      name: (map["name"] as String).capitalize,
       parent: map['parent'] ?? '',
       active: map['active'],
       slug: map['slug'],

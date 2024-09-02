@@ -35,9 +35,14 @@ class ProductWidget extends StatelessWidget {
                 Positioned(
                   top: 8,
                   right: 8,
-                  child: Icon(
-                    product.isFavourite ? Icons.favorite : Icons.favorite_border,
-                    color: product.isFavourite ? Colors.red : Colors.grey,
+                  child: InkWell(
+                    onTap: () {
+                      context.read<ProductCubit>().toggleProductFavourite(product.id, !product.isFavourite);
+                    },
+                    child: Icon(
+                      Icons.favorite,
+                      color: product.isFavourite ? Colors.red : Colors.grey,
+                    ),
                   ),
                 ),
               ],
@@ -76,7 +81,7 @@ class ProductWidget extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '\$${product.price}',
+                        '\$${product.priceAfterDiscount}',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -85,10 +90,8 @@ class ProductWidget extends StatelessWidget {
                       ),
                       if (product.priceAfterDiscount < product.price) ...[
                         Text(
-                          '\$${product.priceAfterDiscount}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.red,
+                          '\$${product.price}',
+                          style: context.appTextStyle.errorStyle.copyWith(
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),

@@ -15,7 +15,7 @@ class Product extends Equatable {
     this.slug = '',
     this.sku = '',
     this.image = '',
-    this.brand = const DropdownItem(id: 0, name: ''),
+    this.brand = const DropdownItem(),
     this.categories = const [],
     this.price = 0,
     this.priceAfterDiscount = 0,
