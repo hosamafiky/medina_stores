@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/config/resources/locale_keys.g.dart';
+import 'package:medina_stores/core/extensions/sliver.dart';
 import 'package:medina_stores/core/extensions/string.dart';
 import 'package:medina_stores/core/helpers/message_helper.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
+import 'package:medina_stores/core/shared_widgets/state_managers/error_widget.dart';
 
 import '../../../core/error/failures.dart';
 import '../../../core/extensions/context.dart';
@@ -20,11 +22,10 @@ import '../../../core/standards/usecase_status.dart';
 import '../../sub_category/presentation/presentation_imports.dart';
 import '../domain/domain_imports.dart';
 
-part '../presentation/cubit/category_cubit.dart';
-part '../presentation/cubit/category_state.dart';
-part '../presentation/widgets/add_category_sheet.dart';
-part '../presentation/widgets/categories_horizontal_list.dart';
-part '../presentation/widgets/category_card.dart';
+part 'cubit/category_cubit.dart';
+part 'cubit/category_state.dart';
 part 'pages/categories_page.dart';
+part 'widgets/categories_horizontal_list.dart';
 part 'widgets/categories_lisview_widget.dart';
+part 'widgets/category_card.dart';
 part 'widgets/category_with_subs_card.dart';

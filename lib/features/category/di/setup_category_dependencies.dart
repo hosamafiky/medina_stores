@@ -8,7 +8,6 @@ void setUpCategoryDependencies() async {
   DependencyHelper.instance.serviceLocator.registerFactory(
     () => CategoryCubit(
       getCategoriesUsecase: DependencyHelper.instance.serviceLocator(),
-      addCategoryUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
@@ -17,17 +16,20 @@ void setUpCategoryDependencies() async {
     () => GetCategoriesUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
-  DependencyHelper.instance.serviceLocator.registerLazySingleton(
-    () => AddCategoryUsecase(repository: DependencyHelper.instance.serviceLocator()),
-  );
-
   // REPOSITORIES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<CategoryRepository>(
-    () => CategoryRepositoryImpl(remoteDataSource: DependencyHelper.instance.serviceLocator()),
+    () => CategoryRepositoryImpl(
+      checker: DependencyHelper.instance.serviceLocator(),
+      remoteDataSource: DependencyHelper.instance.serviceLocator(),
+      localDataSource: DependencyHelper.instance.serviceLocator(),
+    ),
   );
 
   // DATASOURCES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<CategoryRemoteDataSource>(
     () => CategoryRemoteDataSourceImpl(),
+  );
+  DependencyHelper.instance.serviceLocator.registerLazySingleton<CategoryLocalDataSource>(
+    () => CategoryLocalDataSourceImpl(),
   );
 }

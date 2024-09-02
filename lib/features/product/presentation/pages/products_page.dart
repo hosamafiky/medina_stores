@@ -73,6 +73,7 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
                       controller: _scrollController,
                       crossAxisCount: 2,
                       crossAxisSpacing: 20.w,
+                      mainAxisSpacing: 20.h,
                       itemCount: state.products.data.length,
                       builder: (context, index) {
                         final product = state.products.data[index];

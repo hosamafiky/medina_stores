@@ -8,6 +8,15 @@ class BrandModel extends Brand {
     required super.createdAt,
   });
 
+  factory BrandModel.fromBrand(Brand brand) {
+    return BrandModel(
+      id: brand.id,
+      name: brand.name,
+      media: brand.media,
+      createdAt: brand.createdAt,
+    );
+  }
+
   factory BrandModel.fromMap(Map<String, dynamic> map) {
     return BrandModel(
       id: map['id'],

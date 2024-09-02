@@ -9,11 +9,17 @@ class CategoriesLisViewWidget extends StatelessWidget {
       selector: (state) => (status: state.categoriesStatus, failure: state.categoriesFailure, categories: state.categories),
       builder: (context, cState) {
         final isLoading = cState.status == UsecaseStatus.running;
-        if (cState.failure != null) {
-          return Center(child: Text(cState.failure!.response.message));
+        final isFailed = cState.status == UsecaseStatus.error;
+        final isCompleted = cState.status == UsecaseStatus.completed;
+
+        if (isFailed) {
+          return ErrorViewWidget(
+            cState.failure!,
+            onRetry: () => context.read<CategoryCubit>().getCategories(),
+          ).asSliver;
         }
-        if (cState.categories.isEmpty && !isLoading) {
-          return Center(child: Text(LocaleKeys.empty_sub_categories.tr()));
+        if (cState.categories.isEmpty && isCompleted) {
+          return Center(child: Text(LocaleKeys.empty_sub_categories.tr())).asSliver;
         }
 
         return SliverList.separated(

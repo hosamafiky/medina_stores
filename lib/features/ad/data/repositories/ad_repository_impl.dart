@@ -1,12 +1,34 @@
 part of '../data_imports.dart';
 
 class AdRepositoryImpl implements AdRepository {
+  final InternetConnectionChecker connectionChecker;
   final AdRemoteDataSource remoteDataSource;
+  final AdLocalDataSource localDataSource;
 
-  const AdRepositoryImpl({required this.remoteDataSource});
+  const AdRepositoryImpl({
+    required this.connectionChecker,
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
   @override
   Future<Either<Failure, ApiResponse<PaginatedList<Ad>>>> getAds(GetPaginatedListParams params) async {
-    return await remoteDataSource.getAds(params).handleCallbackWithFailure;
+    if (await connectionChecker.hasConnection) {
+      try {
+        final ads = await remoteDataSource.getAds(params);
+        final adsToCache = ads.data!.data.map((ad) => AdModel.fromAd(ad)).toList();
+        await localDataSource.cacheAds(adsToCache);
+        return Right(ads);
+      } on AppException catch (e) {
+        return Left(e.handleFailure);
+      }
+    } else {
+      try {
+        final cachedAds = await localDataSource.getCachedAds();
+        return Right(ApiResponse(data: PaginatedList(data: cachedAds)));
+      } on CacheException catch (e) {
+        return Left(CacheFailure(response: e.response));
+      }
+    }
   }
 }

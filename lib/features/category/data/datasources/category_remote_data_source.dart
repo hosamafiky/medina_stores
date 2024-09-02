@@ -2,7 +2,6 @@ part of '../data_imports.dart';
 
 abstract class CategoryRemoteDataSource {
   Future<ApiResponseModel<List<CategoryModel>>> get getCategories;
-  Future<ApiResponseModel<CategoryModel>> addCategory(AddCategoryParams params);
 }
 
 class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
@@ -18,23 +17,6 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
           mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => List<CategoryModel>.from(data['data'].map((x) => CategoryModel.fromMap(x))),
-          ),
-        );
-  }
-
-  @override
-  Future<ApiResponseModel<CategoryModel>> addCategory(AddCategoryParams params) async {
-    final request = ApiRequest(
-      method: RequestMethod.post,
-      path: "/dashboard/branches",
-      body: params.toMap(),
-    );
-
-    return await DependencyHelper.instance.get<ApiService>().callApi<CategoryModel>(
-          request,
-          mapper: (json) => ApiResponseModel.fromMap(
-            json,
-            mapper: (data) => CategoryModel.fromMap(data),
           ),
         );
   }
