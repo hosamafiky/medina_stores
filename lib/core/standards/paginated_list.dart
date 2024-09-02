@@ -81,6 +81,23 @@ class PaginatedListModel<T extends Object> extends PaginatedList<T> {
     );
   }
 
+  @override
+  PaginatedListModel<T> copyWith({
+    List<T>? data,
+    int? currentPage,
+    int? lastPage,
+    int? itemsCount,
+    bool? hasReachedEnd,
+  }) {
+    return PaginatedListModel<T>(
+      data: data ?? this.data,
+      currentPage: currentPage ?? this.currentPage,
+      lastPage: lastPage ?? this.lastPage,
+      itemsCount: itemsCount ?? this.itemsCount,
+      hasReachedEnd: hasReachedEnd ?? this.hasReachedEnd,
+    );
+  }
+
   factory PaginatedListModel.fromJson(
     String source, {
     required T Function(Map<String, dynamic>) mapper,

@@ -69,5 +69,20 @@
   "empty_categories": "Currently, No categories found",
   "brand": "Brand",
   "brands": "Brands",
-  "empty_brands": "Currently, No brands found"
+  "empty_brands": "Currently, No brands found",
+  "_PRODUCT": "_PRODUCT",
+  "product": "Product",
+  "products": "Products",
+  "save_money": "Save ${amount}",
+  "empty_products": "Currently, No products found",
+  "search": "Search",
+  "search_hint": "Search for a product",
+  "related_products": "Related Products",
+  "you_may_also_like": "You may also like",
+  "add_to_cart": "Add to Cart",
+  "buy_now": "Buy Now",
+  "remove_from_cart": "Remove from Cart",
+  "_CART": "_CART",
+  "cart": "Cart",
+  "empty_cart": "Cart is empty"
 }

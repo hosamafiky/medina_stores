@@ -49,9 +49,13 @@ class ProductPageBody extends StatelessWidget {
           selector: (state) => (details: state.productDetails.data, status: state.productDetailsStatus, failure: state.productDetailsFailure),
           builder: (context, state) {
             if (state.status == UsecaseStatus.error) {
-              return Center(
-                child: Text(state.failure!.response.message),
-              );
+              return ErrorViewWidget(state.failure!, onRetry: () async {
+                await Future.wait([
+                  context.read<ProductCubit>().getProductDetails(product.slug),
+                  context.read<ProductCubit>().getRelatedProducts(product.slug),
+                  context.read<ProductCubit>().getYouMayLikeProducts(product.slug),
+                ]);
+              });
             }
             final productDetails = state.details ?? ProductDetails.fromProduct(product);
             return SingleChildScrollView(
@@ -62,63 +66,63 @@ class ProductPageBody extends StatelessWidget {
                     // Product Image
                     ImageWidget(
                       imageUrl: productDetails.data.images.first.image,
-                      height: 300,
+                      height: 300.h,
                       width: double.infinity,
                       borderRadius: BorderRadius.circular(16.r),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                   ],
                   // Product Name and Brand
                   Text(
                     productDetails.data.name,
-                    style: const TextStyle(
-                      fontSize: 24,
+                    style: TextStyle(
+                      fontSize: 24.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     '${LocaleKeys.brand.tr()}: ${productDetails.data.brand.name}',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       color: Colors.grey[600],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   // Price and Discount
                   Row(
                     children: [
                       Text(
                         '\$${productDetails.data.priceAfterDiscount}',
-                        style: const TextStyle(
-                          fontSize: 24,
+                        style: TextStyle(
+                          fontSize: 24.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.green,
                         ),
                       ),
                       if (productDetails.data.priceAfterDiscount < productDetails.data.price) ...[
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Text(
                           '\$${productDetails.data.price}',
-                          style: const TextStyle(
-                            fontSize: 20,
+                          style: TextStyle(
+                            fontSize: 20.sp,
                             color: Colors.red,
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),
                       ],
                       if (productDetails.data.price - productDetails.data.priceAfterDiscount > 0) ...[
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Text(
-                          'Save \$${product.price - product.priceAfterDiscount}',
-                          style: const TextStyle(
-                            fontSize: 16,
+                          LocaleKeys.save_money.tr(namedArgs: {'amount': '${productDetails.data.price - productDetails.data.priceAfterDiscount}'}),
+                          style: TextStyle(
+                            fontSize: 16.sp,
                             color: Colors.orange,
                           ),
                         ),
                       ],
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   // Option Selection
                   ...productDetails.optionCategories.map(
                     (category) => Column(
@@ -140,7 +144,7 @@ class ProductPageBody extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                       ],
                     ),
                   ),
@@ -155,15 +159,15 @@ class ProductPageBody extends StatelessWidget {
                       }).toList(),
                     ),
                   ],
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     'SKU: ${productDetails.data.sku}',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       color: Colors.grey[600],
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32.h),
                   // Add to Cart and Buy Now Buttons
                   Row(
                     children: [
@@ -172,21 +176,21 @@ class ProductPageBody extends StatelessWidget {
                           onPressed: () {
                             // Handle Add to Cart
                           },
-                          child: const Text('Add to Cart'),
+                          child: Text(LocaleKeys.add_to_cart.tr()),
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16.w),
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
                             // Handle Buy Now
                           },
-                          child: const Text('Buy Now'),
+                          child: Text(LocaleKeys.buy_now.tr()),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   // RELATED PRODUCTS
                   const RelatedProductsSection(),
                   // YOU MAY LIKE PRODUCTS

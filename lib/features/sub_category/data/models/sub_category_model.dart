@@ -26,7 +26,7 @@ class SubCategoryModel extends SubCategory {
   factory SubCategoryModel.fromMap(Map<String, dynamic> map) {
     return SubCategoryModel(
       id: map['id'],
-      name: map['name'],
+      name: (map["name"] as String).capitalize,
       parent: DropdownItemModel.fromMap(map['parent']),
       active: map['active'],
       slug: map['slug'],

@@ -6,7 +6,7 @@ class ProductState extends Equatable {
     this.subCategory,
     this.brand,
     this.productsFailure,
-    this.products = const ApiResponse(data: PaginatedList(data: [])),
+    this.categoryOrBrandProducts = const ApiResponse(data: PaginatedList(data: [])),
     this.productDetailsStatus = UsecaseStatus.idle,
     this.productDetailsFailure,
     this.productDetails = const ApiResponse(data: null),
@@ -18,7 +18,7 @@ class ProductState extends Equatable {
   final Brand? brand;
   final UsecaseStatus productsStatus;
   final Failure? productsFailure;
-  final ApiResponse<PaginatedList<Product>> products;
+  final ApiResponse<PaginatedList<Product>> categoryOrBrandProducts;
 
   final UsecaseStatus productDetailsStatus;
   final Failure? productDetailsFailure;
@@ -31,7 +31,7 @@ class ProductState extends Equatable {
     Brand? brand,
     UsecaseStatus? productsStatus,
     Failure? productsFailure,
-    ApiResponse<PaginatedList<Product>>? products,
+    ApiResponse<PaginatedList<Product>>? categoryOrBrandProducts,
     UsecaseStatus? productDetailsStatus,
     Failure? productDetailsFailure,
     ApiResponse<ProductDetails?>? productDetails,
@@ -43,7 +43,7 @@ class ProductState extends Equatable {
       subCategory: subCategory ?? this.subCategory,
       productsStatus: productsStatus ?? this.productsStatus,
       productsFailure: productsFailure ?? this.productsFailure,
-      products: products ?? this.products,
+      categoryOrBrandProducts: categoryOrBrandProducts ?? this.categoryOrBrandProducts,
       productDetailsStatus: productDetailsStatus ?? this.productDetailsStatus,
       productDetailsFailure: productDetailsFailure ?? this.productDetailsFailure,
       productDetails: productDetails ?? this.productDetails,
@@ -54,7 +54,7 @@ class ProductState extends Equatable {
 
   @override
   String toString() {
-    return 'ProductState(subCategory: $subCategory, brand: $brand, productsStatus: $productsStatus, productsFailure: $productsFailure, products: $products, relatedProducts: $relatedProducts, youMayLikeProducts: $youMayLikeProducts productDetailsStatus: $productDetailsStatus, productDetailsFailure: $productDetailsFailure, productDetails: $productDetails)';
+    return 'ProductState(subCategory: $subCategory, brand: $brand, productsStatus: $productsStatus, productsFailure: $productsFailure, products: $categoryOrBrandProducts, relatedProducts: $relatedProducts, youMayLikeProducts: $youMayLikeProducts productDetailsStatus: $productDetailsStatus, productDetailsFailure: $productDetailsFailure, productDetails: $productDetails)';
   }
 
   @override
@@ -63,7 +63,7 @@ class ProductState extends Equatable {
         brand,
         productsStatus,
         productsFailure,
-        products,
+        categoryOrBrandProducts,
         productDetailsStatus,
         productDetailsFailure,
         productDetails,

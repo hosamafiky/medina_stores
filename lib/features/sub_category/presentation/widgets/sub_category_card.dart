@@ -32,7 +32,7 @@ class SubCategoryCard extends StatelessWidget {
               ),
             ],
             Text(
-              _isSkeleton ? LocaleKeys.sub_category.tr() : subCategory.name.capitalize,
+              _isSkeleton ? LocaleKeys.sub_category.tr() : subCategory.name,
               textAlign: TextAlign.center,
               style: context.appTextStyle.elevatedButtonTextStyle,
             ),
