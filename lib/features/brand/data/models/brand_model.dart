@@ -20,7 +20,7 @@ class BrandModel extends Brand {
   factory BrandModel.fromMap(Map<String, dynamic> map) {
     return BrandModel(
       id: map['id'],
-      name: map['name'],
+      name: (map["name"] as String).capitalize,
       media: map['media'],
       createdAt: DateFormat(ApiConstants.dateFormat).parse(map['created_at']),
     );

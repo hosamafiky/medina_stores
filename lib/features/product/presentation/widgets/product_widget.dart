@@ -76,7 +76,7 @@ class ProductWidget extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '\$${product.price}',
+                        '\$${product.priceAfterDiscount}',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -85,10 +85,8 @@ class ProductWidget extends StatelessWidget {
                       ),
                       if (product.priceAfterDiscount < product.price) ...[
                         Text(
-                          '\$${product.priceAfterDiscount}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.red,
+                          '\$${product.price}',
+                          style: context.appTextStyle.errorStyle.copyWith(
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),

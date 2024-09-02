@@ -70,5 +70,18 @@
   "empty_categories": "لا توجد أقسام رئيسية حاليا",
   "brand": "علامة تجارية",
   "brands": "العلامات التجارية",
-  "empty_brands": "لا توجد علامات تجارية حاليا"
+  "empty_brands": "لا توجد علامات تجارية حاليا",
+  "product": "منتج",
+  "products": "المنتجات",
+  "save_money": "وفر ${amount}",
+  "empty_products": "لا توجد منتجات حاليا",
+  "search": "بحث",
+  "search_hint": "ابحث عن منتج",
+  "related_products": "منتجات ذات صلة",
+  "you_may_also_like": "قد يعجبك أيضا",
+  "add_to_cart": "أضف إلى السلة",
+  "buy_now": "اشترى الآن",
+  "remove_from_cart": "إزالة من السلة",
+  "cart": "السلة",
+  "empty_cart": "السلة فارغة"
 }

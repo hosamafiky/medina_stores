@@ -12,7 +12,6 @@ class CategoryLocalDataSourceImpl implements CategoryLocalDataSource {
       final jsonList = categories.map((category) => category.toMap()).toList();
       return await CacheHelper.write(CacheKeys.categories, json.encode(jsonList));
     } catch (e) {
-      print(e.toString());
       throw CacheException(ApiResponse(message: e.toString()));
     }
   }

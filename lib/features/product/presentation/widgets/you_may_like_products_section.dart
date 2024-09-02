@@ -12,14 +12,13 @@ class YouMayLikeProductsSection extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Products you may like',
-              style: TextStyle(
+            Text(
+              LocaleKeys.you_may_also_like.tr(),
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
             //TODO: NEEDS REFACTOR TO SLIVER
             DynamicHeightGridView(
               shrinkWrap: true,
@@ -34,7 +33,7 @@ class YouMayLikeProductsSection extends StatelessWidget {
               },
             ),
           ],
-        );
+        ).withSpacing(spacing: 8.h);
       },
     );
   }

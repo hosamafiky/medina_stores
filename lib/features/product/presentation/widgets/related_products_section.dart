@@ -12,14 +12,13 @@ class RelatedProductsSection extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Related Products',
-              style: TextStyle(
+            Text(
+              LocaleKeys.related_products.tr(),
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
             //TODO: NEEDS REFACTOR TO SLIVER
             DynamicHeightGridView(
               shrinkWrap: true,
@@ -34,7 +33,7 @@ class RelatedProductsSection extends StatelessWidget {
               },
             ),
           ],
-        );
+        ).withSpacing(spacing: 8.h);
       },
     );
   }

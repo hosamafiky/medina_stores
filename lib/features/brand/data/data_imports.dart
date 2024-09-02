@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart' hide id;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:medina_stores/core/error/exceptions.dart';
+import 'package:medina_stores/core/extensions/string.dart';
 import 'package:medina_stores/core/networking/api_constants.dart';
 
 import '../../../../core/helpers/dependency_helper.dart';

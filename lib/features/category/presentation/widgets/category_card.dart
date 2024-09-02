@@ -32,7 +32,7 @@ class CategoryCard extends StatelessWidget {
               ),
             ],
             Text(
-              _isSkeleton ? 'Category' : category.name.capitalize,
+              _isSkeleton ? LocaleKeys.category.tr() : category.name,
               style: context.appTextStyle.elevatedButtonTextStyle,
             ),
           ],
