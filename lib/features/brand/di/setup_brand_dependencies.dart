@@ -8,7 +8,6 @@ void setUpBrandDependencies() async {
   DependencyHelper.instance.serviceLocator.registerFactory(
     () => BrandCubit(
       getBrandsUsecase: DependencyHelper.instance.serviceLocator(),
-      addBrandUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
@@ -17,17 +16,20 @@ void setUpBrandDependencies() async {
     () => GetBrandsUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
-  DependencyHelper.instance.serviceLocator.registerLazySingleton(
-    () => AddBrandUsecase(repository: DependencyHelper.instance.serviceLocator()),
-  );
-
   // REPOSITORIES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<BrandRepository>(
-    () => BrandRepositoryImpl(remoteDataSource: DependencyHelper.instance.serviceLocator()),
+    () => BrandRepositoryImpl(
+      checker: DependencyHelper.instance.serviceLocator(),
+      remoteDataSource: DependencyHelper.instance.serviceLocator(),
+      localDataSource: DependencyHelper.instance.serviceLocator(),
+    ),
   );
 
   // DATASOURCES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<BrandRemoteDataSource>(
     () => BrandRemoteDataSourceImpl(),
+  );
+  DependencyHelper.instance.serviceLocator.registerLazySingleton<BrandLocalDataSource>(
+    () => BrandLocalDataSourceImpl(),
   );
 }

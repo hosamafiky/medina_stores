@@ -28,3 +28,5 @@ part 'cubit/product_state.dart';
 part 'pages/product_page.dart';
 part 'pages/products_page.dart';
 part 'widgets/product_widget.dart';
+part 'widgets/related_products_section.dart';
+part 'widgets/you_may_like_products_section.dart';

@@ -18,6 +18,13 @@ class DropdownItem extends Equatable {
 class DropdownItemModel extends DropdownItem {
   const DropdownItemModel({super.id, super.name});
 
+  factory DropdownItemModel.fromDropdown(DropdownItem dropdown) {
+    return DropdownItemModel(
+      id: dropdown.id,
+      name: dropdown.name,
+    );
+  }
+
   factory DropdownItemModel.fromMap(Map<String, dynamic>? json) {
     if (json == null) return const DropdownItemModel();
     return DropdownItemModel(
