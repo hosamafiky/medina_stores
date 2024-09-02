@@ -18,11 +18,18 @@ void setUpAdDependencies() async {
 
   // REPOSITORIES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<AdRepository>(
-    () => AdRepositoryImpl(remoteDataSource: DependencyHelper.instance.serviceLocator()),
+    () => AdRepositoryImpl(
+      remoteDataSource: DependencyHelper.instance.serviceLocator(),
+      localDataSource: DependencyHelper.instance.serviceLocator(),
+      connectionChecker: DependencyHelper.instance.serviceLocator(),
+    ),
   );
 
   // DATASOURCES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<AdRemoteDataSource>(
     () => AdRemoteDataSourceImpl(),
+  );
+  DependencyHelper.instance.serviceLocator.registerLazySingleton<AdLocalDataSource>(
+    () => AdLocalDataSourceImpl(),
   );
 }

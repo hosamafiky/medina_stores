@@ -12,6 +12,19 @@ class CategoryModel extends Category {
     super.children,
   });
 
+  factory CategoryModel.fromCategory(Category category) {
+    return CategoryModel(
+      id: category.id,
+      name: category.name,
+      parent: category.parent,
+      active: category.active,
+      slug: category.slug,
+      image: category.image,
+      children: category.children,
+      createdAt: category.createdAt,
+    );
+  }
+
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       id: map['id'],
@@ -36,7 +49,7 @@ class CategoryModel extends Category {
       'slug': slug,
       'image': image,
       'created_at': DateFormat(ApiConstants.dateFormat).format(createdAt),
-      'children': children.map((e) => (e as SubCategoryModel).toMap())
+      'children': List<Map<String, dynamic>>.from(children.map((e) => SubCategoryModel.fromSubCategory(e).toMap()))
     };
   }
 

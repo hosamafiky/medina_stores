@@ -7,6 +7,11 @@ class CacheKeys {
   static const String user = 'user';
   static const String token = 'token';
   static const String themeMode = 'themeMode';
+
+  //DATA
+  static const String ads = 'ads';
+  static const String brands = 'brands';
+  static const String categories = 'categories';
 }
 
 class CacheHelper {
@@ -34,9 +39,9 @@ class CacheHelper {
 
   static String? _tryDecode(String key) {
     try {
-      return jsonDecode(_sharedPrefrences.getString(key) ?? "");
+      return jsonDecode(_sharedPrefrences.getString(key) ?? "{}");
     } catch (e) {
-      return null;
+      return _sharedPrefrences.getString(key);
     }
   }
 

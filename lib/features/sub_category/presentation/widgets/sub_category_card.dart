@@ -21,12 +21,16 @@ class SubCategoryCard extends StatelessWidget {
         },
         child: Column(
           children: [
-            ImageWidget(
-              imageUrl: subCategory.image,
-              height: 70.r,
-              width: 70.r,
-              shape: BoxShape.circle,
-            ),
+            if (_isSkeleton) ...[
+              ShimmerWidget.circular(diameter: 70.r),
+            ] else ...[
+              ImageWidget(
+                imageUrl: subCategory.image,
+                height: 70.r,
+                width: 70.r,
+                shape: BoxShape.circle,
+              ),
+            ],
             Text(
               _isSkeleton ? LocaleKeys.sub_category.tr() : subCategory.name.capitalize,
               textAlign: TextAlign.center,

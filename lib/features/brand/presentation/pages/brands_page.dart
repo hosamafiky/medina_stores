@@ -13,9 +13,7 @@ class BrandsPage extends StatelessWidget {
 }
 
 class BrandsPageBody extends StatelessWidget {
-  const BrandsPageBody({
-    super.key,
-  });
+  const BrandsPageBody({super.key});
 
   @override
   Widget build(BuildContext context) {

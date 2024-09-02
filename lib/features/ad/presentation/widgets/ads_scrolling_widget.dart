@@ -12,7 +12,10 @@ class AdsScrollingWidget extends StatelessWidget {
           context,
           running: (context) => const AdsWidget.skeleton(),
           completed: (context) => const AdsWidget(),
-          error: (context) => const Center(child: Icon(Icons.warning_amber)),
+          error: (context) => ErrorViewWidget(
+            state.failure!,
+            onRetry: () => context.read<AdCubit>().getAds(),
+          ),
         );
       },
     );

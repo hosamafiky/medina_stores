@@ -9,7 +9,10 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: cubit..getProductDetails(product.slug),
+      value: cubit
+        ..getProductDetails(product.slug)
+        ..getRelatedProducts(product.slug)
+        ..getYouMayLikeProducts(product.slug),
       child: ProductPageBody(product),
     );
   }
@@ -184,14 +187,10 @@ class ProductPageBody extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  // Additional Information
-                  Text(
-                    'Created on Aug 31, 2024',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                    ),
-                  ),
+                  // RELATED PRODUCTS
+                  const RelatedProductsSection(),
+                  // YOU MAY LIKE PRODUCTS
+                  const YouMayLikeProductsSection(),
                 ],
               ),
             );

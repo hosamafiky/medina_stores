@@ -19,4 +19,14 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, ApiResponse<ProductDetails>>> getProductDetails(String slug) async {
     return await remoteDataSource.getProductDetails(slug).handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, ApiResponse<List<ProductModel>>>> getRelatedProducts(String slug) async {
+    return await remoteDataSource.getRelatedProducts(slug).handleCallbackWithFailure;
+  }
+
+  @override
+  Future<Either<Failure, ApiResponse<List<ProductModel>>>> getYouMayLikeProducts(String slug) async {
+    return await remoteDataSource.getYouMayLikeProducts(slug).handleCallbackWithFailure;
+  }
 }

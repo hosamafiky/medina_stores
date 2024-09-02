@@ -21,12 +21,16 @@ class BrandCard extends StatelessWidget {
         },
         child: Column(
           children: [
-            ImageWidget(
-              imageUrl: brand.media,
-              height: 70.r,
-              width: 70.r,
-              shape: BoxShape.circle,
-            ),
+            if (_isSkeleton) ...[
+              ShimmerWidget.circular(diameter: 70.r),
+            ] else ...[
+              ImageWidget(
+                imageUrl: brand.media,
+                height: 70.r,
+                width: 70.r,
+                shape: BoxShape.circle,
+              ),
+            ],
             Text(
               _isSkeleton ? LocaleKeys.brand.tr() : brand.name.capitalize,
               textAlign: TextAlign.center,

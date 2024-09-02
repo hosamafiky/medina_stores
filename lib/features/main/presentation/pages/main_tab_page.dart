@@ -40,19 +40,17 @@ class MainTabPageBody extends StatelessWidget {
       appBar: MainAppBar(title: Text(LocaleKeys.home.tr())),
       body: RefreshIndicator.adaptive(
         onRefresh: () => _onRefresh(context),
-        child: Padding(
-          padding: REdgeInsets.symmetric(vertical: 16),
-          child: CustomScrollView(
-            slivers: [
-              SliverList.list(
-                children: const [
-                  AdsScrollingWidget(),
-                  BrandsHorizontalList(),
-                ].withSpacing(spacing: 16.h),
-              ),
-              const CategoriesLisViewWidget(),
-            ],
-          ),
+        child: CustomScrollView(
+          slivers: [
+            SliverList.list(
+              children: [
+                SizedBox(height: 16.h),
+                const AdsScrollingWidget(),
+                const BrandsHorizontalList(),
+              ].withSpacing(spacing: 16.h),
+            ),
+            const CategoriesLisViewWidget(),
+          ],
         ),
       ),
     );

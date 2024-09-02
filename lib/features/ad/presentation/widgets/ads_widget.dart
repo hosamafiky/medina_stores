@@ -17,7 +17,7 @@ class AdsWidget extends StatelessWidget {
             SizedBox(
               height: 150.h,
               child: PageView.builder(
-                controller: adCubit.pageController,
+                controller: _isSkeleton ? PageController(initialPage: 2, viewportFraction: 0.8) : adCubit.pageController,
                 itemCount: _isSkeleton ? 4 : null,
                 scrollDirection: Axis.horizontal,
                 onPageChanged: adCubit.onPageChanged,
