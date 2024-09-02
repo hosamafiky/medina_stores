@@ -17,6 +17,7 @@ import '../../../core/shared_widgets/core_widgets/image_widget.dart';
 import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 import '../../../core/shared_widgets/core_widgets/shimmer_widget.dart';
 import '../../../core/shared_widgets/core_widgets/video_widget.dart';
+import '../../../core/shared_widgets/state_managers/error_widget.dart';
 import '../../../core/standards/usecase_status.dart';
 import '../domain/domain_imports.dart';
 

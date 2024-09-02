@@ -4,6 +4,8 @@ abstract class ProductRemoteDataSource {
   Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getSubCategoryProducts(GetCategoryProductsParams params);
   Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getBrandProducts(GetBrandProductsParams params);
   Future<ApiResponseModel<ProductDetailsModel>> getProductDetails(String slug);
+  Future<ApiResponseModel<List<ProductModel>>> getRelatedProducts(String slug);
+  Future<ApiResponseModel<List<ProductModel>>> getYouMayLikeProducts(String slug);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -59,6 +61,38 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           mapper: (json) => ApiResponseModel.fromMap(
             json,
             mapper: (data) => ProductDetailsModel.fromMap(data['data']),
+          ),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<List<ProductModel>>> getRelatedProducts(String slug) async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: '${ApiConstants.endPoints.PRODUCT}/$slug/related',
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<List<ProductModel>>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => List<ProductModel>.from(data['data'].map((e) => ProductModel.fromMap(e))),
+          ),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<List<ProductModel>>> getYouMayLikeProducts(String slug) async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: '${ApiConstants.endPoints.PRODUCT}/$slug/you-may-like',
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<List<ProductModel>>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => List<ProductModel>.from(data['data'].map((e) => ProductModel.fromMap(e))),
           ),
         );
   }

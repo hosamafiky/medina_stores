@@ -5,6 +5,8 @@ class ProductCubit extends Cubit<ProductState> {
     required this.getProductsUsecase,
     required this.getBrandProductsUsecase,
     required this.getProductDetailsUsecase,
+    required this.getRelatedProductsUsecase,
+    required this.getYouMayLikeProductsUsecase,
     Brand? brand,
     SubCategory? subCategory,
   }) : super(ProductState(subCategory: subCategory, brand: brand));
@@ -12,6 +14,8 @@ class ProductCubit extends Cubit<ProductState> {
   final GetCategoryProductsUsecase getProductsUsecase;
   final GetBrandProductsUsecase getBrandProductsUsecase;
   final GetProductDetailsUsecase getProductDetailsUsecase;
+  final GetRelatedProductsUsecase getRelatedProductsUsecase;
+  final GetYouMayLikeProductsUsecase getYouMayLikeProductsUsecase;
 
   Future<void> getProducts(Brand? brand, SubCategory subCategory) async {
     if (brand != null) {
@@ -129,6 +133,34 @@ class ProductCubit extends Cubit<ProductState> {
       (product) => emit(state.copyWith(
         productDetailsStatus: UsecaseStatus.completed,
         productDetails: product,
+      )),
+    );
+  }
+
+  Future<void> getRelatedProducts(String slug) async {
+    final result = await getRelatedProductsUsecase(slug);
+    result.fold(
+      (failure) => emit(state.copyWith(
+        productDetailsStatus: UsecaseStatus.error,
+        productDetailsFailure: failure,
+      )),
+      (product) => emit(state.copyWith(
+        productDetailsStatus: UsecaseStatus.completed,
+        relatedProducts: product,
+      )),
+    );
+  }
+
+  Future<void> getYouMayLikeProducts(String slug) async {
+    final result = await getYouMayLikeProductsUsecase(slug);
+    result.fold(
+      (failure) => emit(state.copyWith(
+        productDetailsStatus: UsecaseStatus.error,
+        productDetailsFailure: failure,
+      )),
+      (products) => emit(state.copyWith(
+        productDetailsStatus: UsecaseStatus.completed,
+        youMayLikeProducts: products,
       )),
     );
   }

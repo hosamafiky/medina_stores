@@ -11,6 +11,18 @@ class SubCategoryModel extends SubCategory {
     required super.createdAt,
   });
 
+  factory SubCategoryModel.fromSubCategory(SubCategory subCategory) {
+    return SubCategoryModel(
+      id: subCategory.id,
+      name: subCategory.name,
+      parent: subCategory.parent,
+      active: subCategory.active,
+      slug: subCategory.slug,
+      image: subCategory.image,
+      createdAt: subCategory.createdAt,
+    );
+  }
+
   factory SubCategoryModel.fromMap(Map<String, dynamic> map) {
     return SubCategoryModel(
       id: map['id'],
@@ -29,7 +41,7 @@ class SubCategoryModel extends SubCategory {
     return {
       'id': id,
       'name': name,
-      'parent': (parent as DropdownItemModel).toMap(),
+      'parent': DropdownItemModel.fromDropdown(parent).toMap(),
       'active': active,
       'slug': slug,
       'image': image,

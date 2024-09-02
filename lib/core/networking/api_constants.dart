@@ -20,6 +20,7 @@ class ApiEndPoints {
   final String SUB_CATEGORIES = '/sub-categories';
   final String BRANDS = '/home/brands';
   final String PRODUCTS = '/products';
+  final String PRODUCT = '/product';
 
   // Auth
   final String login = '/login';

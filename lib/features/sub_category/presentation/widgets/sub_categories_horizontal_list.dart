@@ -18,9 +18,8 @@ class SubCategoriesHorizontalList extends StatelessWidget {
             selector: (state) => (status: state.subCategoriesStatus, failure: state.subCategoriesFailure, subCategories: state.subCategories),
             builder: (context, state) {
               final isLoading = state.status == UsecaseStatus.running;
-              if (isLoading) {
-                return const _SubCategoriesList.skeleton();
-              }
+              if (isLoading) return const _SubCategoriesList.skeleton();
+
               if (state.failure != null) {
                 return Center(child: Text("Failed to load sub categories ${state.failure!.response.message}"));
               }

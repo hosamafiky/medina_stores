@@ -7,5 +7,4 @@ import '../../../core/standards/use_case.dart';
 
 part '../domain/entities/brand.dart';
 part '../domain/repositories/brand_repository.dart';
-part '../domain/usecases/add_brand_usecase.dart';
 part '../domain/usecases/get_brands_usecase.dart';
