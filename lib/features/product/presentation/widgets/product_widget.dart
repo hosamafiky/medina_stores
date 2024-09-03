@@ -17,35 +17,38 @@ class ProductWidget extends StatelessWidget {
         children: [
           Stack(
             children: [
-              ImageWidget(
-                borderRadius: BorderRadius.circular(8.r),
-                imageUrl: product.image,
-                height: 120.h,
-                width: double.infinity,
+              AspectRatio(
+                aspectRatio: 1,
+                child: ImageWidget(
+                  borderRadius: BorderRadius.circular(15.r),
+                  imageUrl: product.image,
+                  height: 120.h,
+                  width: double.infinity,
+                ),
               ),
               PositionedDirectional(
-                top: 8,
-                end: 8,
+                top: 8.h,
+                end: 8.w,
                 child: InkWell(
                   onTap: () {
                     context.read<ProductCubit>().toggleProductFavourite(product.id, !product.isFavourite);
                   },
                   child: Icon(
-                    Icons.favorite,
+                    CupertinoIcons.heart_fill,
                     color: product.isFavourite ? Colors.red : Colors.grey,
                   ),
                 ),
               ),
               PositionedDirectional(
-                bottom: 8,
-                start: 8,
+                bottom: 0,
+                start: 0,
                 child: IconButton(
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(ColorPalette.whiteColor),
                     foregroundColor: WidgetStateProperty.all(context.colorPalette.buttonText),
                   ),
                   onPressed: () {
-                    context.read<ProductCubit>().toggleProductFavourite(product.id, !product.isFavourite);
+                    // Add to cart
                   },
                   icon: Icon(
                     Icons.add,
@@ -56,14 +59,15 @@ class ProductWidget extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: REdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '${product.priceAfterDiscount} SAR',
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
                     color: product.priceAfterDiscount < product.price ? context.colorPalette.error : context.colorPalette.primaryText,
                   ),
                 ),
@@ -79,6 +83,8 @@ class ProductWidget extends StatelessWidget {
                 SizedBox(height: 4.h),
                 Text(
                   product.name,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                   style: context.appTextStyle.fieldStyle.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
