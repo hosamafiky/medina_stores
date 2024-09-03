@@ -51,12 +51,12 @@ class OptionCategoryModel extends OptionCategory {
 
   String toJson() => json.encode(toMap());
 
-  factory OptionCategoryModel.fromMap(Map<String, dynamic> json) => OptionCategoryModel(
-        id: json["id"],
-        name: json["name"],
-        isRequired: json["is_required"],
-        type: json["type"],
-        options: List<OptionModel>.from(json["options"].map((x) => OptionModel.fromMap(x))),
+  factory OptionCategoryModel.fromMap(Map<String, dynamic> map) => OptionCategoryModel(
+        id: map["id"],
+        name: (map["name"] as String).capitalize,
+        isRequired: map["is_required"],
+        type: map["type"],
+        options: List<OptionModel>.from(map["options"].map((x) => OptionModel.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {

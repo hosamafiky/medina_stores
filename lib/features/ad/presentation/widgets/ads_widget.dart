@@ -29,7 +29,10 @@ class AdsWidget extends StatelessWidget {
                 },
               ),
             ),
-            const AdDotsIndicator(),
+            ShimmerWidget.fromChild(
+              isLoading: _isSkeleton,
+              child: const AdDotsIndicator(),
+            ),
           ],
         ).withSpacing(spacing: 10.h);
       },

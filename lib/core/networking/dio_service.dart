@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medina_stores/core/extensions/dio_exception.dart';
 import 'package:medina_stores/core/navigation/navigator.dart';
 
 import '../../config/resources/languages.dart';
@@ -80,55 +81,9 @@ class DioService implements ApiService {
       if (mapper != null) return mapper(response.data);
       return ApiResponseModel.fromMap(response.data);
     } on DioException catch (e) {
-      throw _handleError(e);
-    }
-    // catch (e) {
-    //   throw UnknownException(ApiResponseModel(message: "${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}"));
-    // }
-  }
-
-  AppException _handleError(DioException error) {
-    final data = error.response?.data;
-    switch (error.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.receiveTimeout:
-        return NoInternetConnectionException();
-      case DioExceptionType.cancel:
-        return CancelException(ApiResponseModel.fromMap(data).copyWith(
-          statusCode: error.response?.statusCode,
-        ));
-      case DioExceptionType.unknown:
-        return UnknownException(ApiResponse(message: "${LocaleKeys.something_went_wrong.tr()} : ${error.response?.data['message']}"));
-      case DioExceptionType.badResponse:
-        switch (error.response!.statusCode) {
-          case HttpStatus.badRequest:
-            return BadRequestException(ApiResponseModel.fromMap(data).copyWith(
-              statusCode: HttpStatus.badRequest,
-            ));
-          case HttpStatus.unprocessableEntity:
-            return MissingDataException(ApiResponseModel.fromMap(data).copyWith(
-              statusCode: HttpStatus.unprocessableEntity,
-            ));
-          case HttpStatus.unauthorized:
-            return UnauthorizedException(ApiResponseModel.fromMap(data).copyWith(
-              statusCode: HttpStatus.unauthorized,
-            ));
-          case HttpStatus.notFound:
-            return NotFoundException(ApiResponseModel.fromMap(data).copyWith(
-              statusCode: HttpStatus.notFound,
-            ));
-          case HttpStatus.conflict:
-            return ConflictException(ApiResponseModel.fromMap(data).copyWith(
-              statusCode: HttpStatus.conflict,
-            ));
-          case HttpStatus.internalServerError:
-            return InternalServerErrorException();
-          default:
-            return UnknownException(ApiResponse(message: "${LocaleKeys.something_went_wrong.tr()} : ${data?.data['message']}"));
-        }
-      default:
-        return UnknownException(ApiResponse(message: "${LocaleKeys.something_went_wrong.tr()} : ${data?.data['message']}"));
+      throw e.exceptionToThrow;
+    } catch (e) {
+      throw UnknownException(ApiResponseModel(message: "${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}"));
     }
   }
 }
