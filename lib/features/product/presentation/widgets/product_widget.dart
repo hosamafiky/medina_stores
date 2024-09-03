@@ -12,97 +12,87 @@ class ProductWidget extends StatelessWidget {
         final cubit = context.read<ProductCubit>();
         AppNavigator.to(ProductPage(product, cubit: cubit));
       },
-      child: Card(
-        elevation: 4,
-        margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                ImageWidget(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              AspectRatio(
+                aspectRatio: 1,
+                child: ImageWidget(
+                  borderRadius: BorderRadius.circular(15.r),
                   imageUrl: product.image,
-                  height: 150,
+                  height: 120.h,
                   width: double.infinity,
                 ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: InkWell(
-                    onTap: () {
-                      context.read<ProductCubit>().toggleProductFavourite(product.id, !product.isFavourite);
-                    },
-                    child: Icon(
-                      Icons.favorite,
-                      color: product.isFavourite ? Colors.red : Colors.grey,
+              ),
+              PositionedDirectional(
+                top: 8.h,
+                end: 8.w,
+                child: InkWell(
+                  onTap: () {
+                    context.read<ProductCubit>().toggleProductFavourite(product.id, !product.isFavourite);
+                  },
+                  child: Icon(
+                    CupertinoIcons.heart_fill,
+                    color: product.isFavourite ? Colors.red : Colors.grey,
+                  ),
+                ),
+              ),
+              PositionedDirectional(
+                bottom: 0,
+                start: 0,
+                child: IconButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(ColorPalette.whiteColor),
+                    foregroundColor: WidgetStateProperty.all(context.colorPalette.buttonText),
+                  ),
+                  onPressed: () {
+                    // Add to cart
+                  },
+                  icon: Icon(
+                    Icons.add,
+                    color: context.colorPalette.buttonBackground,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: REdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${product.priceAfterDiscount} SAR',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: product.priceAfterDiscount < product.price ? context.colorPalette.error : context.colorPalette.primaryText,
+                  ),
+                ),
+                if (product.priceAfterDiscount < product.price) ...[
+                  SizedBox(height: 4.h),
+                  Text(
+                    '${product.price} SAR',
+                    style: context.appTextStyle.fieldStyle.copyWith(
+                      decoration: TextDecoration.lineThrough,
                     ),
+                  ),
+                ],
+                SizedBox(height: 4.h),
+                Text(
+                  product.name,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.appTextStyle.fieldStyle.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${LocaleKeys.brand.tr()}: ${product.brand.name}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Wrap(
-                    spacing: 4,
-                    children: product.categories
-                        .map((e) => Chip(
-                              label: Text(e.name),
-                              backgroundColor: Colors.grey[200],
-                            ))
-                        .toList(),
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Text(
-                        '\$${product.priceAfterDiscount}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ),
-                      ),
-                      if (product.priceAfterDiscount < product.price) ...[
-                        Text(
-                          '\$${product.price}',
-                          style: context.appTextStyle.errorStyle.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                          ),
-                        ),
-                      ],
-                    ],
-                  ).withSpacing(spacing: 8),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
