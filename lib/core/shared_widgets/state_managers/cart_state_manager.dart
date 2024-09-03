@@ -35,7 +35,7 @@ class _CartStateManagerState extends State<CartStateManager> {
                     end: 16.w,
                   ),
                   width: 1.sw,
-                  padding: const EdgeInsets.all(16),
+                  padding: REdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: context.colorPalette.onBackground,
                     borderRadius: BorderRadius.circular(16.r),
