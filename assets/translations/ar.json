@@ -73,7 +73,7 @@
   "empty_brands": "لا توجد علامات تجارية حاليا",
   "product": "منتج",
   "products": "المنتجات",
-  "select_hint:": "اختر ...",
+  "select_hint": "اختر ...",
   "save_money": "وفر ${amount}",
   "empty_products": "لا توجد منتجات حاليا",
   "search": "بحث",
