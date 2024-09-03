@@ -8,13 +8,14 @@ class CartState extends Equatable {
     this.addToCartStatus = UsecaseStatus.idle,
     this.addToCartFailure,
     this.showWidget = false,
+    this.total = 0,
   });
 
   final UsecaseStatus cartItemsStatus;
   final Failure? cartItemsFailure;
   final List<Cart> cartItems;
 
-  num get total => cartItems.fold(0, (previousValue, element) => previousValue + (element.product.priceAfterDiscount * element.quantity));
+  final num total;
   final bool showWidget;
 
   final UsecaseStatus addToCartStatus;
@@ -27,6 +28,7 @@ class CartState extends Equatable {
     UsecaseStatus? addToCartStatus,
     Failure? addToCartFailure,
     bool? showWidget,
+    num? total,
   }) {
     return CartState(
       cartItemsStatus: cartItemsStatus ?? this.cartItemsStatus,
@@ -35,6 +37,7 @@ class CartState extends Equatable {
       addToCartStatus: addToCartStatus ?? this.addToCartStatus,
       addToCartFailure: addToCartFailure ?? this.addToCartFailure,
       showWidget: showWidget ?? this.showWidget,
+      total: total ?? this.total,
     );
   }
 
@@ -51,5 +54,6 @@ class CartState extends Equatable {
         addToCartStatus,
         addToCartFailure,
         showWidget,
+        total,
       ];
 }

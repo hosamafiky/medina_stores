@@ -24,11 +24,12 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> addToCart(AddCartParams params) async {
     if (state.cartItems.map((e) => e.product).contains(params.product)) {
-      updateCart(state.cartItems.firstWhere((e) => e.product == params.product), params.quantity);
+      updateCart(params.product, params.quantity);
     } else {
       emit(state.copyWith(
         addToCartStatus: UsecaseStatus.completed,
         showWidget: true,
+        total: state.total + (params.product.priceAfterDiscount * params.quantity),
         cartItems: List<Cart>.from(state.cartItems)..add(Cart(product: params.product, quantity: params.quantity)),
       ));
     }
@@ -52,9 +53,17 @@ class CartCubit extends Cubit<CartState> {
     ));
   }
 
-  void updateCart(Cart cart, int quantity) {
+  void updateCart(Product product, int quantity) {
     emit(state.copyWith(
-      cartItems: List<Cart>.from(state.cartItems)..map((e) => e.product.id == cart.product.id ? e.copyWith(quantity: quantity) : e).toList(),
+      total: state.cartItems.fold(state.total, (previousValue, element) => previousValue! + (element.product.priceAfterDiscount * element.quantity)),
+      cartItems: List<Cart>.from(state.cartItems)
+        ..map(
+          (e) => e.product.id == product.id ? e.copyWith(quantity: quantity) : e,
+        ),
     ));
+  }
+
+  void hideWidget() {
+    emit(state.copyWith(showWidget: false));
   }
 }

@@ -27,7 +27,7 @@ class _CartStateManagerState extends State<CartStateManager> {
             alignment: Alignment.bottomCenter,
             children: [
               widget.child,
-              if (state.cartItems.isNotEmpty) ...[
+              if (state.showWidget) ...[
                 Container(
                   margin: EdgeInsetsDirectional.only(
                     bottom: context.bottomBarHeight + kBottomNavigationBarHeight + 16.h,
@@ -57,6 +57,7 @@ class _CartStateManagerState extends State<CartStateManager> {
                             foregroundColor: WidgetStateProperty.all(ColorPalette.whiteColor),
                           ),
                           onPressed: () {
+                            context.read<CartCubit>().hideWidget();
                             AppNavigator.to(const CartPage());
                           },
                           child: const Text('View Cart'),

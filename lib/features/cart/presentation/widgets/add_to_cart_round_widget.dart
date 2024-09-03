@@ -37,12 +37,12 @@ class _AddToCartRoundWidgetState extends State<AddToCartRoundWidget> with Single
               ),
               onPressed: () async {
                 // Add to cart
+                setState(() => quantityInCart += 1);
                 if (!isExpanded) {
                   isExpanded = true;
                   context.read<CartCubit>().addToCart(AddCartParams(product: widget.product, quantity: 1));
                   return;
                 }
-                setState(() => quantityInCart += 1);
                 context.read<CartCubit>().addToCart(AddCartParams(product: widget.product, quantity: quantityInCart));
               },
               icon: Icon(
