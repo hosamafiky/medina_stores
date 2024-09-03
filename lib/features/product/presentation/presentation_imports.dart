@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
 import 'package:medina_stores/config/resources/locale_keys.g.dart';
 import 'package:medina_stores/core/extensions/context.dart';
 import 'package:medina_stores/core/extensions/list.dart';
