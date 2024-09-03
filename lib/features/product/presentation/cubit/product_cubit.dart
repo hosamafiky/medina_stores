@@ -125,7 +125,10 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> getProductDetails(String slug) async {
-    emit(state.copyWith(productDetailsStatus: UsecaseStatus.running));
+    emit(state.copyWith(
+      productDetailsStatus: UsecaseStatus.running,
+      productDetails: const ApiResponse(data: null),
+    ));
     final result = await getProductDetailsUsecase(slug);
     result.fold(
       (failure) => emit(state.copyWith(
