@@ -3,7 +3,7 @@ part of '../presentation_imports.dart';
 class AdCubit extends Cubit<AdState> {
   AdCubit({
     required this.getAdsUsecase,
-  }) : super(const AdState());
+  }) : super(const AdState(adIndex: 6));
 
   Timer? timer;
   final pageController = PageController(viewportFraction: 0.8);
@@ -30,10 +30,10 @@ class AdCubit extends Cubit<AdState> {
 
   final GetAdsUsecase getAdsUsecase;
 
-  Future<void> getAds() async {
-    if (state.ads.data?.hasReachedEnd == true) return;
-    if (state.ads.data?.currentPage == 0) emit(state.copyWith(adsStatus: UsecaseStatus.running));
-    final params = GetPaginatedListParams(page: (state.ads.data!.currentPage) + 1, perPage: 99999);
+  Future<void> getAds({bool refresh = false}) async {
+    if (state.ads.data?.hasReachedEnd == true && !refresh) return;
+    if (state.ads.data?.currentPage == 0 || refresh) emit(state.copyWith(adsStatus: UsecaseStatus.running));
+    final params = GetPaginatedListParams(page: (refresh ? 0 : state.ads.data!.currentPage) + 1, perPage: 99999);
     final result = await getAdsUsecase(params);
     result.fold(
       (failure) => emit(state.copyWith(
@@ -51,12 +51,13 @@ class AdCubit extends Cubit<AdState> {
             ),
           ));
         } else {
+          emit(state.copyWith(adIndex: 2 % ads.data!.data.length));
           initSlider();
           final oldAds = List<AdModel>.from(state.ads.data!.data.map((e) => AdModel.fromAd(e)));
           final newAds = List<AdModel>.from(ads.data!.data.map((e) => AdModel.fromAd(e)));
 
           final paginatedList = PaginatedList<AdModel>(
-            data: [...oldAds, ...newAds],
+            data: refresh ? newAds : [...oldAds, ...newAds],
             currentPage: ads.data!.currentPage,
             lastPage: ads.data!.lastPage,
             itemsCount: ads.data!.itemsCount,

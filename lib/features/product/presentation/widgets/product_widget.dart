@@ -98,21 +98,6 @@ class ProductWidget extends StatelessWidget {
                       ],
                     ],
                   ).withSpacing(spacing: 8),
-                  const SizedBox(height: 8),
-                  Text(
-                    'SKU: ${product.sku}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  Text(
-                    'Created on ${DateFormat('MMM dd yyyy').format(product.createdAt)}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                    ),
-                  ),
                 ],
               ),
             ),

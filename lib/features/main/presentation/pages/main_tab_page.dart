@@ -17,6 +17,9 @@ class MainTab extends StatelessWidget {
         BlocProvider(
           create: (context) => DependencyHelper.instance.get<BrandCubit>()..getBrands(),
         ),
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<AdCubit>()..getAds(),
+        ),
       ],
       child: const MainTabPageBody(),
     );
@@ -28,7 +31,7 @@ class MainTabPageBody extends StatelessWidget {
 
   Future<void> _onRefresh(BuildContext context) async {
     await Future.wait([
-      context.read<AdCubit>().getAds(),
+      context.read<AdCubit>().getAds(refresh: true),
       context.read<CategoryCubit>().getCategories(),
       context.read<BrandCubit>().getBrands(),
     ]);
