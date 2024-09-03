@@ -73,7 +73,7 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
                     padding: REdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     sliver: SliverDynamicHeightGridView(
                       controller: _scrollController,
-                      crossAxisCount: 2,
+                      crossAxisCount: 3,
                       crossAxisSpacing: 20.w,
                       mainAxisSpacing: 20.h,
                       itemCount: state.products.data.length,
