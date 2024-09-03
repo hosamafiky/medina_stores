@@ -15,7 +15,7 @@ class AppDropdown<T> extends StatelessWidget {
     required this.itemMapper,
     this.isOptional = false,
     this.isBordered = true,
-    required this.label,
+    this.label,
     this.labelTextStyle,
     this.hintTextStyle,
     this.style,

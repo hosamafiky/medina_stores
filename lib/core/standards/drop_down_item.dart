@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:medina_stores/core/extensions/string.dart';
 
 class DropdownItem extends Equatable {
   final int id;
@@ -29,7 +30,7 @@ class DropdownItemModel extends DropdownItem {
     if (json == null) return const DropdownItemModel();
     return DropdownItemModel(
       id: json['id'],
-      name: json['name'],
+      name: (json['name'] as String).capitalize,
     );
   }
 

@@ -67,12 +67,14 @@ class SliverDynamicHeightGridView extends StatelessWidget {
     required this.builder,
     required this.itemCount,
     required this.crossAxisCount,
+    this.padding = EdgeInsets.zero,
     this.crossAxisSpacing = 8,
     this.mainAxisSpacing = 8,
     this.rowCrossAxisAlignment = CrossAxisAlignment.start,
     this.controller,
   });
   final IndexedWidgetBuilder builder;
+  final EdgeInsetsGeometry padding;
   final int itemCount;
   final int crossAxisCount;
   final double crossAxisSpacing;
@@ -90,20 +92,23 @@ class SliverDynamicHeightGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (ctx, columnIndex) {
-          return _GridRow(
-            columnIndex: columnIndex,
-            builder: builder,
-            itemCount: itemCount,
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: crossAxisSpacing,
-            mainAxisSpacing: mainAxisSpacing,
-            crossAxisAlignment: rowCrossAxisAlignment,
-          );
-        },
-        childCount: columnLength(),
+    return SliverPadding(
+      padding: padding,
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (ctx, columnIndex) {
+            return _GridRow(
+              columnIndex: columnIndex,
+              builder: builder,
+              itemCount: itemCount,
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: crossAxisSpacing,
+              mainAxisSpacing: mainAxisSpacing,
+              crossAxisAlignment: rowCrossAxisAlignment,
+            );
+          },
+          childCount: columnLength(),
+        ),
       ),
     );
   }

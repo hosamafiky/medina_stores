@@ -77,6 +77,7 @@ abstract class LocaleKeys {
   static const _PRODUCT = '_PRODUCT';
   static const product = 'product';
   static const products = 'products';
+  static const select_hint = 'select_hint';
   static const save_money = 'save_money';
   static const empty_products = 'empty_products';
   static const search = 'search';

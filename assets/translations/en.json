@@ -73,6 +73,7 @@
   "_PRODUCT": "_PRODUCT",
   "product": "Product",
   "products": "Products",
+  "select_hint": "Select ...",
   "save_money": "Save ${amount}",
   "empty_products": "Currently, No products found",
   "search": "Search",
