@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
 import 'package:medina_stores/config/resources/locale_keys.g.dart';
 import 'package:medina_stores/core/extensions/context.dart';
 import 'package:medina_stores/core/extensions/list.dart';
@@ -19,6 +18,7 @@ import 'package:medina_stores/core/shared_widgets/state_managers/error_widget.da
 import 'package:medina_stores/core/standards/paginated_list.dart';
 import 'package:medina_stores/core/standards/response_model.dart';
 import 'package:medina_stores/features/brand/domain/domain_imports.dart';
+import 'package:medina_stores/features/cart/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/product/data/data_imports.dart';
 
 import '../../../core/error/failures.dart';

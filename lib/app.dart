@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/core/helpers/dependency_helper.dart';
+import 'package:medina_stores/core/shared_widgets/state_managers/cart_state_manager.dart';
 import 'package:medina_stores/features/language/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/layout/presentation/presentation_imports.dart';
 
@@ -13,6 +14,7 @@ import 'core/notifications/notification_helper.dart';
 import 'core/observers/navigation_observer.dart';
 import 'core/shared_widgets/state_managers/connectivity_manager.dart';
 import 'core/shared_widgets/state_managers/loading_manager.dart';
+import 'features/cart/presentation/presentation_imports.dart';
 import 'features/theme/presentation/cubit/theme_cubit.dart';
 import 'features/user/domain/domain_imports.dart';
 import 'features/user/presentation/presentation_imports.dart';
@@ -61,6 +63,9 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
               create: (context) => DependencyHelper.instance.serviceLocator<UserCubit>()..initWithCachedUser(widget.cachedUser),
             ),
             BlocProvider(
+              create: (context) => DependencyHelper.instance.serviceLocator<CartCubit>(),
+            ),
+            BlocProvider(
               create: (context) => LanguageCubit(savedLocale),
             ),
           ],
@@ -79,7 +84,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
                 darkTheme: tState.darkThemeData,
                 themeMode: tState.themeMode,
                 home: widget.cachedUser == null ? const LoginPage() : const LayoutPage(),
-                builder: (context, child) => ConnectivityManager(child: LoadingManager(child: child!)),
+                builder: (context, child) => CartStateManager(child: ConnectivityManager(child: LoadingManager(child: child!))),
               );
             },
           ),

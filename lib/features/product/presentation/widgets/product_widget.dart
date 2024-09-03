@@ -40,21 +40,9 @@ class ProductWidget extends StatelessWidget {
                 ),
               ),
               PositionedDirectional(
-                bottom: 0,
-                start: 0,
-                child: IconButton(
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(ColorPalette.whiteColor),
-                    foregroundColor: WidgetStateProperty.all(context.colorPalette.buttonText),
-                  ),
-                  onPressed: () {
-                    // Add to cart
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    color: context.colorPalette.buttonBackground,
-                  ),
-                ),
+                bottom: 4,
+                start: 4,
+                child: AddToCartRoundWidget(product: product),
               ),
             ],
           ),

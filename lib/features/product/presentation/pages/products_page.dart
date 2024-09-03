@@ -74,8 +74,8 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
                     sliver: SliverDynamicHeightGridView(
                       controller: _scrollController,
                       crossAxisCount: 3,
-                      crossAxisSpacing: 20.w,
-                      mainAxisSpacing: 20.h,
+                      crossAxisSpacing: 12.w,
+                      mainAxisSpacing: 12.h,
                       itemCount: state.products.data.length,
                       builder: (context, index) {
                         final product = state.products.data[index];
