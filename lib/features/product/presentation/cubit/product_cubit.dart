@@ -39,6 +39,7 @@ class ProductCubit extends Cubit<ProductState> {
       perPage: 5,
     );
     final result = await getProductsUsecase(params);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
         productsStatus: UsecaseStatus.error,
@@ -88,6 +89,7 @@ class ProductCubit extends Cubit<ProductState> {
       perPage: 5,
     );
     final result = await getBrandProductsUsecase(params);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
         productsStatus: UsecaseStatus.error,
@@ -132,6 +134,7 @@ class ProductCubit extends Cubit<ProductState> {
       productDetails: const ApiResponse(data: null),
     ));
     final result = await getProductDetailsUsecase(slug);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
         productDetailsStatus: UsecaseStatus.error,
@@ -146,6 +149,7 @@ class ProductCubit extends Cubit<ProductState> {
 
   Future<void> getRelatedProducts(String slug) async {
     final result = await getRelatedProductsUsecase(slug);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
         productDetailsStatus: UsecaseStatus.error,
@@ -160,6 +164,7 @@ class ProductCubit extends Cubit<ProductState> {
 
   Future<void> getYouMayLikeProducts(String slug) async {
     final result = await getYouMayLikeProductsUsecase(slug);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
         productDetailsStatus: UsecaseStatus.error,
@@ -175,10 +180,27 @@ class ProductCubit extends Cubit<ProductState> {
   Future<void> toggleProductFavourite(int productId, bool value) async {
     setProductFavourite(productId: productId, value: value);
     final result = await toggleFavoriteUsecase(productId);
+    if (isClosed) return;
     result.fold(
       (failure) => setProductFavourite(productId: productId, value: !value),
       (products) => emit(state.copyWith(productDetailsStatus: UsecaseStatus.completed)),
     );
+  }
+
+  Product _getProduct(int productId) {
+    final categoryOrBrandProductIndex = state.categoryOrBrandProducts.data!.data.indexWhere((element) => element.id == productId);
+    final relatedProductIndex = state.relatedProducts.data!.indexWhere((element) => element.id == productId);
+    final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
+    final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
+    if (categoryOrBrandProductIndex != -1) {
+      return state.categoryOrBrandProducts.data!.data[categoryOrBrandProductIndex];
+    } else if (relatedProductIndex != -1) {
+      return state.relatedProducts.data![relatedProductIndex];
+    } else if (youMayLikeProductIndex != -1) {
+      return state.youMayLikeProducts.data![youMayLikeProductIndex];
+    } else {
+      return state.favoriteProducts.data!.data[favoriteIndex];
+    }
   }
 
   Future<void> setProductFavourite({required int productId, required bool value}) async {
@@ -186,14 +208,8 @@ class ProductCubit extends Cubit<ProductState> {
     final relatedProductIndex = state.relatedProducts.data!.indexWhere((element) => element.id == productId);
     final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
     final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
-    final product = categoryOrBrandProductIndex != -1
-        ? state.categoryOrBrandProducts.data!.data[categoryOrBrandProductIndex]
-        : relatedProductIndex != -1
-            ? state.relatedProducts.data![relatedProductIndex]
-            : youMayLikeProductIndex != -1
-                ? state.youMayLikeProducts.data![youMayLikeProductIndex]
-                : state.favoriteProducts.data!.data[favoriteIndex];
 
+    final product = _getProduct(productId);
     if (categoryOrBrandProductIndex != -1) {
       emit(state.copyWith(
         categoryOrBrandProducts: state.categoryOrBrandProducts.copyWith(
