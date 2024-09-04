@@ -1,16 +1,13 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medina_stores/core/extensions/dio_exception.dart';
 import 'package:medina_stores/core/navigation/navigator.dart';
 
 import '../../config/resources/languages.dart';
-import '../../config/resources/locale_keys.g.dart';
 import '../../features/user/presentation/presentation_imports.dart';
-import '../error/exceptions.dart';
 import '../standards/response_model.dart';
 import 'api_constants.dart';
 import 'api_request.dart';
@@ -82,8 +79,9 @@ class DioService implements ApiService {
       return ApiResponseModel.fromMap(response.data);
     } on DioException catch (e) {
       throw e.exceptionToThrow;
-    } catch (e) {
-      throw UnknownException(ApiResponseModel(message: "${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}"));
     }
+    // catch (e) {
+    //   throw UnknownException(ApiResponseModel(message: "${LocaleKeys.something_went_wrong.tr()} : ${e.toString()}"));
+    // }
   }
 }

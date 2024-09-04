@@ -85,5 +85,13 @@
   "remove_from_cart": "Remove from Cart",
   "_CART": "_CART",
   "cart": "Cart",
-  "empty_cart": "Cart is empty"
+  "empty_cart": "Cart is empty",
+  "total": "Total",
+  "sub_total": "Sub Total",
+  "tax": "Tax",
+  "discount": "Discount",
+  "checkout": "Checkout",
+  "order": "Order",
+  "orders": "Orders",
+  "empty_orders": "Currently, No orders found"
 }

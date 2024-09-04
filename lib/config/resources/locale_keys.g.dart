@@ -90,4 +90,12 @@ abstract class LocaleKeys {
   static const _CART = '_CART';
   static const cart = 'cart';
   static const empty_cart = 'empty_cart';
+  static const total = 'total';
+  static const sub_total = 'sub_total';
+  static const tax = 'tax';
+  static const discount = 'discount';
+  static const checkout = 'checkout';
+  static const order = 'order';
+  static const orders = 'orders';
+  static const empty_orders = 'empty_orders';
 }

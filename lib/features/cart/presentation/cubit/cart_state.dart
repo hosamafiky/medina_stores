@@ -2,58 +2,64 @@ part of '../presentation_imports.dart';
 
 class CartState extends Equatable {
   const CartState({
-    this.cartItemsStatus = UsecaseStatus.idle,
-    this.cartItemsFailure,
-    this.cartItems = const [],
+    this.cartDataStatus = UsecaseStatus.idle,
+    this.cartDataFailure,
+    this.cartData = const CartData(),
     this.addToCartStatus = UsecaseStatus.idle,
     this.addToCartFailure,
+    this.removeFromCartStatus = UsecaseStatus.idle,
+    this.removeFromCartFailure,
     this.showWidget = false,
-    this.total = 0,
   });
 
-  final UsecaseStatus cartItemsStatus;
-  final Failure? cartItemsFailure;
-  final List<Cart> cartItems;
+  final UsecaseStatus cartDataStatus;
+  final Failure? cartDataFailure;
+  final CartData cartData;
 
-  final num total;
   final bool showWidget;
 
   final UsecaseStatus addToCartStatus;
   final Failure? addToCartFailure;
 
+  final UsecaseStatus removeFromCartStatus;
+  final Failure? removeFromCartFailure;
+
   CartState copyWith({
-    UsecaseStatus? cartItemsStatus,
-    Failure? cartItemsFailure,
-    List<Cart>? cartItems,
+    UsecaseStatus? cartDataStatus,
+    Failure? cartDataFailure,
+    CartData? cartData,
     UsecaseStatus? addToCartStatus,
     Failure? addToCartFailure,
+    UsecaseStatus? removeFromCartStatus,
+    Failure? removeFromCartFailure,
     bool? showWidget,
-    num? total,
   }) {
     return CartState(
-      cartItemsStatus: cartItemsStatus ?? this.cartItemsStatus,
-      cartItemsFailure: cartItemsFailure ?? this.cartItemsFailure,
-      cartItems: cartItems ?? this.cartItems,
+      cartDataStatus: cartDataStatus ?? this.cartDataStatus,
+      cartDataFailure: cartDataFailure ?? this.cartDataFailure,
+      cartData: cartData ?? this.cartData,
       addToCartStatus: addToCartStatus ?? this.addToCartStatus,
       addToCartFailure: addToCartFailure ?? this.addToCartFailure,
+      removeFromCartStatus: removeFromCartStatus ?? this.removeFromCartStatus,
+      removeFromCartFailure: removeFromCartFailure ?? this.removeFromCartFailure,
       showWidget: showWidget ?? this.showWidget,
-      total: total ?? this.total,
     );
   }
 
   @override
   String toString() {
-    return 'CartState(cartsStatus: $cartItemsStatus, cartsFailure: $cartItemsFailure, carts: $cartItems, addCartStatus: $addToCartStatus, addCartFailure: $addToCartFailure)';
+    return 'CartState(cartsStatus: $cartDataStatus, cartsFailure: $cartDataFailure, carts: $cartData, addCartStatus: $addToCartStatus, addCartFailure: $addToCartFailure)';
   }
 
   @override
   List<Object?> get props => [
-        cartItemsStatus,
-        cartItemsFailure,
-        cartItems,
+        cartDataStatus,
+        cartDataFailure,
+        cartData,
         addToCartStatus,
         addToCartFailure,
+        removeFromCartStatus,
+        removeFromCartFailure,
         showWidget,
-        total,
       ];
 }

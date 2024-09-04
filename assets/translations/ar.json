@@ -84,5 +84,13 @@
   "buy_now": "اشترى الآن",
   "remove_from_cart": "إزالة من السلة",
   "cart": "السلة",
-  "empty_cart": "السلة فارغة"
+  "empty_cart": "السلة فارغة",
+  "total": "الإجمالي",
+  "sub_total": "الإجمالي الفرعي",
+  "tax": "الضريبة",
+  "discount": "الخصم",
+  "checkout": "الدفع",
+  "order": "طلب",
+  "orders": "الطلبات",
+  "empty_orders": "لا توجد طلبات حاليا"
 }

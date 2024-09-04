@@ -21,9 +21,9 @@ import '../../../core/shared_widgets/state_managers/error_widget.dart';
 import '../../../core/standards/usecase_status.dart';
 import '../domain/domain_imports.dart';
 
-part '../presentation/cubit/ad_cubit.dart';
-part '../presentation/cubit/ad_state.dart';
-part '../presentation/pages/ads_page.dart';
+part 'cubit/ad_cubit.dart';
+part 'cubit/ad_state.dart';
+part 'pages/ads_page.dart';
 part 'widgets/ad_shimmer_widget.dart';
 part 'widgets/ad_widget.dart';
 part 'widgets/ads_dot_indicator.dart';

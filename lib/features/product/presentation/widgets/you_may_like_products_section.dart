@@ -9,7 +9,9 @@ class YouMayLikeProductsSection extends StatelessWidget {
       selector: (state) => state.youMayLikeProducts.data!,
       builder: (context, youMayLikeProducts) {
         return SliverDynamicHeightGridView(
-          padding: REdgeInsets.symmetric(horizontal: 16),
+          padding: REdgeInsets.symmetric(horizontal: 16).copyWith(
+            bottom: context.bottomBarHeight + 16.h,
+          ),
           crossAxisCount: 3,
           crossAxisSpacing: 12.w,
           mainAxisSpacing: 12.h,

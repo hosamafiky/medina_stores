@@ -13,6 +13,7 @@ part 'entities/product_data.dart';
 part 'entities/product_details.dart';
 part 'repositories/product_repository.dart';
 part 'usecases/get_brand_products_usecase.dart';
+part 'usecases/get_favourite_products_usecase.dart';
 part 'usecases/get_product_details_usecase.dart';
 part 'usecases/get_related_products_usecase.dart';
 part 'usecases/get_sub_category_products_usecase.dart';

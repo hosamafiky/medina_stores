@@ -9,6 +9,7 @@ void setUpCartDependencies() async {
     () => CartCubit(
       getCartItemsUsecase: DependencyHelper.instance.serviceLocator(),
       addToCartUsecase: DependencyHelper.instance.serviceLocator(),
+      removeFromCartUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
@@ -19,6 +20,10 @@ void setUpCartDependencies() async {
 
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => AddToCartUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => RemoveFromCartUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES

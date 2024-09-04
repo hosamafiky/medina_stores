@@ -7,6 +7,7 @@ class ProductCubit extends Cubit<ProductState> {
     required this.getProductDetailsUsecase,
     required this.getRelatedProductsUsecase,
     required this.getYouMayLikeProductsUsecase,
+    required this.getFavouriteProductsUsecase,
     required this.toggleFavoriteUsecase,
     Brand? brand,
     SubCategory? subCategory,
@@ -17,6 +18,7 @@ class ProductCubit extends Cubit<ProductState> {
   final GetProductDetailsUsecase getProductDetailsUsecase;
   final GetRelatedProductsUsecase getRelatedProductsUsecase;
   final GetYouMayLikeProductsUsecase getYouMayLikeProductsUsecase;
+  final GetFavouriteProductsUsecase getFavouriteProductsUsecase;
   final ToggleFavoriteUsecase toggleFavoriteUsecase;
 
   Future<void> getProducts(Brand? brand, SubCategory subCategory) async {
@@ -183,11 +185,15 @@ class ProductCubit extends Cubit<ProductState> {
     final categoryOrBrandProductIndex = state.categoryOrBrandProducts.data!.data.indexWhere((element) => element.id == productId);
     final relatedProductIndex = state.relatedProducts.data!.indexWhere((element) => element.id == productId);
     final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
+    final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
     final product = categoryOrBrandProductIndex != -1
         ? state.categoryOrBrandProducts.data!.data[categoryOrBrandProductIndex]
         : relatedProductIndex != -1
             ? state.relatedProducts.data![relatedProductIndex]
-            : state.youMayLikeProducts.data![youMayLikeProductIndex];
+            : youMayLikeProductIndex != -1
+                ? state.youMayLikeProducts.data![youMayLikeProductIndex]
+                : state.favoriteProducts.data!.data[favoriteIndex];
+
     if (categoryOrBrandProductIndex != -1) {
       emit(state.copyWith(
         categoryOrBrandProducts: state.categoryOrBrandProducts.copyWith(
@@ -221,5 +227,33 @@ class ProductCubit extends Cubit<ProductState> {
         ),
       ));
     }
+
+    if (favoriteIndex != -1) {
+      emit(state.copyWith(
+        favoriteProducts: state.favoriteProducts.copyWith(
+          data: state.favoriteProducts.data!.copyWith(
+              data: state.favoriteProducts.data!.data.updateProductAtIndex<ProductModel>(
+            favoriteIndex,
+            ProductModel.fromProduct(product.copyWith(isFavourite: value)),
+            isRemove: !value,
+          )),
+        ),
+      ));
+    }
+  }
+
+  Future<void> getFavouriteProducts() async {
+    emit(state.copyWith(favoriteProductsStatus: UsecaseStatus.running));
+    final result = await getFavouriteProductsUsecase();
+    result.fold(
+      (failure) => emit(state.copyWith(
+        favoriteProductsStatus: UsecaseStatus.error,
+        favoriteProductsFailure: failure,
+      )),
+      (products) => emit(state.copyWith(
+        favoriteProductsStatus: UsecaseStatus.completed,
+        favoriteProducts: products,
+      )),
+    );
   }
 }

@@ -11,7 +11,8 @@ class AdLocalDataSourceImpl implements AdLocalDataSource {
   @override
   Future<List<AdModel>> getCachedAds() async {
     try {
-      final jsonList = await CacheHelper.read(CacheKeys.ads, isDecoded: true);
+      final jsonString = await CacheHelper.read(CacheKeys.ads);
+      final jsonList = json.decode(jsonString) as List;
       return List<AdModel>.from(jsonList.map((json) => AdModel.fromMap(json)));
     } catch (e) {
       throw CacheException(ApiResponse(message: e.toString()));

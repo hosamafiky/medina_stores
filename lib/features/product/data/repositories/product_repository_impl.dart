@@ -34,4 +34,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, ApiResponse<bool>>> toggleFavorite(int productId) async {
     return await remoteDataSource.toggleFavorite(productId).handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, ApiResponse<PaginatedList<ProductModel>>>> getFavoriteProducts() async {
+    return await remoteDataSource.getFavouriteProducts().handleCallbackWithFailure;
+  }
 }

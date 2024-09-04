@@ -25,6 +25,21 @@ class Product extends Equatable {
 
   static Product empty() => Product(createdAt: DateTime.now());
 
+  factory Product.fromDetails(ProductData data) {
+    return Product(
+      id: data.id,
+      name: data.name,
+      slug: data.slug,
+      sku: data.sku,
+      image: data.images.first.image,
+      brand: data.brand,
+      categories: data.categories,
+      price: data.price,
+      priceAfterDiscount: data.priceAfterDiscount,
+      createdAt: data.createdAt,
+    );
+  }
+
   Product copyWith({
     int? id,
     String? name,

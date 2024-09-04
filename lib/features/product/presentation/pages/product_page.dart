@@ -25,6 +25,7 @@ class ProductPageBody extends StatefulWidget {
 }
 
 class _ProductPageBodyState extends State<ProductPageBody> {
+  List<Option> selectedOptions = [];
   @override
   void initState() {
     Future.wait([
@@ -169,7 +170,7 @@ class _ProductPageBodyState extends State<ProductPageBody> {
                                         child: Text(option.optionName.name),
                                       ),
                                       onChanged: (newValue) {
-                                        // Handle option selection change
+                                        selectedOptions.add(newValue!);
                                       },
                                     ),
                                   ),
@@ -204,9 +205,13 @@ class _ProductPageBodyState extends State<ProductPageBody> {
                           children: [
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {
-                                  // Handle Add to Cart
-                                },
+                                onPressed: () => context.read<CartCubit>().addToCart(
+                                      AddCartParams(
+                                        product: Product.fromDetails(productDetails.data),
+                                        quantity: 1,
+                                        options: selectedOptions,
+                                      ),
+                                    ),
                                 child: Text(LocaleKeys.add_to_cart.tr()),
                               ),
                             ),

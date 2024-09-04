@@ -10,12 +10,13 @@ class BrandLocalDataSourceImpl implements BrandLocalDataSource {
 
   @override
   Future<List<BrandModel>> getCachedBrands() async {
-    try {
-      final jsonList = await CacheHelper.read(CacheKeys.brands, isDecoded: true);
-      return List<BrandModel>.from(jsonList.map((json) => BrandModel.fromMap(json)));
-    } catch (e) {
-      throw CacheException(ApiResponse(message: e.toString()));
-    }
+    // try {
+    final jsonString = await CacheHelper.read(CacheKeys.brands);
+    final jsonList = json.decode(jsonString) as List;
+    return List<BrandModel>.from(jsonList.map((json) => BrandModel.fromMap(json)));
+    // } catch (e) {
+    //   throw CacheException(ApiResponse(message: e.toString()));
+    // }
   }
 
   @override

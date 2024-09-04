@@ -6,12 +6,17 @@ class CartRepositoryImpl implements CartRepository {
   const CartRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, ApiResponse<List<Cart>>>> getCarts() async {
-    return await remoteDataSource.getCarts.handleCallbackWithFailure;
+  Future<Either<Failure, ApiResponse<CartData>>> getCartData() async {
+    return await remoteDataSource.getCartData.handleCallbackWithFailure;
   }
 
   @override
-  Future<Either<Failure, ApiResponse<Cart>>> addToCart(AddCartParams params) async {
+  Future<Either<Failure, ApiResponse<void>>> addToCart(AddCartParams params) async {
     return await remoteDataSource.addToCart(params).handleCallbackWithFailure;
+  }
+
+  @override
+  Future<Either<Failure, ApiResponse<void>>> removeFromCart(int cartId) async {
+    return await remoteDataSource.removeFromCart(cartId).handleCallbackWithFailure;
   }
 }

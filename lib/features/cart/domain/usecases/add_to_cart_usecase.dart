@@ -1,29 +1,35 @@
 part of '../domain_imports.dart';
 
-class AddToCartUsecase implements UseCase<ApiResponse<Cart>, AddCartParams> {
+class AddToCartUsecase implements UseCase<ApiResponse<void>, AddCartParams> {
   final CartRepository repository;
 
   const AddToCartUsecase({required this.repository});
 
   @override
-  Future<Either<Failure, ApiResponse<Cart>>> call(AddCartParams params) async {
+  Future<Either<Failure, ApiResponse<void>>> call(AddCartParams params) async {
     return repository.addToCart(params);
   }
 }
 
-class AddCartParams {
+class AddCartParams extends Equatable {
   final Product product;
   final int quantity;
+  final List<Option> options;
 
-  AddCartParams({
+  const AddCartParams({
     required this.product,
     required this.quantity,
+    this.options = const [],
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'product': ProductModel.fromProduct(product).toMap(),
-      'quantity': quantity,
+      "product_id": product.id,
+      "quantity": quantity,
+      "options": options.map((e) => e.id).toList(),
     };
   }
+
+  @override
+  List<Object> get props => [product, quantity, options];
 }

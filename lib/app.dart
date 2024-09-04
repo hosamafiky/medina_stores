@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/core/helpers/dependency_helper.dart';
-import 'package:medina_stores/core/shared_widgets/state_managers/cart_state_manager.dart';
 import 'package:medina_stores/features/language/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/layout/presentation/presentation_imports.dart';
 
@@ -84,7 +83,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
                 darkTheme: tState.darkThemeData,
                 themeMode: tState.themeMode,
                 home: widget.cachedUser == null ? const LoginPage() : const LayoutPage(),
-                builder: (context, child) => CartStateManager(child: ConnectivityManager(child: LoadingManager(child: child!))),
+                builder: (context, child) => ConnectivityManager(child: LoadingManager(child: child!)),
               );
             },
           ),

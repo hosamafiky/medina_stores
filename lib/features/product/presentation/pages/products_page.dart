@@ -70,7 +70,9 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
               return CustomScrollView(
                 slivers: [
                   SliverPadding(
-                    padding: REdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: REdgeInsets.symmetric(horizontal: 20, vertical: 20).copyWith(
+                      bottom: context.bottomBarHeight + 20.h,
+                    ),
                     sliver: SliverDynamicHeightGridView(
                       controller: _scrollController,
                       crossAxisCount: 3,

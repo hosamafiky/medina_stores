@@ -1,41 +1,52 @@
 part of '../data_imports.dart';
 
 abstract class CartRemoteDataSource {
-  Future<ApiResponseModel<List<CartModel>>> get getCarts;
-  Future<ApiResponseModel<CartModel>> addToCart(AddCartParams params);
+  Future<ApiResponseModel<CartDataModel>> get getCartData;
+  Future<ApiResponseModel<void>> addToCart(AddCartParams params);
+  Future<ApiResponseModel<void>> removeFromCart(int productId);
 }
 
 class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   @override
-  Future<ApiResponseModel<List<CartModel>>> get getCarts async {
+  Future<ApiResponseModel<CartDataModel>> get getCartData async {
     final request = ApiRequest(
       method: RequestMethod.get,
       path: ApiConstants.endPoints.CART,
     );
 
-    return await DependencyHelper.instance.get<ApiService>().callApi<List<CartModel>>(
+    return await DependencyHelper.instance.get<ApiService>().callApi<CartDataModel>(
           request,
           mapper: (json) => ApiResponseModel.fromMap(
             json,
-            mapper: (data) => List<CartModel>.from(data['data'].map((x) => CartModel.fromMap(x))),
+            mapper: (data) => CartDataModel.fromMap(data['data']),
           ),
         );
   }
 
   @override
-  Future<ApiResponseModel<CartModel>> addToCart(AddCartParams params) async {
+  Future<ApiResponseModel<void>> addToCart(AddCartParams params) async {
     final request = ApiRequest(
       method: RequestMethod.post,
       path: ApiConstants.endPoints.CART,
       body: params.toMap(),
     );
 
-    return await DependencyHelper.instance.get<ApiService>().callApi<CartModel>(
+    return await DependencyHelper.instance.get<ApiService>().callApi<void>(
           request,
-          mapper: (json) => ApiResponseModel.fromMap(
-            json,
-            mapper: (data) => CartModel.fromMap(data),
-          ),
+          mapper: (json) => ApiResponseModel.fromMap(json),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<void>> removeFromCart(int cartId) async {
+    final request = ApiRequest(
+      method: RequestMethod.delete,
+      path: '${ApiConstants.endPoints.CART}/$cartId',
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<void>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(json),
         );
   }
 }

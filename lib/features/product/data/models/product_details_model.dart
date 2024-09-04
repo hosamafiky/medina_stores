@@ -98,7 +98,7 @@ class OptionModel extends Option {
         price: json["price"],
         discount: json["discount"],
         discountType: json["discount_type"],
-        priceAfterDiscount: json["price_after_discount"],
+        priceAfterDiscount: json["price_after_discount"] ?? 0,
         optionName: DropdownItemModel.fromMap(json["option_name"]),
       );
 

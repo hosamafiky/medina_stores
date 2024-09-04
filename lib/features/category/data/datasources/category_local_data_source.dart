@@ -19,7 +19,8 @@ class CategoryLocalDataSourceImpl implements CategoryLocalDataSource {
   @override
   Future<List<CategoryModel>> getCachedCategories() async {
     try {
-      final jsonList = await CacheHelper.read(CacheKeys.categories, isDecoded: true);
+      final jsonString = await CacheHelper.read(CacheKeys.categories);
+      final jsonList = json.decode(jsonString) as List;
       return List<CategoryModel>.from(jsonList.map((json) => CategoryModel.fromMap(json)));
     } catch (e) {
       throw CacheException(ApiResponse(message: e.toString()));

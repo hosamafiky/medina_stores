@@ -1,6 +1,7 @@
 part of '../domain_imports.dart';
 
 abstract class CartRepository {
-  Future<Either<Failure, ApiResponse<List<Cart>>>> getCarts();
-  Future<Either<Failure, ApiResponse<Cart>>> addToCart(AddCartParams params);
+  Future<Either<Failure, ApiResponse<CartData>>> getCartData();
+  Future<Either<Failure, ApiResponse<void>>> addToCart(AddCartParams params);
+  Future<Either<Failure, ApiResponse<void>>> removeFromCart(int cartId);
 }
