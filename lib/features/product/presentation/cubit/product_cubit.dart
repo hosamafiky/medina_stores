@@ -232,11 +232,12 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(
         favoriteProducts: state.favoriteProducts.copyWith(
           data: state.favoriteProducts.data!.copyWith(
-              data: state.favoriteProducts.data!.data.updateProductAtIndex<ProductModel>(
-            favoriteIndex,
-            ProductModel.fromProduct(product.copyWith(isFavourite: value)),
-            isRemove: !value,
-          )),
+            data: state.favoriteProducts.data!.data.updateProductAtIndex<ProductModel>(
+              favoriteIndex,
+              ProductModel.fromProduct(product.copyWith(isFavourite: value)),
+              isRemove: !value,
+            ),
+          ),
         ),
       ));
     }
