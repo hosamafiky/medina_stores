@@ -32,7 +32,7 @@ class CartModel extends Cart {
       isValidQuantity: map['is_valid_quantity'],
       itemTotal: map['item_total'],
       options: List<OptionModel>.from(map['options'].map((x) => OptionModel.fromMap(x))),
-      createdAt: DateFormat(ApiConstants.dateFormat).parse(map['created_at']),
+      createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(map['created_at']),
       product: ProductModel.fromMap(map['product']),
       brand: DropdownItemModel.fromMap(map['Brand']),
     );
@@ -49,7 +49,7 @@ class CartModel extends Cart {
       'Brand': DropdownItemModel.fromDropdown(brand).toMap(),
       "options": options.map((x) => OptionModel.fromOption(x).toMap()).toList(),
       "item_total": itemTotal,
-      "created_at": DateFormat(ApiConstants.dateFormat).format(createdAt),
+      "created_at": DateFormat(ApiConstants.dateFormat, 'en_US').format(createdAt),
     };
   }
 

@@ -59,7 +59,7 @@ class ProductModel extends Product {
       'price': price,
       'price_after_discount': priceAfterDiscount,
       'is_favourite': isFavourite ? 1 : 0,
-      'created_at': DateFormat(ApiConstants.dateFormat).format(createdAt),
+      'created_at': DateFormat(ApiConstants.dateFormat, 'en_US').format(createdAt),
     };
   }
 

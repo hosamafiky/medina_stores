@@ -22,7 +22,7 @@ class BrandModel extends Brand {
       id: map['id'],
       name: (map["name"] as String).capitalize,
       media: map['media'],
-      createdAt: DateFormat(ApiConstants.dateFormat).parse(map['created_at']),
+      createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(map['created_at']),
     );
   }
 
@@ -33,7 +33,7 @@ class BrandModel extends Brand {
       "id": id,
       "name": name,
       "media": media,
-      "created_at": DateFormat(ApiConstants.dateFormat).format(createdAt),
+      "created_at": DateFormat(ApiConstants.dateFormat, 'en_US').format(createdAt),
     };
   }
 
