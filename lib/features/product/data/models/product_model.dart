@@ -27,7 +27,7 @@ class ProductModel extends Product {
       price: json['price'] as num,
       priceAfterDiscount: json['price_after_discount'] as num,
       isFavourite: (json['is_favourite'] == 1),
-      createdAt: DateFormat(ApiConstants.dateFormat).parse(json['created_at'] as String),
+      createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(json['created_at'] as String),
     );
   }
 
@@ -59,7 +59,7 @@ class ProductModel extends Product {
       'price': price,
       'price_after_discount': priceAfterDiscount,
       'is_favourite': isFavourite ? 1 : 0,
-      'created_at': DateFormat(ApiConstants.dateFormat).format(createdAt),
+      'created_at': DateFormat(ApiConstants.dateFormat, 'en_US').format(createdAt),
     };
   }
 

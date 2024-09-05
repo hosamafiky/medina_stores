@@ -63,20 +63,17 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
       ),
       body: RefreshIndicator.adaptive(
         onRefresh: () => _onRefresh(context),
-        child: Padding(
-          padding: REdgeInsets.only(bottom: context.bottomBarHeight + 16.h),
-          child: CustomScrollView(
-            slivers: [
-              SliverList.list(
-                children: [
-                  SizedBox(height: 16.h),
-                  const AdsScrollingWidget(),
-                  const BrandsHorizontalList(),
-                ].withSpacing(spacing: 16.h),
-              ),
-              const CategoriesListViewWidget(),
-            ],
-          ),
+        child: CustomScrollView(
+          slivers: [
+            SliverList.list(
+              children: [
+                SizedBox(height: 16.h),
+                const AdsScrollingWidget(),
+                const BrandsHorizontalList(),
+              ].withSpacing(spacing: 16.h),
+            ),
+            const CategoriesListViewWidget(),
+          ],
         ),
       ),
     );
