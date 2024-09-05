@@ -73,13 +73,13 @@ class ApiResponseModel<T extends Object?> extends ApiResponse<T> {
     final errors = getErrors(map['errors']);
 
     return ApiResponseModel<T>(
-      message: map['message'],
+      message: map['message'] ?? '',
       data: T == Null
           ? null
           : mapper != null
               ? mapper(map)
               : map['data'],
-      isSuceess: map['success'],
+      isSuceess: map['success'] ?? false,
       errors: errors,
     );
   }

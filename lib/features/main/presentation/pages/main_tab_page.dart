@@ -37,7 +37,7 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
   @override
   void initState() {
     super.initState();
-    context.read<CartCubit>().getCartItems();
+    if (context.isLoggedIn) context.read<CartCubit>().getCartItems();
   }
 
   Future<void> _onRefresh(BuildContext context) async {
@@ -57,7 +57,19 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart),
-            onPressed: () => AppNavigator.to(const CartPage()),
+            onPressed: () async {
+              if (context.isLoggedIn) {
+                await AppNavigator.to(const CartPage());
+              } else {
+                await context.showSheet(
+                  child: VisitorLoginSheet(
+                    onLoggedInCallback: () async {
+                      await AppNavigator.to(const CartPage());
+                    },
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),
