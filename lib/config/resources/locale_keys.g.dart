@@ -16,6 +16,8 @@ abstract class LocaleKeys {
   static const optional = 'optional';
   static const ar = 'ar';
   static const en = 'en';
+  static const currency = 'currency';
+  static const shorten_currency = 'shorten_currency';
   static const _ = '_';
   static const register = 'register';
   static const login = 'login';
@@ -77,6 +79,7 @@ abstract class LocaleKeys {
   static const _PRODUCT = '_PRODUCT';
   static const product = 'product';
   static const products = 'products';
+  static const favorite_products = 'favorite_products';
   static const select_hint = 'select_hint';
   static const save_money = 'save_money';
   static const empty_products = 'empty_products';
@@ -90,4 +93,12 @@ abstract class LocaleKeys {
   static const _CART = '_CART';
   static const cart = 'cart';
   static const empty_cart = 'empty_cart';
+  static const total = 'total';
+  static const sub_total = 'sub_total';
+  static const tax = 'tax';
+  static const discount = 'discount';
+  static const checkout = 'checkout';
+  static const order = 'order';
+  static const orders = 'orders';
+  static const empty_orders = 'empty_orders';
 }

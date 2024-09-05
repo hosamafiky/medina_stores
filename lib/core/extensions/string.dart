@@ -4,6 +4,8 @@ import 'package:medina_stores/core/navigation/navigator.dart';
 
 extension FormatString on String {
   String get capitalize {
+    if (isEmpty) return this;
+
     final words = split(' ');
     final capitalizedWords = words.map((word) {
       final firstLetter = word[0].toUpperCase();

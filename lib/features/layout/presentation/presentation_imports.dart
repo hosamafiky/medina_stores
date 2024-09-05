@@ -8,6 +8,6 @@ import 'package:medina_stores/features/profile/presentation/presentation_imports
 import '../../../config/resources/locale_keys.g.dart';
 import '../../../core/helpers/dependency_helper.dart';
 
-part '../presentation/cubit/layout_cubit.dart';
+part 'cubit/layout_cubit.dart';
 part 'pages/layout_page.dart';
 part 'widgets/bottom_nav_bar_widget.dart';

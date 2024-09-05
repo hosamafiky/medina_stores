@@ -8,10 +8,10 @@ extension ListExtension<T> on List<T> {
     }
   }
 
-  List<Model> updateProductAtIndex<Model extends Object>(int index, Model product) {
+  List<Model> updateProductAtIndex<Model extends Object>(int index, Model product, {bool isRemove = false}) {
     final List<Model> products = List<Model>.from(this);
     products.removeAt(index);
-    products.insert(index, product);
+    if (!isRemove) products.insert(index, product);
     return List<Model>.from(products);
   }
 }

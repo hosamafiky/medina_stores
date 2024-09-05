@@ -20,8 +20,8 @@ import '../../../core/standards/usecase_status.dart';
 import '../../product/presentation/presentation_imports.dart';
 import '../domain/domain_imports.dart';
 
-part '../presentation/cubit/brand_cubit.dart';
-part '../presentation/cubit/brand_state.dart';
-part '../presentation/pages/brands_page.dart';
-part '../presentation/widgets/brand_card.dart';
-part '../presentation/widgets/brands_horizontal_list.dart';
+part 'cubit/brand_cubit.dart';
+part 'cubit/brand_state.dart';
+part 'pages/brands_page.dart';
+part 'widgets/brand_card.dart';
+part 'widgets/brands_horizontal_list.dart';

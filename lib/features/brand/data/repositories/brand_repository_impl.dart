@@ -19,6 +19,13 @@ class BrandRepositoryImpl implements BrandRepository {
         final brandsToCache = brands.data!.map((brand) => BrandModel.fromBrand(brand)).toList();
         await localDataSource.cacheBrands(brandsToCache);
         return Right(brands);
+      } on NoInternetConnectionException {
+        try {
+          final brands = await localDataSource.getCachedBrands();
+          return Right(ApiResponseModel(data: brands));
+        } on CacheException catch (e) {
+          return Left(CacheFailure(response: e.response));
+        }
       } on AppException catch (e) {
         return Left(e.handleFailure);
       }

@@ -105,9 +105,9 @@ class Image extends Equatable {
   final DateTime createdAt;
 
   const Image({
-    required this.id,
-    required this.isMain,
-    required this.image,
+    this.id = 0,
+    this.isMain = false,
+    this.image = '',
     required this.createdAt,
   });
 

@@ -11,8 +11,8 @@ class RelatedProductsSection extends StatelessWidget {
         return SliverDynamicHeightGridView(
           padding: REdgeInsets.symmetric(horizontal: 16),
           crossAxisCount: 3,
-          crossAxisSpacing: 20.w,
-          mainAxisSpacing: 20.h,
+          crossAxisSpacing: 12.w,
+          mainAxisSpacing: 12.h,
           itemCount: relatedProducts.length,
           builder: (context, index) {
             final product = relatedProducts[index];

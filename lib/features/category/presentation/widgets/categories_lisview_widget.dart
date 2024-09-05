@@ -1,7 +1,7 @@
 part of '../presentation_imports.dart';
 
-class CategoriesLisViewWidget extends StatelessWidget {
-  const CategoriesLisViewWidget({super.key});
+class CategoriesListViewWidget extends StatelessWidget {
+  const CategoriesListViewWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

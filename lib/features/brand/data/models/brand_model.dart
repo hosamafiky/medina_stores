@@ -33,7 +33,7 @@ class BrandModel extends Brand {
       "id": id,
       "name": name,
       "media": media,
-      "created_at": DateFormat().format(createdAt),
+      "created_at": DateFormat(ApiConstants.dateFormat).format(createdAt),
     };
   }
 

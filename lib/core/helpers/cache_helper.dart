@@ -12,6 +12,7 @@ class CacheKeys {
   static const String ads = 'ads';
   static const String brands = 'brands';
   static const String categories = 'categories';
+  static const String cart = 'cart';
 }
 
 class CacheHelper {
@@ -39,7 +40,7 @@ class CacheHelper {
 
   static String? _tryDecode(String key) {
     try {
-      return jsonDecode(_sharedPrefrences.getString(key) ?? "{}");
+      return jsonDecode(_sharedPrefrences.getString(key)!);
     } catch (e) {
       return _sharedPrefrences.getString(key);
     }
