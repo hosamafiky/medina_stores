@@ -61,8 +61,21 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
         builder: (context, state) {
           return state.status.when(
             context,
-            idle: (context) => const Center(child: CircularProgressIndicator.adaptive()),
-            running: (context) => const Center(child: CircularProgressIndicator.adaptive()),
+            running: (context) => CustomScrollView(
+              slivers: [
+                SliverPadding(
+                  padding: REdgeInsets.all(16.0),
+                  sliver: SliverDynamicHeightGridView(
+                    controller: _scrollController,
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 12.w,
+                    mainAxisSpacing: 12.h,
+                    itemCount: 6,
+                    builder: (context, index) => ProductWidget.skeleton(),
+                  ),
+                ),
+              ],
+            ),
             completed: (context) {
               if (state.products.data.isEmpty) {
                 return Center(child: Text(LocaleKeys.empty_products.tr()));

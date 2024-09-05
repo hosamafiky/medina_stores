@@ -5,10 +5,14 @@ class AddToCartRoundWidget extends StatefulWidget {
     super.key,
     required this.product,
     this.backgroundColor,
+    required this.addToCartCallback,
+    this.isValidQuantity = true,
   });
 
   final Product product;
+  final bool isValidQuantity;
   final Color? backgroundColor;
+  final Function(int) addToCartCallback;
 
   @override
   State<AddToCartRoundWidget> createState() => _AddToCartRoundWidgetState();
@@ -17,7 +21,7 @@ class AddToCartRoundWidget extends StatefulWidget {
 class _AddToCartRoundWidgetState extends State<AddToCartRoundWidget> {
   late final _debouncer = PublishSubject<int>()
     ..stream.debounceTime(const Duration(milliseconds: 300)).listen((quantity) {
-      context.read<CartCubit>().addToCart(AddCartParams(product: widget.product, quantity: quantity));
+      widget.addToCartCallback(quantity);
     });
 
   @override
@@ -57,7 +61,7 @@ class _AddToCartRoundWidgetState extends State<AddToCartRoundWidget> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     visualDensity: VisualDensity.compact,
                   ),
-                  onPressed: () => _debouncer.add(1),
+                  onPressed: !widget.isValidQuantity ? null : () => _debouncer.add(1),
                   icon: Icon(
                     Icons.add,
                     size: 14.r,

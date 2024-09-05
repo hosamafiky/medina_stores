@@ -14,6 +14,7 @@ import 'package:medina_stores/core/networking/api_constants.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/app_dropdown.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/dynamic_height_gridview_widget.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/image_widget.dart';
+import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
 import 'package:medina_stores/core/shared_widgets/state_managers/error_widget.dart';
 import 'package:medina_stores/core/standards/paginated_list.dart';
 import 'package:medina_stores/core/standards/response_model.dart';

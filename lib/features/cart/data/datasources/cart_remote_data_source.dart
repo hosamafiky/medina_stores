@@ -4,6 +4,7 @@ abstract class CartRemoteDataSource {
   Future<ApiResponseModel<CartDataModel>> get getCartData;
   Future<ApiResponseModel<void>> addToCart(AddCartParams params);
   Future<ApiResponseModel<void>> removeFromCart(int productId);
+  Future<ApiResponseModel<void>> updateQuantity(UpdateCartQuantityParams params);
 }
 
 class CartRemoteDataSourceImpl implements CartRemoteDataSource {
@@ -42,6 +43,20 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
     final request = ApiRequest(
       method: RequestMethod.delete,
       path: '${ApiConstants.endPoints.CART}/$cartId',
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<void>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(json),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<void>> updateQuantity(UpdateCartQuantityParams params) async {
+    final request = ApiRequest(
+      method: RequestMethod.put,
+      path: '${ApiConstants.endPoints.CART}/${params.cart.id}',
+      body: params.toMap(),
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<void>(

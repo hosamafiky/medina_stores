@@ -10,6 +10,7 @@ void setUpCartDependencies() async {
       getCartItemsUsecase: DependencyHelper.instance.serviceLocator(),
       addToCartUsecase: DependencyHelper.instance.serviceLocator(),
       removeFromCartUsecase: DependencyHelper.instance.serviceLocator(),
+      updateCartQuantityUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
@@ -26,13 +27,25 @@ void setUpCartDependencies() async {
     () => RemoveFromCartUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => UpdateCartQuantityUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+
   // REPOSITORIES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<CartRepository>(
-    () => CartRepositoryImpl(remoteDataSource: DependencyHelper.instance.serviceLocator()),
+    () => CartRepositoryImpl(
+      remoteDataSource: DependencyHelper.instance.serviceLocator(),
+      localDataSource: DependencyHelper.instance.serviceLocator(),
+      connectionChecker: DependencyHelper.instance.serviceLocator(),
+    ),
   );
 
   // DATASOURCES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<CartRemoteDataSource>(
     () => CartRemoteDataSourceImpl(),
+  );
+
+  DependencyHelper.instance.serviceLocator.registerLazySingleton<CartLocalDataSource>(
+    () => CartLocalDataSourceImpl(),
   );
 }

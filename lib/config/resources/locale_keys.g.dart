@@ -16,6 +16,8 @@ abstract class LocaleKeys {
   static const optional = 'optional';
   static const ar = 'ar';
   static const en = 'en';
+  static const currency = 'currency';
+  static const shorten_currency = 'shorten_currency';
   static const _ = '_';
   static const register = 'register';
   static const login = 'login';
@@ -77,6 +79,7 @@ abstract class LocaleKeys {
   static const _PRODUCT = '_PRODUCT';
   static const product = 'product';
   static const products = 'products';
+  static const favorite_products = 'favorite_products';
   static const select_hint = 'select_hint';
   static const save_money = 'save_money';
   static const empty_products = 'empty_products';
