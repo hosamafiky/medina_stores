@@ -11,14 +11,11 @@ class CartState extends Equatable {
     this.removeFromCartFailure,
     this.updateCartQuantityStatus = UsecaseStatus.idle,
     this.updateCartQuantityFailure,
-    this.showWidget = false,
   });
 
   final UsecaseStatus cartDataStatus;
   final Failure? cartDataFailure;
   final CartData cartData;
-
-  final bool showWidget;
 
   final UsecaseStatus addToCartStatus;
   final Failure? addToCartFailure;
@@ -39,7 +36,6 @@ class CartState extends Equatable {
     Failure? removeFromCartFailure,
     UsecaseStatus? updateCartQuantityStatus,
     Failure? updateCartQuantityFailure,
-    bool? showWidget,
   }) {
     return CartState(
       cartDataStatus: cartDataStatus ?? this.cartDataStatus,
@@ -51,7 +47,6 @@ class CartState extends Equatable {
       removeFromCartFailure: removeFromCartFailure ?? this.removeFromCartFailure,
       updateCartQuantityStatus: updateCartQuantityStatus ?? UsecaseStatus.idle,
       updateCartQuantityFailure: updateCartQuantityFailure ?? this.updateCartQuantityFailure,
-      showWidget: showWidget ?? this.showWidget,
     );
   }
 
@@ -67,7 +62,6 @@ class CartState extends Equatable {
         '  removeFromCartFailure: $removeFromCartFailure,\n'
         '  updateCartQuantityStatus: $updateCartQuantityStatus,\n'
         '  updateCartQuantityFailure: $updateCartQuantityFailure,\n'
-        '  showWidget: $showWidget,\n'
         ')';
   }
 
@@ -82,6 +76,5 @@ class CartState extends Equatable {
         removeFromCartFailure,
         updateCartQuantityStatus,
         updateCartQuantityFailure,
-        showWidget,
       ];
 }

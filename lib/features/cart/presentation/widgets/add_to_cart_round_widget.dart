@@ -17,28 +17,16 @@ class AddToCartRoundWidget extends StatefulWidget {
 }
 
 class _AddToCartRoundWidgetState extends State<AddToCartRoundWidget> {
-  late final _debouncer = PublishSubject<int>()
-    ..stream.debounceTime(const Duration(milliseconds: 300)).listen((quantity) {
-      widget.addToCartCallback(quantity);
-    });
-
-  @override
-  void dispose() {
-    _debouncer.close();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CartCubit, CartState, Cart>(
-      selector: (state) {
-        return state.cartData.items.firstWhere(
+    return BlocBuilder<CartCubit, CartState>(
+      builder: (context, state) {
+        final cartItem = state.cartData.items.firstWhere(
           (element) => element.product.id == widget.product.id,
           orElse: () => Cart.empty.copyWith(product: widget.product),
         );
-      },
-      builder: (context, state) {
-        bool isExpanded = state.quantity > 0;
+        bool isExpanded = cartItem.quantity > 0;
+        bool isPerforming = state.addToCartStatus == UsecaseStatus.running || state.updateCartQuantityStatus == UsecaseStatus.running;
         return Container(
           decoration: BoxDecoration(
             color: widget.backgroundColor ?? ColorPalette.whiteColor,
@@ -53,17 +41,17 @@ class _AddToCartRoundWidgetState extends State<AddToCartRoundWidget> {
               children: [
                 IconButton(
                   style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(state.quantity > 1 ? context.colorPalette.primary : ColorPalette.whiteColor),
+                    backgroundColor: WidgetStateProperty.all(cartItem.quantity > 1 ? context.colorPalette.primary : ColorPalette.whiteColor),
                     foregroundColor: WidgetStateProperty.all(context.colorPalette.buttonText),
                     padding: WidgetStateProperty.all(EdgeInsets.zero),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     visualDensity: VisualDensity.compact,
                   ),
-                  onPressed: () => _debouncer.add(1),
+                  onPressed: () => isPerforming ? {} : widget.addToCartCallback(1),
                   icon: Icon(
                     Icons.add,
                     size: 14.r,
-                    color: state.quantity > 1 ? ColorPalette.whiteColor : context.colorPalette.buttonBackground,
+                    color: cartItem.quantity > 1 ? ColorPalette.whiteColor : context.colorPalette.buttonBackground,
                   ),
                 ),
                 if (isExpanded) ...[
@@ -71,7 +59,7 @@ class _AddToCartRoundWidgetState extends State<AddToCartRoundWidget> {
                     opacity: isExpanded ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 300),
                     child: Text(
-                      '${state.quantity}',
+                      '${cartItem.quantity}',
                       style: TextStyle(
                         color: context.colorPalette.primaryText,
                         fontSize: 15.sp,
@@ -89,11 +77,11 @@ class _AddToCartRoundWidgetState extends State<AddToCartRoundWidget> {
                         visualDensity: VisualDensity.compact,
                         padding: WidgetStateProperty.all(EdgeInsets.zero),
                       ),
-                      onPressed: () => _debouncer.add(-1),
+                      onPressed: () => isPerforming ? {} : widget.addToCartCallback(-1),
                       icon: Icon(
-                        state.quantity > 1 ? Icons.remove : Icons.delete_forever,
+                        cartItem.quantity > 1 ? Icons.remove : Icons.delete_forever,
                         size: 14.r,
-                        color: state.quantity > 1 ? context.colorPalette.primaryText : context.colorPalette.error,
+                        color: cartItem.quantity > 1 ? context.colorPalette.primaryText : context.colorPalette.error,
                       ),
                     ),
                   ),
