@@ -43,6 +43,18 @@ class CartItemWidget extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  if (item.options.isNotEmpty) ...[
+                    ...item.options.map(
+                      (option) => Text(
+                        option.optionName.name,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: context.colorPalette.secondaryText,
+                        ),
+                      ),
+                    ),
+                  ],
                   Text(
                     !item.isValidQuantity ? LocaleKeys.not_available_now.tr() : "${item.itemTotal} ${LocaleKeys.shorten_currency.tr()}",
                     style: TextStyle(
