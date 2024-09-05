@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../config/resources/color_palettes/color_palette.dart';
 import '../../config/text_styles/app_text_styles.dart';
 import '../../features/theme/presentation/cubit/theme_cubit.dart';
+import '../../features/user/domain/domain_imports.dart';
+import '../../features/user/presentation/presentation_imports.dart';
 
 extension ContextExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -32,4 +34,9 @@ extension ContextExtension on BuildContext {
     if (isDark) return cubit.setLightTheme();
     return cubit.setDarkTheme();
   }
+
+  //USER
+  User? get user => read<UserCubit>().state.user?.data;
+  bool get isLoggedIn => read<UserCubit>().state.user?.data != null;
+  bool get watchLoggedIn => watch<UserCubit>().state.user?.data != null;
 }

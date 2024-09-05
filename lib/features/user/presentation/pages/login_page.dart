@@ -1,7 +1,9 @@
 part of '../presentation_imports.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, this.isContinue = false});
+
+  final bool isContinue;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -23,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return LoginPageListener(
+      isContinue: widget.isContinue,
       emailOrPhoneController: _emailOrPhoneController,
       child: BlocSelector<UserCubit, UserState, ({UsecaseStatus status, Failure? failure})>(
         selector: (state) => (status: state.loginStatus, failure: state.loginFailure),
