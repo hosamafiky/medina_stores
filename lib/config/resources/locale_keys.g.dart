@@ -92,6 +92,7 @@ abstract class LocaleKeys {
   static const remove_from_cart = 'remove_from_cart';
   static const _CART = '_CART';
   static const cart = 'cart';
+  static const not_available_now = 'not_available_now';
   static const empty_cart = 'empty_cart';
   static const total = 'total';
   static const sub_total = 'sub_total';
