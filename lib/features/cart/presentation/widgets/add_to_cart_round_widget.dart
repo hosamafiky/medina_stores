@@ -6,11 +6,9 @@ class AddToCartRoundWidget extends StatefulWidget {
     required this.product,
     this.backgroundColor,
     required this.addToCartCallback,
-    this.isValidQuantity = true,
   });
 
   final Product product;
-  final bool isValidQuantity;
   final Color? backgroundColor;
   final Function(int) addToCartCallback;
 
@@ -61,7 +59,7 @@ class _AddToCartRoundWidgetState extends State<AddToCartRoundWidget> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     visualDensity: VisualDensity.compact,
                   ),
-                  onPressed: !widget.isValidQuantity ? null : () => _debouncer.add(1),
+                  onPressed: () => _debouncer.add(1),
                   icon: Icon(
                     Icons.add,
                     size: 14.r,

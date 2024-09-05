@@ -39,14 +39,15 @@ class CartItemWidget extends StatelessWidget {
                     _isSkeleton ? LocaleKeys.product.tr() : item.product.name,
                     style: TextStyle(
                       fontSize: 16.sp,
+                      decoration: item.isValidQuantity ? TextDecoration.none : TextDecoration.lineThrough,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    "${item.itemTotal} ${LocaleKeys.shorten_currency.tr()}",
+                    !item.isValidQuantity ? LocaleKeys.not_available_now.tr() : "${item.itemTotal} ${LocaleKeys.shorten_currency.tr()}",
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: context.colorPalette.secondaryText,
+                      color: !item.isValidQuantity ? context.colorPalette.error : context.colorPalette.secondaryText,
                     ),
                   ),
                 ],
@@ -59,7 +60,6 @@ class CartItemWidget extends StatelessWidget {
             AddToCartRoundWidget(
               product: item.product,
               backgroundColor: context.colorPalette.shimmerHighlightColor,
-              isValidQuantity: item.isValidQuantity,
               addToCartCallback: (quantity) {
                 context.read<CartCubit>().updateQuantity(
                       UpdateCartQuantityParams(cart: item, quantity: quantity),

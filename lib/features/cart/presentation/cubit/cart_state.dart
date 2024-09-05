@@ -9,6 +9,8 @@ class CartState extends Equatable {
     this.addToCartFailure,
     this.removeFromCartStatus = UsecaseStatus.idle,
     this.removeFromCartFailure,
+    this.updateCartQuantityStatus = UsecaseStatus.idle,
+    this.updateCartQuantityFailure,
     this.showWidget = false,
   });
 
@@ -24,6 +26,9 @@ class CartState extends Equatable {
   final UsecaseStatus removeFromCartStatus;
   final Failure? removeFromCartFailure;
 
+  final UsecaseStatus updateCartQuantityStatus;
+  final Failure? updateCartQuantityFailure;
+
   CartState copyWith({
     UsecaseStatus? cartDataStatus,
     Failure? cartDataFailure,
@@ -32,6 +37,8 @@ class CartState extends Equatable {
     Failure? addToCartFailure,
     UsecaseStatus? removeFromCartStatus,
     Failure? removeFromCartFailure,
+    UsecaseStatus? updateCartQuantityStatus,
+    Failure? updateCartQuantityFailure,
     bool? showWidget,
   }) {
     return CartState(
@@ -42,13 +49,26 @@ class CartState extends Equatable {
       addToCartFailure: addToCartFailure ?? this.addToCartFailure,
       removeFromCartStatus: removeFromCartStatus ?? this.removeFromCartStatus,
       removeFromCartFailure: removeFromCartFailure ?? this.removeFromCartFailure,
+      updateCartQuantityStatus: updateCartQuantityStatus ?? UsecaseStatus.idle,
+      updateCartQuantityFailure: updateCartQuantityFailure ?? this.updateCartQuantityFailure,
       showWidget: showWidget ?? this.showWidget,
     );
   }
 
   @override
   String toString() {
-    return 'CartState(cartsStatus: $cartDataStatus, cartsFailure: $cartDataFailure, carts: $cartData, addCartStatus: $addToCartStatus, addCartFailure: $addToCartFailure)';
+    return 'CartState(\n'
+        '  cartDataStatus: $cartDataStatus,\n'
+        '  cartDataFailure: $cartDataFailure,\n'
+        '  cartData: $cartData,\n'
+        '  addToCartStatus: $addToCartStatus,\n'
+        '  addToCartFailure: $addToCartFailure,\n'
+        '  removeFromCartStatus: $removeFromCartStatus,\n'
+        '  removeFromCartFailure: $removeFromCartFailure,\n'
+        '  updateCartQuantityStatus: $updateCartQuantityStatus,\n'
+        '  updateCartQuantityFailure: $updateCartQuantityFailure,\n'
+        '  showWidget: $showWidget,\n'
+        ')';
   }
 
   @override
@@ -60,6 +80,8 @@ class CartState extends Equatable {
         addToCartFailure,
         removeFromCartStatus,
         removeFromCartFailure,
+        updateCartQuantityStatus,
+        updateCartQuantityFailure,
         showWidget,
       ];
 }

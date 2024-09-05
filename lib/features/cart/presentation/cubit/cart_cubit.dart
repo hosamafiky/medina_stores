@@ -53,12 +53,15 @@ class CartCubit extends Cubit<CartState> {
 
   void updateQuantity(UpdateCartQuantityParams params) async {
     updateCart(params.cart.product, params.quantity);
-    emit(state.copyWith(addToCartStatus: UsecaseStatus.running));
+    emit(state.copyWith(updateCartQuantityStatus: UsecaseStatus.running));
     final result = await updateCartQuantityUsecase(params);
     result.fold(
-      (failure) => emit(state.copyWith(addToCartStatus: UsecaseStatus.error, addToCartFailure: failure)),
+      (failure) {
+        emit(state.copyWith(updateCartQuantityStatus: UsecaseStatus.error, updateCartQuantityFailure: failure));
+        updateCart(params.cart.product, -params.quantity);
+      },
       (response) {
-        emit(state.copyWith(addToCartStatus: UsecaseStatus.completed));
+        emit(state.copyWith(updateCartQuantityStatus: UsecaseStatus.completed));
         getCartItems(true);
       },
     );
