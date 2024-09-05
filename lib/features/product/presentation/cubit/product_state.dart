@@ -12,6 +12,9 @@ class ProductState extends Equatable {
     this.productDetails = const ApiResponse(data: null),
     this.relatedProducts = const ApiResponse(data: []),
     this.youMayLikeProducts = const ApiResponse(data: []),
+    this.favoriteProductsStatus = UsecaseStatus.idle,
+    this.favoriteProductsFailure,
+    this.favoriteProducts = const ApiResponse(data: PaginatedList(data: [])),
   });
 
   final SubCategory? subCategory;
@@ -26,6 +29,10 @@ class ProductState extends Equatable {
   final ApiResponse<List<Product>> relatedProducts;
   final ApiResponse<List<Product>> youMayLikeProducts;
 
+  final UsecaseStatus favoriteProductsStatus;
+  final Failure? favoriteProductsFailure;
+  final ApiResponse<PaginatedList<Product>> favoriteProducts;
+
   ProductState copyWith({
     SubCategory? subCategory,
     Brand? brand,
@@ -37,6 +44,9 @@ class ProductState extends Equatable {
     ApiResponse<ProductDetails?>? productDetails,
     ApiResponse<List<Product>>? relatedProducts,
     ApiResponse<List<Product>>? youMayLikeProducts,
+    UsecaseStatus? favoriteProductsStatus,
+    Failure? favoriteProductsFailure,
+    ApiResponse<PaginatedList<Product>>? favoriteProducts,
   }) {
     return ProductState(
       brand: brand ?? this.brand,
@@ -49,6 +59,9 @@ class ProductState extends Equatable {
       productDetails: productDetails ?? this.productDetails,
       relatedProducts: relatedProducts ?? this.relatedProducts,
       youMayLikeProducts: youMayLikeProducts ?? this.youMayLikeProducts,
+      favoriteProductsStatus: favoriteProductsStatus ?? this.favoriteProductsStatus,
+      favoriteProductsFailure: favoriteProductsFailure ?? this.favoriteProductsFailure,
+      favoriteProducts: favoriteProducts ?? this.favoriteProducts,
     );
   }
 
@@ -69,5 +82,8 @@ class ProductState extends Equatable {
         productDetails,
         relatedProducts,
         youMayLikeProducts,
+        favoriteProductsStatus,
+        favoriteProductsFailure,
+        favoriteProducts,
       ];
 }

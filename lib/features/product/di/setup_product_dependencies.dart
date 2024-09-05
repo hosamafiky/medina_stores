@@ -15,6 +15,7 @@ void setUpProductDependencies() async {
       getProductDetailsUsecase: DependencyHelper.instance.serviceLocator(),
       getRelatedProductsUsecase: DependencyHelper.instance.serviceLocator(),
       getYouMayLikeProductsUsecase: DependencyHelper.instance.serviceLocator(),
+      getFavouriteProductsUsecase: DependencyHelper.instance.serviceLocator(),
       toggleFavoriteUsecase: DependencyHelper.instance.serviceLocator(),
       subCategory: subCategory,
       brand: brand,
@@ -41,8 +42,13 @@ void setUpProductDependencies() async {
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => GetYouMayLikeProductsUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
+
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => ToggleFavoriteUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => GetFavouriteProductsUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES

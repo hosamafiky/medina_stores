@@ -21,14 +21,23 @@ class ProfileTabBody extends StatelessWidget {
       child: Scaffold(
         appBar: MainAppBar(
           title: Text(LocaleKeys.profile.tr(context: context)),
+          centerTitle: true,
           leading: IconButton(
             onPressed: () {
               context.read<UserCubit>().logout();
             },
             icon: const Icon(Icons.logout_rounded),
           ),
-          padEnd: false,
-          actions: const [ThemeIconButton()],
+          padEnd: true,
+          actions: [
+            IconButton(
+              onPressed: () => AppNavigator.to(const FavoriteProducts()),
+              icon: const Icon(
+                CupertinoIcons.heart_fill,
+                color: Colors.redAccent,
+              ),
+            ),
+          ],
         ),
         body: Padding(
           padding: REdgeInsets.symmetric(horizontal: 16.0),

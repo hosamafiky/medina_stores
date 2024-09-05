@@ -26,7 +26,7 @@ class _ConnectivityManagerState extends State<ConnectivityManager> {
         List<ConnectivityResult> connectivity,
         Widget item,
       ) {
-        final bool connected = !connectivity.contains(ConnectivityResult.none);
+        bool connected = !connectivity.contains(ConnectivityResult.none);
         isCurrentlyConnected = connected;
         if (connected != isCurrentlyConnected) {
           log("Connectivity: $connectivity");
@@ -37,7 +37,7 @@ class _ConnectivityManagerState extends State<ConnectivityManager> {
         return Stack(
           fit: StackFit.expand,
           children: [
-            IgnorePointer(ignoring: !connected, child: item),
+            item,
             Positioned(
               right: 0,
               left: 0,
@@ -46,13 +46,20 @@ class _ConnectivityManagerState extends State<ConnectivityManager> {
                 duration: const Duration(milliseconds: 500),
                 color: connected ? Colors.green : Colors.red,
                 height: !connected ? 50.h + context.statusBarHeight : 0,
-                child: Center(
-                  child: Text(
-                    connected ? 'Online' : 'Offline',
-                    style: const TextStyle(
-                      color: ColorPalette.whiteColor,
-                      fontSize: 20,
-                      decoration: TextDecoration.none,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      connected = true;
+                    });
+                  },
+                  child: Center(
+                    child: Text(
+                      connected ? 'Online' : 'Offline',
+                      style: const TextStyle(
+                        color: ColorPalette.whiteColor,
+                        fontSize: 20,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                 ),

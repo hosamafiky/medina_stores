@@ -13,6 +13,7 @@ import 'core/notifications/notification_helper.dart';
 import 'core/observers/navigation_observer.dart';
 import 'core/shared_widgets/state_managers/connectivity_manager.dart';
 import 'core/shared_widgets/state_managers/loading_manager.dart';
+import 'features/cart/presentation/presentation_imports.dart';
 import 'features/theme/presentation/cubit/theme_cubit.dart';
 import 'features/user/domain/domain_imports.dart';
 import 'features/user/presentation/presentation_imports.dart';
@@ -59,6 +60,9 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
             ),
             BlocProvider(
               create: (context) => DependencyHelper.instance.serviceLocator<UserCubit>()..initWithCachedUser(widget.cachedUser),
+            ),
+            BlocProvider(
+              create: (context) => DependencyHelper.instance.serviceLocator<CartCubit>(),
             ),
             BlocProvider(
               create: (context) => LanguageCubit(savedLocale),

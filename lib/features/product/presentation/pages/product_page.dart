@@ -9,25 +9,38 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: cubit
-        ..getProductDetails(product.slug)
-        ..getRelatedProducts(product.slug)
-        ..getYouMayLikeProducts(product.slug),
+      value: cubit,
       child: ProductPageBody(product),
     );
   }
 }
 
-class ProductPageBody extends StatelessWidget {
+class ProductPageBody extends StatefulWidget {
   const ProductPageBody(this.product, {super.key});
 
   final Product product;
 
   @override
+  State<ProductPageBody> createState() => _ProductPageBodyState();
+}
+
+class _ProductPageBodyState extends State<ProductPageBody> {
+  List<Option> selectedOptions = [];
+  @override
+  void initState() {
+    Future.wait([
+      context.read<ProductCubit>().getProductDetails(widget.product.slug),
+      context.read<ProductCubit>().getRelatedProducts(widget.product.slug),
+      context.read<ProductCubit>().getYouMayLikeProducts(widget.product.slug),
+    ]);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        title: Text(product.name),
+        title: Text(widget.product.name),
         centerTitle: true,
         actions: [
           IconButton(
@@ -36,7 +49,7 @@ class ProductPageBody extends StatelessWidget {
               final uri = Uri(
                 scheme: 'http',
                 host: ApiConstants.domain.split('//').last,
-                pathSegments: ['products', Uri.encodeComponent(product.slug)],
+                pathSegments: ['products', Uri.encodeComponent(widget.product.slug)],
               );
               await ShareHelper.shareLink(uri);
             },
@@ -49,13 +62,13 @@ class ProductPageBody extends StatelessWidget {
           if (state.status == UsecaseStatus.error) {
             return ErrorViewWidget(state.failure!, onRetry: () async {
               await Future.wait([
-                context.read<ProductCubit>().getProductDetails(product.slug),
-                context.read<ProductCubit>().getRelatedProducts(product.slug),
-                context.read<ProductCubit>().getYouMayLikeProducts(product.slug),
+                context.read<ProductCubit>().getProductDetails(widget.product.slug),
+                context.read<ProductCubit>().getRelatedProducts(widget.product.slug),
+                context.read<ProductCubit>().getYouMayLikeProducts(widget.product.slug),
               ]);
             });
           }
-          final productDetails = state.details ?? ProductDetails.fromProduct(product);
+          final productDetails = state.details ?? ProductDetails.fromProduct(widget.product);
           return CustomScrollView(
             slivers: [
               // PRODUCT DETAILS
@@ -157,7 +170,7 @@ class ProductPageBody extends StatelessWidget {
                                         child: Text(option.optionName.name),
                                       ),
                                       onChanged: (newValue) {
-                                        // Handle option selection change
+                                        selectedOptions.add(newValue!);
                                       },
                                     ),
                                   ),
@@ -192,9 +205,13 @@ class ProductPageBody extends StatelessWidget {
                           children: [
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {
-                                  // Handle Add to Cart
-                                },
+                                onPressed: () => context.read<CartCubit>().addToCart(
+                                      AddCartParams(
+                                        product: Product.fromDetails(productDetails.data),
+                                        quantity: 1,
+                                        options: selectedOptions,
+                                      ),
+                                    ),
                                 child: Text(LocaleKeys.add_to_cart.tr()),
                               ),
                             ),

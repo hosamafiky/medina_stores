@@ -17,9 +17,9 @@ import '../../../core/standards/usecase_status.dart';
 import '../../product/presentation/presentation_imports.dart';
 import '../domain/domain_imports.dart';
 
-part '../presentation/cubit/sub_category_cubit.dart';
-part '../presentation/cubit/sub_category_state.dart';
-part '../presentation/pages/sub_categories_page.dart';
-part '../presentation/widgets/add_sub_category_sheet.dart';
-part '../presentation/widgets/sub_categories_horizontal_list.dart';
-part '../presentation/widgets/sub_category_card.dart';
+part 'cubit/sub_category_cubit.dart';
+part 'cubit/sub_category_state.dart';
+part 'pages/sub_categories_page.dart';
+part 'widgets/add_sub_category_sheet.dart';
+part 'widgets/sub_categories_horizontal_list.dart';
+part 'widgets/sub_category_card.dart';

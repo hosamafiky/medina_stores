@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import '../../features/cart/di/setup_cart_dependencies.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../features/ad/di/setup_ad_dependencies.dart';
@@ -22,6 +23,7 @@ class DependencyHelper {
 
   void registerDependencies() {
     setUpGeneralDependencies();
+    setUpCartDependencies();
     setUpProductDependencies();
     setUpBrandDependencies();
     setUpSubCategoryDependencies();

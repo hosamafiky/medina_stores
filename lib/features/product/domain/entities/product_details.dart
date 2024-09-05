@@ -30,7 +30,7 @@ class ProductDetails extends Equatable {
         discountType: 'amount',
         optionName: const DropdownItem(),
         priceAfterDiscount: product.priceAfterDiscount,
-        images: const [],
+        images: [Image(image: product.image, createdAt: product.createdAt)],
         createdAt: DateTime.now(),
       ),
       optionCategories: const [],

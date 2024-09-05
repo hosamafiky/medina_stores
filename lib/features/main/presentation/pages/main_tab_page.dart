@@ -26,8 +26,19 @@ class MainTab extends StatelessWidget {
   }
 }
 
-class MainTabPageBody extends StatelessWidget {
+class MainTabPageBody extends StatefulWidget {
   const MainTabPageBody({super.key});
+
+  @override
+  State<MainTabPageBody> createState() => _MainTabPageBodyState();
+}
+
+class _MainTabPageBodyState extends State<MainTabPageBody> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CartCubit>().getCartItems();
+  }
 
   Future<void> _onRefresh(BuildContext context) async {
     await Future.wait([
@@ -40,20 +51,32 @@ class MainTabPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(title: Text(LocaleKeys.home.tr())),
+      appBar: MainAppBar(
+        title: Text(LocaleKeys.home.tr()),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () => AppNavigator.to(const CartPage()),
+          ),
+        ],
+      ),
       body: RefreshIndicator.adaptive(
         onRefresh: () => _onRefresh(context),
-        child: CustomScrollView(
-          slivers: [
-            SliverList.list(
-              children: [
-                SizedBox(height: 16.h),
-                const AdsScrollingWidget(),
-                const BrandsHorizontalList(),
-              ].withSpacing(spacing: 16.h),
-            ),
-            const CategoriesLisViewWidget(),
-          ],
+        child: Padding(
+          padding: REdgeInsets.only(bottom: context.bottomBarHeight + 16.h),
+          child: CustomScrollView(
+            slivers: [
+              SliverList.list(
+                children: [
+                  SizedBox(height: 16.h),
+                  const AdsScrollingWidget(),
+                  const BrandsHorizontalList(),
+                ].withSpacing(spacing: 16.h),
+              ),
+              const CategoriesListViewWidget(),
+            ],
+          ),
         ),
       ),
     );

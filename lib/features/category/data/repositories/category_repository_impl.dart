@@ -19,6 +19,13 @@ class CategoryRepositoryImpl implements CategoryRepository {
         final categoriesToCache = categories.data!.map((category) => CategoryModel.fromCategory(category)).toList();
         await localDataSource.cacheCategories(categoriesToCache);
         return Right(categories);
+      } on NoInternetConnectionException {
+        try {
+          final categories = await localDataSource.getCachedCategories();
+          return Right(ApiResponseModel(data: categories));
+        } on CacheException catch (e) {
+          return Left(CacheFailure(response: e.response));
+        }
       } on AppException catch (e) {
         return Left(e.handleFailure);
       }

@@ -29,8 +29,8 @@ import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 import '../../../core/standards/usecase_status.dart';
 import '../domain/domain_imports.dart';
 
-part '../presentation/cubit/user_cubit.dart';
-part '../presentation/cubit/user_state.dart';
+part 'cubit/user_cubit.dart';
+part 'cubit/user_state.dart';
 part 'pages/forget_password_page.dart';
 part 'pages/login_page.dart';
 part 'pages/otp_page.dart';
