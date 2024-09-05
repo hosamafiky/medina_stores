@@ -24,7 +24,7 @@ class Cart extends Equatable {
   static Cart get empty => Cart(
         id: 0,
         quantity: 0,
-        isValidQuantity: false,
+        isValidQuantity: true,
         product: Product.empty(),
         brand: const DropdownItem(),
         options: const [],
