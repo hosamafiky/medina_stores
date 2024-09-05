@@ -39,21 +39,7 @@ class UserCubit extends Cubit<UserState> {
     final result = await loginUsecase(params);
     if (isClosed) return;
     result.fold(
-      // (failure) => emit(state.copyWith(loginStatus: UsecaseStatus.error, loginFailure: failure)),
-      (_) => emit(state.copyWith(
-          loginStatus: UsecaseStatus.completed,
-          user: ApiResponseModel.fromMap(const {
-            "success": true,
-            "data": {
-              "id": 3,
-              "name": "hussam elfikky",
-              "email": "hosamafiky@gmail.com",
-              "phone": "51111111",
-              "dialing_code": "+965",
-              "_token": "9|sEywJGIYgcjmuP1V4yPAETv2fwVuv78RpCqqhBIy54d575e2"
-            },
-            "message": "!تم تسجيل الدخول بنجاح"
-          }))),
+      (failure) => emit(state.copyWith(loginStatus: UsecaseStatus.error, loginFailure: failure)),
       (user) => emit(state.copyWith(loginStatus: UsecaseStatus.completed, user: user)),
     );
   }

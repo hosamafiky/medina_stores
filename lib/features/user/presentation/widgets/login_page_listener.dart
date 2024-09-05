@@ -4,10 +4,12 @@ class LoginPageListener extends StatelessWidget {
   const LoginPageListener({
     super.key,
     required this.child,
+    required this.isContinue,
     required this.emailOrPhoneController,
   });
 
   final Widget child;
+  final bool isContinue;
   final TextEditingController emailOrPhoneController;
 
   @override
@@ -37,6 +39,10 @@ class LoginPageListener extends StatelessWidget {
           ]);
           LoadingManager.hide();
           MessageHelper.showSuccessSnackBar(state.user!.message);
+          if (isContinue) {
+            AppNavigator.pop(true);
+            return;
+          }
           AppNavigator.offAll(const LayoutPage());
         }
 

@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medina_stores/core/extensions/context.dart';
+import 'package:medina_stores/core/extensions/sheet.dart';
 import 'package:medina_stores/core/helpers/dynamic_links_helper.dart';
+import 'package:medina_stores/core/shared_widgets/core_widgets/visitor_login_sheet.dart';
 import 'package:medina_stores/features/main/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/profile/presentation/presentation_imports.dart';
 

@@ -82,7 +82,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
                 theme: tState.lightThemeData,
                 darkTheme: tState.darkThemeData,
                 themeMode: tState.themeMode,
-                home: widget.cachedUser == null ? const LoginPage() : const LayoutPage(),
+                home: const LayoutPage(),
                 builder: (context, child) => ConnectivityManager(child: LoadingManager(child: child!)),
               );
             },

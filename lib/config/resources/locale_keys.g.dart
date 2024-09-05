@@ -18,6 +18,7 @@ abstract class LocaleKeys {
   static const en = 'en';
   static const currency = 'currency';
   static const shorten_currency = 'shorten_currency';
+  static const you_must_be_logged_in_first = 'you_must_be_logged_in_first';
   static const _ = '_';
   static const register = 'register';
   static const login = 'login';
