@@ -53,7 +53,7 @@ class ProductDataModel extends ProductData {
       optionName: DropdownItemModel.fromMap(map["option_name"]),
       priceAfterDiscount: map["price_after_discount"],
       images: List<ImageModel>.from(map["images"].map((x) => ImageModel.fromMap(x))),
-      createdAt: DateFormat(ApiConstants.dateFormat).parse(map["created_at"]),
+      createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(map["created_at"]),
     );
   }
 
@@ -70,7 +70,7 @@ class ProductDataModel extends ProductData {
         "option_name": (optionName as DropdownItemModel).toMap(),
         "price_after_discount": priceAfterDiscount,
         "images": List<Map<String, dynamic>>.from(images.map((x) => (x as ImageModel).toMap())),
-        "created_at": DateFormat(ApiConstants.dateFormat).format(createdAt),
+        "created_at": DateFormat(ApiConstants.dateFormat, 'en_US').format(createdAt),
       };
 }
 
@@ -99,14 +99,14 @@ class ImageModel extends Image {
         id: map["id"],
         isMain: map["is_main"],
         image: map["image"],
-        createdAt: DateFormat(ApiConstants.dateFormat).parse(map["created_at"]),
+        createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(map["created_at"]),
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "is_main": isMain,
         "image": image,
-        "created_at": DateFormat(ApiConstants.dateFormat).format(createdAt),
+        "created_at": DateFormat(ApiConstants.dateFormat, 'en_US').format(createdAt),
       };
 
   @override

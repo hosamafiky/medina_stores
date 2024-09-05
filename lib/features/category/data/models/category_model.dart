@@ -33,7 +33,7 @@ class CategoryModel extends Category {
       active: map['active'],
       slug: map['slug'],
       image: map['image'],
-      createdAt: DateFormat(ApiConstants.dateFormat).parse(map['created_at']),
+      createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(map['created_at']),
       children: List<SubCategoryModel>.from(map['children'].map((e) => SubCategoryModel.fromMap(e))),
     );
   }
@@ -48,7 +48,7 @@ class CategoryModel extends Category {
       'active': active,
       'slug': slug,
       'image': image,
-      'created_at': DateFormat(ApiConstants.dateFormat).format(createdAt),
+      'created_at': DateFormat(ApiConstants.dateFormat, 'en_US').format(createdAt),
       'children': List<Map<String, dynamic>>.from(children.map((e) => SubCategoryModel.fromSubCategory(e).toMap()))
     };
   }

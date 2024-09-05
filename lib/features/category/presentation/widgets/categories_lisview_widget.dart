@@ -22,14 +22,17 @@ class CategoriesListViewWidget extends StatelessWidget {
           return Center(child: Text(LocaleKeys.empty_sub_categories.tr())).asSliver;
         }
 
-        return SliverList.separated(
-          itemBuilder: (context, index) {
-            if (isLoading) return CategoryWithSubsCard.skeleton();
-            final category = state.categories[index];
-            return CategoryWithSubsCard(category);
-          },
-          separatorBuilder: (context, index) => SizedBox(height: 16.h),
-          itemCount: isLoading ? 2 : state.categories.length,
+        return SliverPadding(
+          padding: REdgeInsets.only(bottom: context.bottomBarHeight + 16.h),
+          sliver: SliverList.separated(
+            itemBuilder: (context, index) {
+              if (isLoading) return CategoryWithSubsCard.skeleton();
+              final category = state.categories[index];
+              return CategoryWithSubsCard(category);
+            },
+            separatorBuilder: (context, index) => SizedBox(height: 16.h),
+            itemCount: isLoading ? 2 : state.categories.length,
+          ),
         );
       },
     );
