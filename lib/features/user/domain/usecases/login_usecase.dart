@@ -21,6 +21,8 @@ class LoginParams {
     return {
       "email": emailOrPhone,
       "password": password,
+      "fcm_token": NotificationHelper.messagingToken,
+      "device_type": Platform.isIOS ? "ios" : "android",
     };
   }
 }
