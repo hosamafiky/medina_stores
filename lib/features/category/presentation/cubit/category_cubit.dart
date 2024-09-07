@@ -10,6 +10,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   Future<void> getCategories() async {
     emit(state.copyWith(categoriesStatus: UsecaseStatus.running));
     final result = await getCategoriesUsecase();
+    if (isClosed) return;
     result.fold(
       (failure) {
         emit(state.copyWith(

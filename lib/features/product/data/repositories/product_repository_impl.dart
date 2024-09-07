@@ -36,12 +36,17 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, ApiResponse<PaginatedList<ProductModel>>>> getFavoriteProducts() async {
-    return await remoteDataSource.getFavouriteProducts().handleCallbackWithFailure;
+  Future<Either<Failure, ApiResponse<PaginatedList<ProductModel>>>> getFavoriteProducts(GetPaginatedListParams params) async {
+    return await remoteDataSource.getFavouriteProducts(params).handleCallbackWithFailure;
   }
 
   @override
   Future<Either<Failure, ApiResponse<List<Product>>>> getSuggestedCartProducts() async {
     return await remoteDataSource.getSuggestedCartProducts().handleCallbackWithFailure;
+  }
+
+  @override
+  Future<Either<Failure, ApiResponse<PaginatedList<Product>>>> getLatestProducts(GetPaginatedListParams params) async {
+    return await remoteDataSource.getLatestProducts(params).handleCallbackWithFailure;
   }
 }
