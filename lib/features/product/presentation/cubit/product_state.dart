@@ -18,6 +18,9 @@ class ProductState extends Equatable {
     this.suggestedCartProductsStatus = UsecaseStatus.idle,
     this.suggestedCartProductsFailure,
     this.suggestedCartProducts = const [],
+    this.latestProductsStatus = UsecaseStatus.idle,
+    this.latestProductsFailure,
+    this.latestProducts = const ApiResponse(data: PaginatedList(data: [])),
   });
 
   final SubCategory? subCategory;
@@ -40,6 +43,10 @@ class ProductState extends Equatable {
   final Failure? suggestedCartProductsFailure;
   final List<Product> suggestedCartProducts;
 
+  final UsecaseStatus latestProductsStatus;
+  final Failure? latestProductsFailure;
+  final ApiResponse<PaginatedList<Product>> latestProducts;
+
   ProductState copyWith({
     SubCategory? subCategory,
     Brand? brand,
@@ -57,6 +64,9 @@ class ProductState extends Equatable {
     UsecaseStatus? suggestedCartProductsStatus,
     Failure? suggestedCartProductsFailure,
     List<Product>? suggestedCartProducts,
+    UsecaseStatus? latestProductsStatus,
+    Failure? latestProductsFailure,
+    ApiResponse<PaginatedList<Product>>? latestProducts,
   }) {
     return ProductState(
       brand: brand ?? this.brand,
@@ -75,6 +85,9 @@ class ProductState extends Equatable {
       suggestedCartProductsStatus: suggestedCartProductsStatus ?? this.suggestedCartProductsStatus,
       suggestedCartProductsFailure: suggestedCartProductsFailure ?? this.suggestedCartProductsFailure,
       suggestedCartProducts: suggestedCartProducts ?? this.suggestedCartProducts,
+      latestProductsStatus: latestProductsStatus ?? this.latestProductsStatus,
+      latestProductsFailure: latestProductsFailure ?? this.latestProductsFailure,
+      latestProducts: latestProducts ?? this.latestProducts,
     );
   }
 
@@ -101,5 +114,8 @@ class ProductState extends Equatable {
         suggestedCartProductsStatus,
         suggestedCartProductsFailure,
         suggestedCartProducts,
+        latestProductsStatus,
+        latestProductsFailure,
+        latestProducts,
       ];
 }

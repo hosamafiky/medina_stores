@@ -9,6 +9,7 @@ class ProductCubit extends Cubit<ProductState> {
     required this.getYouMayLikeProductsUsecase,
     required this.getFavouriteProductsUsecase,
     required this.getSuggestedCartProductsUsecase,
+    required this.getLatestProductsUsecase,
     required this.toggleFavoriteUsecase,
     Brand? brand,
     SubCategory? subCategory,
@@ -21,6 +22,7 @@ class ProductCubit extends Cubit<ProductState> {
   final GetYouMayLikeProductsUsecase getYouMayLikeProductsUsecase;
   final GetFavouriteProductsUsecase getFavouriteProductsUsecase;
   final GetSuggestedCartProductsUsecase getSuggestedCartProductsUsecase;
+  final GetLatestProductsUsecase getLatestProductsUsecase;
   final ToggleFavoriteUsecase toggleFavoriteUsecase;
 
   Future<void> getProducts(Brand? brand, SubCategory subCategory) async {
@@ -192,6 +194,7 @@ class ProductCubit extends Cubit<ProductState> {
   Future<void> getSuggestedCartProducts() async {
     emit(state.copyWith(suggestedCartProductsStatus: UsecaseStatus.running));
     final result = await getSuggestedCartProductsUsecase();
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
         suggestedCartProductsStatus: UsecaseStatus.error,
@@ -210,6 +213,8 @@ class ProductCubit extends Cubit<ProductState> {
     final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
     final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
     final suggestedCartProductsIndex = state.suggestedCartProducts.indexWhere((element) => element.id == productId);
+    final latestProductsIndex = state.latestProducts.data!.data.indexWhere((element) => element.id == productId);
+
     if (categoryOrBrandProductIndex != -1) {
       return state.categoryOrBrandProducts.data!.data[categoryOrBrandProductIndex];
     } else if (relatedProductIndex != -1) {
@@ -218,8 +223,10 @@ class ProductCubit extends Cubit<ProductState> {
       return state.youMayLikeProducts.data![youMayLikeProductIndex];
     } else if (favoriteIndex != -1) {
       return state.favoriteProducts.data!.data[favoriteIndex];
-    } else {
+    } else if (suggestedCartProductsIndex != -1) {
       return state.suggestedCartProducts[suggestedCartProductsIndex];
+    } else {
+      return state.latestProducts.data!.data[latestProductsIndex];
     }
   }
 
@@ -229,6 +236,7 @@ class ProductCubit extends Cubit<ProductState> {
     final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
     final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
     final suggestedCartProductsIndex = state.suggestedCartProducts.indexWhere((element) => element.id == productId);
+    final latestProductsIndex = state.latestProducts.data!.data.indexWhere((element) => element.id == productId);
 
     final product = _getProduct(productId);
     if (categoryOrBrandProductIndex != -1) {
@@ -287,20 +295,110 @@ class ProductCubit extends Cubit<ProductState> {
         ),
       ));
     }
+
+    if (latestProductsIndex != -1) {
+      emit(state.copyWith(
+        latestProducts: state.latestProducts.copyWith(
+          data: state.latestProducts.data!.copyWith(
+            data: state.latestProducts.data!.data.updateProductAtIndex<ProductModel>(
+              latestProductsIndex,
+              ProductModel.fromProduct(product.copyWith(isFavourite: value)),
+            ),
+          ),
+        ),
+      ));
+    }
   }
 
-  Future<void> getFavouriteProducts() async {
-    emit(state.copyWith(favoriteProductsStatus: UsecaseStatus.running));
-    final result = await getFavouriteProductsUsecase();
+  Future<void> getFavouriteProducts([int? page]) async {
+    if (state.favoriteProducts.data?.hasReachedEnd == true) return;
+    if (state.favoriteProducts.data?.currentPage == 0) emit(state.copyWith(favoriteProductsStatus: UsecaseStatus.running));
+    if (page != null) emit(state.copyWith(favoriteProducts: const ApiResponse(data: PaginatedList<ProductModel>(data: []))));
+
+    final params = GetPaginatedListParams(page: page ?? (state.favoriteProducts.data!.currentPage) + 1, perPage: 5);
+    final result = await getFavouriteProductsUsecase(params);
     result.fold(
       (failure) => emit(state.copyWith(
         favoriteProductsStatus: UsecaseStatus.error,
         favoriteProductsFailure: failure,
       )),
-      (products) => emit(state.copyWith(
-        favoriteProductsStatus: UsecaseStatus.completed,
-        favoriteProducts: products,
+      (favoriteProducts) {
+        final newProducts = List<ProductModel>.from(favoriteProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+        if (newProducts.isEmpty) {
+          final paginatedList = state.favoriteProducts.data
+              ?.copyWith(
+                data: state.favoriteProducts.data!.data.map<ProductModel>((e) => ProductModel.fromProduct(e)).toList(),
+                hasReachedEnd: true,
+              )
+              .map<ProductModel>((e) => ProductModel.fromProduct(e));
+
+          emit(state.copyWith(
+            favoriteProductsStatus: UsecaseStatus.completed,
+            favoriteProducts: favoriteProducts.copyWith(data: paginatedList),
+          ));
+        } else {
+          final oldProducts = List<ProductModel>.from(state.favoriteProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+          final paginatedList = PaginatedList<ProductModel>(
+            data: [...oldProducts, ...newProducts],
+            currentPage: favoriteProducts.data!.currentPage,
+            lastPage: favoriteProducts.data!.lastPage,
+            itemsCount: favoriteProducts.data!.itemsCount,
+            hasReachedEnd: favoriteProducts.data!.hasReachedEnd,
+          );
+          emit(state.copyWith(
+            favoriteProductsStatus: UsecaseStatus.completed,
+            favoriteProducts: favoriteProducts.copyWith(
+              data: PaginatedListModel.from(paginatedList),
+            ),
+          ));
+        }
+      },
+    );
+  }
+
+  Future<void> getLatestProducts([int? page]) async {
+    if (state.latestProducts.data?.hasReachedEnd == true) return;
+    if (state.latestProducts.data?.currentPage == 0) emit(state.copyWith(latestProductsStatus: UsecaseStatus.running));
+    if (page != null) emit(state.copyWith(latestProducts: const ApiResponse(data: PaginatedList<ProductModel>(data: []))));
+
+    final params = GetPaginatedListParams(page: page ?? (state.latestProducts.data!.currentPage) + 1, perPage: 5);
+    final result = await getFavouriteProductsUsecase(params);
+    result.fold(
+      (failure) => emit(state.copyWith(
+        latestProductsStatus: UsecaseStatus.error,
+        latestProductsFailure: failure,
       )),
+      (latestProducts) {
+        final newProducts = List<ProductModel>.from(latestProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+        if (newProducts.isEmpty) {
+          final paginatedList = state.latestProducts.data
+              ?.copyWith(
+                data: state.latestProducts.data!.data.map<ProductModel>((e) => ProductModel.fromProduct(e)).toList(),
+                hasReachedEnd: true,
+              )
+              .map<ProductModel>((e) => ProductModel.fromProduct(e));
+
+          emit(state.copyWith(
+            latestProductsStatus: UsecaseStatus.completed,
+            latestProducts: latestProducts.copyWith(data: paginatedList),
+          ));
+        } else {
+          final oldProducts = List<ProductModel>.from(state.latestProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+          final paginatedList = PaginatedList<ProductModel>(
+            data: [...oldProducts, ...newProducts],
+            currentPage: latestProducts.data!.currentPage,
+            lastPage: latestProducts.data!.lastPage,
+            itemsCount: latestProducts.data!.itemsCount,
+            hasReachedEnd: latestProducts.data!.hasReachedEnd,
+          );
+          emit(state.copyWith(
+            latestProductsStatus: UsecaseStatus.completed,
+            latestProducts: latestProducts.copyWith(
+              data: PaginatedListModel.from(paginatedList),
+            ),
+          ));
+        }
+      },
     );
   }
 }

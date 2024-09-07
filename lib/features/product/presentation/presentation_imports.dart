@@ -36,6 +36,7 @@ part 'cubit/product_state.dart';
 part 'pages/favorite_products.dart';
 part 'pages/product_page.dart';
 part 'pages/products_page.dart';
+part 'widgets/latest_products_section.dart';
 part 'widgets/product_widget.dart';
 part 'widgets/related_products_section.dart';
 part 'widgets/suggested_products_section.dart';
