@@ -4,7 +4,7 @@ class SubCategory extends Equatable {
   final int id;
   final String name;
   final DropdownItem parent;
-  final int active;
+  final bool active;
   final String slug;
   final String image;
   final DateTime createdAt;
@@ -13,7 +13,7 @@ class SubCategory extends Equatable {
     this.id = 0,
     this.name = '',
     this.parent = const DropdownItem(),
-    this.active = 0,
+    this.active = false,
     this.slug = '',
     this.image = '',
     required this.createdAt,
@@ -25,7 +25,7 @@ class SubCategory extends Equatable {
     int? id,
     String? name,
     DropdownItem? parent,
-    int? active,
+    bool? active,
     String? slug,
     String? image,
     DateTime? createdAt,

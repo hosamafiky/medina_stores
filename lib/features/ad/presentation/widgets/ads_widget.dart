@@ -9,7 +9,14 @@ class AdsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AdCubit, AdState>(
+    return BlocSelector<AdCubit, AdState, ({UsecaseStatus status, Failure? faliure, List<Ad> ads})>(
+      selector: (state) {
+        return (
+          status: state.adsStatus,
+          faliure: state.adsFailure,
+          ads: state.ads.data!.data,
+        );
+      },
       builder: (context, state) {
         final adCubit = context.read<AdCubit>();
         return Column(
@@ -18,13 +25,16 @@ class AdsWidget extends StatelessWidget {
               height: 150.h,
               child: PageView.builder(
                 controller: _isSkeleton ? PageController(initialPage: 2, viewportFraction: 0.8) : adCubit.pageController,
-                itemCount: _isSkeleton ? 4 : null,
+                itemCount: _isSkeleton
+                    ? 4
+                    : state.ads.length <= 2
+                        ? state.ads.length
+                        : null,
                 scrollDirection: Axis.horizontal,
                 onPageChanged: adCubit.onPageChanged,
                 itemBuilder: (context, index) {
                   if (_isSkeleton) return const AdShimmerWidget();
-                  final ad = state.ads.data!.data[index % (state.ads.data!.data.isEmpty ? 1 : state.ads.data!.data.length)];
-
+                  final ad = state.ads[state.ads.length <= 2 ? index : index % state.ads.length];
                   return AdWidget(ad);
                 },
               ),

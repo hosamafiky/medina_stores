@@ -87,6 +87,7 @@ abstract class LocaleKeys {
   static const search_hint = 'search_hint';
   static const related_products = 'related_products';
   static const you_may_also_like = 'you_may_also_like';
+  static const suggested_products = 'suggested_products';
   static const add_to_cart = 'add_to_cart';
   static const buy_now = 'buy_now';
   static const remove_from_cart = 'remove_from_cart';

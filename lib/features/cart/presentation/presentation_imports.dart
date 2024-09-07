@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/core/extensions/sliver.dart';
 import 'package:medina_stores/core/extensions/spaced_row.dart';
+import 'package:medina_stores/core/helpers/dependency_helper.dart';
 import 'package:medina_stores/core/helpers/message_helper.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
 import 'package:medina_stores/features/product/domain/domain_imports.dart';
@@ -19,6 +20,7 @@ import '../../../core/shared_widgets/core_widgets/image_widget.dart';
 import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 import '../../../core/shared_widgets/state_managers/error_widget.dart';
 import '../../../core/standards/usecase_status.dart';
+import '../../product/presentation/presentation_imports.dart';
 import '../domain/domain_imports.dart';
 
 part 'cubit/cart_cubit.dart';

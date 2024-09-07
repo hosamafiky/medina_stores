@@ -7,6 +7,7 @@ abstract class ProductRemoteDataSource {
   Future<ApiResponseModel<List<ProductModel>>> getRelatedProducts(String slug);
   Future<ApiResponseModel<List<ProductModel>>> getYouMayLikeProducts(String slug);
   Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getFavouriteProducts();
+  Future<ApiResponseModel<List<ProductModel>>> getSuggestedCartProducts();
   Future<ApiResponseModel<bool>> toggleFavorite(int productId);
 }
 
@@ -130,6 +131,22 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
               data['data'],
               mapper: (x) => ProductModel.fromMap(x),
             ),
+          ),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<List<ProductModel>>> getSuggestedCartProducts() async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: '/cart/suggested-products',
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<List<ProductModel>>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => List<ProductModel>.from(data['data'].map((x) => ProductModel.fromMap(x))),
           ),
         );
   }

@@ -9,7 +9,7 @@ class AdCubit extends Cubit<AdState> {
   final pageController = PageController(viewportFraction: 0.8);
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       if (state.ads.data!.data.isEmpty) return;
       if (!pageController.hasClients) return;
       pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
@@ -17,7 +17,7 @@ class AdCubit extends Cubit<AdState> {
   }
 
   void onPageChanged(int index) {
-    final newIndex = index % state.ads.data!.data.length;
+    final newIndex = state.ads.data!.data.length <= 2 ? index : index % state.ads.data!.data.length;
     emit(state.copyWith(adIndex: newIndex));
   }
 
@@ -42,20 +42,24 @@ class AdCubit extends Cubit<AdState> {
       )),
       (ads) {
         if (ads.data!.data.isEmpty) {
+          final paginatedList = PaginatedListModel<AdModel>.from(state.ads.data!.map((e) => AdModel.fromAd(e))).copyWith(
+            hasReachedEnd: true,
+          );
           emit(state.copyWith(
             adsStatus: UsecaseStatus.completed,
             ads: ads.copyWith(
-              data: state.ads.data!.copyWith(
-                hasReachedEnd: true,
-              ),
+              data: paginatedList,
             ),
           ));
         } else {
           emit(state.copyWith(adIndex: 2 % ads.data!.data.length));
-          initSlider();
+          if (ads.data!.data.length > 1) {
+            initSlider();
+          }
           final oldAds = List<AdModel>.from(state.ads.data!.data.map((e) => AdModel.fromAd(e)));
           final newAds = List<AdModel>.from(ads.data!.data.map((e) => AdModel.fromAd(e)));
-
+          print("OLD ADS LENGTH : ${oldAds.length}");
+          print("NEW ADS LENGTH : ${newAds.length}");
           final paginatedList = PaginatedList<AdModel>(
             data: refresh ? newAds : [...oldAds, ...newAds],
             currentPage: ads.data!.currentPage,
