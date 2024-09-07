@@ -65,7 +65,8 @@ dependencies:
   flutter_svg: ^2.0.10 # An SVG rendering and widget library for Flutter, which allows painting and displaying Scalable Vector Graphics 1.1 files.
   lottie: ^3.1.2 # A Flutter plugin to render Lottie animations on mobile devices.
   # CONNECTIVITY
-  flutter_offline: ^4.0.0 # A Flutter plugin for handling connectivity, providing information about the connectivity state.
+  internet_connection_checker: ^2.0.0 # The internet_connection_checker package provides a simple way to check the internet connection status in Flutter applications.
+  connectivity_plus: ^6.0.5
   # DEPENDENCY INJECTION
   get_it: ^7.7.0 # A simple Service Locator for Dart and Flutter projects with some additional goodies highly inspired by Splat.
   # NETWORKING
@@ -95,7 +96,6 @@ dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   firebase_remote_config: ^5.0.4
-  internet_connection_checker: ^2.0.0
   carousel_slider: ^5.0.0
   smooth_page_indicator: ^1.2.0+3
 
