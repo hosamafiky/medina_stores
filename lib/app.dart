@@ -57,6 +57,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
         MessageHelper.showErrorSnackBar(
           LocaleKeys.check_internet.tr(),
           duration: const Duration(days: 1),
+          dismissDirection: DismissDirection.none,
         );
       } else {
         MessageHelper.clearSnackBars();

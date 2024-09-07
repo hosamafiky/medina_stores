@@ -38,11 +38,16 @@ class MessageHelper {
     );
   }
 
-  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showErrorSnackBar(String message, {Duration duration = const Duration(seconds: 2)}) {
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showErrorSnackBar(
+    String message, {
+    Duration duration = const Duration(seconds: 2),
+    DismissDirection dismissDirection = DismissDirection.vertical,
+  }) {
     return _showSnackBar(
       message,
       backgroundColor: AppNavigator.rootContext!.read<ThemeCubit>().state.colorPalette.error,
       duration: duration,
+      dismissDirection: dismissDirection,
     );
   }
 
