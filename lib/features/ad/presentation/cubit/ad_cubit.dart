@@ -1,31 +1,12 @@
 part of '../presentation_imports.dart';
 
 class AdCubit extends Cubit<AdState> {
-  AdCubit({
-    required this.getAdsUsecase,
-  }) : super(const AdState(adIndex: 6));
+  AdCubit({required this.getAdsUsecase}) : super(const AdState(adIndex: 0));
 
-  Timer? timer;
-  final pageController = PageController(viewportFraction: 0.8);
+  final carouselController = CarouselSliderController();
 
-  void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      if (state.ads.data!.data.isEmpty) return;
-      if (!pageController.hasClients) return;
-      pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
-    });
-  }
-
-  void onPageChanged(int index) {
-    final newIndex = state.ads.data!.data.length <= 2 ? index : index % state.ads.data!.data.length;
-    emit(state.copyWith(adIndex: newIndex));
-  }
-
-  void stopTimer() => timer?.cancel();
-  void disposeController() => pageController.dispose();
-
-  void initSlider() {
-    startTimer();
+  void onPageChanged(int index, CarouselPageChangedReason reason) {
+    emit(state.copyWith(adIndex: index));
   }
 
   final GetAdsUsecase getAdsUsecase;
@@ -52,14 +33,8 @@ class AdCubit extends Cubit<AdState> {
             ),
           ));
         } else {
-          emit(state.copyWith(adIndex: 2 % ads.data!.data.length));
-          if (ads.data!.data.length > 1) {
-            initSlider();
-          }
           final oldAds = List<AdModel>.from(state.ads.data!.data.map((e) => AdModel.fromAd(e)));
           final newAds = List<AdModel>.from(ads.data!.data.map((e) => AdModel.fromAd(e)));
-          print("OLD ADS LENGTH : ${oldAds.length}");
-          print("NEW ADS LENGTH : ${newAds.length}");
           final paginatedList = PaginatedList<AdModel>(
             data: refresh ? newAds : [...oldAds, ...newAds],
             currentPage: ads.data!.currentPage,
@@ -76,12 +51,5 @@ class AdCubit extends Cubit<AdState> {
         }
       },
     );
-  }
-
-  @override
-  Future<void> close() {
-    stopTimer();
-    disposeController();
-    return super.close();
   }
 }
