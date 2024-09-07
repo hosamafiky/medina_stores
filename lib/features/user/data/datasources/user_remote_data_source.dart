@@ -13,7 +13,11 @@ abstract class UserRemoteDataSource {
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<ApiResponseModel<UserModel>> login(LoginParams params) async {
-    final request = ApiRequest(method: RequestMethod.post, path: ApiConstants.endPoints.login, body: params.toMap());
+    final request = ApiRequest(
+      method: RequestMethod.post,
+      path: ApiConstants.endPoints.login,
+      body: params.toMap(),
+    );
     return await DependencyHelper.instance.get<ApiService>().callApi<UserModel>(
           request,
           mapper: (json) => ApiResponseModel.fromMap(
