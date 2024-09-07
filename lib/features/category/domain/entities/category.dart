@@ -4,7 +4,7 @@ class Category extends Equatable {
   final int id;
   final String name;
   final String? parent;
-  final int active;
+  final bool active;
   final String slug;
   final String image;
   final DateTime createdAt;
@@ -14,7 +14,7 @@ class Category extends Equatable {
     this.id = 0,
     this.name = '',
     this.parent = '',
-    this.active = 0,
+    this.active = false,
     this.slug = '',
     this.image = '',
     required this.createdAt,
@@ -27,7 +27,7 @@ class Category extends Equatable {
     int? id,
     String? name,
     String? parent,
-    int? active,
+    bool? active,
     String? slug,
     String? image,
     DateTime? createdAt,

@@ -8,6 +8,7 @@ class ProductCubit extends Cubit<ProductState> {
     required this.getRelatedProductsUsecase,
     required this.getYouMayLikeProductsUsecase,
     required this.getFavouriteProductsUsecase,
+    required this.getSuggestedCartProductsUsecase,
     required this.toggleFavoriteUsecase,
     Brand? brand,
     SubCategory? subCategory,
@@ -19,6 +20,7 @@ class ProductCubit extends Cubit<ProductState> {
   final GetRelatedProductsUsecase getRelatedProductsUsecase;
   final GetYouMayLikeProductsUsecase getYouMayLikeProductsUsecase;
   final GetFavouriteProductsUsecase getFavouriteProductsUsecase;
+  final GetSuggestedCartProductsUsecase getSuggestedCartProductsUsecase;
   final ToggleFavoriteUsecase toggleFavoriteUsecase;
 
   Future<void> getProducts(Brand? brand, SubCategory subCategory) async {
@@ -187,19 +189,37 @@ class ProductCubit extends Cubit<ProductState> {
     );
   }
 
+  Future<void> getSuggestedCartProducts() async {
+    emit(state.copyWith(suggestedCartProductsStatus: UsecaseStatus.running));
+    final result = await getSuggestedCartProductsUsecase();
+    result.fold(
+      (failure) => emit(state.copyWith(
+        suggestedCartProductsStatus: UsecaseStatus.error,
+        suggestedCartProductsFailure: failure,
+      )),
+      (products) => emit(state.copyWith(
+        suggestedCartProductsStatus: UsecaseStatus.completed,
+        suggestedCartProducts: products.data,
+      )),
+    );
+  }
+
   Product _getProduct(int productId) {
     final categoryOrBrandProductIndex = state.categoryOrBrandProducts.data!.data.indexWhere((element) => element.id == productId);
     final relatedProductIndex = state.relatedProducts.data!.indexWhere((element) => element.id == productId);
     final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
     final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
+    final suggestedCartProductsIndex = state.suggestedCartProducts.indexWhere((element) => element.id == productId);
     if (categoryOrBrandProductIndex != -1) {
       return state.categoryOrBrandProducts.data!.data[categoryOrBrandProductIndex];
     } else if (relatedProductIndex != -1) {
       return state.relatedProducts.data![relatedProductIndex];
     } else if (youMayLikeProductIndex != -1) {
       return state.youMayLikeProducts.data![youMayLikeProductIndex];
-    } else {
+    } else if (favoriteIndex != -1) {
       return state.favoriteProducts.data!.data[favoriteIndex];
+    } else {
+      return state.suggestedCartProducts[suggestedCartProductsIndex];
     }
   }
 
@@ -208,6 +228,7 @@ class ProductCubit extends Cubit<ProductState> {
     final relatedProductIndex = state.relatedProducts.data!.indexWhere((element) => element.id == productId);
     final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
     final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
+    final suggestedCartProductsIndex = state.suggestedCartProducts.indexWhere((element) => element.id == productId);
 
     final product = _getProduct(productId);
     if (categoryOrBrandProductIndex != -1) {
@@ -254,6 +275,15 @@ class ProductCubit extends Cubit<ProductState> {
               isRemove: !value,
             ),
           ),
+        ),
+      ));
+    }
+
+    if (suggestedCartProductsIndex != -1) {
+      emit(state.copyWith(
+        suggestedCartProducts: state.suggestedCartProducts.updateProductAtIndex<ProductModel>(
+          suggestedCartProductsIndex,
+          ProductModel.fromProduct(product.copyWith(isFavourite: value)),
         ),
       ));
     }

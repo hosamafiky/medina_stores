@@ -7,10 +7,7 @@ class AdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: REdgeInsets.symmetric(horizontal: 10),
-      child: _buildAdWidget(),
-    );
+    return _buildAdWidget();
   }
 
   Widget _buildAdWidget() {
@@ -19,7 +16,7 @@ class AdWidget extends StatelessWidget {
         return ImageWidget(
           imageUrl: ad.media,
           borderRadius: BorderRadius.circular(10.r),
-          height: 150.h,
+          height: 120.h,
         );
       case MediaType.video:
         return VideoWidget(mediaUrl: ad.media);

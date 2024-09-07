@@ -39,4 +39,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, ApiResponse<PaginatedList<ProductModel>>>> getFavoriteProducts() async {
     return await remoteDataSource.getFavouriteProducts().handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, ApiResponse<List<Product>>>> getSuggestedCartProducts() async {
+    return await remoteDataSource.getSuggestedCartProducts().handleCallbackWithFailure;
+  }
 }

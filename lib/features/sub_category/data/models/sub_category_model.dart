@@ -28,7 +28,7 @@ class SubCategoryModel extends SubCategory {
       id: map['id'],
       name: (map["name"] as String).capitalize,
       parent: DropdownItemModel.fromMap(map['parent']),
-      active: map['active'],
+      active: map['active'] == 1,
       slug: map['slug'],
       image: map['image'],
       createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(map['created_at']),

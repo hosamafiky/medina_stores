@@ -65,6 +65,23 @@ class CartDetails extends StatelessWidget {
               ),
             ),
           ).asSliver,
+          // Suggested Products Section
+          Padding(
+            padding: REdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16.h),
+                Text(
+                  LocaleKeys.suggested_products.tr(),
+                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 16.h),
+              ],
+            ),
+          ).asSliver,
+          const SuggestedProductsSection(),
+          SizedBox(height: 12.h).asSliver,
           // Checkout Button
           ElevatedButton(
             onPressed: cart.canCheckout

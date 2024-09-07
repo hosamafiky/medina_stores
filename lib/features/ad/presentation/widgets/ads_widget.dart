@@ -9,32 +9,53 @@ class AdsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AdCubit, AdState>(
+    return BlocSelector<AdCubit, AdState, ({UsecaseStatus status, Failure? faliure, List<Ad> ads, int currentIndex})>(
+      selector: (state) {
+        return (
+          status: state.adsStatus,
+          faliure: state.adsFailure,
+          ads: state.ads.data!.data,
+          currentIndex: state.adIndex,
+        );
+      },
       builder: (context, state) {
         final adCubit = context.read<AdCubit>();
         return Column(
           children: [
-            SizedBox(
-              height: 150.h,
-              child: PageView.builder(
-                controller: _isSkeleton ? PageController(initialPage: 2, viewportFraction: 0.8) : adCubit.pageController,
-                itemCount: _isSkeleton ? 4 : null,
-                scrollDirection: Axis.horizontal,
+            CarouselSlider.builder(
+              carouselController: adCubit.carouselController,
+              itemCount: _isSkeleton ? 4 : state.ads.length,
+              itemBuilder: (context, itemIndex, pageViewIndex) {
+                if (_isSkeleton) {
+                  return const AdShimmerWidget();
+                }
+                return AdWidget(state.ads[itemIndex]);
+              },
+              options: CarouselOptions(
+                height: 120.h,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 30),
+                enableInfiniteScroll: state.ads.length < 2,
+                enlargeCenterPage: true,
                 onPageChanged: adCubit.onPageChanged,
-                itemBuilder: (context, index) {
-                  if (_isSkeleton) return const AdShimmerWidget();
-                  final ad = state.ads.data!.data[index % (state.ads.data!.data.isEmpty ? 1 : state.ads.data!.data.length)];
-
-                  return AdWidget(ad);
-                },
               ),
             ),
             ShimmerWidget.fromChild(
               isLoading: _isSkeleton,
-              child: const AdDotsIndicator(),
+              child: AnimatedSmoothIndicator(
+                activeIndex: state.currentIndex,
+                count: _isSkeleton ? 4 : state.ads.length,
+                effect: ExpandingDotsEffect(
+                  dotColor: context.colorPalette.disabledText,
+                  activeDotColor: context.colorPalette.primary,
+                  dotHeight: 10.h,
+                  dotWidth: 10.h,
+                ),
+                onDotClicked: adCubit.carouselController.animateToPage,
+              ),
             ),
           ],
-        ).withSpacing(spacing: 10.h);
+        ).withSpacing(spacing: 16.h);
       },
     );
   }

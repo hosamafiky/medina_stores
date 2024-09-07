@@ -30,7 +30,7 @@ class CategoryModel extends Category {
       id: map['id'],
       name: (map["name"] as String).capitalize,
       parent: map['parent'] ?? '',
-      active: map['active'],
+      active: map['active'] == 1,
       slug: map['slug'],
       image: map['image'],
       createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(map['created_at']),
