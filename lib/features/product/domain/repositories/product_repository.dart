@@ -7,5 +7,6 @@ abstract class ProductRepository {
   Future<Either<Failure, ApiResponse<List<ProductModel>>>> getRelatedProducts(String slug);
   Future<Either<Failure, ApiResponse<List<ProductModel>>>> getYouMayLikeProducts(String slug);
   Future<Either<Failure, ApiResponse<PaginatedList<ProductModel>>>> getFavoriteProducts();
+  Future<Either<Failure, ApiResponse<List<Product>>>> getSuggestedCartProducts();
   Future<Either<Failure, ApiResponse<bool>>> toggleFavorite(int productId);
 }

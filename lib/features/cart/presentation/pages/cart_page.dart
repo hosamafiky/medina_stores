@@ -5,7 +5,10 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CartsPageBody();
+    return BlocProvider(
+      create: (context) => DependencyHelper.instance.serviceLocator<ProductCubit>()..getSuggestedCartProducts(),
+      child: const CartsPageBody(),
+    );
   }
 }
 

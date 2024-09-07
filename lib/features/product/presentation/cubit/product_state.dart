@@ -15,6 +15,9 @@ class ProductState extends Equatable {
     this.favoriteProductsStatus = UsecaseStatus.idle,
     this.favoriteProductsFailure,
     this.favoriteProducts = const ApiResponse(data: PaginatedList(data: [])),
+    this.suggestedCartProductsStatus = UsecaseStatus.idle,
+    this.suggestedCartProductsFailure,
+    this.suggestedCartProducts = const [],
   });
 
   final SubCategory? subCategory;
@@ -33,6 +36,10 @@ class ProductState extends Equatable {
   final Failure? favoriteProductsFailure;
   final ApiResponse<PaginatedList<Product>> favoriteProducts;
 
+  final UsecaseStatus suggestedCartProductsStatus;
+  final Failure? suggestedCartProductsFailure;
+  final List<Product> suggestedCartProducts;
+
   ProductState copyWith({
     SubCategory? subCategory,
     Brand? brand,
@@ -47,6 +54,9 @@ class ProductState extends Equatable {
     UsecaseStatus? favoriteProductsStatus,
     Failure? favoriteProductsFailure,
     ApiResponse<PaginatedList<Product>>? favoriteProducts,
+    UsecaseStatus? suggestedCartProductsStatus,
+    Failure? suggestedCartProductsFailure,
+    List<Product>? suggestedCartProducts,
   }) {
     return ProductState(
       brand: brand ?? this.brand,
@@ -62,6 +72,9 @@ class ProductState extends Equatable {
       favoriteProductsStatus: favoriteProductsStatus ?? this.favoriteProductsStatus,
       favoriteProductsFailure: favoriteProductsFailure ?? this.favoriteProductsFailure,
       favoriteProducts: favoriteProducts ?? this.favoriteProducts,
+      suggestedCartProductsStatus: suggestedCartProductsStatus ?? this.suggestedCartProductsStatus,
+      suggestedCartProductsFailure: suggestedCartProductsFailure ?? this.suggestedCartProductsFailure,
+      suggestedCartProducts: suggestedCartProducts ?? this.suggestedCartProducts,
     );
   }
 
@@ -85,5 +98,8 @@ class ProductState extends Equatable {
         favoriteProductsStatus,
         favoriteProductsFailure,
         favoriteProducts,
+        suggestedCartProductsStatus,
+        suggestedCartProductsFailure,
+        suggestedCartProducts,
       ];
 }

@@ -25,7 +25,7 @@ class ProductModel extends Product {
       brand: DropdownItemModel.fromMap(json['brand'] as Map<String, dynamic>),
       categories: (json['categories'] as List).map((e) => DropdownItemModel.fromMap(e as Map<String, dynamic>)).toList(),
       price: json['price'] as num,
-      priceAfterDiscount: json['price_after_discount'] as num,
+      priceAfterDiscount: json['price_after_discount'] as num? ?? json['price'] as num? ?? 0,
       isFavourite: (json['is_favourite'] == 1),
       createdAt: DateFormat(ApiConstants.dateFormat, 'en_US').parse(json['created_at'] as String),
     );
