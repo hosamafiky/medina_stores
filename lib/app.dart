@@ -52,6 +52,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
   }
 
   void onConnectionChanged(bool isConnected) {
+    this.isConnected.value = isConnected;
     if (AppNavigator.rootContext != null) {
       if (!isConnected) {
         MessageHelper.showErrorSnackBar(
