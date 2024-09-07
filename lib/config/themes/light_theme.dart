@@ -5,8 +5,8 @@ ThemeData lightTheme(
   AppTextStyle appTextStyle,
 ) {
   return ThemeData(
-    fontFamily: 'ReadexPro',
-    fontFamilyFallback: const ['ReadexPro'],
+    fontFamily: AppConstants.fontFamily,
+    fontFamilyFallback: const [AppConstants.fontFamily],
     brightness: Brightness.light,
     primaryColor: palette.primary,
     primaryColorDark: palette.primaryVariant,

@@ -18,8 +18,8 @@ class RegisterNowWidget extends StatelessWidget {
             style: TextStyle(
               fontWeight: AppFontWeight.regular,
               fontSize: 12.sp,
-              fontFamily: 'Kaff',
               color: palette.hintText,
+              fontFamily: AppConstants.fontFamily,
             ),
           ),
           const TextSpan(text: ' '),
@@ -29,6 +29,7 @@ class RegisterNowWidget extends StatelessWidget {
               fontWeight: AppFontWeight.regular,
               fontSize: 12.sp,
               decoration: TextDecoration.underline,
+              fontFamily: AppConstants.fontFamily,
               color: palette.secondary,
             ),
             recognizer: TapGestureRecognizer()..onTap = () => AppNavigator.to(const RegisterScreen()),
