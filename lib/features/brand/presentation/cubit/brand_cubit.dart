@@ -10,6 +10,7 @@ class BrandCubit extends Cubit<BrandState> {
   Future<void> getBrands() async {
     emit(state.copyWith(brandsStatus: UsecaseStatus.running));
     final result = await getBrandsUsecase();
+    if (isClosed) return;
     result.fold(
       (failure) {
         emit(state.copyWith(brandsStatus: UsecaseStatus.error, brandsFailure: failure));

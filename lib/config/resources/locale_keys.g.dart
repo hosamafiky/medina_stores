@@ -64,6 +64,7 @@ abstract class LocaleKeys {
   static const accept_terms = 'accept_terms';
   static const accept_terms_validation = 'accept_terms_validation';
   static const _LAYOUT = '_LAYOUT';
+  static const empty_ads = 'empty_ads';
   static const home = 'home';
   static const profile = 'profile';
   static const whats_new = 'whats_new';

@@ -14,7 +14,7 @@ class ApiConstants {
 }
 
 class ApiEndPoints {
-  // Home
+  // Layout
   final String ADS = '/home/sliders';
   final String CATEGORIES = '/home/categories';
   final String SUB_CATEGORIES = '/sub-categories';

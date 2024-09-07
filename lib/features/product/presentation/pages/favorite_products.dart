@@ -22,11 +22,11 @@ class _FavoriteProductsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ProductCubit, ProductState, ({UsecaseStatus status, Failure? failure, List<Product> data})>(
+    return BlocSelector<ProductCubit, ProductState, ({UsecaseStatus status, Failure? failure, PaginatedList<Product> data})>(
       selector: (state) => (
         status: state.favoriteProductsStatus,
         failure: state.favoriteProductsFailure,
-        data: state.favoriteProducts.data!.data,
+        data: state.favoriteProducts.data!,
       ),
       builder: (context, state) {
         return state.status.when(
@@ -46,34 +46,69 @@ class _FavoriteProductsBody extends StatelessWidget {
   }
 }
 
-class _FavoriteProductsList extends StatelessWidget {
+class _FavoriteProductsList extends StatefulWidget {
   const _FavoriteProductsList(this.products) : _isSkeleton = false;
 
   const _FavoriteProductsList.skeleton()
-      : products = const [],
+      : products = const PaginatedList(data: []),
         _isSkeleton = true;
 
   final bool _isSkeleton;
-  final List<Product> products;
+  final PaginatedList<Product> products;
+
+  @override
+  State<_FavoriteProductsList> createState() => _FavoriteProductsListState();
+}
+
+class _FavoriteProductsListState extends State<_FavoriteProductsList> {
+  final _scrollController = ScrollController();
+
+  void _onScroll() {
+    final currentScroll = _scrollController.position.pixels;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+
+    if (currentScroll == maxScroll) {
+      context.read<ProductCubit>().getFavouriteProducts();
+    }
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_onScroll);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator.adaptive(
       onRefresh: () async {
-        context.read<ProductCubit>().getFavouriteProducts();
+        context.read<ProductCubit>().getFavouriteProducts(1);
       },
       child: CustomScrollView(
         slivers: [
           SliverDynamicHeightGridView(
+            controller: _scrollController,
             padding: REdgeInsets.all(16.0),
             crossAxisCount: 3,
             builder: (context, index) {
-              if (_isSkeleton) return ProductWidget.skeleton();
-              final product = products[index];
+              if (widget._isSkeleton) return ProductWidget.skeleton();
+
+              final product = widget.products.data[index];
               return ProductWidget(product);
             },
-            itemCount: _isSkeleton ? 6 : products.length,
+            itemCount: widget._isSkeleton ? 6 : widget.products.data.length,
           ),
+          if (!widget.products.hasReachedEnd && !widget._isSkeleton) ...[
+            const Center(child: CircularProgressIndicator.adaptive()).asSliver,
+          ],
         ],
       ),
     );

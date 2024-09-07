@@ -7,7 +7,10 @@ class AdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildAdWidget();
+    return InkWell(
+      onTap: () async => await UrlLauncherHelper.launchURL(Uri.parse(ad.url)),
+      child: _buildAdWidget(),
+    );
   }
 
   Widget _buildAdWidget() {

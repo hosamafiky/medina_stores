@@ -16,6 +16,7 @@ class AdCubit extends Cubit<AdState> {
     if (state.ads.data?.currentPage == 0 || refresh) emit(state.copyWith(adsStatus: UsecaseStatus.running));
     final params = GetPaginatedListParams(page: (refresh ? 0 : state.ads.data!.currentPage) + 1, perPage: 99999);
     final result = await getAdsUsecase(params);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
         adsStatus: UsecaseStatus.error,

@@ -12,6 +12,7 @@ class SubCategoryCubit extends Cubit<SubCategoryState> {
   Future<void> getSubCategories(int categoryId) async {
     emit(state.copyWith(subCategoriesStatus: UsecaseStatus.running));
     final result = await getSubCategoriesUsecase(categoryId);
+    if (isClosed) return;
     result.fold(
       (failure) {
         emit(state.copyWith(subCategoriesStatus: UsecaseStatus.error, subCategoriesFailure: failure));
@@ -27,6 +28,8 @@ class SubCategoryCubit extends Cubit<SubCategoryState> {
   Future<void> addSubCategory(AddSubCategoryParams params) async {
     emit(state.copyWith(addSubCategoryStatus: UsecaseStatus.running));
     final result = await addSubCategoryUsecase(params);
+    if (isClosed) return;
+
     result.fold(
       (failure) {
         emit(state.copyWith(addSubCategoryStatus: UsecaseStatus.error, addSubCategoryFailure: failure));
