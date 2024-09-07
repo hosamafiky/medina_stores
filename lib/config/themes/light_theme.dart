@@ -5,6 +5,8 @@ ThemeData lightTheme(
   AppTextStyle appTextStyle,
 ) {
   return ThemeData(
+    fontFamily: 'ReadexPro',
+    fontFamilyFallback: const ['ReadexPro'],
     brightness: Brightness.light,
     primaryColor: palette.primary,
     primaryColorDark: palette.primaryVariant,
@@ -20,7 +22,9 @@ ThemeData lightTheme(
       surfaceTintColor: Colors.transparent,
       iconTheme: const IconThemeData(color: ColorPalette.blackColor),
       actionsIconTheme: const IconThemeData(color: ColorPalette.blackColor),
-      titleTextStyle: appTextStyle.appBarTitleStyle,
+      titleTextStyle: appTextStyle.appBarTitleStyle.copyWith(
+        fontFamily: 'ReadexPro',
+      ),
     ),
     iconButtonTheme: const IconButtonThemeData(
       style: ButtonStyle(

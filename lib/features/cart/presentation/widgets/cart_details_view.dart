@@ -15,39 +15,34 @@ class CartDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: REdgeInsets.all(16),
-      child: CustomScrollView(
-        slivers: [
-          if (_isSkeleton) ...[
-            SliverList.separated(
+    return CustomScrollView(
+      slivers: [
+        if (cart.items.isEmpty && !_isSkeleton) ...[
+          SizedBox(
+            height: 70.h,
+            child: Center(
+              child: Text(LocaleKeys.empty_cart.tr()),
+            ),
+          ).asSliver,
+        ] else ...[
+          SliverPadding(
+            padding: REdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverList.separated(
               itemBuilder: (context, index) {
-                return CartItemWidget.skeleton();
+                if (_isSkeleton) return CartItemWidget.skeleton();
+                final item = cart.items[index];
+                return CartItemWidget(item);
               },
               separatorBuilder: (context, index) => const Divider(),
-              itemCount: 2,
+              itemCount: _isSkeleton ? 2 : cart.items.length,
             ),
-          ] else ...[
-            if (cart.items.isEmpty) ...[
-              SizedBox(
-                height: 70.h,
-                child: Center(
-                  child: Text(LocaleKeys.empty_cart.tr()),
-                ),
-              ).asSliver,
-            ] else ...[
-              SliverList.separated(
-                itemBuilder: (context, index) {
-                  final item = cart.items[index];
-                  return CartItemWidget(item);
-                },
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: cart.items.length,
-              ),
-            ],
-          ],
-          // Summary Section
-          Card(
+          ),
+        ],
+
+        // Summary Section
+        Padding(
+          padding: REdgeInsets.symmetric(horizontal: 16),
+          child: Card(
             margin: const EdgeInsets.symmetric(vertical: 10),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -64,26 +59,29 @@ class CartDetails extends StatelessWidget {
                 ],
               ),
             ),
-          ).asSliver,
-          // Suggested Products Section
-          Padding(
-            padding: REdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16.h),
-                Text(
-                  LocaleKeys.suggested_products.tr(),
-                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 16.h),
-              ],
-            ),
-          ).asSliver,
-          const SuggestedProductsSection(),
-          SizedBox(height: 12.h).asSliver,
-          // Checkout Button
-          ElevatedButton(
+          ),
+        ).asSliver,
+        // Suggested Products Section
+        Padding(
+          padding: REdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16.h),
+              Text(
+                LocaleKeys.suggested_products.tr(),
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16.h),
+            ],
+          ),
+        ).asSliver,
+        const SuggestedProductsSection(),
+        SizedBox(height: 12.h).asSliver,
+        // Checkout Button
+        Padding(
+          padding: REdgeInsets.symmetric(horizontal: 16),
+          child: ElevatedButton(
             onPressed: cart.canCheckout
                 ? () {
                     // Checkout
@@ -93,9 +91,9 @@ class CartDetails extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16),
             ),
             child: Text(LocaleKeys.checkout.tr()),
-          ).asSliver,
-        ],
-      ),
+          ),
+        ).asSliver,
+      ],
     );
   }
 }
