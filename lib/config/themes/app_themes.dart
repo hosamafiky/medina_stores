@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medina_stores/core/standards/app_constants.dart';
 
 import '../resources/color_palettes/color_palette.dart';
 import '../text_styles/app_text_styles.dart';
