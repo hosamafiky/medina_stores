@@ -16,6 +16,7 @@ import 'core/navigation/Transition/implementation/slide/Option/slide_animation_o
 import 'core/navigation/page_router/Implementation/imports_page_router.dart';
 import 'core/navigation/page_router/imports_page_router_builder.dart';
 import 'core/observers/bloc_observer.dart';
+import 'features/address/data/data_imports.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -35,6 +36,8 @@ void main() async {
   final cachedUser = await UserUtils.getCachedUser();
   final cachedThemeModeString = await CacheHelper.read(CacheKeys.themeMode) as String?;
   final cachedThemeMode = cachedThemeModeString?.asThemeMode;
+  final cachedAddressData = await CacheHelper.read(CacheKeys.selectedAddress) as String?;
+  final cachedAddress = cachedAddressData != null ? AddressModel.fromJson(cachedAddressData) : null;
 
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
@@ -67,6 +70,7 @@ void main() async {
       child: MedinaStoresApp(
         cachedUser: cachedUser,
         cachedThemeMode: cachedThemeMode,
+        cachedAddress: cachedAddress,
       ),
     ),
   );

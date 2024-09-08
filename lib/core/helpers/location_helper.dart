@@ -75,4 +75,9 @@ class LocationHelper {
     final bounds = LatLngBounds(southwest: min, northeast: max);
     return bounds;
   }
+
+  static double calculateDistanceInKM(double startLatitude, double startLongitude, double endLatitude, double endLongitude) {
+    double distanceInMeters = Geolocator.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude);
+    return distanceInMeters / 1000;
+  }
 }

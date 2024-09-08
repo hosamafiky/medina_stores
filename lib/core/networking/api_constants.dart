@@ -24,6 +24,9 @@ class ApiEndPoints {
   final String PRODUCT = '/product';
   final String CART = '/carts';
 
+  // Address
+  final String ADDRESSES = '/addresses';
+
   // Auth
   final String login = '/login';
   final String register = '/register';

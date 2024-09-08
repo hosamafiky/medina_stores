@@ -1,0 +1,31 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:medina_stores/core/extensions/sliver.dart';
+import 'package:medina_stores/core/helpers/cache_helper.dart';
+import 'package:medina_stores/core/helpers/location_helper.dart';
+import 'package:medina_stores/core/helpers/validation_helper.dart';
+import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
+import 'package:medina_stores/core/shared_widgets/state_managers/error_widget.dart';
+import 'package:medina_stores/features/address/data/data_imports.dart';
+
+import '../../../core/error/failures.dart';
+import '../../../core/extensions/context.dart';
+import '../../../core/extensions/sheet.dart';
+import '../../../core/extensions/spaced_column.dart';
+import '../../../core/helpers/dependency_helper.dart';
+import '../../../core/navigation/navigator.dart';
+import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
+import '../../../core/standards/usecase_status.dart';
+import '../domain/domain_imports.dart';
+
+part 'cubit/address_cubit.dart';
+part 'cubit/address_state.dart';
+part 'pages/addresses_page.dart';
+part 'widgets/add_address_sheet.dart';
+part 'widgets/address_widget.dart';
+part 'widgets/choose_address_sheet.dart';
