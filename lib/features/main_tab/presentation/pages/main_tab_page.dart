@@ -59,7 +59,10 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
             icon: const Icon(Icons.shopping_cart),
             onPressed: () async {
               if (context.isLoggedIn) {
-                await AppNavigator.to(const CartPage());
+                final result = await AppNavigator.to(const CartPage());
+                if (result == 'browse' && context.mounted) {
+                  _onRefresh(context);
+                }
               } else {
                 await context.showSheet(
                   child: VisitorLoginSheet(

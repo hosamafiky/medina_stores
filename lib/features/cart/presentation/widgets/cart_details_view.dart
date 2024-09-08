@@ -15,69 +15,99 @@ class CartDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (cart.items.isEmpty && !_isSkeleton) {
+      return Padding(
+        padding: REdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.shopping_cart_checkout,
+              size: 40.sp,
+              color: context.colorPalette.primary,
+            ),
+            Text(
+              LocaleKeys.empty_cart.tr(),
+              style: TextStyle(
+                fontSize: 16.sp,
+                color: context.colorPalette.secondaryText,
+              ),
+            ),
+            Text(
+              LocaleKeys.empty_cart_description.tr(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: context.colorPalette.secondaryText,
+              ),
+            ),
+            SizedBox(height: 3.h),
+            ElevatedButton(
+              onPressed: () => AppNavigator.pop('browse'),
+              child: Text(LocaleKeys.browse.tr()),
+            ),
+          ],
+        ).withSpacing(spacing: 8.h),
+      );
+    }
     return CustomScrollView(
       slivers: [
-        if (cart.items.isEmpty && !_isSkeleton) ...[
-          SizedBox(
-            height: 70.h,
-            child: Center(
-              child: Text(LocaleKeys.empty_cart.tr()),
+        SliverPadding(
+          padding: REdgeInsets.symmetric(horizontal: 16),
+          sliver: SliverList.separated(
+            itemBuilder: (context, index) {
+              if (_isSkeleton) return CartItemWidget.skeleton();
+              final item = cart.items[index];
+              return CartItemWidget(item);
+            },
+            separatorBuilder: (context, index) => const Divider(),
+            itemCount: _isSkeleton ? 2 : cart.items.length,
+          ),
+        ),
+        if (!_isSkeleton)
+          // Summary Section
+          Padding(
+            padding: REdgeInsets.symmetric(horizontal: 16),
+            child: Card(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text('${LocaleKeys.sub_total.tr()}: ${cart.subTotal} ${LocaleKeys.shorten_currency.tr()}'),
+                    Text('${LocaleKeys.discount.tr()}: ${cart.discount} ${LocaleKeys.shorten_currency.tr()}'),
+                    const Divider(),
+                    Text(
+                      '${LocaleKeys.total.tr()}: ${cart.total} ${LocaleKeys.shorten_currency.tr()}',
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ).asSliver,
-        ] else ...[
-          SliverPadding(
+        if (!_isSkeleton) ...[
+          // Suggested Products Section
+          Padding(
             padding: REdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverList.separated(
-              itemBuilder: (context, index) {
-                if (_isSkeleton) return CartItemWidget.skeleton();
-                final item = cart.items[index];
-                return CartItemWidget(item);
-              },
-              separatorBuilder: (context, index) => const Divider(),
-              itemCount: _isSkeleton ? 2 : cart.items.length,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16.h),
+                Text(
+                  LocaleKeys.suggested_products.tr(),
+                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 16.h),
+              ],
             ),
-          ),
+          ).asSliver,
+          const SuggestedProductsSection(),
+          SizedBox(height: 12.h).asSliver,
         ],
 
-        // Summary Section
-        Padding(
-          padding: REdgeInsets.symmetric(horizontal: 16),
-          child: Card(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text('${LocaleKeys.sub_total.tr()}: ${cart.subTotal} ${LocaleKeys.shorten_currency.tr()}'),
-                  Text('${LocaleKeys.discount.tr()}: ${cart.discount} ${LocaleKeys.shorten_currency.tr()}'),
-                  const Divider(),
-                  Text(
-                    '${LocaleKeys.total.tr()}: ${cart.total} ${LocaleKeys.shorten_currency.tr()}',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ).asSliver,
-        // Suggested Products Section
-        Padding(
-          padding: REdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16.h),
-              Text(
-                LocaleKeys.suggested_products.tr(),
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16.h),
-            ],
-          ),
-        ).asSliver,
-        const SuggestedProductsSection(),
-        SizedBox(height: 12.h).asSliver,
         // Checkout Button
         Padding(
           padding: REdgeInsets.symmetric(horizontal: 16),

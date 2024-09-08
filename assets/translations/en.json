@@ -93,6 +93,8 @@
   "cart": "Cart",
   "not_available_now": "This product is not available now",
   "empty_cart": "Cart is empty",
+  "empty_cart_description": "Your cart is empty, add some products to buy and enjoy a great shopping experience",
+  "browse": "Browse",
   "total": "Total",
   "sub_total": "Sub Total",
   "tax": "Tax",

@@ -7,10 +7,13 @@ class CartState extends Equatable {
     this.cartData = const CartData(),
     this.addToCartStatus = UsecaseStatus.idle,
     this.addToCartFailure,
+    this.addToCartResponse = const ApiResponse(data: null),
     this.removeFromCartStatus = UsecaseStatus.idle,
     this.removeFromCartFailure,
+    this.removeFromCartResponse = const ApiResponse(data: null),
     this.updateCartQuantityStatus = UsecaseStatus.idle,
     this.updateCartQuantityFailure,
+    this.updateCartQuantityResponse = const ApiResponse(data: null),
   });
 
   final UsecaseStatus cartDataStatus;
@@ -19,12 +22,15 @@ class CartState extends Equatable {
 
   final UsecaseStatus addToCartStatus;
   final Failure? addToCartFailure;
+  final ApiResponse<void> addToCartResponse;
 
   final UsecaseStatus removeFromCartStatus;
   final Failure? removeFromCartFailure;
+  final ApiResponse<void> removeFromCartResponse;
 
   final UsecaseStatus updateCartQuantityStatus;
   final Failure? updateCartQuantityFailure;
+  final ApiResponse<void> updateCartQuantityResponse;
 
   CartState copyWith({
     UsecaseStatus? cartDataStatus,
@@ -32,21 +38,27 @@ class CartState extends Equatable {
     CartData? cartData,
     UsecaseStatus? addToCartStatus,
     Failure? addToCartFailure,
+    ApiResponse<void>? addToCartResponse,
     UsecaseStatus? removeFromCartStatus,
     Failure? removeFromCartFailure,
+    ApiResponse<void>? removeFromCartResponse,
     UsecaseStatus? updateCartQuantityStatus,
     Failure? updateCartQuantityFailure,
+    ApiResponse<void>? updateCartQuantityResponse,
   }) {
     return CartState(
       cartDataStatus: cartDataStatus ?? this.cartDataStatus,
       cartDataFailure: cartDataFailure ?? this.cartDataFailure,
       cartData: cartData ?? this.cartData,
-      addToCartStatus: addToCartStatus ?? this.addToCartStatus,
+      addToCartStatus: addToCartStatus ?? UsecaseStatus.idle,
       addToCartFailure: addToCartFailure ?? this.addToCartFailure,
-      removeFromCartStatus: removeFromCartStatus ?? this.removeFromCartStatus,
+      addToCartResponse: addToCartResponse ?? const ApiResponse(data: null),
+      removeFromCartStatus: removeFromCartStatus ?? UsecaseStatus.idle,
       removeFromCartFailure: removeFromCartFailure ?? this.removeFromCartFailure,
+      removeFromCartResponse: removeFromCartResponse ?? const ApiResponse(data: null),
       updateCartQuantityStatus: updateCartQuantityStatus ?? UsecaseStatus.idle,
       updateCartQuantityFailure: updateCartQuantityFailure ?? this.updateCartQuantityFailure,
+      updateCartQuantityResponse: updateCartQuantityResponse ?? const ApiResponse(data: null),
     );
   }
 
@@ -58,10 +70,13 @@ class CartState extends Equatable {
         '  cartData: $cartData,\n'
         '  addToCartStatus: $addToCartStatus,\n'
         '  addToCartFailure: $addToCartFailure,\n'
+        '  addToCartResponse: $addToCartResponse,\n'
         '  removeFromCartStatus: $removeFromCartStatus,\n'
         '  removeFromCartFailure: $removeFromCartFailure,\n'
+        '  removeFromCartResponse: $removeFromCartResponse,\n'
         '  updateCartQuantityStatus: $updateCartQuantityStatus,\n'
         '  updateCartQuantityFailure: $updateCartQuantityFailure,\n'
+        '  updateCartQuantityResponse: $updateCartQuantityResponse,\n'
         ')';
   }
 
@@ -72,9 +87,12 @@ class CartState extends Equatable {
         cartData,
         addToCartStatus,
         addToCartFailure,
+        addToCartResponse,
         removeFromCartStatus,
         removeFromCartFailure,
+        removeFromCartResponse,
         updateCartQuantityStatus,
         updateCartQuantityFailure,
+        updateCartQuantityResponse,
       ];
 }

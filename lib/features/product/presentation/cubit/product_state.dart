@@ -10,7 +10,11 @@ class ProductState extends Equatable {
     this.productDetailsStatus = UsecaseStatus.idle,
     this.productDetailsFailure,
     this.productDetails = const ApiResponse(data: null),
+    this.relatedProductsStatus = UsecaseStatus.idle,
+    this.relatedProductsFailure,
     this.relatedProducts = const ApiResponse(data: []),
+    this.youMayLikeProductsStatus = UsecaseStatus.idle,
+    this.youMayLikeProductsFailure,
     this.youMayLikeProducts = const ApiResponse(data: []),
     this.favoriteProductsStatus = UsecaseStatus.idle,
     this.favoriteProductsFailure,
@@ -32,7 +36,11 @@ class ProductState extends Equatable {
   final UsecaseStatus productDetailsStatus;
   final Failure? productDetailsFailure;
   final ApiResponse<ProductDetails?> productDetails;
+  final UsecaseStatus relatedProductsStatus;
+  final Failure? relatedProductsFailure;
   final ApiResponse<List<Product>> relatedProducts;
+  final UsecaseStatus youMayLikeProductsStatus;
+  final Failure? youMayLikeProductsFailure;
   final ApiResponse<List<Product>> youMayLikeProducts;
 
   final UsecaseStatus favoriteProductsStatus;
@@ -56,7 +64,11 @@ class ProductState extends Equatable {
     UsecaseStatus? productDetailsStatus,
     Failure? productDetailsFailure,
     ApiResponse<ProductDetails?>? productDetails,
+    UsecaseStatus? relatedProductsStatus,
+    Failure? relatedProductsFailure,
     ApiResponse<List<Product>>? relatedProducts,
+    UsecaseStatus? youMayLikeProductsStatus,
+    Failure? youMayLikeProductsFailure,
     ApiResponse<List<Product>>? youMayLikeProducts,
     UsecaseStatus? favoriteProductsStatus,
     Failure? favoriteProductsFailure,
@@ -77,7 +89,11 @@ class ProductState extends Equatable {
       productDetailsStatus: productDetailsStatus ?? this.productDetailsStatus,
       productDetailsFailure: productDetailsFailure ?? this.productDetailsFailure,
       productDetails: productDetails ?? this.productDetails,
+      relatedProductsStatus: relatedProductsStatus ?? this.relatedProductsStatus,
+      relatedProductsFailure: relatedProductsFailure ?? this.relatedProductsFailure,
       relatedProducts: relatedProducts ?? this.relatedProducts,
+      youMayLikeProductsStatus: youMayLikeProductsStatus ?? this.youMayLikeProductsStatus,
+      youMayLikeProductsFailure: youMayLikeProductsFailure ?? this.youMayLikeProductsFailure,
       youMayLikeProducts: youMayLikeProducts ?? this.youMayLikeProducts,
       favoriteProductsStatus: favoriteProductsStatus ?? this.favoriteProductsStatus,
       favoriteProductsFailure: favoriteProductsFailure ?? this.favoriteProductsFailure,
@@ -106,7 +122,11 @@ class ProductState extends Equatable {
         productDetailsStatus,
         productDetailsFailure,
         productDetails,
+        relatedProductsStatus,
+        relatedProductsFailure,
         relatedProducts,
+        youMayLikeProductsStatus,
+        youMayLikeProductsFailure,
         youMayLikeProducts,
         favoriteProductsStatus,
         favoriteProductsFailure,

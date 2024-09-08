@@ -97,6 +97,8 @@ abstract class LocaleKeys {
   static const cart = 'cart';
   static const not_available_now = 'not_available_now';
   static const empty_cart = 'empty_cart';
+  static const empty_cart_description = 'empty_cart_description';
+  static const browse = 'browse';
   static const total = 'total';
   static const sub_total = 'sub_total';
   static const tax = 'tax';

@@ -26,21 +26,18 @@ class SuggestedProductsSection extends StatelessWidget {
           return Center(child: Text(LocaleKeys.empty_products.tr())).asSliver;
         }
 
-        return SizedBox(
-          height: 190.h,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: REdgeInsets.symmetric(horizontal: 16),
-            itemCount: isLoading ? 6 : state.products.length,
-            separatorBuilder: (context, index) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              final width = (1.sw - (58.w)) / 3;
-              if (isLoading) return ProductWidget.skeleton(width: width);
-              final product = state.products[index];
-              return ProductWidget(product, width: width);
-            },
-          ),
-        ).asSliver;
+        return SliverDynamicHeightGridView(
+          padding: REdgeInsets.symmetric(horizontal: 16),
+          itemCount: isLoading ? 6 : state.products.length,
+          crossAxisCount: 3,
+          crossAxisSpacing: 12.w,
+          mainAxisSpacing: 12.h,
+          builder: (context, index) {
+            if (isLoading) return ProductWidget.skeleton();
+            final product = state.products[index];
+            return ProductWidget(product);
+          },
+        );
       },
     );
   }
