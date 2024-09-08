@@ -8,6 +8,8 @@ import 'package:medina_stores/core/extensions/spaced_row.dart';
 import 'package:medina_stores/core/helpers/dependency_helper.dart';
 import 'package:medina_stores/core/helpers/message_helper.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
+import 'package:medina_stores/core/shared_widgets/state_managers/loading_manager.dart';
+import 'package:medina_stores/core/standards/response_model.dart';
 import 'package:medina_stores/features/product/domain/domain_imports.dart';
 
 import '../../../config/resources/color_palettes/color_palette.dart';
@@ -26,7 +28,6 @@ import '../domain/domain_imports.dart';
 part 'cubit/cart_cubit.dart';
 part 'cubit/cart_state.dart';
 part 'pages/cart_page.dart';
-part 'widgets/add_cart_sheet.dart';
 part 'widgets/add_to_cart_button_shimmer.dart';
 part 'widgets/add_to_cart_round_widget.dart';
 part 'widgets/cart_details_view.dart';

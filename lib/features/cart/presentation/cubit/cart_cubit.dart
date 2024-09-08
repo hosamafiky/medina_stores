@@ -14,7 +14,7 @@ class CartCubit extends Cubit<CartState> {
   final UpdateCartQuantityUsecase updateCartQuantityUsecase;
 
   Future<void> getCartItems([bool refresh = false]) async {
-    if (!refresh) emit(state.copyWith(cartDataStatus: UsecaseStatus.running));
+    if (!refresh) emit(state.copyWith(cartDataStatus: UsecaseStatus.running, addToCartStatus: UsecaseStatus.idle));
     final result = await getCartItemsUsecase();
     result.fold(
       (failure) => emit(state.copyWith(
@@ -29,17 +29,18 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> addToCart(AddCartParams params) async {
-    final oldCartItems = List<Cart>.from(state.cartData.items);
-    final cartItem = oldCartItems.firstWhere(
-      (element) => element.product.id == params.product.id,
-      orElse: () => Cart.empty.copyWith(product: params.product, quantity: 1),
-    );
+    // final oldCartItems = List<Cart>.from(state.cartData.items);
+    // final cartItem = oldCartItems.firstWhere(
+    //   (element) => element.product.id == params.product.id,
+    //   orElse: () => Cart.empty.copyWith(product: params.product, quantity: 1),
+    // );
 
-    if (cartItem.quantity + params.quantity == 0) {
-      removeCart(cartItem);
-      return;
-    }
+    // if (cartItem.quantity + params.quantity == 0) {
+    //   removeCart(cartItem);
+    //   return;
+    // }
 
+    emit(state.copyWith(addToCartStatus: UsecaseStatus.running));
     final result = await addToCartUsecase(params);
     result.fold(
       (failure) {
@@ -47,13 +48,18 @@ class CartCubit extends Cubit<CartState> {
         getCartItems(true);
       },
       (response) {
-        emit(state.copyWith(addToCartStatus: UsecaseStatus.completed));
+        emit(state.copyWith(addToCartStatus: UsecaseStatus.completed, addToCartResponse: response));
         getCartItems(true);
       },
     );
   }
 
   void updateQuantity(UpdateCartQuantityParams params) async {
+    if (params.cart.quantity + params.quantity == 0) {
+      removeCart(params.cart);
+      return;
+    }
+
     emit(state.copyWith(updateCartQuantityStatus: UsecaseStatus.running));
     final result = await updateCartQuantityUsecase(params);
     result.fold(
@@ -62,7 +68,7 @@ class CartCubit extends Cubit<CartState> {
         getCartItems(true);
       },
       (response) {
-        emit(state.copyWith(updateCartQuantityStatus: UsecaseStatus.completed));
+        emit(state.copyWith(updateCartQuantityStatus: UsecaseStatus.completed, updateCartQuantityResponse: response));
         getCartItems(true);
       },
     );

@@ -156,12 +156,12 @@ class ProductCubit extends Cubit<ProductState> {
     if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
-        productDetailsStatus: UsecaseStatus.error,
-        productDetailsFailure: failure,
+        relatedProductsStatus: UsecaseStatus.error,
+        relatedProductsFailure: failure,
       )),
-      (product) => emit(state.copyWith(
-        productDetailsStatus: UsecaseStatus.completed,
-        relatedProducts: product,
+      (products) => emit(state.copyWith(
+        relatedProductsStatus: UsecaseStatus.completed,
+        relatedProducts: products,
       )),
     );
   }
@@ -171,11 +171,11 @@ class ProductCubit extends Cubit<ProductState> {
     if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(
-        productDetailsStatus: UsecaseStatus.error,
-        productDetailsFailure: failure,
+        youMayLikeProductsStatus: UsecaseStatus.error,
+        youMayLikeProductsFailure: failure,
       )),
       (products) => emit(state.copyWith(
-        productDetailsStatus: UsecaseStatus.completed,
+        youMayLikeProductsStatus: UsecaseStatus.completed,
         youMayLikeProducts: products,
       )),
     );

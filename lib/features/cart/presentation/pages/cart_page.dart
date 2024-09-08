@@ -34,8 +34,17 @@ class _CartsPageBodyState extends State<CartsPageBody> {
       ),
       body: BlocListener<CartCubit, CartState>(
         listener: (context, state) {
+          if (state.updateCartQuantityStatus == UsecaseStatus.running) {
+            LoadingManager.show();
+          }
+
           if (state.updateCartQuantityStatus == UsecaseStatus.error) {
+            LoadingManager.hide();
             MessageHelper.showErrorSnackBar(state.updateCartQuantityFailure!.response.message);
+          }
+          if (state.updateCartQuantityStatus == UsecaseStatus.completed) {
+            LoadingManager.hide();
+            MessageHelper.showSuccessSnackBar(state.updateCartQuantityResponse.message);
           }
         },
         child: BlocSelector<CartCubit, CartState, ({UsecaseStatus status, Failure? failure, CartData cart})>(

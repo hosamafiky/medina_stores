@@ -81,7 +81,7 @@ class ProductWidget extends StatelessWidget {
                   ShimmerWidget.fromChild(
                     isLoading: _isSkeleton,
                     child: Text(
-                      '${product.priceAfterDiscount} SAR',
+                      '${product.priceAfterDiscount} ${LocaleKeys.shorten_currency.tr()}',
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
@@ -89,18 +89,16 @@ class ProductWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (product.priceAfterDiscount < product.price) ...[
-                    SizedBox(height: 4.h),
-                    ShimmerWidget.fromChild(
-                      isLoading: _isSkeleton,
-                      child: Text(
-                        '${product.price} SAR',
-                        style: context.appTextStyle.fieldStyle.copyWith(
-                          decoration: TextDecoration.lineThrough,
-                        ),
+                  SizedBox(height: 4.h),
+                  ShimmerWidget.fromChild(
+                    isLoading: _isSkeleton,
+                    child: Text(
+                      '${product.price} ${LocaleKeys.shorten_currency.tr()}',
+                      style: context.appTextStyle.fieldStyle.copyWith(
+                        decoration: TextDecoration.lineThrough,
                       ),
                     ),
-                  ],
+                  ),
                   SizedBox(height: 4.h),
                   ShimmerWidget.fromChild(
                     isLoading: _isSkeleton,
