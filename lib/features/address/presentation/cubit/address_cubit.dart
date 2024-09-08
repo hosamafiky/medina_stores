@@ -5,10 +5,14 @@ class AddressCubit extends Cubit<AddressState> {
     Address? cachedAddress,
     required this.getAddressesUsecase,
     required this.addAddressUsecase,
+    required this.updateAddressUsecase,
+    required this.deleteAddressUsecase,
   }) : super(AddressState(selectedAddress: cachedAddress));
 
   final GetAddressesUsecase getAddressesUsecase;
   final AddAddressUsecase addAddressUsecase;
+  final UpdateAddressUsecase updateAddressUsecase;
+  final DeleteAddressUsecase deleteAddressUsecase;
 
   Future<void> getAddresses() async {
     emit(state.copyWith(addressesStatus: UsecaseStatus.running));
@@ -30,15 +34,56 @@ class AddressCubit extends Cubit<AddressState> {
   }
 
   Future<void> addAddress(AddAddressParams params) async {
-    emit(state.copyWith(addAddressestatus: UsecaseStatus.running));
+    emit(state.copyWith(addAddressStatus: UsecaseStatus.running));
     final result = await addAddressUsecase(params);
     result.fold(
       (failure) {
-        emit(state.copyWith(addAddressestatus: UsecaseStatus.error, addAddressFailure: failure));
+        emit(state.copyWith(addAddressStatus: UsecaseStatus.error, addAddressFailure: failure));
       },
       (response) {
         final oldAddresses = List<Address>.from(state.addresses);
-        emit(state.copyWith(addAddressestatus: UsecaseStatus.completed, addresses: oldAddresses..add(response.data!)));
+        emit(state.copyWith(addAddressStatus: UsecaseStatus.completed, addresses: oldAddresses..add(response.data!)));
+      },
+    );
+  }
+
+  Future<void> deleteAddress(int id) async {
+    final oldAddresses = List<Address>.from(state.addresses);
+    final addressIndex = oldAddresses.indexWhere((element) => element.id == id);
+    if (addressIndex == -1) return;
+    final oldAddress = oldAddresses[addressIndex];
+    oldAddresses.removeAt(addressIndex);
+    emit(state.copyWith(addresses: oldAddresses));
+
+    final result = await deleteAddressUsecase(id);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(addresses: oldAddresses..insert(addressIndex, oldAddress)));
+      },
+      (response) {
+        emit(state.copyWith(addresses: oldAddresses));
+      },
+    );
+  }
+
+  Future<void> updateAddress(UpdateAddressParams params) async {
+    final oldAddresses = List<Address>.from(state.addresses);
+    final addressIndex = oldAddresses.indexWhere((element) => element.id == params.address.id);
+    if (addressIndex == -1) return;
+    final oldAddress = oldAddresses[addressIndex];
+
+    emit(state.copyWith(updateAddressStatus: UsecaseStatus.running, addresses: oldAddresses.updateItemAtIndex(addressIndex, params.address)));
+    final result = await updateAddressUsecase(params);
+    result.fold(
+      (failure) {
+        emit(state.copyWith(
+          updateAddressStatus: UsecaseStatus.error,
+          updateAddressFailure: failure,
+          addresses: oldAddresses.updateItemAtIndex(addressIndex, oldAddress),
+        ));
+      },
+      (response) {
+        emit(state.copyWith(updateAddressStatus: UsecaseStatus.completed, addresses: oldAddresses));
       },
     );
   }

@@ -67,6 +67,8 @@
 		<string>comgooglemaps</string>
 		<string>comgooglemaps-x-callback</string>
 	</array>
+	<key>io.flutter.embedded_views_preview</key>
+	<false/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

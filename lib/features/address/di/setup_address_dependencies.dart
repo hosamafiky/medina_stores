@@ -10,6 +10,8 @@ void setUpAddressDependencies() async {
       cachedAddress: address,
       getAddressesUsecase: DependencyHelper.instance.serviceLocator(),
       addAddressUsecase: DependencyHelper.instance.serviceLocator(),
+      updateAddressUsecase: DependencyHelper.instance.serviceLocator(),
+      deleteAddressUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
@@ -20,6 +22,14 @@ void setUpAddressDependencies() async {
 
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => AddAddressUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => UpdateAddressUsecase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => DeleteAddressUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES

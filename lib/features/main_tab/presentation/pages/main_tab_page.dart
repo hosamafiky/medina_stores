@@ -43,11 +43,12 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
 
   Future<void> checkIfLocationChanged() async {
     final position = await LocationHelper.getCurrentPosition();
+    if (position == null) return;
     if (!context.mounted || !mounted) return;
     final cubit = context.read<AddressCubit>();
     final selectedAddress = cubit.state.selectedAddress;
     if (selectedAddress == null) {
-      final address = await context.showSheet(child: AddAddressSheet(addressCubit: cubit));
+      final address = await context.showSheet(child: const AddAddressSheet());
       if (address != null && context.mounted && mounted && address is Address) {
         cubit.selectAddress(address);
       }

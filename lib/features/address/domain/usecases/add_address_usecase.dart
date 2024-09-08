@@ -12,17 +12,15 @@ class AddAddressUsecase implements UseCase<ApiResponse<Address>, AddAddressParam
 }
 
 class AddAddressParams {
-  final String title;
-  final double latitude;
-  final double longitude;
+  final Address address;
 
-  const AddAddressParams({required this.title, required this.latitude, required this.longitude});
+  const AddAddressParams({required this.address});
 
   Map<String, dynamic> toMap() {
     return {
-      "title": title,
-      "lat": latitude,
-      "lon": longitude,
+      "title": address.title,
+      "lat": address.latitude,
+      "lon": address.longitude,
     };
   }
 }

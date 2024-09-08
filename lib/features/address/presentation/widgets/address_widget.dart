@@ -8,12 +8,47 @@ class AddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       onTap: () => AppNavigator.pop(address),
-      leading: Text(address.id.toString()),
+      leading: Icon(
+        Icons.location_history,
+        color: context.colorPalette.accent,
+      ),
       title: Text(address.title),
-      trailing: Icon(Icons.arrow_forward_ios, size: 13.sp),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(context.colorPalette.success),
+            ),
+            icon: const Icon(
+              Icons.edit,
+              color: ColorPalette.whiteColor,
+            ),
+            onPressed: () async {
+              final cubit = context.read<AddressCubit>();
+              final updatedAddress = await context.showSheet<Address>(child: AddAddressSheet.update(address: address));
+              if (updatedAddress != null) {
+                final params = UpdateAddressParams(address: updatedAddress);
+                cubit.updateAddress(params);
+              }
+            },
+          ),
+          IconButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(context.colorPalette.error.withOpacity(0.1)),
+            ),
+            icon: Icon(
+              Icons.delete,
+              color: context.colorPalette.error,
+            ),
+            onPressed: () async {},
+          ),
+        ],
+      ),
       subtitle: Text(
-        address.title,
+        "${address.latitude.toStringAsFixed(2)}, ${address.longitude.toStringAsFixed(2)}",
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),

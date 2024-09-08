@@ -1,7 +1,7 @@
 part of '../data_imports.dart';
 
 class AddressModel extends Address {
-  const AddressModel({
+  AddressModel({
     required super.id,
     required super.title,
     required super.latitude,

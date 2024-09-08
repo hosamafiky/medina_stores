@@ -5,15 +5,17 @@ class Address extends Equatable {
   final String title;
   final double latitude;
   final double longitude;
-  final DateTime createdAt;
+  final DateTime _createdAt;
 
-  const Address({
-    required this.id,
+  DateTime get createdAt => _createdAt;
+
+  Address({
+    this.id = 0,
     required this.title,
     required this.latitude,
     required this.longitude,
-    required this.createdAt,
-  });
+    DateTime? createdAt,
+  }) : _createdAt = createdAt ?? DateTime.now();
 
   Address copyWith({
     int? id,
@@ -27,10 +29,10 @@ class Address extends Equatable {
       title: title ?? this.title,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
-      createdAt: createdAt ?? this.createdAt,
+      createdAt: createdAt ?? _createdAt,
     );
   }
 
   @override
-  List<Object?> get props => [id, title, latitude, longitude, createdAt];
+  List<Object?> get props => [id, title, latitude, longitude, _createdAt];
 }

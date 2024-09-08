@@ -15,12 +15,14 @@ class ChooseAddressSheet extends StatelessWidget {
             minChildSize: 0.15, // Minimum height of the bottom sheet
             maxChildSize: 1.0, // Maximum height of the bottom sheet
             expand: false, // Allow the bottom sheet to grow based on content
-
             builder: (context, controller) {
               return state.status.when(
                 context,
                 running: (_) => _AddressesList.skeleton(controller),
-                completed: (_) => _AddressesList(controller, addresses: state.addresses),
+                completed: (_) => _AddressesList(
+                  controller,
+                  addresses: state.addresses,
+                ),
                 error: (_) => ErrorViewWidget(
                   state.failure!,
                   onRetry: () => context.read<AddressCubit>().getAddresses(),
@@ -86,7 +88,10 @@ class _AddressesList extends StatelessWidget {
             ),
             onPressed: () async {
               final cubit = context.read<AddressCubit>();
-              await context.showSheet<Address>(child: AddAddressSheet(addressCubit: cubit));
+              final address = await context.showSheet<Address>(child: const AddAddressSheet());
+              if (address != null) {
+                cubit.addAddress(AddAddressParams(address: address));
+              }
             },
             child: const Text('إضافة عنوان جديد'),
           ),

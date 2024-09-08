@@ -243,7 +243,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(
         categoryOrBrandProducts: state.categoryOrBrandProducts.copyWith(
           data: state.categoryOrBrandProducts.data!.copyWith(
-              data: state.categoryOrBrandProducts.data!.data.updateProductAtIndex<ProductModel>(
+              data: state.categoryOrBrandProducts.data!.data.updateItemAtIndex<ProductModel>(
             categoryOrBrandProductIndex,
             ProductModel.fromProduct(product.copyWith(isFavourite: value)),
           )),
@@ -254,7 +254,7 @@ class ProductCubit extends Cubit<ProductState> {
     if (relatedProductIndex != -1) {
       emit(state.copyWith(
         relatedProducts: state.relatedProducts.copyWith(
-          data: state.relatedProducts.data!.updateProductAtIndex<ProductModel>(
+          data: state.relatedProducts.data!.updateItemAtIndex<ProductModel>(
             relatedProductIndex,
             ProductModel.fromProduct(product.copyWith(isFavourite: value)),
           ),
@@ -265,7 +265,7 @@ class ProductCubit extends Cubit<ProductState> {
     if (youMayLikeProductIndex != -1) {
       emit(state.copyWith(
         youMayLikeProducts: state.youMayLikeProducts.copyWith(
-          data: state.youMayLikeProducts.data!.updateProductAtIndex<ProductModel>(
+          data: state.youMayLikeProducts.data!.updateItemAtIndex<ProductModel>(
             youMayLikeProductIndex,
             ProductModel.fromProduct(product.copyWith(isFavourite: value)),
           ),
@@ -277,7 +277,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(
         favoriteProducts: state.favoriteProducts.copyWith(
           data: state.favoriteProducts.data!.copyWith(
-            data: state.favoriteProducts.data!.data.updateProductAtIndex<ProductModel>(
+            data: state.favoriteProducts.data!.data.updateItemAtIndex<ProductModel>(
               favoriteIndex,
               ProductModel.fromProduct(product.copyWith(isFavourite: value)),
               isRemove: !value,
@@ -289,7 +289,7 @@ class ProductCubit extends Cubit<ProductState> {
 
     if (suggestedCartProductsIndex != -1) {
       emit(state.copyWith(
-        suggestedCartProducts: state.suggestedCartProducts.updateProductAtIndex<ProductModel>(
+        suggestedCartProducts: state.suggestedCartProducts.updateItemAtIndex<ProductModel>(
           suggestedCartProductsIndex,
           ProductModel.fromProduct(product.copyWith(isFavourite: value)),
         ),
@@ -300,7 +300,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(
         latestProducts: state.latestProducts.copyWith(
           data: state.latestProducts.data!.copyWith(
-            data: state.latestProducts.data!.data.updateProductAtIndex<ProductModel>(
+            data: state.latestProducts.data!.data.updateItemAtIndex<ProductModel>(
               latestProductsIndex,
               ProductModel.fromProduct(product.copyWith(isFavourite: value)),
             ),
