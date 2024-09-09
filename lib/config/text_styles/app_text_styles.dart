@@ -38,19 +38,19 @@ class LightAppTextStyles implements AppTextStyle {
   TextStyle get _baseStyle => const TextStyle(fontFamily: AppConstants.fontFamily);
 
   @override
-  TextStyle get appBarTitleStyle => _baseStyle.copyWith(fontSize: 20, color: ColorPalette.blackColor);
+  TextStyle get appBarTitleStyle => _baseStyle.copyWith(fontSize: 18.sp, color: ColorPalette.blackColor);
   @override
-  TextStyle get labelTextStyle => _baseStyle.copyWith(fontSize: 14, color: ColorPalette.blackColor);
+  TextStyle get labelTextStyle => _baseStyle.copyWith(fontSize: 12.sp, color: ColorPalette.blackColor);
   @override
-  TextStyle get hintTextStyle => _baseStyle.copyWith(fontSize: 14, color: ColorPalette.blackColor);
+  TextStyle get hintTextStyle => _baseStyle.copyWith(fontSize: 12.sp, color: ColorPalette.blackColor);
   @override
-  TextStyle get fieldStyle => _baseStyle.copyWith(fontSize: 14, color: ColorPalette.blackColor);
+  TextStyle get fieldStyle => _baseStyle.copyWith(fontSize: 12.sp, color: ColorPalette.blackColor);
   @override
-  TextStyle get mandatoryStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.bold, color: Colors.red);
+  TextStyle get mandatoryStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.bold, color: Colors.red);
   @override
-  TextStyle get errorStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.regular, color: colorPalette.error);
+  TextStyle get errorStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.regular, color: colorPalette.error);
   @override
-  TextStyle get optionalStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.blackColor);
+  TextStyle get optionalStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.regular, color: ColorPalette.blackColor);
 
   @override
   TextStyle get elevatedButtonTextStyle => _baseStyle.copyWith(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
@@ -63,9 +63,9 @@ class LightAppTextStyles implements AppTextStyle {
   TextStyle get textButtonDisabledTextStyle => _baseStyle.copyWith(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
 
   @override
-  TextStyle get bottomNavigationSelectedLabelStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.bold);
+  TextStyle get bottomNavigationSelectedLabelStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.bold);
   @override
-  TextStyle get bottomNavigationUnselectedLabelStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.bold);
+  TextStyle get bottomNavigationUnselectedLabelStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.bold);
 }
 
 class DarkAppTextStyles implements AppTextStyle {
@@ -76,19 +76,19 @@ class DarkAppTextStyles implements AppTextStyle {
   TextStyle get _baseStyle => const TextStyle(fontFamily: AppConstants.fontFamily);
 
   @override
-  TextStyle get appBarTitleStyle => _baseStyle.copyWith(fontSize: 20, color: ColorPalette.whiteColor);
+  TextStyle get appBarTitleStyle => _baseStyle.copyWith(fontSize: 18.sp, color: ColorPalette.whiteColor);
   @override
-  TextStyle get labelTextStyle => _baseStyle.copyWith(fontSize: 14, color: ColorPalette.whiteColor);
+  TextStyle get labelTextStyle => _baseStyle.copyWith(fontSize: 12.sp, color: ColorPalette.whiteColor);
   @override
-  TextStyle get hintTextStyle => _baseStyle.copyWith(fontSize: 14, color: ColorPalette.whiteColor);
+  TextStyle get hintTextStyle => _baseStyle.copyWith(fontSize: 12.sp, color: ColorPalette.whiteColor);
   @override
-  TextStyle get fieldStyle => _baseStyle.copyWith(fontSize: 14, color: ColorPalette.whiteColor);
+  TextStyle get fieldStyle => _baseStyle.copyWith(fontSize: 12.sp, color: ColorPalette.whiteColor);
   @override
-  TextStyle get mandatoryStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.bold, color: Colors.red);
+  TextStyle get mandatoryStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.bold, color: Colors.red);
   @override
-  TextStyle get errorStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.regular, color: colorPalette.error);
+  TextStyle get errorStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.regular, color: colorPalette.error);
   @override
-  TextStyle get optionalStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.regular, color: ColorPalette.whiteColor);
+  TextStyle get optionalStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.regular, color: ColorPalette.whiteColor);
 
   @override
   TextStyle get elevatedButtonTextStyle => _baseStyle.copyWith(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
@@ -101,7 +101,7 @@ class DarkAppTextStyles implements AppTextStyle {
   TextStyle get textButtonDisabledTextStyle => _baseStyle.copyWith(fontSize: 14.sp, fontWeight: AppFontWeight.bold);
 
   @override
-  TextStyle get bottomNavigationSelectedLabelStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.bold);
+  TextStyle get bottomNavigationSelectedLabelStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.bold);
   @override
-  TextStyle get bottomNavigationUnselectedLabelStyle => _baseStyle.copyWith(fontSize: 12, fontWeight: AppFontWeight.bold);
+  TextStyle get bottomNavigationUnselectedLabelStyle => _baseStyle.copyWith(fontSize: 10.sp, fontWeight: AppFontWeight.bold);
 }
