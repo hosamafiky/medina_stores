@@ -1,9 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-import '../../../../Constants/imports_constants.dart';
-import '../../../../Helper/Interfaces/helper_imports.dart';
-import '../Option/size_animation_option.dart';
+part of '../size_imports.dart';
 
 class SizeAnimator extends Animator<double>
     implements CurveBehaviour, TweenBehaviour<double> {

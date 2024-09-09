@@ -108,5 +108,6 @@
   "address_name_hint": "Enter address name",
   "add_new_address": "Add New Address",
   "add": "Add",
-  "update": "Update"
+  "update": "Update",
+  "product_search_by": "Search by product name, brand or category"
 }

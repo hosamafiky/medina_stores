@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+part of '../size_imports.dart';
 
-import '../../../../Helper/Interfaces/helper_imports.dart';
 
 class SizeAnimationOptions extends AnimationOption {
   final double begin;

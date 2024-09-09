@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../Constants/imports_constants.dart';
-import '../../Factory/transition_creator.dart';
-import 'Animator/rotation_animator.dart';
-import 'Option/rotation_animation_option.dart';
+part of 'rotation_imports.dart';
 
 class RotationTransitionAnimation implements TransitionCreator {
   final RotationAnimationOptions options;
@@ -19,7 +14,6 @@ class RotationTransitionAnimation implements TransitionCreator {
     Widget child,
   ) {
     /// Primary animation
-
     return RotationTransition(
       turns: RotationAnimator(options).animator(animation),
       alignment: options.alignment,

@@ -25,6 +25,9 @@ class ProductState extends Equatable {
     this.latestProductsStatus = UsecaseStatus.idle,
     this.latestProductsFailure,
     this.latestProducts = const ApiResponse(data: PaginatedList(data: [])),
+    this.searchStatus = UsecaseStatus.idle,
+    this.searchFailure,
+    this.searchResults = const ApiResponse(data: PaginatedList(data: [])),
   });
 
   final SubCategory? subCategory;
@@ -55,6 +58,10 @@ class ProductState extends Equatable {
   final Failure? latestProductsFailure;
   final ApiResponse<PaginatedList<Product>> latestProducts;
 
+  final UsecaseStatus searchStatus;
+  final Failure? searchFailure;
+  final ApiResponse<PaginatedList<Product>> searchResults;
+
   ProductState copyWith({
     SubCategory? subCategory,
     Brand? brand,
@@ -79,6 +86,9 @@ class ProductState extends Equatable {
     UsecaseStatus? latestProductsStatus,
     Failure? latestProductsFailure,
     ApiResponse<PaginatedList<Product>>? latestProducts,
+    UsecaseStatus? searchStatus,
+    Failure? searchFailure,
+    ApiResponse<PaginatedList<Product>>? searchResults,
   }) {
     return ProductState(
       brand: brand ?? this.brand,
@@ -104,6 +114,9 @@ class ProductState extends Equatable {
       latestProductsStatus: latestProductsStatus ?? this.latestProductsStatus,
       latestProductsFailure: latestProductsFailure ?? this.latestProductsFailure,
       latestProducts: latestProducts ?? this.latestProducts,
+      searchStatus: searchStatus ?? this.searchStatus,
+      searchFailure: searchFailure ?? this.searchFailure,
+      searchResults: searchResults ?? this.searchResults,
     );
   }
 
@@ -137,5 +150,8 @@ class ProductState extends Equatable {
         latestProductsStatus,
         latestProductsFailure,
         latestProducts,
+        searchStatus,
+        searchFailure,
+        searchResults,
       ];
 }

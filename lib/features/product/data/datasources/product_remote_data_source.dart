@@ -9,6 +9,7 @@ abstract class ProductRemoteDataSource {
   Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getFavouriteProducts(GetPaginatedListParams params);
   Future<ApiResponseModel<List<ProductModel>>> getSuggestedCartProducts();
   Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getLatestProducts(GetPaginatedListParams params);
+  Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getSearchProducts(String query);
   Future<ApiResponseModel<bool>> toggleFavorite(int productId);
 }
 
@@ -165,6 +166,27 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       method: RequestMethod.get,
       path: '${ApiConstants.endPoints.PRODUCTS}/latest',
       queryParameters: params.toMap(),
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<PaginatedListModel<ProductModel>>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => PaginatedListModel<ProductModel>.fromMap(
+              data['data'],
+              mapper: (x) => ProductModel.fromMap(x),
+            ),
+          ),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getSearchProducts(String query) async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: ApiConstants.endPoints.PRODUCTS,
+      queryParameters: {'search': query},
       headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 

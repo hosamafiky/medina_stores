@@ -1,10 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-import '../../../Constants/imports_constants.dart';
-import '../../Factory/transition_creator.dart';
-import 'Animator/scale_animator.dart';
-import 'Options/scale_animation_option.dart';
+part of 'scale_imports.dart';
 
 class ScaleTransitionAnimation implements TransitionCreator {
   final ScaleAnimationOptions options;

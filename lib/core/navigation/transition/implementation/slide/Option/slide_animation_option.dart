@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-
-import '../../../../Constants/imports_constants.dart';
-import '../../../../Helper/Interfaces/helper_imports.dart';
+part of '../slide_imports.dart';
 
 class SlideAnimationOptions extends AnimationOption {
   final SlideDirection? direction;

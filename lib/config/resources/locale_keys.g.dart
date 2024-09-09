@@ -113,4 +113,5 @@ abstract class LocaleKeys {
   static const add_new_address = 'add_new_address';
   static const add = 'add';
   static const update = 'update';
+  static const product_search_by = 'product_search_by';
 }

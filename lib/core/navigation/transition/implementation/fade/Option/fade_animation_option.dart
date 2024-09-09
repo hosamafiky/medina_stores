@@ -1,4 +1,4 @@
-import '../../../../Helper/Interfaces/helper_imports.dart';
+part of '../fade_imports.dart';
 
 class FadeAnimationOptions extends AnimationOption {
   final double begin;

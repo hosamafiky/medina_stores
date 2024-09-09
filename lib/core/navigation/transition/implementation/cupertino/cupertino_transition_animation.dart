@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-
-import '../../Factory/transition_creator.dart';
-import 'Options/cupertino_animation_option.dart';
+part of 'cupertino_imports.dart';
 
 class CupertinoTransitionAnimation implements TransitionCreator {
   final CupertinoAnimationOptions options;

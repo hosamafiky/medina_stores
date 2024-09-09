@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../Factory/transition_creator.dart';
-import 'Options/shake_animation_options.dart';
+import '../../factory/transition_creator.dart';
+import 'options/shake_animation_options.dart';
 
 class ShakeTransitionAnimation implements TransitionCreator {
   final ShakeAnimationOptions options;
@@ -20,8 +20,7 @@ class ShakeTransitionAnimation implements TransitionCreator {
       curve: Curves.easeInOutBack,
       builder: (_, double value, child) {
         return Transform.translate(
-          offset: getOffset(value,
-              shakeFactor: -10, direction: ShakeDirection.horizontal),
+          offset: getOffset(value, shakeFactor: -10, direction: ShakeDirection.horizontal),
           child: child,
         );
       },

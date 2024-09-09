@@ -1,4 +1,4 @@
-import '../../../../Helper/Interfaces/helper_imports.dart';
+part of '../cupertino_imports.dart';
 
 class CupertinoAnimationOptions extends AnimationOption {
   final bool isFullscreenDialog;

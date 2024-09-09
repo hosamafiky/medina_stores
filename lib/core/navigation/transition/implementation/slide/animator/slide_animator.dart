@@ -1,11 +1,6 @@
-import 'package:flutter/animation.dart';
+part of '../slide_imports.dart';
 
-import '../../../../Constants/imports_constants.dart';
-import '../../../../Helper/Interfaces/helper_imports.dart';
-import '../Option/slide_animation_option.dart';
-
-class SliderAnimator extends Animator<Offset>
-    implements TweenBehaviour<Offset>, CurveBehaviour {
+class SliderAnimator extends Animator<Offset> implements TweenBehaviour<Offset>, CurveBehaviour {
   final SlideAnimationOptions options;
   SliderAnimator(this.options);
 
@@ -18,9 +13,7 @@ class SliderAnimator extends Animator<Offset>
 
   @override
   Tween<Offset> setTween() {
-    return options.customTween ??
-        _tweenMap[options.direction ?? SlideDirection.leftToRight] ??
-        RouterConstants.leftToRightTween;
+    return options.customTween ?? _tweenMap[options.direction ?? SlideDirection.leftToRight] ?? RouterConstants.leftToRightTween;
   }
 
   @override
@@ -30,12 +23,10 @@ class SliderAnimator extends Animator<Offset>
     return CurvedAnimation(
       parent: animation,
       curve: options.curve ?? RouterConstants.transitionCurve,
-      reverseCurve:
-          options.reverseCurve ?? RouterConstants.reverseTransitionCurve,
+      reverseCurve: options.reverseCurve ?? RouterConstants.reverseTransitionCurve,
     );
   }
 
   @override
-  Animation<Offset> animator(Animation<double> animation) =>
-      setTween().animate(setCurveAnimation(animation));
+  Animation<Offset> animator(Animation<double> animation) => setTween().animate(setCurveAnimation(animation));
 }
