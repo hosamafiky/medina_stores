@@ -44,6 +44,7 @@ part 'pages/favorite_products.dart';
 part 'pages/product_page.dart';
 part 'pages/products_page.dart';
 part 'pages/search_results_page.dart';
+part 'widgets/autocomplete_menu_widget.dart';
 part 'widgets/latest_products_section.dart';
 part 'widgets/product_widget.dart';
 part 'widgets/products_search_field.dart';
