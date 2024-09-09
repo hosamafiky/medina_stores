@@ -211,8 +211,6 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       queryParameters: {'search': query},
     );
 
-    await Future.delayed(const Duration(seconds: 3));
-
     return await DependencyHelper.instance.get<ApiService>().callApi<List<DropdownItemModel>>(
           request,
           mapper: (json) => ApiResponseModel.fromMap(
