@@ -19,6 +19,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       method: RequestMethod.get,
       path: ApiConstants.endPoints.PRODUCTS,
       queryParameters: params.toMap(),
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<PaginatedListModel<ProductModel>>(
@@ -39,6 +40,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       method: RequestMethod.get,
       path: ApiConstants.endPoints.PRODUCTS,
       queryParameters: params.toMap(),
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<PaginatedListModel<ProductModel>>(
@@ -74,6 +76,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     final request = ApiRequest(
       method: RequestMethod.get,
       path: '${ApiConstants.endPoints.PRODUCT}/$slug/related',
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<List<ProductModel>>(
@@ -90,6 +93,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     final request = ApiRequest(
       method: RequestMethod.get,
       path: '${ApiConstants.endPoints.PRODUCT}/$slug/you-may-like',
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<List<ProductModel>>(
@@ -123,6 +127,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       method: RequestMethod.get,
       path: ApiConstants.endPoints.FAV_PRODUCTS,
       queryParameters: params.toMap(),
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<PaginatedListModel<ProductModel>>(
@@ -142,6 +147,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     final request = ApiRequest(
       method: RequestMethod.get,
       path: '/cart/suggested-products',
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<List<ProductModel>>(
@@ -159,6 +165,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       method: RequestMethod.get,
       path: '${ApiConstants.endPoints.PRODUCTS}/latest',
       queryParameters: params.toMap(),
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<PaginatedListModel<ProductModel>>(

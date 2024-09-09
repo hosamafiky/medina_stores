@@ -7,6 +7,7 @@ class CacheKeys {
   static const String user = 'user';
   static const String token = 'token';
   static const String themeMode = 'themeMode';
+  static const String selectedAddress = 'selectedAddress';
 
   //DATA
   static const String ads = 'ads';

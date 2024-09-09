@@ -102,5 +102,11 @@
   "checkout": "Checkout",
   "order": "Order",
   "orders": "Orders",
-  "empty_orders": "Currently, No orders found"
+  "empty_orders": "Currently, No orders found",
+  "deliver_to": "Deliver to : ",
+  "address_name": "Address Name",
+  "address_name_hint": "Enter address name",
+  "add_new_address": "Add New Address",
+  "add": "Add",
+  "update": "Update"
 }

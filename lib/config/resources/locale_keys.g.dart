@@ -107,4 +107,10 @@ abstract class LocaleKeys {
   static const order = 'order';
   static const orders = 'orders';
   static const empty_orders = 'empty_orders';
+  static const deliver_to = 'deliver_to';
+  static const address_name = 'address_name';
+  static const address_name_hint = 'address_name_hint';
+  static const add_new_address = 'add_new_address';
+  static const add = 'add';
+  static const update = 'update';
 }

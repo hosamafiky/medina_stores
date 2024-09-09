@@ -101,5 +101,11 @@
   "checkout": "الدفع",
   "order": "طلب",
   "orders": "الطلبات",
-  "empty_orders": "لا توجد طلبات حاليا"
+  "empty_orders": "لا توجد طلبات حاليا",
+  "deliver_to": "التوصيل إلى : ",
+  "address_name": "اسم العنوان",
+  "address_name_hint": "أدخل اسم العنوان",
+  "add_new_address": "إضافة عنوان جديد",
+  "add": "إضافة",
+  "update": "تحديث"
 }

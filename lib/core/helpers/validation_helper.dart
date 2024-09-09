@@ -160,4 +160,15 @@ class ValidationHelper {
     }
     return null;
   }
+
+  // Validates if the value ( Generic ) is not null and is required
+  static String? validateValue<T>(T? value, String fieldName, {bool isRequired = true}) {
+    if (isRequired) {
+      final requiredError = _validateRequiredField(value?.toString(), fieldName);
+      if (requiredError != null) {
+        return requiredError;
+      }
+    }
+    return null;
+  }
 }

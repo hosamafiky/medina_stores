@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medina_stores/core/helpers/dependency_helper.dart';
+import 'package:medina_stores/features/address/domain/domain_imports.dart';
+import 'package:medina_stores/features/address/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/language/presentation/presentation_imports.dart';
 import 'package:medina_stores/features/layout/presentation/presentation_imports.dart';
 
@@ -23,10 +25,12 @@ class MedinaStoresApp extends StatefulWidget {
     super.key,
     this.cachedUser,
     this.cachedThemeMode,
+    this.cachedAddress,
   });
 
   final User? cachedUser;
   final ThemeMode? cachedThemeMode;
+  final Address? cachedAddress;
 
   @override
   State<MedinaStoresApp> createState() => _MedinaStoresAppState();
@@ -66,6 +70,9 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
             ),
             BlocProvider(
               create: (context) => LanguageCubit(savedLocale),
+            ),
+            BlocProvider(
+              create: (context) => DependencyHelper.instance.serviceLocator<AddressCubit>(param1: widget.cachedAddress)..checkIfLocationChanged(),
             ),
           ],
           child: BlocBuilder<ThemeCubit, ThemeState>(

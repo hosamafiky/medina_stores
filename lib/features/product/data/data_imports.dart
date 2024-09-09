@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart' hide Option, id;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:medina_stores/core/extensions/context.dart';
 import 'package:medina_stores/core/extensions/error_handler_extension.dart';
 import 'package:medina_stores/core/extensions/string.dart';
+import 'package:medina_stores/core/navigation/navigator.dart';
 import 'package:medina_stores/core/networking/api_constants.dart';
 import 'package:medina_stores/core/standards/drop_down_item.dart';
 import 'package:medina_stores/core/standards/paginated_list.dart';

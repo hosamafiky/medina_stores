@@ -52,7 +52,7 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        title: Text(LocaleKeys.home.tr()),
+        title: const DeliverToWidget(),
         centerTitle: true,
         actions: [
           IconButton(
