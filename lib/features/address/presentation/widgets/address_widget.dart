@@ -28,7 +28,10 @@ class AddressWidget extends StatelessWidget {
             ),
             onPressed: () async {
               final cubit = context.read<AddressCubit>();
-              final updatedAddress = await context.showSheet<Address>(child: AddOrUpdateAddressSheet.update(address: address));
+              final updatedAddress = await context.showSheet<Address>(
+                child: AddOrUpdateAddressSheet.update(address: address),
+                isScrollControlled: true,
+              );
               if (updatedAddress != null) {
                 final params = UpdateAddressParams(address: updatedAddress);
                 cubit.updateAddress(params);

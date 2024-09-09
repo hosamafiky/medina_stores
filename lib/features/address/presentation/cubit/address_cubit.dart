@@ -23,6 +23,7 @@ class AddressCubit extends Cubit<AddressState> {
         child: const AddOrUpdateAddressSheet(),
         isDismissible: false,
         isDraggable: false,
+        isScrollControlled: true,
       );
       if (address != null && address is Address) {
         selectAddress(address);

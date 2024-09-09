@@ -17,6 +17,7 @@ extension ContextExtension on BuildContext {
   double get screenHeight => screenSize.height;
   double get statusBarHeight => MediaQuery.paddingOf(this).top;
   double get bottomBarHeight => MediaQuery.paddingOf(this).bottom;
+  double get keyboardHeight => MediaQuery.viewInsetsOf(this).bottom;
   Orientation get orientation => MediaQuery.orientationOf(this);
   bool get isLtr => Directionality.of(this) == TextDirection.ltr;
   bool get isRtl => Directionality.of(this) == TextDirection.rtl;
