@@ -76,13 +76,14 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
     final request = ApiRequest(
       method: RequestMethod.put,
       path: '${ApiConstants.endPoints.ADDRESSES}/${params.address.id}',
+      body: params.toMap(),
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<AddressModel>(
           request,
           mapper: (json) => ApiResponseModel.fromMap(
             json,
-            mapper: (data) => AddressModel.fromMap(data),
+            mapper: (data) => AddressModel.fromMap(data['data']),
           ),
         );
   }

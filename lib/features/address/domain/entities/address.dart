@@ -33,6 +33,7 @@ class Address extends Equatable {
     );
   }
 
+  Map<String, dynamic> get asHeader => {'lat': latitude, 'lng': longitude};
   @override
   List<Object?> get props => [id, title, latitude, longitude, _createdAt];
 }

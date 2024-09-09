@@ -1,100 +1,107 @@
 part of '../presentation_imports.dart';
 
-class AddAddressSheet extends StatefulWidget {
-  const AddAddressSheet({super.key}) : address = null;
+class AddOrUpdateAddressSheet extends StatefulWidget {
+  const AddOrUpdateAddressSheet({super.key}) : address = null;
 
-  const AddAddressSheet.update({super.key, required this.address});
+  const AddOrUpdateAddressSheet.update({super.key, required this.address});
 
   final Address? address;
-
   @override
-  State<AddAddressSheet> createState() => _AddAddressSheetState();
+  State<AddOrUpdateAddressSheet> createState() => _AddOrUpdateAddressSheetState();
 }
 
-class _AddAddressSheetState extends State<AddAddressSheet> {
+class _AddOrUpdateAddressSheetState extends State<AddOrUpdateAddressSheet> {
   final _formKey = GlobalKey<FormState>();
-  ValueNotifier<LatLng> selectedLocation = ValueNotifier(const LatLng(0, 0));
+  ValueNotifier<LatLng?> selectedLocation = ValueNotifier(null);
   final _titleController = TextEditingController();
-
-  GoogleMapController? mapController;
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (widget.address != null) {
-        selectedLocation = ValueNotifier(LatLng(widget.address!.latitude, widget.address!.longitude));
-        mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(widget.address!.latitude, widget.address!.longitude)));
-        _titleController.text = widget.address!.title;
-      } else {
-        getInitialPosition();
-      }
-    });
+    getInitialPosition();
     super.initState();
   }
 
   void getInitialPosition() async {
+    if (widget.address != null) {
+      selectedLocation.value = LatLng(widget.address!.latitude, widget.address!.longitude);
+      _titleController.text = widget.address!.title;
+      return;
+    }
     final position = await LocationHelper.getCurrentPosition();
-    if (position == null) return;
+    if (position == null) {
+      AppNavigator.pop();
+      return;
+    }
     selectedLocation.value = LatLng(position.latitude, position.longitude);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: REdgeInsets.all(16.0).copyWith(
-        bottom: context.bottomBarHeight + 16.h,
-      ),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 200.h,
-              child: ValueListenableBuilder(
-                valueListenable: selectedLocation,
-                builder: (context, LatLng value, child) {
-                  return GoogleMap(
-                    initialCameraPosition: CameraPosition(target: value, zoom: 33),
-                    gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-                      Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer()),
-                    },
-                    onMapCreated: (controller) => mapController = controller,
-                    onTap: (latLng) => selectedLocation.value = latLng,
-                    markers: {
-                      Marker(
-                        markerId: const MarkerId('1'),
-                        position: value,
-                      ),
-                    },
-                    onCameraMove: (position) => selectedLocation.value = position.target,
-                  ).asFormField(validator: (_) => ValidationHelper.validateValue<LatLng>(selectedLocation.value, 'الموقع'));
-                },
-              ),
+    return BlocProvider(
+      create: (context) => DependencyHelper.instance.serviceLocator<AddressCubit>(),
+      child: BlocBuilder<AddressCubit, AddressState>(
+        builder: (context, state) {
+          return Padding(
+            padding: REdgeInsets.all(16.0).copyWith(
+              bottom: context.bottomBarHeight + 16.h,
             ),
-            TextFormField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'اسم العنوان',
-              ),
-              validator: (value) => ValidationHelper.validateRequiredField(value!, 'اسم العنوان'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (!_formKey.currentState!.validate()) return;
-                AppNavigator.pop<Address>(
-                  Address(
-                    id: widget.address?.id ?? 0,
-                    title: _titleController.text,
-                    latitude: selectedLocation.value.latitude,
-                    longitude: selectedLocation.value.longitude,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                    height: 200.h,
+                    child: ValueListenableBuilder(
+                      valueListenable: selectedLocation,
+                      builder: (context, LatLng? value, child) {
+                        if (value == null) return const Center(child: CircularProgressIndicator.adaptive());
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(16.r),
+                          child: GoogleMap(
+                            initialCameraPosition: CameraPosition(target: value, zoom: 33),
+                            gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+                              Factory<OneSequenceGestureRecognizer>(
+                                () => EagerGestureRecognizer(),
+                              ),
+                            },
+                            onTap: (latLng) => selectedLocation.value = latLng,
+                            markers: {
+                              Marker(
+                                markerId: const MarkerId('1'),
+                                position: value,
+                              ),
+                            },
+                            onCameraMove: (position) => selectedLocation.value = position.target,
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                );
-              },
-              child: Text(widget.address == null ? 'Add' : 'Update'),
+                  AppTextField.withLabel(
+                    label: LocaleKeys.address_name.tr(),
+                    controller: _titleController,
+                    hintText: LocaleKeys.address_name_hint.tr(),
+                    validator: (value) => ValidationHelper.validateRequiredField(value!, LocaleKeys.address_name.tr()),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (!_formKey.currentState!.validate()) return;
+                      AppNavigator.pop(Address(
+                        id: widget.address?.id ?? 0,
+                        title: _titleController.text,
+                        latitude: selectedLocation.value!.latitude,
+                        longitude: selectedLocation.value!.longitude,
+                      ));
+                    },
+                    child: Text(widget.address == null ? LocaleKeys.add.tr() : LocaleKeys.update.tr()),
+                  ),
+                ],
+              ).withSpacing(spacing: 16.h),
             ),
-          ],
-        ).withSpacing(spacing: 16.h),
+          );
+        },
       ),
     );
   }

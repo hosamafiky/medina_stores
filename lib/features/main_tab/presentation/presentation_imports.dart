@@ -12,10 +12,8 @@ import 'package:medina_stores/features/brand/presentation/presentation_imports.d
 import 'package:medina_stores/features/cart/presentation/presentation_imports.dart';
 
 import '../../../core/helpers/dependency_helper.dart';
-import '../../../core/helpers/location_helper.dart';
 import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 import '../../../core/shared_widgets/core_widgets/visitor_login_sheet.dart';
-import '../../address/domain/domain_imports.dart';
 import '../../category/presentation/presentation_imports.dart';
 
 part 'cubit/main_cubit.dart';

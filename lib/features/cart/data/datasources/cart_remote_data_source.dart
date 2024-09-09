@@ -13,6 +13,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
     final request = ApiRequest(
       method: RequestMethod.get,
       path: ApiConstants.endPoints.CART,
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
     );
 
     return await DependencyHelper.instance.get<ApiService>().callApi<CartDataModel>(

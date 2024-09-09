@@ -37,30 +37,7 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
   @override
   void initState() {
     super.initState();
-    checkIfLocationChanged();
     if (context.isLoggedIn) context.read<CartCubit>().getCartItems();
-  }
-
-  Future<void> checkIfLocationChanged() async {
-    final position = await LocationHelper.getCurrentPosition();
-    if (position == null) return;
-    if (!context.mounted || !mounted) return;
-    final cubit = context.read<AddressCubit>();
-    final selectedAddress = cubit.state.selectedAddress;
-    if (selectedAddress == null) {
-      final address = await context.showSheet(child: const AddAddressSheet());
-      if (address != null && context.mounted && mounted && address is Address) {
-        cubit.selectAddress(address);
-      }
-    } else {
-      final distance = LocationHelper.calculateDistanceInKM(selectedAddress.latitude, selectedAddress.longitude, position.latitude, position.longitude);
-      if (distance > 1) {
-        final address = await context.showSheet(child: const ChooseAddressSheet());
-        if (address != null && context.mounted && mounted && address is Address) {
-          cubit.selectAddress(address);
-        }
-      }
-    }
   }
 
   Future<void> _onRefresh(BuildContext context) async {
@@ -75,38 +52,7 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('التوصيل إلى : ', style: TextStyle(fontSize: 12.sp)),
-            BlocSelector<AddressCubit, AddressState, Address?>(
-              selector: (state) => state.selectedAddress,
-              builder: (context, state) {
-                return InkWell(
-                  onTap: () async {
-                    final result = await context.showSheet(child: const ChooseAddressSheet());
-                    if (result != null && context.mounted) {
-                      context.read<AddressCubit>().selectAddress(result);
-                    }
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        state?.title ?? 'غير محدد',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Icon(Icons.arrow_drop_down),
-                    ],
-                  ),
-                );
-              },
-            )
-          ],
-        ),
+        title: const DeliverToWidget(),
         centerTitle: true,
         actions: [
           IconButton(

@@ -28,7 +28,7 @@ class AddressWidget extends StatelessWidget {
             ),
             onPressed: () async {
               final cubit = context.read<AddressCubit>();
-              final updatedAddress = await context.showSheet<Address>(child: AddAddressSheet.update(address: address));
+              final updatedAddress = await context.showSheet<Address>(child: AddOrUpdateAddressSheet.update(address: address));
               if (updatedAddress != null) {
                 final params = UpdateAddressParams(address: updatedAddress);
                 cubit.updateAddress(params);
@@ -43,7 +43,10 @@ class AddressWidget extends StatelessWidget {
               Icons.delete,
               color: context.colorPalette.error,
             ),
-            onPressed: () async {},
+            onPressed: () async {
+              final cubit = context.read<AddressCubit>();
+              cubit.deleteAddress(address.id);
+            },
           ),
         ],
       ),

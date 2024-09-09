@@ -72,7 +72,7 @@ class _MedinaStoresAppState extends State<MedinaStoresApp> {
               create: (context) => LanguageCubit(savedLocale),
             ),
             BlocProvider(
-              create: (context) => DependencyHelper.instance.serviceLocator<AddressCubit>(param1: widget.cachedAddress),
+              create: (context) => DependencyHelper.instance.serviceLocator<AddressCubit>(param1: widget.cachedAddress)..checkIfLocationChanged(),
             ),
           ],
           child: BlocBuilder<ThemeCubit, ThemeState>(

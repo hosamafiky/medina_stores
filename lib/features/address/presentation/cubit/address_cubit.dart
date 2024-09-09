@@ -14,6 +14,30 @@ class AddressCubit extends Cubit<AddressState> {
   final UpdateAddressUsecase updateAddressUsecase;
   final DeleteAddressUsecase deleteAddressUsecase;
 
+  Future<void> checkIfLocationChanged() async {
+    final position = await LocationHelper.getCurrentPosition();
+    if (position == null) return;
+    final selectedAddress = state.selectedAddress;
+    if (selectedAddress == null) {
+      final address = await AppNavigator.rootContext!.showSheet(
+        child: const AddOrUpdateAddressSheet(),
+        isDismissible: false,
+        isDraggable: false,
+      );
+      if (address != null && address is Address) {
+        selectAddress(address);
+      }
+    } else {
+      final distance = LocationHelper.calculateDistanceInKM(selectedAddress.latitude, selectedAddress.longitude, position.latitude, position.longitude);
+      if (distance > 1) {
+        final address = await AppNavigator.rootContext!.showSheet(child: const ChooseAddressSheet());
+        if (address != null && address is Address) {
+          selectAddress(address);
+        }
+      }
+    }
+  }
+
   Future<void> getAddresses() async {
     emit(state.copyWith(addressesStatus: UsecaseStatus.running));
     final result = await getAddressesUsecase();
@@ -71,8 +95,8 @@ class AddressCubit extends Cubit<AddressState> {
     final addressIndex = oldAddresses.indexWhere((element) => element.id == params.address.id);
     if (addressIndex == -1) return;
     final oldAddress = oldAddresses[addressIndex];
-
-    emit(state.copyWith(updateAddressStatus: UsecaseStatus.running, addresses: oldAddresses.updateItemAtIndex(addressIndex, params.address)));
+    final newAddresses = oldAddresses.updateItemAtIndex(addressIndex, params.address);
+    emit(state.copyWith(updateAddressStatus: UsecaseStatus.running, addresses: newAddresses));
     final result = await updateAddressUsecase(params);
     result.fold(
       (failure) {
@@ -83,7 +107,7 @@ class AddressCubit extends Cubit<AddressState> {
         ));
       },
       (response) {
-        emit(state.copyWith(updateAddressStatus: UsecaseStatus.completed, addresses: oldAddresses));
+        emit(state.copyWith(updateAddressStatus: UsecaseStatus.completed));
       },
     );
   }
