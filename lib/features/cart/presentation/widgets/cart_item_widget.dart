@@ -70,7 +70,7 @@ class CartItemWidget extends StatelessWidget {
             const AddToCartButtonShimmer(),
           ] else ...[
             AddToCartRoundWidget(
-              product: item.product,
+              item: item,
               backgroundColor: context.colorPalette.shimmerHighlightColor,
               addToCartCallback: (quantity) {
                 context.read<CartCubit>().updateQuantity(
