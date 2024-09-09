@@ -60,6 +60,7 @@ class _AddOrUpdateAddressSheetState extends State<AddOrUpdateAddressSheet> {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(16.r),
                           child: GoogleMap(
+                            myLocationButtonEnabled: false,
                             initialCameraPosition: CameraPosition(target: value, zoom: 33),
                             gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
                               Factory<OneSequenceGestureRecognizer>(
