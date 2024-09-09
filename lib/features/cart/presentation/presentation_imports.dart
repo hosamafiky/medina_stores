@@ -10,7 +10,6 @@ import 'package:medina_stores/core/helpers/message_helper.dart';
 import 'package:medina_stores/core/shared_widgets/core_widgets/shimmer_widget.dart';
 import 'package:medina_stores/core/shared_widgets/state_managers/loading_manager.dart';
 import 'package:medina_stores/core/standards/response_model.dart';
-import 'package:medina_stores/features/product/domain/domain_imports.dart';
 
 import '../../../config/resources/color_palettes/color_palette.dart';
 import '../../../config/resources/locale_keys.g.dart';
