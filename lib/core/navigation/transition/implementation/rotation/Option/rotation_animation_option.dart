@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-import '../../../../Helper/Interfaces/helper_imports.dart';
+part of '../rotation_imports.dart';
 
 class RotationAnimationOptions extends AnimationOption {
   final double begin;

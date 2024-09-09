@@ -15,6 +15,7 @@ import '../../../core/helpers/dependency_helper.dart';
 import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 import '../../../core/shared_widgets/core_widgets/visitor_login_sheet.dart';
 import '../../category/presentation/presentation_imports.dart';
+import '../../product/presentation/presentation_imports.dart';
 
 part 'cubit/main_cubit.dart';
 part 'cubit/main_state.dart';

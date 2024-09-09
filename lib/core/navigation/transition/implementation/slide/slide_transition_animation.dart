@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../Constants/imports_constants.dart';
-import '../../Factory/transition_creator.dart';
-import 'Option/slide_animation_option.dart';
-import 'animator/slide_animator.dart';
+part of 'slide_imports.dart';
 
 class SlideTransitionAnimation implements TransitionCreator {
   final SlideAnimationOptions options;

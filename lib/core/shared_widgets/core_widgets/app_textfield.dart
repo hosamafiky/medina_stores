@@ -45,6 +45,7 @@ class AppTextField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.onSaved,
+    this.onFieldSubmitted,
     this.onTap,
     this.maxLines = 1,
     this.minLines = 1,
@@ -89,6 +90,7 @@ class AppTextField extends StatefulWidget {
     this.enableinteractiveSelection = true,
     this.onChanged,
     this.onSaved,
+    this.onFieldSubmitted,
     this.onTap,
     this.maxLines = 1,
     this.minLines = 1,
@@ -118,7 +120,7 @@ class AppTextField extends StatefulWidget {
   final List<TextInputFormatter> inputFormatters;
   final EdgeInsetsGeometry? contentPadding;
   final String? Function(String?)? validator;
-  final void Function(String?)? onChanged, onSaved;
+  final void Function(String?)? onChanged, onSaved, onFieldSubmitted;
   final void Function()? onTap;
 
   @override
@@ -184,6 +186,7 @@ class _AppTextFieldState extends State<AppTextField> {
               validator: widget.validator,
               onChanged: widget.onChanged != null && widget.debounceOnChanged ? _debouncer.add : widget.onChanged,
               onSaved: widget.onSaved,
+              onFieldSubmitted: widget.onFieldSubmitted,
               maxLines: widget.maxLines,
               obscureText: isObscure && widget.obscureText,
               obscuringCharacter: widget.obscuringCharacter,

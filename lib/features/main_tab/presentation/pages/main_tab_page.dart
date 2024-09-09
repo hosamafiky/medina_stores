@@ -20,6 +20,9 @@ class MainTab extends StatelessWidget {
         BlocProvider(
           create: (context) => DependencyHelper.instance.get<AdCubit>()..getAds(),
         ),
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<ProductCubit>(),
+        ),
       ],
       child: const MainTabPageBody(),
     );
@@ -82,7 +85,10 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
           slivers: [
             SliverList.list(
               children: [
-                SizedBox(height: 16.h),
+                ProductsSearchField(
+                  padding: REdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  readOnly: true,
+                ),
                 const AdsScrollingWidget(),
                 const BrandsHorizontalList(),
               ].withSpacing(spacing: 16.h),

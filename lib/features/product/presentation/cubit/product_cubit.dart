@@ -10,6 +10,8 @@ class ProductCubit extends Cubit<ProductState> {
     required this.getFavouriteProductsUsecase,
     required this.getSuggestedCartProductsUsecase,
     required this.getLatestProductsUsecase,
+    required this.getProductNameSuggestionsUsecase,
+    required this.getSearchProductsUsecase,
     required this.toggleFavoriteUsecase,
     Brand? brand,
     SubCategory? subCategory,
@@ -23,6 +25,8 @@ class ProductCubit extends Cubit<ProductState> {
   final GetFavouriteProductsUsecase getFavouriteProductsUsecase;
   final GetSuggestedCartProductsUsecase getSuggestedCartProductsUsecase;
   final GetLatestProductsUsecase getLatestProductsUsecase;
+  final GetProductNameSuggestionsUsecase getProductNameSuggestionsUsecase;
+  final GetSearchProductsUsecase getSearchProductsUsecase;
   final ToggleFavoriteUsecase toggleFavoriteUsecase;
 
   Future<void> getProducts(Brand? brand, SubCategory subCategory) async {
@@ -57,12 +61,14 @@ class ProductCubit extends Cubit<ProductState> {
                 data: oldProducts,
                 hasReachedEnd: true,
               );
-          emit(state.copyWith(
-            productsStatus: UsecaseStatus.completed,
-            categoryOrBrandProducts: products.copyWith(
-              data: PaginatedListModel<ProductModel>.from(paginatedList!),
+          emit(
+            state.copyWith(
+              productsStatus: UsecaseStatus.completed,
+              categoryOrBrandProducts: products.copyWith(
+                data: PaginatedListModel<ProductModel>.from(paginatedList!),
+              ),
             ),
-          ));
+          );
         } else {
           final oldChats = List<ProductModel>.from(state.categoryOrBrandProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
           final paginatedList = PaginatedList<ProductModel>(
@@ -128,6 +134,63 @@ class ProductCubit extends Cubit<ProductState> {
             ),
           ));
         }
+      },
+    );
+  }
+
+  Future<void> getProductNameSuggestions(String query) async {
+    final result = await getProductNameSuggestionsUsecase(query);
+    if (isClosed) return;
+    return result.fold(
+      (error) => [],
+      (suggestions) => emit(state.copyWith(
+        productNameSuggestions: suggestions,
+      )),
+    );
+  }
+
+  void clearNameSuggestions() {
+    emit(state.copyWith(productNameSuggestions: const ApiResponse(data: [])));
+  }
+
+  Future<void> search(String query, {bool isChange = false}) async {
+    emit(state.copyWith(searchStatus: UsecaseStatus.running));
+    final result = await getSearchProductsUsecase(query);
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(state.copyWith(
+        searchStatus: UsecaseStatus.error,
+        searchFailure: failure,
+      )),
+      (products) {
+        final newProducts = List<ProductModel>.from(products.data!.data.map((e) => ProductModel.fromProduct(e)));
+        // final oldProducts = List<ProductModel>.from(state.searchResults.data!.data.map((e) => ProductModel.fromProduct(e)));
+        // if (newProducts.isEmpty) {
+        //   final paginatedList = state.searchResults.data?.map<ProductModel>((e) => ProductModel.fromProduct(e)).copyWith(
+        //         data: oldProducts,
+        //         hasReachedEnd: true,
+        //       );
+        //   emit(state.copyWith(
+        //     searchStatus: UsecaseStatus.completed,
+        //     searchResults: products.copyWith(
+        //       data: PaginatedListModel<ProductModel>.from(paginatedList!),
+        //     ),
+        //   ));
+        // } else {
+        final paginatedList = PaginatedList<ProductModel>(
+          data: newProducts, //[...oldProducts, ...newProducts],
+          currentPage: products.data!.currentPage,
+          lastPage: products.data!.lastPage,
+          itemsCount: products.data!.itemsCount,
+          hasReachedEnd: products.data!.hasReachedEnd,
+        );
+        emit(state.copyWith(
+          searchStatus: UsecaseStatus.completed,
+          searchResults: products.copyWith(
+            data: PaginatedListModel<ProductModel>.from(paginatedList),
+          ),
+        ));
+        // }
       },
     );
   }
@@ -214,6 +277,7 @@ class ProductCubit extends Cubit<ProductState> {
     final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
     final suggestedCartProductsIndex = state.suggestedCartProducts.indexWhere((element) => element.id == productId);
     final latestProductsIndex = state.latestProducts.data!.data.indexWhere((element) => element.id == productId);
+    final searchProductIndex = state.searchResults.data!.data.indexWhere((element) => element.id == productId);
 
     if (categoryOrBrandProductIndex != -1) {
       return state.categoryOrBrandProducts.data!.data[categoryOrBrandProductIndex];
@@ -225,8 +289,10 @@ class ProductCubit extends Cubit<ProductState> {
       return state.favoriteProducts.data!.data[favoriteIndex];
     } else if (suggestedCartProductsIndex != -1) {
       return state.suggestedCartProducts[suggestedCartProductsIndex];
-    } else {
+    } else if (latestProductsIndex != -1) {
       return state.latestProducts.data!.data[latestProductsIndex];
+    } else {
+      return state.searchResults.data!.data[searchProductIndex];
     }
   }
 
@@ -237,6 +303,7 @@ class ProductCubit extends Cubit<ProductState> {
     final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
     final suggestedCartProductsIndex = state.suggestedCartProducts.indexWhere((element) => element.id == productId);
     final latestProductsIndex = state.latestProducts.data!.data.indexWhere((element) => element.id == productId);
+    final searchProductIndex = state.searchResults.data!.data.indexWhere((element) => element.id == productId);
 
     final product = _getProduct(productId);
     if (categoryOrBrandProductIndex != -1) {
@@ -302,6 +369,19 @@ class ProductCubit extends Cubit<ProductState> {
           data: state.latestProducts.data!.copyWith(
             data: state.latestProducts.data!.data.updateItemAtIndex<ProductModel>(
               latestProductsIndex,
+              ProductModel.fromProduct(product.copyWith(isFavourite: value)),
+            ),
+          ),
+        ),
+      ));
+    }
+
+    if (searchProductIndex != -1) {
+      emit(state.copyWith(
+        searchResults: state.searchResults.copyWith(
+          data: state.searchResults.data!.copyWith(
+            data: state.searchResults.data!.data.updateItemAtIndex<ProductModel>(
+              searchProductIndex,
               ProductModel.fromProduct(product.copyWith(isFavourite: value)),
             ),
           ),

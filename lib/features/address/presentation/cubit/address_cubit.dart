@@ -42,6 +42,7 @@ class AddressCubit extends Cubit<AddressState> {
   Future<void> getAddresses() async {
     emit(state.copyWith(addressesStatus: UsecaseStatus.running));
     final result = await getAddressesUsecase();
+    if (isClosed) return;
     result.fold(
       (failure) {
         emit(state.copyWith(addressesStatus: UsecaseStatus.error, addressesFailure: failure));

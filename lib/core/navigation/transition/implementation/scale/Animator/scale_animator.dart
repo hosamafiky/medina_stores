@@ -1,11 +1,6 @@
-import 'package:flutter/animation.dart';
+part of '../scale_imports.dart';
 
-import '../../../../Constants/imports_constants.dart';
-import '../../../../Helper/Interfaces/helper_imports.dart';
-import '../Options/scale_animation_option.dart';
-
-class ScaleAnimator extends Animator<double>
-    implements CurveBehaviour, TweenBehaviour<double> {
+class ScaleAnimator extends Animator<double> implements CurveBehaviour, TweenBehaviour<double> {
   final ScaleAnimationOptions options;
 
   ScaleAnimator(this.options);
@@ -15,8 +10,7 @@ class ScaleAnimator extends Animator<double>
     return CurvedAnimation(
       parent: animation,
       curve: options.curve ?? RouterConstants.transitionCurve,
-      reverseCurve:
-          options.reverseCurve ?? RouterConstants.reverseTransitionCurve,
+      reverseCurve: options.reverseCurve ?? RouterConstants.reverseTransitionCurve,
     );
   }
 
