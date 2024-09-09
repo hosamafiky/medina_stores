@@ -46,7 +46,10 @@ class AddressesPageBody extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final cubit = context.read<AddressCubit>();
-          final response = await context.showSheet<Address>(child: const AddOrUpdateAddressSheet());
+          final response = await context.showSheet<Address>(
+            child: const AddOrUpdateAddressSheet(),
+            isScrollControlled: true,
+          );
           if (response != null) {
             final params = AddAddressParams(address: response);
             cubit.addAddress(params);

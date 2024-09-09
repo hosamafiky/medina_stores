@@ -88,7 +88,10 @@ class _AddressesList extends StatelessWidget {
             ),
             onPressed: () async {
               final cubit = context.read<AddressCubit>();
-              final address = await context.showSheet<Address>(child: const AddOrUpdateAddressSheet());
+              final address = await context.showSheet<Address>(
+                child: const AddOrUpdateAddressSheet(),
+                isScrollControlled: true,
+              );
               if (address != null) {
                 cubit.addAddress(AddAddressParams(address: address));
               }

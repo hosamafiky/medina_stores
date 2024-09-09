@@ -43,7 +43,7 @@ class _AddOrUpdateAddressSheetState extends State<AddOrUpdateAddressSheet> {
         builder: (context, state) {
           return Padding(
             padding: REdgeInsets.all(16.0).copyWith(
-              bottom: context.bottomBarHeight + 16.h,
+              bottom: context.bottomBarHeight + context.keyboardHeight + 16.h,
             ),
             child: Form(
               key: _formKey,
