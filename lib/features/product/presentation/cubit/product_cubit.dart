@@ -10,6 +10,7 @@ class ProductCubit extends Cubit<ProductState> {
     required this.getFavouriteProductsUsecase,
     required this.getSuggestedCartProductsUsecase,
     required this.getLatestProductsUsecase,
+    required this.getProductNameSuggestionsUsecase,
     required this.getSearchProductsUsecase,
     required this.toggleFavoriteUsecase,
     Brand? brand,
@@ -24,6 +25,7 @@ class ProductCubit extends Cubit<ProductState> {
   final GetFavouriteProductsUsecase getFavouriteProductsUsecase;
   final GetSuggestedCartProductsUsecase getSuggestedCartProductsUsecase;
   final GetLatestProductsUsecase getLatestProductsUsecase;
+  final GetProductNameSuggestionsUsecase getProductNameSuggestionsUsecase;
   final GetSearchProductsUsecase getSearchProductsUsecase;
   final ToggleFavoriteUsecase toggleFavoriteUsecase;
 
@@ -59,12 +61,14 @@ class ProductCubit extends Cubit<ProductState> {
                 data: oldProducts,
                 hasReachedEnd: true,
               );
-          emit(state.copyWith(
-            productsStatus: UsecaseStatus.completed,
-            categoryOrBrandProducts: products.copyWith(
-              data: PaginatedListModel<ProductModel>.from(paginatedList!),
+          emit(
+            state.copyWith(
+              productsStatus: UsecaseStatus.completed,
+              categoryOrBrandProducts: products.copyWith(
+                data: PaginatedListModel<ProductModel>.from(paginatedList!),
+              ),
             ),
-          ));
+          );
         } else {
           final oldChats = List<ProductModel>.from(state.categoryOrBrandProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
           final paginatedList = PaginatedList<ProductModel>(
@@ -132,6 +136,21 @@ class ProductCubit extends Cubit<ProductState> {
         }
       },
     );
+  }
+
+  Future<void> getProductNameSuggestions(String query) async {
+    final result = await getProductNameSuggestionsUsecase(query);
+    if (isClosed) return;
+    return result.fold(
+      (error) => [],
+      (suggestions) => emit(state.copyWith(
+        productNameSuggestions: suggestions,
+      )),
+    );
+  }
+
+  void clearNameSuggestions() {
+    emit(state.copyWith(productNameSuggestions: const ApiResponse(data: [])));
   }
 
   Future<void> search(String query, {bool isChange = false}) async {

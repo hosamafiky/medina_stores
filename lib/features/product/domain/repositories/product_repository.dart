@@ -9,6 +9,7 @@ abstract class ProductRepository {
   Future<Either<Failure, ApiResponse<PaginatedList<ProductModel>>>> getFavoriteProducts(GetPaginatedListParams params);
   Future<Either<Failure, ApiResponse<List<Product>>>> getSuggestedCartProducts();
   Future<Either<Failure, ApiResponse<PaginatedList<Product>>>> getLatestProducts(GetPaginatedListParams params);
+  Future<Either<Failure, ApiResponse<List<DropdownItem>>>> getProductNameSuggestions(String query);
   Future<Either<Failure, ApiResponse<PaginatedList<Product>>>> getSearchProducts(String query);
   Future<Either<Failure, ApiResponse<bool>>> toggleFavorite(int productId);
 }

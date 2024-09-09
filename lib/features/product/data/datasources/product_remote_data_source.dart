@@ -9,6 +9,7 @@ abstract class ProductRemoteDataSource {
   Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getFavouriteProducts(GetPaginatedListParams params);
   Future<ApiResponseModel<List<ProductModel>>> getSuggestedCartProducts();
   Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getLatestProducts(GetPaginatedListParams params);
+  Future<ApiResponseModel<List<DropdownItemModel>>> getProductNameSuggestions(String query);
   Future<ApiResponseModel<PaginatedListModel<ProductModel>>> getSearchProducts(String query);
   Future<ApiResponseModel<bool>> toggleFavorite(int productId);
 }
@@ -197,6 +198,25 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
             mapper: (data) => PaginatedListModel<ProductModel>.fromMap(
               data['data'],
               mapper: (x) => ProductModel.fromMap(x),
+            ),
+          ),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<List<DropdownItemModel>>> getProductNameSuggestions(String query) async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: '${ApiConstants.endPoints.PRODUCTS}/auto-complete',
+      queryParameters: {'search': query},
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<List<DropdownItemModel>>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => List<DropdownItemModel>.from(
+              data['data'].map((x) => DropdownItemModel.fromMap(x)),
             ),
           ),
         );

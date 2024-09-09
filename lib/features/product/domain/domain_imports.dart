@@ -16,6 +16,7 @@ part 'usecases/get_brand_products_usecase.dart';
 part 'usecases/get_favourite_products_usecase.dart';
 part 'usecases/get_latest_products_usecase.dart';
 part 'usecases/get_product_details_usecase.dart';
+part 'usecases/get_product_name_suggestions_usecase.dart';
 part 'usecases/get_products_by_query_usecase.dart';
 part 'usecases/get_related_products_usecase.dart';
 part 'usecases/get_sub_category_products_usecase.dart';

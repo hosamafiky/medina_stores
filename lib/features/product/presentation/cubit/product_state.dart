@@ -25,6 +25,7 @@ class ProductState extends Equatable {
     this.latestProductsStatus = UsecaseStatus.idle,
     this.latestProductsFailure,
     this.latestProducts = const ApiResponse(data: PaginatedList(data: [])),
+    this.productNameSuggestions = const ApiResponse(data: []),
     this.searchStatus = UsecaseStatus.idle,
     this.searchFailure,
     this.searchResults = const ApiResponse(data: PaginatedList(data: [])),
@@ -58,6 +59,8 @@ class ProductState extends Equatable {
   final Failure? latestProductsFailure;
   final ApiResponse<PaginatedList<Product>> latestProducts;
 
+  final ApiResponse<List<DropdownItem>> productNameSuggestions;
+
   final UsecaseStatus searchStatus;
   final Failure? searchFailure;
   final ApiResponse<PaginatedList<Product>> searchResults;
@@ -86,6 +89,7 @@ class ProductState extends Equatable {
     UsecaseStatus? latestProductsStatus,
     Failure? latestProductsFailure,
     ApiResponse<PaginatedList<Product>>? latestProducts,
+    ApiResponse<List<DropdownItem>>? productNameSuggestions,
     UsecaseStatus? searchStatus,
     Failure? searchFailure,
     ApiResponse<PaginatedList<Product>>? searchResults,
@@ -114,6 +118,7 @@ class ProductState extends Equatable {
       latestProductsStatus: latestProductsStatus ?? this.latestProductsStatus,
       latestProductsFailure: latestProductsFailure ?? this.latestProductsFailure,
       latestProducts: latestProducts ?? this.latestProducts,
+      productNameSuggestions: productNameSuggestions ?? this.productNameSuggestions,
       searchStatus: searchStatus ?? this.searchStatus,
       searchFailure: searchFailure ?? this.searchFailure,
       searchResults: searchResults ?? this.searchResults,
@@ -150,6 +155,7 @@ class ProductState extends Equatable {
         latestProductsStatus,
         latestProductsFailure,
         latestProducts,
+        productNameSuggestions,
         searchStatus,
         searchFailure,
         searchResults,

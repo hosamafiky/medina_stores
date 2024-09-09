@@ -20,6 +20,9 @@ class MainTab extends StatelessWidget {
         BlocProvider(
           create: (context) => DependencyHelper.instance.get<AdCubit>()..getAds(),
         ),
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.get<ProductCubit>(),
+        ),
       ],
       child: const MainTabPageBody(),
     );
