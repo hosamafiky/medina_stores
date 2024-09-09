@@ -15,13 +15,11 @@ import '../../../../core/networking/api_service.dart';
 import '../../../config/resources/locale_keys.g.dart';
 import '../../../core/error/exceptions.dart';
 import '../../../core/error/failures.dart';
-import '../../../core/helpers/cache_helper.dart';
 import '../../../core/navigation/navigator.dart';
 import '../../../core/standards/drop_down_item.dart';
 import '../../../core/standards/response_model.dart';
 import '../domain/domain_imports.dart';
 
-part 'datasources/cart_local_data_source.dart';
 part 'datasources/cart_remote_data_source.dart';
 part 'models/cart_data_model.dart';
 part 'models/cart_model.dart';

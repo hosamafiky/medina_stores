@@ -3,12 +3,10 @@ part of '../data_imports.dart';
 class CartRepositoryImpl implements CartRepository {
   final InternetConnectionChecker connectionChecker;
   final CartRemoteDataSource remoteDataSource;
-  final CartLocalDataSource localDataSource;
 
   const CartRepositoryImpl({
     required this.connectionChecker,
     required this.remoteDataSource,
-    required this.localDataSource,
   });
 
   @override
@@ -16,25 +14,12 @@ class CartRepositoryImpl implements CartRepository {
     if (await connectionChecker.hasConnection) {
       try {
         final cart = await remoteDataSource.getCartData;
-        await localDataSource.storeCartData(cart.data!);
         return Right(cart);
-      } on NoInternetConnectionException {
-        try {
-          final cachedCart = await localDataSource.fetchCachedCartData();
-          return Right(ApiResponse(data: cachedCart));
-        } on CacheException catch (e) {
-          return Left(CacheFailure(response: e.response));
-        }
       } on AppException catch (e) {
         return Left(e.handleFailure);
       }
     } else {
-      try {
-        final cachedCart = await localDataSource.fetchCachedCartData();
-        return Right(ApiResponse(data: cachedCart));
-      } on CacheException catch (e) {
-        return Left(CacheFailure(response: e.response));
-      }
+      return Left(NoInternetConnectionFailure(response: ApiResponse(message: LocaleKeys.check_internet.tr())));
     }
   }
 

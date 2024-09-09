@@ -35,7 +35,6 @@ void setUpCartDependencies() async {
   DependencyHelper.instance.serviceLocator.registerLazySingleton<CartRepository>(
     () => CartRepositoryImpl(
       remoteDataSource: DependencyHelper.instance.serviceLocator(),
-      localDataSource: DependencyHelper.instance.serviceLocator(),
       connectionChecker: DependencyHelper.instance.serviceLocator(),
     ),
   );
@@ -43,9 +42,5 @@ void setUpCartDependencies() async {
   // DATASOURCES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<CartRemoteDataSource>(
     () => CartRemoteDataSourceImpl(),
-  );
-
-  DependencyHelper.instance.serviceLocator.registerLazySingleton<CartLocalDataSource>(
-    () => CartLocalDataSourceImpl(),
   );
 }
