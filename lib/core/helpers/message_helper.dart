@@ -14,7 +14,12 @@ class MessageHelper {
   }) {
     return ScaffoldMessenger.of(AppNavigator.rootContext!).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Center(
+          child: Text(
+            message,
+            textAlign: TextAlign.center,
+          ),
+        ),
         backgroundColor: backgroundColor,
         dismissDirection: dismissDirection,
         duration: duration,
@@ -33,11 +38,21 @@ class MessageHelper {
     );
   }
 
-  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showErrorSnackBar(String message) {
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showErrorSnackBar(
+    String message, {
+    Duration duration = const Duration(seconds: 2),
+    DismissDirection dismissDirection = DismissDirection.vertical,
+  }) {
     return _showSnackBar(
       message,
       backgroundColor: AppNavigator.rootContext!.read<ThemeCubit>().state.colorPalette.error,
+      duration: duration,
+      dismissDirection: dismissDirection,
     );
+  }
+
+  static void clearSnackBars() {
+    return ScaffoldMessenger.of(AppNavigator.rootContext!).clearSnackBars();
   }
 
   static Future<bool?> _showToast(
