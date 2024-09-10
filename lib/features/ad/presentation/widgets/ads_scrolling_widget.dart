@@ -17,7 +17,7 @@ class AdsScrollingWidget extends StatelessWidget {
           context,
           running: (context) => const AdsWidget.skeleton(),
           completed: (context) {
-            if (state.ads.data.isNotEmpty) {
+            if (state.ads.list.isNotEmpty) {
               return AdsWidget(
                 state.ads,
                 currentIndex: state.currentIndex,

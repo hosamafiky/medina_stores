@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class PaginatedList<T extends Object> {
-  final List<T> data;
+  final List<T> list;
   final int currentPage;
   final int lastPage;
   final int itemsCount;
   final bool hasReachedEnd;
 
   const PaginatedList({
-    this.data = const [],
+    this.list = const [],
     this.currentPage = 0,
     this.lastPage = 1,
     this.itemsCount = 1,
@@ -18,14 +18,14 @@ class PaginatedList<T extends Object> {
   });
 
   PaginatedList<T> copyWith({
-    List<T>? data,
+    List<T>? list,
     int? currentPage,
     int? lastPage,
     int? itemsCount,
     bool? hasReachedEnd,
   }) {
     return PaginatedList<T>(
-      data: data ?? this.data,
+      list: list ?? this.list,
       currentPage: currentPage ?? this.currentPage,
       lastPage: lastPage ?? this.lastPage,
       itemsCount: itemsCount ?? this.itemsCount,
@@ -35,7 +35,7 @@ class PaginatedList<T extends Object> {
 
   PaginatedList<R> map<R extends Object>(R Function(T) mapper) {
     return PaginatedList<R>(
-      data: data.map((item) => mapper(item)).toList(),
+      list: list.map((item) => mapper(item)).toList(),
       currentPage: currentPage,
       lastPage: lastPage,
       itemsCount: itemsCount,
@@ -45,13 +45,13 @@ class PaginatedList<T extends Object> {
 
   @override
   String toString() {
-    return 'PaginatedList(data: $data, currentPage: $currentPage, lastPage: $lastPage, itemsCount: $itemsCount)';
+    return 'PaginatedList(data: $list, currentPage: $currentPage, lastPage: $lastPage, itemsCount: $itemsCount)';
   }
 }
 
 class PaginatedListModel<T extends Object> extends PaginatedList<T> {
   const PaginatedListModel({
-    super.data,
+    super.list,
     super.currentPage,
     super.lastPage,
     super.itemsCount,
@@ -63,7 +63,7 @@ class PaginatedListModel<T extends Object> extends PaginatedList<T> {
     required T Function(Map<String, dynamic>) mapper,
   }) {
     return PaginatedListModel<T>(
-      data: List<T>.from(map['data'].map((x) => mapper(x))),
+      list: List<T>.from(map['data'].map((x) => mapper(x))),
       itemsCount: map['items_count'] ?? 1,
       currentPage: map['current_page'] ?? 1,
       lastPage: map['last_page'] ?? 1,
@@ -73,7 +73,7 @@ class PaginatedListModel<T extends Object> extends PaginatedList<T> {
 
   factory PaginatedListModel.from(PaginatedList<T> paginatedList) {
     return PaginatedListModel<T>(
-      data: paginatedList.data,
+      list: paginatedList.list,
       itemsCount: paginatedList.itemsCount,
       currentPage: paginatedList.currentPage,
       lastPage: paginatedList.lastPage,
@@ -83,14 +83,14 @@ class PaginatedListModel<T extends Object> extends PaginatedList<T> {
 
   @override
   PaginatedListModel<T> copyWith({
-    List<T>? data,
+    List<T>? list,
     int? currentPage,
     int? lastPage,
     int? itemsCount,
     bool? hasReachedEnd,
   }) {
     return PaginatedListModel<T>(
-      data: data ?? this.data,
+      list: list ?? this.list,
       currentPage: currentPage ?? this.currentPage,
       lastPage: lastPage ?? this.lastPage,
       itemsCount: itemsCount ?? this.itemsCount,
@@ -105,7 +105,7 @@ class PaginatedListModel<T extends Object> extends PaginatedList<T> {
       PaginatedListModel.fromMap(jsonDecode(source), mapper: mapper);
 
   Map<String, dynamic> toMap(Map<String, dynamic> Function(T) mapper) => {
-        "data": List<Map<String, dynamic>>.from(data.map((x) => mapper(x))),
+        "data": List<Map<String, dynamic>>.from(list.map((x) => mapper(x))),
         "current_page": currentPage,
         "last_page": lastPage,
         "items_count": itemsCount,

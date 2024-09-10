@@ -73,11 +73,19 @@ void setUpProductDependencies() async {
 
   // REPOSITORIES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<ProductRepository>(
-    () => ProductRepositoryImpl(remoteDataSource: DependencyHelper.instance.serviceLocator()),
+    () => ProductRepositoryImpl(
+      connectionChecker: DependencyHelper.instance.serviceLocator(),
+      remoteDataSource: DependencyHelper.instance.serviceLocator(),
+      localDataSource: DependencyHelper.instance.serviceLocator(),
+    ),
   );
 
   // DATASOURCES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<ProductRemoteDataSource>(
     () => ProductRemoteDataSourceImpl(),
+  );
+
+  DependencyHelper.instance.serviceLocator.registerLazySingleton<ProductLocalDataSource>(
+    () => ProductLocalDataSourceImpl(),
   );
 }

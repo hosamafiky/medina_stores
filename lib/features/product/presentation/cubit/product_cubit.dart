@@ -54,11 +54,11 @@ class ProductCubit extends Cubit<ProductState> {
         productsFailure: failure,
       )),
       (products) {
-        final newProducts = List<ProductModel>.from(products.data!.data.map((e) => ProductModel.fromProduct(e)));
-        final oldProducts = List<ProductModel>.from(state.categoryOrBrandProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+        final newProducts = List<ProductModel>.from(products.data!.list.map((e) => ProductModel.fromProduct(e)));
+        final oldProducts = List<ProductModel>.from(state.categoryOrBrandProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
         if (newProducts.isEmpty) {
           final paginatedList = state.categoryOrBrandProducts.data?.map<ProductModel>((e) => ProductModel.fromProduct(e)).copyWith(
-                data: oldProducts,
+                list: oldProducts,
                 hasReachedEnd: true,
               );
           emit(
@@ -70,9 +70,9 @@ class ProductCubit extends Cubit<ProductState> {
             ),
           );
         } else {
-          final oldChats = List<ProductModel>.from(state.categoryOrBrandProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+          final oldChats = List<ProductModel>.from(state.categoryOrBrandProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
           final paginatedList = PaginatedList<ProductModel>(
-            data: [...oldChats, ...newProducts],
+            list: [...oldChats, ...newProducts],
             currentPage: products.data!.currentPage,
             lastPage: products.data!.lastPage,
             itemsCount: products.data!.itemsCount,
@@ -106,11 +106,11 @@ class ProductCubit extends Cubit<ProductState> {
         productsFailure: failure,
       )),
       (products) {
-        final newProducts = List<ProductModel>.from(products.data!.data.map((e) => ProductModel.fromProduct(e)));
-        final oldProducts = List<ProductModel>.from(state.categoryOrBrandProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+        final newProducts = List<ProductModel>.from(products.data!.list.map((e) => ProductModel.fromProduct(e)));
+        final oldProducts = List<ProductModel>.from(state.categoryOrBrandProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
         if (newProducts.isEmpty) {
           final paginatedList = state.categoryOrBrandProducts.data?.map<ProductModel>((e) => ProductModel.fromProduct(e)).copyWith(
-                data: oldProducts,
+                list: oldProducts,
                 hasReachedEnd: true,
               );
           emit(state.copyWith(
@@ -121,7 +121,7 @@ class ProductCubit extends Cubit<ProductState> {
           ));
         } else {
           final paginatedList = PaginatedList<ProductModel>(
-            data: [...oldProducts, ...newProducts],
+            list: [...oldProducts, ...newProducts],
             currentPage: products.data!.currentPage,
             lastPage: products.data!.lastPage,
             itemsCount: products.data!.itemsCount,
@@ -167,7 +167,7 @@ class ProductCubit extends Cubit<ProductState> {
         searchFailure: failure,
       )),
       (products) {
-        final newProducts = List<ProductModel>.from(products.data!.data.map((e) => ProductModel.fromProduct(e)));
+        final newProducts = List<ProductModel>.from(products.data!.list.map((e) => ProductModel.fromProduct(e)));
         // final oldProducts = List<ProductModel>.from(state.searchResults.data!.data.map((e) => ProductModel.fromProduct(e)));
         // if (newProducts.isEmpty) {
         //   final paginatedList = state.searchResults.data?.map<ProductModel>((e) => ProductModel.fromProduct(e)).copyWith(
@@ -182,7 +182,7 @@ class ProductCubit extends Cubit<ProductState> {
         //   ));
         // } else {
         final paginatedList = PaginatedList<ProductModel>(
-          data: newProducts, //[...oldProducts, ...newProducts],
+          list: newProducts, //[...oldProducts, ...newProducts],
           currentPage: products.data!.currentPage,
           lastPage: products.data!.lastPage,
           itemsCount: products.data!.itemsCount,
@@ -275,46 +275,46 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Product _getProduct(int productId) {
-    final categoryOrBrandProductIndex = state.categoryOrBrandProducts.data!.data.indexWhere((element) => element.id == productId);
+    final categoryOrBrandProductIndex = state.categoryOrBrandProducts.data!.list.indexWhere((element) => element.id == productId);
     final relatedProductIndex = state.relatedProducts.data!.indexWhere((element) => element.id == productId);
     final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
-    final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
+    final favoriteIndex = state.favoriteProducts.data!.list.indexWhere((element) => element.id == productId);
     final suggestedCartProductsIndex = state.suggestedCartProducts.indexWhere((element) => element.id == productId);
-    final latestProductsIndex = state.latestProducts.data!.data.indexWhere((element) => element.id == productId);
-    final searchProductIndex = state.searchResults.data!.data.indexWhere((element) => element.id == productId);
+    final latestProductsIndex = state.latestProducts.data!.list.indexWhere((element) => element.id == productId);
+    final searchProductIndex = state.searchResults.data!.list.indexWhere((element) => element.id == productId);
 
     if (categoryOrBrandProductIndex != -1) {
-      return state.categoryOrBrandProducts.data!.data[categoryOrBrandProductIndex];
+      return state.categoryOrBrandProducts.data!.list[categoryOrBrandProductIndex];
     } else if (relatedProductIndex != -1) {
       return state.relatedProducts.data![relatedProductIndex];
     } else if (youMayLikeProductIndex != -1) {
       return state.youMayLikeProducts.data![youMayLikeProductIndex];
     } else if (favoriteIndex != -1) {
-      return state.favoriteProducts.data!.data[favoriteIndex];
+      return state.favoriteProducts.data!.list[favoriteIndex];
     } else if (suggestedCartProductsIndex != -1) {
       return state.suggestedCartProducts[suggestedCartProductsIndex];
     } else if (latestProductsIndex != -1) {
-      return state.latestProducts.data!.data[latestProductsIndex];
+      return state.latestProducts.data!.list[latestProductsIndex];
     } else {
-      return state.searchResults.data!.data[searchProductIndex];
+      return state.searchResults.data!.list[searchProductIndex];
     }
   }
 
   Future<void> setProductFavourite({required int productId, required bool value}) async {
-    final categoryOrBrandProductIndex = state.categoryOrBrandProducts.data!.data.indexWhere((element) => element.id == productId);
+    final categoryOrBrandProductIndex = state.categoryOrBrandProducts.data!.list.indexWhere((element) => element.id == productId);
     final relatedProductIndex = state.relatedProducts.data!.indexWhere((element) => element.id == productId);
     final youMayLikeProductIndex = state.youMayLikeProducts.data!.indexWhere((element) => element.id == productId);
-    final favoriteIndex = state.favoriteProducts.data!.data.indexWhere((element) => element.id == productId);
+    final favoriteIndex = state.favoriteProducts.data!.list.indexWhere((element) => element.id == productId);
     final suggestedCartProductsIndex = state.suggestedCartProducts.indexWhere((element) => element.id == productId);
-    final latestProductsIndex = state.latestProducts.data!.data.indexWhere((element) => element.id == productId);
-    final searchProductIndex = state.searchResults.data!.data.indexWhere((element) => element.id == productId);
+    final latestProductsIndex = state.latestProducts.data!.list.indexWhere((element) => element.id == productId);
+    final searchProductIndex = state.searchResults.data!.list.indexWhere((element) => element.id == productId);
 
     final product = _getProduct(productId);
     if (categoryOrBrandProductIndex != -1) {
       emit(state.copyWith(
         categoryOrBrandProducts: state.categoryOrBrandProducts.copyWith(
           data: state.categoryOrBrandProducts.data!.copyWith(
-              data: state.categoryOrBrandProducts.data!.data.updateItemAtIndex<ProductModel>(
+              list: state.categoryOrBrandProducts.data!.list.updateItemAtIndex<ProductModel>(
             categoryOrBrandProductIndex,
             ProductModel.fromProduct(product.copyWith(isFavourite: value)),
           )),
@@ -348,7 +348,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(
         favoriteProducts: state.favoriteProducts.copyWith(
           data: state.favoriteProducts.data!.copyWith(
-            data: state.favoriteProducts.data!.data.updateItemAtIndex<ProductModel>(
+            list: state.favoriteProducts.data!.list.updateItemAtIndex<ProductModel>(
               favoriteIndex,
               ProductModel.fromProduct(product.copyWith(isFavourite: value)),
               isRemove: !value,
@@ -371,7 +371,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(
         latestProducts: state.latestProducts.copyWith(
           data: state.latestProducts.data!.copyWith(
-            data: state.latestProducts.data!.data.updateItemAtIndex<ProductModel>(
+            list: state.latestProducts.data!.list.updateItemAtIndex<ProductModel>(
               latestProductsIndex,
               ProductModel.fromProduct(product.copyWith(isFavourite: value)),
             ),
@@ -384,7 +384,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(
         searchResults: state.searchResults.copyWith(
           data: state.searchResults.data!.copyWith(
-            data: state.searchResults.data!.data.updateItemAtIndex<ProductModel>(
+            list: state.searchResults.data!.list.updateItemAtIndex<ProductModel>(
               searchProductIndex,
               ProductModel.fromProduct(product.copyWith(isFavourite: value)),
             ),
@@ -397,7 +397,7 @@ class ProductCubit extends Cubit<ProductState> {
   Future<void> getFavouriteProducts([int? page]) async {
     if (state.favoriteProducts.data?.hasReachedEnd == true) return;
     if (state.favoriteProducts.data?.currentPage == 0) emit(state.copyWith(favoriteProductsStatus: UsecaseStatus.running));
-    if (page != null) emit(state.copyWith(favoriteProducts: const ApiResponse(data: PaginatedList<ProductModel>(data: []))));
+    if (page != null) emit(state.copyWith(favoriteProducts: const ApiResponse(data: PaginatedList<ProductModel>(list: []))));
 
     final params = GetPaginatedListParams(page: page ?? (state.favoriteProducts.data!.currentPage) + 1, perPage: 5);
     final result = await getFavouriteProductsUsecase(params);
@@ -407,11 +407,11 @@ class ProductCubit extends Cubit<ProductState> {
         favoriteProductsFailure: failure,
       )),
       (favoriteProducts) {
-        final newProducts = List<ProductModel>.from(favoriteProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+        final newProducts = List<ProductModel>.from(favoriteProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
         if (newProducts.isEmpty) {
           final paginatedList = state.favoriteProducts.data
               ?.copyWith(
-                data: state.favoriteProducts.data!.data.map<ProductModel>((e) => ProductModel.fromProduct(e)).toList(),
+                list: state.favoriteProducts.data!.list.map<ProductModel>((e) => ProductModel.fromProduct(e)).toList(),
                 hasReachedEnd: true,
               )
               .map<ProductModel>((e) => ProductModel.fromProduct(e));
@@ -421,9 +421,9 @@ class ProductCubit extends Cubit<ProductState> {
             favoriteProducts: favoriteProducts.copyWith(data: paginatedList),
           ));
         } else {
-          final oldProducts = List<ProductModel>.from(state.favoriteProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+          final oldProducts = List<ProductModel>.from(state.favoriteProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
           final paginatedList = PaginatedList<ProductModel>(
-            data: [...oldProducts, ...newProducts],
+            list: [...oldProducts, ...newProducts],
             currentPage: favoriteProducts.data!.currentPage,
             lastPage: favoriteProducts.data!.lastPage,
             itemsCount: favoriteProducts.data!.itemsCount,
@@ -443,7 +443,7 @@ class ProductCubit extends Cubit<ProductState> {
   Future<void> getLatestProducts([int? page]) async {
     if (state.latestProducts.data?.hasReachedEnd == true) return;
     if (state.latestProducts.data?.currentPage == 0) emit(state.copyWith(latestProductsStatus: UsecaseStatus.running));
-    if (page != null) emit(state.copyWith(latestProducts: const ApiResponse(data: PaginatedList<ProductModel>(data: []))));
+    if (page != null) emit(state.copyWith(latestProducts: const ApiResponse(data: PaginatedList<ProductModel>(list: []))));
 
     final params = GetPaginatedListParams(page: page ?? (state.latestProducts.data!.currentPage) + 1, perPage: 5);
     final result = await getFavouriteProductsUsecase(params);
@@ -453,11 +453,11 @@ class ProductCubit extends Cubit<ProductState> {
         latestProductsFailure: failure,
       )),
       (latestProducts) {
-        final newProducts = List<ProductModel>.from(latestProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+        final newProducts = List<ProductModel>.from(latestProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
         if (newProducts.isEmpty) {
           final paginatedList = state.latestProducts.data
               ?.copyWith(
-                data: state.latestProducts.data!.data.map<ProductModel>((e) => ProductModel.fromProduct(e)).toList(),
+                list: state.latestProducts.data!.list.map<ProductModel>((e) => ProductModel.fromProduct(e)).toList(),
                 hasReachedEnd: true,
               )
               .map<ProductModel>((e) => ProductModel.fromProduct(e));
@@ -467,9 +467,9 @@ class ProductCubit extends Cubit<ProductState> {
             latestProducts: latestProducts.copyWith(data: paginatedList),
           ));
         } else {
-          final oldProducts = List<ProductModel>.from(state.latestProducts.data!.data.map((e) => ProductModel.fromProduct(e)));
+          final oldProducts = List<ProductModel>.from(state.latestProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
           final paginatedList = PaginatedList<ProductModel>(
-            data: [...oldProducts, ...newProducts],
+            list: [...oldProducts, ...newProducts],
             currentPage: latestProducts.data!.currentPage,
             lastPage: latestProducts.data!.lastPage,
             itemsCount: latestProducts.data!.itemsCount,

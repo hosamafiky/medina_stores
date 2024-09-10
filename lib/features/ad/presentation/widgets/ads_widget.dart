@@ -4,7 +4,7 @@ class AdsWidget extends StatelessWidget {
   const AdsWidget(this.ads, {super.key, this.currentIndex = 0}) : _isSkeleton = false;
 
   const AdsWidget.skeleton({super.key})
-      : ads = const PaginatedList(data: []),
+      : ads = const PaginatedList(list: []),
         currentIndex = 0,
         _isSkeleton = true;
 
@@ -15,7 +15,7 @@ class AdsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final adCubit = context.read<AdCubit>();
-    final sortedAds = List<Ad>.from(ads.data)..sort((a, b) => a.order.compareTo(b.order));
+    final sortedAds = List<Ad>.from(ads.list)..sort((a, b) => a.order.compareTo(b.order));
     return Column(
       children: [
         CarouselSlider.builder(

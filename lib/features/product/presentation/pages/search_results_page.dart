@@ -31,7 +31,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               );
             }
 
-            if (state.searchResults.data!.data.isEmpty && state.searchStatus == UsecaseStatus.completed) {
+            if (state.searchResults.data!.list.isEmpty && state.searchStatus == UsecaseStatus.completed) {
               return const Center(child: Text('No results found'));
             }
 
@@ -41,10 +41,10 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   padding: REdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   builder: (context, index) {
                     if (state.searchStatus == UsecaseStatus.running) return ProductWidget.skeleton();
-                    final product = state.searchResults.data!.data[index];
+                    final product = state.searchResults.data!.list[index];
                     return ProductWidget(product);
                   },
-                  itemCount: state.searchStatus == UsecaseStatus.running ? 6 : state.searchResults.data!.data.length,
+                  itemCount: state.searchStatus == UsecaseStatus.running ? 6 : state.searchResults.data!.list.length,
                   crossAxisCount: 3,
                   mainAxisSpacing: 12.h,
                   crossAxisSpacing: 12.w,

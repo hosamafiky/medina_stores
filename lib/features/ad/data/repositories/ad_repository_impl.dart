@@ -16,13 +16,13 @@ class AdRepositoryImpl implements AdRepository {
     if (await connectionChecker.hasConnection) {
       try {
         final ads = await remoteDataSource.getAds(params);
-        final adsToCache = ads.data!.data.map((ad) => AdModel.fromAd(ad)).toList();
+        final adsToCache = ads.data!.list.map((ad) => AdModel.fromAd(ad)).toList();
         await localDataSource.cacheAds(adsToCache);
         return Right(ads);
       } on NoInternetConnectionException {
         try {
           final cachedAds = await localDataSource.getCachedAds();
-          return Right(ApiResponse(data: PaginatedList(data: cachedAds)));
+          return Right(ApiResponse(data: PaginatedList(list: cachedAds)));
         } on CacheException catch (e) {
           return Left(CacheFailure(response: e.response));
         }
@@ -32,7 +32,7 @@ class AdRepositoryImpl implements AdRepository {
     } else {
       try {
         final cachedAds = await localDataSource.getCachedAds();
-        return Right(ApiResponse(data: PaginatedList(data: cachedAds)));
+        return Right(ApiResponse(data: PaginatedList(list: cachedAds)));
       } on CacheException catch (e) {
         return Left(CacheFailure(response: e.response));
       }

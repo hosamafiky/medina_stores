@@ -50,7 +50,7 @@ class _FavoriteProductsList extends StatefulWidget {
   const _FavoriteProductsList(this.products) : _isSkeleton = false;
 
   const _FavoriteProductsList.skeleton()
-      : products = const PaginatedList(data: []),
+      : products = const PaginatedList(list: []),
         _isSkeleton = true;
 
   final bool _isSkeleton;
@@ -101,10 +101,10 @@ class _FavoriteProductsListState extends State<_FavoriteProductsList> {
             builder: (context, index) {
               if (widget._isSkeleton) return ProductWidget.skeleton();
 
-              final product = widget.products.data[index];
+              final product = widget.products.list[index];
               return ProductWidget(product);
             },
-            itemCount: widget._isSkeleton ? 6 : widget.products.data.length,
+            itemCount: widget._isSkeleton ? 6 : widget.products.list.length,
           ),
           if (!widget.products.hasReachedEnd && !widget._isSkeleton) ...[
             const Center(child: CircularProgressIndicator.adaptive()).asSliver,

@@ -1,9 +1,15 @@
 part of '../data_imports.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
+  final InternetConnectionChecker connectionChecker;
   final ProductRemoteDataSource remoteDataSource;
+  final ProductLocalDataSource localDataSource;
 
-  const ProductRepositoryImpl({required this.remoteDataSource});
+  const ProductRepositoryImpl({
+    required this.connectionChecker,
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
   @override
   Future<Either<Failure, ApiResponse<PaginatedList<Product>>>> getSubCategoryProducts(GetCategoryProductsParams params) async {
@@ -37,7 +43,30 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<Failure, ApiResponse<PaginatedList<ProductModel>>>> getFavoriteProducts(GetPaginatedListParams params) async {
-    return await remoteDataSource.getFavouriteProducts(params).handleCallbackWithFailure;
+    if (await connectionChecker.hasConnection) {
+      try {
+        final products = await remoteDataSource.getFavouriteProducts(params);
+        final productsToCache = products.data!.list.map((product) => ProductModel.fromProduct(product)).toList();
+        if (params.page == 1) await localDataSource.cacheFavouriteProducts(productsToCache);
+        return Right(products);
+      } on NoInternetConnectionException {
+        try {
+          final cachedProducts = await localDataSource.getCachedFavouriteProducts();
+          return Right(ApiResponse(data: PaginatedList(list: cachedProducts)));
+        } on CacheException catch (e) {
+          return Left(CacheFailure(response: e.response));
+        }
+      } on AppException catch (e) {
+        return Left(e.handleFailure);
+      }
+    } else {
+      try {
+        final cachedProducts = await localDataSource.getCachedFavouriteProducts();
+        return Right(ApiResponse(data: PaginatedList(list: cachedProducts)));
+      } on CacheException catch (e) {
+        return Left(CacheFailure(response: e.response));
+      }
+    }
   }
 
   @override
@@ -47,7 +76,30 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<Failure, ApiResponse<PaginatedList<Product>>>> getLatestProducts(GetPaginatedListParams params) async {
-    return await remoteDataSource.getLatestProducts(params).handleCallbackWithFailure;
+    if (await connectionChecker.hasConnection) {
+      try {
+        final products = await remoteDataSource.getLatestProducts(params);
+        final productsToCache = products.data!.list.map((product) => ProductModel.fromProduct(product)).toList();
+        await localDataSource.cacheLatestProducts(productsToCache);
+        return Right(products);
+      } on NoInternetConnectionException {
+        try {
+          final cachedProducts = await localDataSource.getCachedLatestProducts();
+          return Right(ApiResponse(data: PaginatedList(list: cachedProducts)));
+        } on CacheException catch (e) {
+          return Left(CacheFailure(response: e.response));
+        }
+      } on AppException catch (e) {
+        return Left(e.handleFailure);
+      }
+    } else {
+      try {
+        final cachedProducts = await localDataSource.getCachedLatestProducts();
+        return Right(ApiResponse(data: PaginatedList(list: cachedProducts)));
+      } on CacheException catch (e) {
+        return Left(CacheFailure(response: e.response));
+      }
+    }
   }
 
   @override
