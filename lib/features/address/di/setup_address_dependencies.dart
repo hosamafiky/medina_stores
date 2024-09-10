@@ -34,11 +34,18 @@ void setUpAddressDependencies() async {
 
   // REPOSITORIES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<AddressRepository>(
-    () => AddressRepositoryImpl(remoteDataSource: DependencyHelper.instance.serviceLocator()),
+    () => AddressRepositoryImpl(
+      connectionChecker: DependencyHelper.instance.serviceLocator(),
+      remoteDataSource: DependencyHelper.instance.serviceLocator(),
+      localDataSource: DependencyHelper.instance.serviceLocator(),
+    ),
   );
 
   // DATASOURCES
   DependencyHelper.instance.serviceLocator.registerLazySingleton<AddressRemoteDataSource>(
     () => AddressRemoteDataSourceImpl(),
+  );
+  DependencyHelper.instance.serviceLocator.registerLazySingleton<AddressLocalDataSource>(
+    () => AddressLocalDataSourceImpl(),
   );
 }

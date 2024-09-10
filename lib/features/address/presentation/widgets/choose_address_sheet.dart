@@ -59,20 +59,7 @@ class _AddressesList extends StatelessWidget {
             itemCount: _isSkeleton ? 4 : addresses.length,
             separatorBuilder: (context, index) => SizedBox(height: 16.h),
             itemBuilder: (context, index) {
-              if (_isSkeleton) {
-                return ShimmerWidget.fromChild(
-                  child: ListTile(
-                    leading: const Text('1'),
-                    title: const Text('عنوان العميل'),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 13.sp),
-                    subtitle: const Text(
-                      'عنوان العميل',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                );
-              }
+              if (_isSkeleton) return AddressWidget.skeleton();
               final address = addresses[index];
               return AddressWidget(address);
             },

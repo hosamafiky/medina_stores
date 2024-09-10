@@ -1,13 +1,42 @@
 part of '../data_imports.dart';
 
 class AddressRepositoryImpl implements AddressRepository {
+  final InternetConnectionChecker connectionChecker;
   final AddressRemoteDataSource remoteDataSource;
+  final AddressLocalDataSource localDataSource;
 
-  const AddressRepositoryImpl({required this.remoteDataSource});
+  const AddressRepositoryImpl({
+    required this.connectionChecker,
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
   @override
   Future<Either<Failure, ApiResponse<List<Address>>>> getAddresses() async {
-    return await remoteDataSource.getAddresses().handleCallbackWithFailure;
+    if (await connectionChecker.hasConnection) {
+      try {
+        final addresses = await remoteDataSource.getAddresses();
+        final addressesToCache = addresses.data!.map((address) => AddressModel.fromAddress(address)).toList();
+        await localDataSource.cacheAddresses(addressesToCache);
+        return Right(addresses);
+      } on NoInternetConnectionException {
+        try {
+          final cachedAddresses = await localDataSource.getCachedAddresss();
+          return Right(ApiResponse(data: cachedAddresses));
+        } on CacheException catch (e) {
+          return Left(CacheFailure(response: e.response));
+        }
+      } on AppException catch (e) {
+        return Left(e.handleFailure);
+      }
+    } else {
+      try {
+        final cachedAddresses = await localDataSource.getCachedAddresss();
+        return Right(ApiResponse(data: cachedAddresses));
+      } on CacheException catch (e) {
+        return Left(CacheFailure(response: e.response));
+      }
+    }
   }
 
   @override
