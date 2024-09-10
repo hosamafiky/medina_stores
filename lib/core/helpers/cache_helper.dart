@@ -15,6 +15,7 @@ class CacheKeys {
   static const String categories = 'categories';
   static const String cart = 'cart';
   static const String suggestedCartProducts = 'suggested-cart-products';
+  static const String userAddresses = 'user-addresses';
 }
 
 class CacheHelper {

@@ -11,9 +11,9 @@ class Address extends Equatable {
 
   Address({
     this.id = 0,
-    required this.title,
-    required this.latitude,
-    required this.longitude,
+    this.title = '',
+    this.latitude = 0.0,
+    this.longitude = 0.0,
     DateTime? createdAt,
   }) : _createdAt = createdAt ?? DateTime.now();
 

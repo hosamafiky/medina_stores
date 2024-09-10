@@ -139,6 +139,10 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> getProductNameSuggestions(String query) async {
+    if (query.isEmpty) {
+      clearNameSuggestions();
+      return;
+    }
     final result = await getProductNameSuggestionsUsecase(query);
     if (isClosed) return;
     return result.fold(
@@ -153,7 +157,7 @@ class ProductCubit extends Cubit<ProductState> {
     emit(state.copyWith(productNameSuggestions: const ApiResponse(data: [])));
   }
 
-  Future<void> search(String query, {bool isChange = false}) async {
+  Future<void> search(String query) async {
     emit(state.copyWith(searchStatus: UsecaseStatus.running));
     final result = await getSearchProductsUsecase(query);
     if (isClosed) return;
