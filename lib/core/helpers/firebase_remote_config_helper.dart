@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:medina_stores/core/networking/api_constants.dart';
+
+import '../networking/api_constants.dart';
 
 class FirebaseRemoteConfigKeys {
   static const String domain = 'domain';

@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
-import '../../features/address/di/setup_address_dependencies.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../features/ad/di/setup_ad_dependencies.dart';
+import '../../features/address/di/setup_address_dependencies.dart';
 import '../../features/brand/di/setup_brand_dependencies.dart';
 import '../../features/cart/di/setup_cart_dependencies.dart';
 import '../../features/category/di/setup_category_dependencies.dart';

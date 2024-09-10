@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medina_stores/core/extensions/dio_exception.dart';
-import 'package:medina_stores/core/navigation/navigator.dart';
 
 import '../../config/resources/languages.dart';
 import '../../features/user/presentation/presentation_imports.dart';
+import '../extensions/dio_exception.dart';
+import '../navigation/navigator.dart';
 import '../standards/response_model.dart';
 import 'api_constants.dart';
 import 'api_request.dart';

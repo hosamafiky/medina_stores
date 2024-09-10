@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:medina_stores/config/resources/locale_keys.g.dart';
+
+import '../../config/resources/locale_keys.g.dart';
 
 class ValidationHelper {
   static bool isEmail(String input) {

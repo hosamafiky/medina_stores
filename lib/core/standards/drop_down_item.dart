@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:medina_stores/core/extensions/string.dart';
+
+import '../extensions/string.dart';
 
 class DropdownItem extends Equatable {
   final int id;

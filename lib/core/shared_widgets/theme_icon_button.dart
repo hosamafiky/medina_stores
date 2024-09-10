@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medina_stores/core/extensions/context.dart';
+
+import '../extensions/context.dart';
 
 class ThemeIconButton extends StatelessWidget {
   const ThemeIconButton({super.key});

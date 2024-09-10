@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:medina_stores/core/extensions/string.dart';
 
 import '../navigation/navigator.dart';
+import 'string.dart';
 
 extension TimeFormat on Duration {
   String get formatTime {

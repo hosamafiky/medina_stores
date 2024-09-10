@@ -1,6 +1,6 @@
 part of '../presentation_imports.dart';
 
-class ProductsSearchField extends StatefulWidget {
+class ProductsSearchField extends StatelessWidget {
   const ProductsSearchField({
     super.key,
     this.controller,
@@ -13,66 +13,51 @@ class ProductsSearchField extends StatefulWidget {
   final bool readOnly;
 
   @override
-  State<StatefulWidget> createState() => ProductsSearchFieldState();
-}
-
-class ProductsSearchFieldState extends State<ProductsSearchField> {
-  final OverlayPortalController _tooltipController = OverlayPortalController();
-  final _link = LayerLink();
-
-  @override
   Widget build(BuildContext context) {
-    return BlocListener<ProductCubit, ProductState>(
-      listener: (context, state) {
-        if (state.productNameSuggestions.data!.isNotEmpty) {
-          _tooltipController.show();
-        }
-        if (state.productNameSuggestions.data!.isEmpty) {
-          _tooltipController.hide();
-        }
-      },
-      child: BlocSelector<ProductCubit, ProductState, List<DropdownItem>>(
-        selector: (state) => state.productNameSuggestions.data!,
-        builder: (context, suggestions) {
-          return CompositedTransformTarget(
-            link: _link,
-            child: OverlayPortal(
-              controller: _tooltipController,
-              overlayChildBuilder: (_) {
-                return Stack(
-                  children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      width: 0.75.sw,
-                      height: 200.h,
-                      child: CompositedTransformFollower(
-                        link: _link,
-                        targetAnchor: Alignment.bottomLeft,
-                        showWhenUnlinked: false,
-                        offset: const Offset(0, 10),
-                        child: AutoCompleteMenuWidget(
-                          suggestions: suggestions,
-                          onItemClicked: (item) {
-                            widget.controller!.text = item.name;
-                            context.read<ProductCubit>().clearNameSuggestions();
-                            context.read<ProductCubit>().search(item.name);
-                          },
+    return BlocSelector<ProductCubit, ProductState, List<DropdownItem>>(
+      selector: (state) => state.productNameSuggestions.data!,
+      builder: (context, suggestions) {
+        return Autocomplete<DropdownItem>(
+          displayStringForOption: (option) => option.name,
+          fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) {
+            return _SearchField(
+              controller: textEditingController,
+              padding: padding,
+              readOnly: readOnly,
+              focusNode: focusNode,
+            );
+          },
+          optionsMaxHeight: 200.h,
+          optionsViewBuilder: (context, onSelected, _) {
+            if (suggestions.isEmpty) return const SizedBox();
+            return ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 200.h),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: suggestions
+                    .map(
+                      (option) => Padding(
+                        padding: REdgeInsets.all(8.0),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                          tileColor: context.colorPalette.success,
+                          title: Text(option.name),
+                          onTap: () => onSelected(option),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
-              child: _SearchField(
-                controller: widget.controller,
-                padding: widget.padding,
-                readOnly: widget.readOnly,
+                    )
+                    .toList(),
               ),
-            ),
-          );
-        },
-      ),
+            );
+          },
+          optionsBuilder: (_) => suggestions,
+          onSelected: (value) {
+            if (controller != null) controller!.text = value.name;
+            context.read<ProductCubit>().clearNameSuggestions();
+            context.read<ProductCubit>().search(value.name);
+          },
+        );
+      },
     );
   }
 }
@@ -82,11 +67,14 @@ class _SearchField extends StatelessWidget {
     this.controller,
     this.padding = EdgeInsets.zero,
     this.readOnly = false,
+    this.focusNode,
   });
 
   final TextEditingController? controller;
+  final FocusNode? focusNode;
   final EdgeInsetsGeometry padding;
   final bool readOnly;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -94,6 +82,7 @@ class _SearchField extends StatelessWidget {
       child: AppTextField(
         controller: controller,
         readOnly: readOnly,
+        focusNode: focusNode,
         hintText: LocaleKeys.product_search_by.tr(),
         onChanged: (value) => context.read<ProductCubit>().getProductNameSuggestions(value!),
         onTap: !readOnly

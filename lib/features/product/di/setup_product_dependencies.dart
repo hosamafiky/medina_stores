@@ -1,7 +1,6 @@
-import 'package:medina_stores/features/sub_category/domain/domain_imports.dart';
-
 import '../../../core/helpers/dependency_helper.dart';
 import '../../brand/domain/domain_imports.dart';
+import '../../sub_category/domain/domain_imports.dart';
 import '../data/data_imports.dart';
 import '../domain/domain_imports.dart';
 import '../presentation/presentation_imports.dart';
