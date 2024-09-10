@@ -23,7 +23,7 @@ class AdCubit extends Cubit<AdState> {
         adsFailure: failure,
       )),
       (ads) {
-        if (ads.data!.data.isEmpty) {
+        if (ads.data!.list.isEmpty) {
           final paginatedList = PaginatedListModel<AdModel>.from(state.ads.data!.map((e) => AdModel.fromAd(e))).copyWith(
             hasReachedEnd: true,
           );
@@ -34,10 +34,10 @@ class AdCubit extends Cubit<AdState> {
             ),
           ));
         } else {
-          final oldAds = List<AdModel>.from(state.ads.data!.data.map((e) => AdModel.fromAd(e)));
-          final newAds = List<AdModel>.from(ads.data!.data.map((e) => AdModel.fromAd(e)));
+          final oldAds = List<AdModel>.from(state.ads.data!.list.map((e) => AdModel.fromAd(e)));
+          final newAds = List<AdModel>.from(ads.data!.list.map((e) => AdModel.fromAd(e)));
           final paginatedList = PaginatedList<AdModel>(
-            data: refresh ? newAds : [...oldAds, ...newAds],
+            list: refresh ? newAds : [...oldAds, ...newAds],
             currentPage: ads.data!.currentPage,
             lastPage: ads.data!.lastPage,
             itemsCount: ads.data!.itemsCount,

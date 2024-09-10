@@ -77,7 +77,7 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
               ],
             ),
             completed: (context) {
-              if (state.products.data.isEmpty) {
+              if (state.products.list.isEmpty) {
                 return Center(child: Text(LocaleKeys.empty_products.tr()));
               }
               return CustomScrollView(
@@ -91,9 +91,9 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
                       crossAxisCount: 3,
                       crossAxisSpacing: 12.w,
                       mainAxisSpacing: 12.h,
-                      itemCount: state.products.data.length,
+                      itemCount: state.products.list.length,
                       builder: (context, index) {
-                        final product = state.products.data[index];
+                        final product = state.products.list[index];
                         return ProductWidget(product);
                       },
                     ),

@@ -33,7 +33,7 @@ class _LatestProductsList extends StatefulWidget {
   const _LatestProductsList(this.products) : _isSkeleton = false;
 
   const _LatestProductsList.skeleton()
-      : products = const PaginatedList(data: []),
+      : products = const PaginatedList(list: []),
         _isSkeleton = true;
 
   final bool _isSkeleton;
@@ -79,10 +79,10 @@ class _LatestProductsListState extends State<_LatestProductsList> {
           crossAxisCount: 3,
           crossAxisSpacing: 12.w,
           mainAxisSpacing: 12.h,
-          itemCount: widget._isSkeleton ? 6 : widget.products.data.length,
+          itemCount: widget._isSkeleton ? 6 : widget.products.list.length,
           builder: (context, index) {
             if (widget._isSkeleton) return ProductWidget.skeleton();
-            final product = widget.products.data[index];
+            final product = widget.products.list[index];
             return ProductWidget(product);
           },
         ),

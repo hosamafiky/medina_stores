@@ -58,14 +58,14 @@ class _AdsPageBodyState extends State<AdsPageBody> {
             running: (context) => const Center(child: CircularProgressIndicator.adaptive()),
             completed: (context) => ListView.separated(
               controller: _scrollController,
-              itemCount: !state.ads.hasReachedEnd ? state.ads.data.length + 1 : state.ads.data.length,
+              itemCount: !state.ads.hasReachedEnd ? state.ads.list.length + 1 : state.ads.list.length,
               separatorBuilder: (context, index) => SizedBox(height: 16.h),
               itemBuilder: (context, index) {
-                if (index >= state.ads.data.length) {
+                if (index >= state.ads.list.length) {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                final ad = state.ads.data[index];
+                final ad = state.ads.list[index];
                 return AdWidget(ad);
               },
             ),
