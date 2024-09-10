@@ -20,7 +20,7 @@ class LayoutPageBody extends StatefulWidget {
 }
 
 class _LayoutPageBodyState extends State<LayoutPageBody> {
-  final List<Widget> views = const [MainTab(), NewTabPage(), MainTab(), ProfileTab()];
+  final List<Widget> views = const [MainTab(), NewTabPage(), MainTab(), MeTab()];
 
   @override
   void initState() {

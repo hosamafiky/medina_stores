@@ -7,6 +7,7 @@ abstract class UserRemoteDataSource {
   Future<ApiResponseModel<Null>> verifyPasswordOTP(String otp);
   Future<ApiResponseModel<UserModel>> verifyOTP(String otp);
   Future<ApiResponseModel<Null>> resetPassword(ResetPasswordParams params);
+  Future<ApiResponseModel<UserProfileModel>> getUserProfile();
   Future<ApiResponseModel<Null>> logout();
 }
 
@@ -87,6 +88,22 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     return await DependencyHelper.instance.get<ApiService>().callApi<Null>(
           request,
           mapper: (json) => ApiResponseModel.fromMap(json),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<UserProfileModel>> getUserProfile() async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: ApiConstants.endPoints.PROFILE,
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<UserProfileModel>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => UserProfileModel.fromMap(data['data']),
+          ),
         );
   }
 }

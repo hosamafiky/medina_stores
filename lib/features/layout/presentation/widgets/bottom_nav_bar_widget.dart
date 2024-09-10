@@ -44,7 +44,7 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.person_outline),
-          label: LocaleKeys.profile.tr(context: context),
+          label: LocaleKeys.me.tr(context: context),
         ),
       ],
     );

@@ -9,8 +9,8 @@ import '../../../core/helpers/dependency_helper.dart';
 import '../../../core/helpers/dynamic_links_helper.dart';
 import '../../../core/shared_widgets/core_widgets/visitor_login_sheet.dart';
 import '../../main_tab/presentation/presentation_imports.dart';
+import '../../me/presentation/presentation_imports.dart';
 import '../../new_tab/presentation/presentation_imports.dart';
-import '../../profile/presentation/presentation_imports.dart';
 
 part 'cubit/layout_cubit.dart';
 part 'pages/layout_page.dart';

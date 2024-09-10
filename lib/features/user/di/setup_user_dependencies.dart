@@ -14,6 +14,7 @@ void setUpUserDependencies() async {
       verifyOTPUsecase: DependencyHelper.instance.serviceLocator(),
       verifyPassOTPUsecase: DependencyHelper.instance.serviceLocator(),
       resetPasswordUsecase: DependencyHelper.instance.serviceLocator(),
+      getUserDataUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
@@ -38,6 +39,9 @@ void setUpUserDependencies() async {
   );
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => ResetPasswordUseCase(repository: DependencyHelper.instance.serviceLocator()),
+  );
+  DependencyHelper.instance.serviceLocator.registerLazySingleton(
+    () => GetUserDataUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES

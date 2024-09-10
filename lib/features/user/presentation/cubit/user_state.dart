@@ -17,6 +17,7 @@ class UserState extends Equatable {
     this.verifyPasswordOTPFailure,
     this.resetPasswordStatus = UsecaseStatus.idle,
     this.resetPasswordFailure,
+    this.userProfile,
   });
 
   final UsecaseStatus loginStatus;
@@ -41,6 +42,7 @@ class UserState extends Equatable {
   final Failure? resetPasswordFailure;
 
   final ApiResponse<User?>? user;
+  final ApiResponse<UserProfile>? userProfile;
 
   UserState copyWith({
     UsecaseStatus? loginStatus,
@@ -58,6 +60,7 @@ class UserState extends Equatable {
     UsecaseStatus? resetPasswordStatus,
     Failure? resetPasswordFailure,
     ApiResponse<User?>? user,
+    ApiResponse<UserProfile>? userProfile,
   }) {
     return UserState(
       loginStatus: loginStatus ?? UsecaseStatus.idle,
@@ -75,6 +78,7 @@ class UserState extends Equatable {
       resetPasswordStatus: resetPasswordStatus ?? UsecaseStatus.idle,
       resetPasswordFailure: resetPasswordFailure,
       user: user ?? this.user,
+      userProfile: userProfile ?? this.userProfile,
     );
   }
 
@@ -96,6 +100,7 @@ class UserState extends Equatable {
       resetPasswordStatus,
       resetPasswordFailure,
       user,
+      userProfile,
     ];
   }
 }

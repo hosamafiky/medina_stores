@@ -9,7 +9,6 @@ import '../../features/category/di/setup_category_dependencies.dart';
 import '../../features/layout/di/setup_layout_dependencies.dart';
 import '../../features/main_tab/di/setup_main_dependencies.dart';
 import '../../features/product/di/setup_product_dependencies.dart';
-import '../../features/profile/di/setup_profile_dependencies.dart';
 import '../../features/sub_category/di/setup_sub_category_dependencies.dart';
 import '../../features/user/di/setup_user_dependencies.dart';
 import '../networking/api_service.dart';
@@ -31,7 +30,6 @@ class DependencyHelper {
     setUpSubCategoryDependencies();
     setUpCategoryDependencies();
     setUpAdDependencies();
-    setUpProfileDependencies();
     setUpMainDependencies();
     setUpLayoutDependencies();
     setUpUserDependencies();

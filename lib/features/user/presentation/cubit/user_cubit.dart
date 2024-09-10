@@ -9,6 +9,7 @@ class UserCubit extends Cubit<UserState> {
     required this.verifyOTPUsecase,
     required this.verifyPassOTPUsecase,
     required this.resetPasswordUsecase,
+    required this.getUserDataUsecase,
   }) : super(const UserState());
 
   final LoginUsecase loginUsecase;
@@ -18,10 +19,18 @@ class UserCubit extends Cubit<UserState> {
   final VerifyOTPUseCase verifyOTPUsecase;
   final VerifyPassOTPUseCase verifyPassOTPUsecase;
   final ResetPasswordUseCase resetPasswordUsecase;
+  final GetUserDataUsecase getUserDataUsecase;
 
   void initWithCachedUser(User? user) {
     if (user == null) return;
-    emit(state.copyWith(user: ApiResponse(data: user)));
+    emit(
+      state.copyWith(
+        user: ApiResponse(data: user),
+        userProfile: ApiResponse(
+          data: UserProfile.fromUser(user),
+        ),
+      ),
+    );
   }
 
   Future<void> logout() async {
@@ -40,7 +49,11 @@ class UserCubit extends Cubit<UserState> {
     if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(loginStatus: UsecaseStatus.error, loginFailure: failure)),
-      (user) => emit(state.copyWith(loginStatus: UsecaseStatus.completed, user: user)),
+      (user) => emit(state.copyWith(
+        loginStatus: UsecaseStatus.completed,
+        user: user,
+        userProfile: ApiResponse(data: UserProfile.fromUser(user.data!)),
+      )),
     );
   }
 
@@ -114,6 +127,24 @@ class UserCubit extends Cubit<UserState> {
     result.fold(
       (failure) => emit(state.copyWith(resetPasswordStatus: UsecaseStatus.error, resetPasswordFailure: failure)),
       (r) => emit(state.copyWith(resetPasswordStatus: UsecaseStatus.completed, user: state.user == null ? r : state.user!.copyWith(message: r.message))),
+    );
+  }
+
+  Future<void> getUserData() async {
+    final result = await getUserDataUsecase();
+    result.fold(
+      (failure) {},
+      (profile) => emit(
+        state.copyWith(
+          userProfile: profile,
+          user: ApiResponse(
+            data: profile.data!.copyWith(
+              token: state.user?.data?.token,
+              name: state.user?.data?.name,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -56,6 +56,7 @@ class DioService implements ApiService {
       await networkRequest.prepareRequestData();
       final headers = networkRequest.headers ?? {};
       final token = AppNavigator.rootContext!.read<UserCubit>().state.user?.data?.token;
+      print('token: $token');
       headers.addEntries([
         MapEntry(
           'Accept-Language',

@@ -35,6 +35,7 @@ part 'cubit/user_state.dart';
 part 'pages/forget_password_page.dart';
 part 'pages/login_page.dart';
 part 'pages/otp_page.dart';
+part 'pages/profile_page.dart';
 part 'pages/register_page.dart';
 part 'pages/reset_password_page.dart';
 part 'widgets/forget_password_listener.dart';

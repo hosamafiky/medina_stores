@@ -39,4 +39,9 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, ApiResponse<Null>>> resetPassword(ResetPasswordParams params) async {
     return await remoteDataSource.resetPassword(params).handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, ApiResponse<UserProfile>>> getUserProfile() async {
+    return await remoteDataSource.getUserProfile().handleCallbackWithFailure;
+  }
 }

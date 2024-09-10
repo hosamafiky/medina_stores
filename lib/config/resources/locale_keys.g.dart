@@ -66,7 +66,7 @@ abstract class LocaleKeys {
   static const _LAYOUT = '_LAYOUT';
   static const empty_ads = 'empty_ads';
   static const home = 'home';
-  static const profile = 'profile';
+  static const me = 'me';
   static const whats_new = 'whats_new';
   static const my_orders = 'my_orders';
   static const sub_category = 'sub_category';
@@ -114,4 +114,7 @@ abstract class LocaleKeys {
   static const add = 'add';
   static const update = 'update';
   static const product_search_by = 'product_search_by';
+  static const edit = 'edit';
+  static const profile = 'profile';
+  static const wallet = 'wallet';
 }

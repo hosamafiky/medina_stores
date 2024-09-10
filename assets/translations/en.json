@@ -62,7 +62,7 @@
   "_LAYOUT": "_LAYOUT",
   "empty_ads": "Currently, No ads found",
   "home": "Home",
-  "profile": "Me",
+  "me": "Me",
   "whats_new": "New",
   "my_orders": "My Orders",
   "sub_category": "Sub Category",
@@ -109,5 +109,8 @@
   "add_new_address": "Add New Address",
   "add": "Add",
   "update": "Update",
-  "product_search_by": "Search by product name, brand or category"
+  "product_search_by": "Search by product name, brand or category",
+  "edit": "Edit",
+  "profile": "Profile",
+  "wallet": "Wallet"
 }

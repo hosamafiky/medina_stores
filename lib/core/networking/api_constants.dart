@@ -27,6 +27,9 @@ class ApiEndPoints {
   // Address
   final String ADDRESSES = '/addresses';
 
+  // Profile
+  final String PROFILE = '/profile';
+
   // Auth
   final String login = '/login';
   final String register = '/register';

@@ -1,7 +1,7 @@
 part of '../presentation_imports.dart';
 
-class ProfilePageListener extends StatelessWidget {
-  const ProfilePageListener({super.key, required this.child});
+class MePageListener extends StatelessWidget {
+  const MePageListener({super.key, required this.child});
 
   final Widget child;
 
