@@ -59,7 +59,7 @@ class ProductState extends Equatable {
   final Failure? latestProductsFailure;
   final ApiResponse<PaginatedList<Product>> latestProducts;
 
-  final ApiResponse<List<DropdownItem>> productNameSuggestions;
+  final ApiResponse<List<String>> productNameSuggestions;
 
   final UsecaseStatus searchStatus;
   final Failure? searchFailure;
@@ -89,7 +89,7 @@ class ProductState extends Equatable {
     UsecaseStatus? latestProductsStatus,
     Failure? latestProductsFailure,
     ApiResponse<PaginatedList<Product>>? latestProducts,
-    ApiResponse<List<DropdownItem>>? productNameSuggestions,
+    ApiResponse<List<String>>? productNameSuggestions,
     UsecaseStatus? searchStatus,
     Failure? searchFailure,
     ApiResponse<PaginatedList<Product>>? searchResults,

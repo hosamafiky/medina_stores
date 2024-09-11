@@ -15,8 +15,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     return BlocProvider(
       create: (context) => DependencyHelper.instance.serviceLocator<ProductCubit>(),
       child: Scaffold(
-        appBar: const MainAppBar(
-          title: Text('Search Results'),
+        appBar: MainAppBar(
+          title: Text(LocaleKeys.search_results.tr()),
           centerTitle: true,
         ),
         body: Column(
@@ -36,7 +36,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   }
 
                   if (state.searchResults.data!.list.isEmpty && state.searchStatus == UsecaseStatus.completed) {
-                    return const Center(child: Text('No results found'));
+                    return Center(child: Text(LocaleKeys.empty_products.tr()));
                   }
 
                   return CustomScrollView(
