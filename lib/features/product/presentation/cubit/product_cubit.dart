@@ -138,12 +138,8 @@ class ProductCubit extends Cubit<ProductState> {
     );
   }
 
-  Future<void> getProductNameSuggestions(String query) async {
-    // if (query.isEmpty) {
-    //   clearNameSuggestions();
-    //   return;
-    // }
-    final result = await getProductNameSuggestionsUsecase(query);
+  Future<void> getProductNameSuggestions(String? query) async {
+    final result = await getProductNameSuggestionsUsecase(query ?? '');
     if (isClosed) return;
     return result.fold(
       (error) => [],

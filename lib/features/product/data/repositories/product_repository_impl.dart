@@ -108,7 +108,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, ApiResponse<List<DropdownItem>>>> getProductNameSuggestions(String query) async {
+  Future<Either<Failure, ApiResponse<List<String>>>> getProductNameSuggestions(String query) async {
     return await remoteDataSource.getProductNameSuggestions(query).handleCallbackWithFailure;
   }
 }

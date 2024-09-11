@@ -27,7 +27,6 @@ import '../../../core/shared_widgets/core_widgets/main_app_bar.dart';
 import '../../../core/shared_widgets/core_widgets/shimmer_widget.dart';
 import '../../../core/shared_widgets/state_managers/error_widget.dart';
 import '../../../core/shared_widgets/state_managers/loading_manager.dart';
-import '../../../core/standards/drop_down_item.dart';
 import '../../../core/standards/paginated_list.dart';
 import '../../../core/standards/response_model.dart';
 import '../../../core/standards/usecase_status.dart';

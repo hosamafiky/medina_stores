@@ -77,6 +77,7 @@
   "_PRODUCT": "_PRODUCT",
   "product": "Product",
   "products": "Products",
+  "search_results": "Search Results",
   "favorite_products": "Favorite Products",
   "select_hint": "Select ...",
   "save_money": "Save ${amount}",
