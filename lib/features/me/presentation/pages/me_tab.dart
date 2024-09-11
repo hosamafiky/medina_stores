@@ -52,7 +52,7 @@ class _MeTabState extends State<MeTab> {
                 icon: Icon(Icons.arrow_forward_ios, size: 14.sp),
                 iconAlignment: IconAlignment.end,
                 label: Text(
-                  LocaleKeys.edit.tr(),
+                  LocaleKeys.edit.tr(context: context),
                   style: TextStyle(color: context.colorPalette.primary),
                 ),
               ),
@@ -61,21 +61,21 @@ class _MeTabState extends State<MeTab> {
           body: Padding(
             padding: REdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ListTile(
-                  onTap: () => AppNavigator.to(const UpdateProfilePage()),
-                  title: Text(
-                    LocaleKeys.profile.tr(),
-                    style: context.appTextStyle.optionalStyle.copyWith(
-                      fontSize: 14.sp,
+                Padding(
+                  padding: REdgeInsets.all(16.0),
+                  child: Text(
+                    LocaleKeys.account.tr(context: context),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  leading: const Icon(Icons.person),
-                  trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
                 ),
                 ListTile(
                   title: Text(
-                    LocaleKeys.wallet.tr(),
+                    LocaleKeys.wallet.tr(context: context),
                     style: context.appTextStyle.optionalStyle.copyWith(
                       fontSize: 14.sp,
                     ),
@@ -91,7 +91,7 @@ class _MeTabState extends State<MeTab> {
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Text(
-                          '${data.wallet} ${LocaleKeys.shorten_currency.tr()} ',
+                          '${data.wallet} ${LocaleKeys.shorten_currency.tr(context: context)} ',
                           style: context.appTextStyle.elevatedButtonTextStyle.copyWith(
                             fontSize: 14.sp,
                           ),
@@ -104,12 +104,89 @@ class _MeTabState extends State<MeTab> {
                 ListTile(
                   onTap: () => AppNavigator.to(const ChangePasswordPage()),
                   title: Text(
-                    LocaleKeys.change_password.tr(),
+                    LocaleKeys.change_password.tr(context: context),
                     style: context.appTextStyle.optionalStyle.copyWith(
                       fontSize: 14.sp,
                     ),
                   ),
                   leading: const Icon(Icons.lock),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
+                ),
+                const LanguageDialogWidget(),
+                Padding(
+                  padding: REdgeInsets.all(16.0),
+                  child: Text(
+                    LocaleKeys.help.tr(context: context),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  onTap: () => AppNavigator.to(const PrivacyPolicyPage()),
+                  title: Text(
+                    LocaleKeys.privacy_policy.tr(context: context),
+                    style: context.appTextStyle.optionalStyle.copyWith(
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  leading: const Icon(Icons.privacy_tip),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
+                ),
+                ListTile(
+                  onTap: () => AppNavigator.to(const ShippingPolicyPage()),
+                  title: Text(
+                    LocaleKeys.shipping_policy.tr(context: context),
+                    style: context.appTextStyle.optionalStyle.copyWith(
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  leading: const Icon(Icons.privacy_tip),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
+                ),
+                ListTile(
+                  onTap: () => AppNavigator.to(const TermsPage()),
+                  title: Text(
+                    LocaleKeys.terms_and_conditions.tr(context: context),
+                    style: context.appTextStyle.optionalStyle.copyWith(
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  leading: const Icon(Icons.privacy_tip),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
+                ),
+                ListTile(
+                  onTap: () => AppNavigator.to(const AboutUsPage()),
+                  title: Text(
+                    LocaleKeys.about_us.tr(context: context),
+                    style: context.appTextStyle.optionalStyle.copyWith(
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  leading: const Icon(Icons.privacy_tip),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
+                ),
+                ListTile(
+                  onTap: () => AppNavigator.to(const ContactUsPage()),
+                  title: Text(
+                    LocaleKeys.contact_us.tr(context: context),
+                    style: context.appTextStyle.optionalStyle.copyWith(
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  leading: const Icon(Icons.privacy_tip),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
+                ),
+                ListTile(
+                  onTap: () => AppNavigator.to(const AppLicensePage()),
+                  title: Text(
+                    LocaleKeys.license.tr(context: context),
+                    style: context.appTextStyle.optionalStyle.copyWith(
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  leading: const Icon(Icons.privacy_tip),
                   trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
                 ),
               ],

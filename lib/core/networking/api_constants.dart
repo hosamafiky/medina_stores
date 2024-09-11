@@ -32,6 +32,14 @@ class ApiEndPoints {
   final String DELETE_ACCOUNT = '/profile/delete-account';
   final String UPDATE_PASSWORD = '/profile/update-password';
 
+  // Settings
+  final String TERMS = '/settings/terms';
+  final String PRIVACY = '/settings/privacy-policy';
+  final String ABOUT = '/settings/about';
+  final String CONTACT = '/settings/contact-us';
+  final String SHIPPING = '/settings/shipping-policy';
+  final String LICENSE = '/settings/license';
+
   // Auth
   final String login = '/login';
   final String register = '/register';

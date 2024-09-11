@@ -18,6 +18,7 @@ class CacheKeys {
   static const String userAddresses = 'user-addresses';
   static const String latestProducts = 'latest-products';
   static const String favoriteProducts = 'favorite-products';
+  static const String staticPages = 'static-pages';
 }
 
 class CacheHelper {

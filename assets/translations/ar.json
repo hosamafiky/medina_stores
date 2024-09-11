@@ -115,5 +115,16 @@
   "product_search_by": "البحث بـ اسم المنتج او العلامة التجارية او القسم",
   "edit": "تعديل",
   "profile": "الملف الشخصي",
-  "wallet": "المحفظة"
+  "account": "الحساب",
+  "wallet": "المحفظة",
+  "help": "المساعدة",
+  "settings": "الإعدادات",
+  "about_us": "من نحن",
+  "contact_us": "اتصل بنا",
+  "license": "الترخيص",
+  "privacy_policy": "سياسة الخصوصية",
+  "terms_and_conditions": "الشروط والأحكام",
+  "shipping_policy": "سياسة الشحن",
+  "select_language": "اختر اللغة",
+  "confirm": "تأكيد"
 }
