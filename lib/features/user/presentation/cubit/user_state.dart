@@ -7,6 +7,8 @@ class UserState extends Equatable {
     this.loginFailure,
     this.logoutStatus = UsecaseStatus.idle,
     this.logoutFailure,
+    this.deleteAccountStatus = UsecaseStatus.idle,
+    this.deleteAccountFailure,
     this.registerStatus = UsecaseStatus.idle,
     this.registerFailure,
     this.sendOTPStatus = UsecaseStatus.idle,
@@ -17,11 +19,21 @@ class UserState extends Equatable {
     this.verifyPasswordOTPFailure,
     this.resetPasswordStatus = UsecaseStatus.idle,
     this.resetPasswordFailure,
+    this.userProfileStatus,
+    this.userProfileFailure,
+    this.updateProfileStatus,
+    this.updateProfileFailure,
+    this.updateUserPasswordStatus,
+    this.updateUserPasswordFailure,
+    this.updateUserPasswordResponse,
     this.userProfile,
   });
 
   final UsecaseStatus loginStatus;
   final Failure? loginFailure;
+
+  final UsecaseStatus deleteAccountStatus;
+  final Failure? deleteAccountFailure;
 
   final UsecaseStatus logoutStatus;
   final Failure? logoutFailure;
@@ -42,13 +54,24 @@ class UserState extends Equatable {
   final Failure? resetPasswordFailure;
 
   final ApiResponse<User?>? user;
+
+  final UsecaseStatus? userProfileStatus;
+  final Failure? userProfileFailure;
+  final UsecaseStatus? updateProfileStatus;
+  final Failure? updateProfileFailure;
   final ApiResponse<UserProfile>? userProfile;
+
+  final UsecaseStatus? updateUserPasswordStatus;
+  final Failure? updateUserPasswordFailure;
+  final ApiResponse<void>? updateUserPasswordResponse;
 
   UserState copyWith({
     UsecaseStatus? loginStatus,
     Failure? loginFailure,
     UsecaseStatus? logoutStatus,
     Failure? logoutFailure,
+    UsecaseStatus? deleteAccountStatus,
+    Failure? deleteAccountFailure,
     UsecaseStatus? registerStatus,
     Failure? registerFailure,
     UsecaseStatus? sendOTPStatus,
@@ -60,6 +83,13 @@ class UserState extends Equatable {
     UsecaseStatus? resetPasswordStatus,
     Failure? resetPasswordFailure,
     ApiResponse<User?>? user,
+    UsecaseStatus? userProfileStatus,
+    Failure? userProfileFailure,
+    UsecaseStatus? updateProfileStatus,
+    Failure? updateProfileFailure,
+    UsecaseStatus? updateUserPasswordStatus,
+    Failure? updateUserPasswordFailure,
+    ApiResponse<void>? updateUserPasswordResponse,
     ApiResponse<UserProfile>? userProfile,
   }) {
     return UserState(
@@ -67,6 +97,8 @@ class UserState extends Equatable {
       loginFailure: loginFailure,
       logoutStatus: logoutStatus ?? UsecaseStatus.idle,
       logoutFailure: logoutFailure,
+      deleteAccountStatus: deleteAccountStatus ?? UsecaseStatus.idle,
+      deleteAccountFailure: deleteAccountFailure,
       registerStatus: registerStatus ?? UsecaseStatus.idle,
       registerFailure: registerFailure,
       sendOTPStatus: sendOTPStatus ?? UsecaseStatus.idle,
@@ -78,6 +110,13 @@ class UserState extends Equatable {
       resetPasswordStatus: resetPasswordStatus ?? UsecaseStatus.idle,
       resetPasswordFailure: resetPasswordFailure,
       user: user ?? this.user,
+      userProfileStatus: userProfileStatus ?? this.userProfileStatus,
+      userProfileFailure: userProfileFailure,
+      updateProfileStatus: updateProfileStatus ?? this.updateProfileStatus,
+      updateProfileFailure: updateProfileFailure,
+      updateUserPasswordStatus: updateUserPasswordStatus ?? UsecaseStatus.idle,
+      updateUserPasswordFailure: updateUserPasswordFailure,
+      updateUserPasswordResponse: updateUserPasswordResponse ?? this.updateUserPasswordResponse,
       userProfile: userProfile ?? this.userProfile,
     );
   }
@@ -89,6 +128,8 @@ class UserState extends Equatable {
       loginFailure,
       logoutStatus,
       logoutFailure,
+      deleteAccountStatus,
+      deleteAccountFailure,
       registerStatus,
       registerFailure,
       sendOTPStatus,
@@ -100,6 +141,13 @@ class UserState extends Equatable {
       resetPasswordStatus,
       resetPasswordFailure,
       user,
+      userProfileStatus,
+      userProfileFailure,
+      updateProfileStatus,
+      updateProfileFailure,
+      updateUserPasswordStatus,
+      updateUserPasswordFailure,
+      updateUserPasswordResponse,
       userProfile,
     ];
   }

@@ -38,6 +38,9 @@ abstract class LocaleKeys {
   static const phone = 'phone';
   static const phone_hint = 'phone_hint';
   static const phone_validation = 'phone_validation';
+  static const current_password = 'current_password';
+  static const current_password_hint = 'current_password_hint';
+  static const current_password_validation = 'current_password_validation';
   static const password = 'password';
   static const password_hint = 'password_hint';
   static const password_validation = 'password_validation';

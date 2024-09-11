@@ -10,6 +10,9 @@ class UserCubit extends Cubit<UserState> {
     required this.verifyPassOTPUsecase,
     required this.resetPasswordUsecase,
     required this.getUserDataUsecase,
+    required this.updateProfileUsecase,
+    required this.updatePasswordUsecase,
+    required this.deleteAccountUsecase,
   }) : super(const UserState());
 
   final LoginUsecase loginUsecase;
@@ -20,6 +23,9 @@ class UserCubit extends Cubit<UserState> {
   final VerifyPassOTPUseCase verifyPassOTPUsecase;
   final ResetPasswordUseCase resetPasswordUsecase;
   final GetUserDataUsecase getUserDataUsecase;
+  final UpdateProfileUsecase updateProfileUsecase;
+  final UpdatePasswordUsecase updatePasswordUsecase;
+  final DeleteAccountUsecase deleteAccountUsecase;
 
   void initWithCachedUser(User? user) {
     if (user == null) return;
@@ -131,11 +137,13 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> getUserData() async {
+    emit(state.copyWith(userProfileStatus: UsecaseStatus.running));
     final result = await getUserDataUsecase();
     result.fold(
-      (failure) {},
+      (failure) => emit(state.copyWith(userProfileStatus: UsecaseStatus.error, userProfileFailure: failure)),
       (profile) => emit(
         state.copyWith(
+          userProfileStatus: UsecaseStatus.completed,
           userProfile: profile,
           user: ApiResponse(
             data: profile.data!.copyWith(
@@ -145,6 +153,45 @@ class UserCubit extends Cubit<UserState> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> updateProfile(UpdateProfileParams params) async {
+    emit(state.copyWith(updateProfileStatus: UsecaseStatus.running));
+    final result = await updateProfileUsecase(params);
+    result.fold(
+      (failure) => emit(state.copyWith(updateProfileStatus: UsecaseStatus.error, updateProfileFailure: failure)),
+      (r) => emit(
+        state.copyWith(
+          updateProfileStatus: UsecaseStatus.completed,
+          userProfile: ApiResponse(
+            data: params.modifiedUserProfile(state.userProfile!.data!),
+            message: r.message,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> updatePassword(UpdatePasswordParams params) async {
+    emit(state.copyWith(updateUserPasswordStatus: UsecaseStatus.running));
+    final result = await updatePasswordUsecase(params);
+    result.fold(
+      (failure) => emit(state.copyWith(updateUserPasswordStatus: UsecaseStatus.error, updateUserPasswordFailure: failure)),
+      (r) => emit(state.copyWith(
+        updateUserPasswordStatus: UsecaseStatus.completed,
+        updateUserPasswordResponse: r,
+      )),
+    );
+  }
+
+  Future<void> deleteAccount() async {
+    emit(state.copyWith(deleteAccountStatus: UsecaseStatus.running));
+    final result = await deleteAccountUsecase();
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(state.copyWith(deleteAccountStatus: UsecaseStatus.error, logoutFailure: failure)),
+      (response) => emit(state.copyWith(deleteAccountStatus: UsecaseStatus.completed, user: response)),
     );
   }
 }

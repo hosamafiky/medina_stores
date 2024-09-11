@@ -29,6 +29,8 @@ class ApiEndPoints {
 
   // Profile
   final String PROFILE = '/profile';
+  final String DELETE_ACCOUNT = '/profile/delete-account';
+  final String UPDATE_PASSWORD = '/profile/update-password';
 
   // Auth
   final String login = '/login';

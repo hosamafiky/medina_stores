@@ -44,4 +44,19 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, ApiResponse<UserProfile>>> getUserProfile() async {
     return await remoteDataSource.getUserProfile().handleCallbackWithFailure;
   }
+
+  @override
+  Future<Either<Failure, ApiResponse<Null>>> updateProfile(UpdateProfileParams params) async {
+    return await remoteDataSource.updateProfile(params).handleCallbackWithFailure;
+  }
+
+  @override
+  Future<Either<Failure, ApiResponse<Null>>> deleteAccount() async {
+    return await remoteDataSource.deleteAccount().handleCallbackWithFailure;
+  }
+
+  @override
+  Future<Either<Failure, ApiResponse<Null>>> updateUserPassword(UpdatePasswordParams params) async {
+    return await remoteDataSource.updateUserPassword(params).handleCallbackWithFailure;
+  }
 }

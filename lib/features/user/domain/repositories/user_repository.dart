@@ -8,5 +8,8 @@ abstract class UserRepository {
   Future<Either<Failure, ApiResponse<Null>>> verifyPasswordOTP(String otp);
   Future<Either<Failure, ApiResponse<Null>>> resetPassword(ResetPasswordParams params);
   Future<Either<Failure, ApiResponse<UserProfile>>> getUserProfile();
+  Future<Either<Failure, ApiResponse<Null>>> updateProfile(UpdateProfileParams params);
+  Future<Either<Failure, ApiResponse<Null>>> updateUserPassword(UpdatePasswordParams params);
+  Future<Either<Failure, ApiResponse<Null>>> deleteAccount();
   Future<Either<Failure, ApiResponse<Null>>> logout();
 }
