@@ -116,5 +116,16 @@
   "product_search_by": "Search by product name, brand or category",
   "edit": "Edit",
   "profile": "Profile",
-  "wallet": "Wallet"
+  "account": "Account",
+  "wallet": "Wallet",
+  "help": "Help",
+  "settings": "Settings",
+  "about_us": "About Us",
+  "contact_us": "Contact Us",
+  "license": "License",
+  "privacy_policy": "Privacy Policy",
+  "terms_and_conditions": "Terms and Conditions",
+  "shipping_policy": "Shipping Policy",
+  "select_language": "Select Language",
+  "confirm": "Confirm"
 }

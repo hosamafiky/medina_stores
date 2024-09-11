@@ -120,5 +120,16 @@ abstract class LocaleKeys {
   static const product_search_by = 'product_search_by';
   static const edit = 'edit';
   static const profile = 'profile';
+  static const account = 'account';
   static const wallet = 'wallet';
+  static const help = 'help';
+  static const settings = 'settings';
+  static const about_us = 'about_us';
+  static const contact_us = 'contact_us';
+  static const license = 'license';
+  static const privacy_policy = 'privacy_policy';
+  static const terms_and_conditions = 'terms_and_conditions';
+  static const shipping_policy = 'shipping_policy';
+  static const select_language = 'select_language';
+  static const confirm = 'confirm';
 }
