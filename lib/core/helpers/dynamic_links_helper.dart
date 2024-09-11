@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:app_links/app_links.dart';
-import 'package:medina_stores/core/helpers/dependency_helper.dart';
-import 'package:medina_stores/core/navigation/navigator.dart';
 
 import '../../features/product/domain/domain_imports.dart';
 import '../../features/product/presentation/presentation_imports.dart';
+import '../navigation/navigator.dart';
+import 'dependency_helper.dart';
 
 class DynamicLinksHelper {
   static final _appLinks = AppLinks();

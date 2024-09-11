@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart' hide id;
 import 'package:equatable/equatable.dart';
-import 'package:medina_stores/core/standards/drop_down_item.dart';
-import 'package:medina_stores/core/standards/paginated_list.dart';
-import 'package:medina_stores/features/product/data/data_imports.dart';
 
 import '../../../core/error/failures.dart';
+import '../../../core/standards/drop_down_item.dart';
+import '../../../core/standards/paginated_list.dart';
 import '../../../core/standards/response_model.dart';
 import '../../../core/standards/use_case.dart';
+import '../data/data_imports.dart';
 
 part 'entities/product.dart';
 part 'entities/product_data.dart';

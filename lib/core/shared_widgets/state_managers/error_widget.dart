@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/core/error/failures.dart';
-import 'package:medina_stores/core/extensions/context.dart';
-import 'package:medina_stores/core/extensions/spaced_column.dart';
+
+import '../../error/failures.dart';
+import '../../extensions/context.dart';
+import '../../extensions/spaced_column.dart';
 
 class ErrorViewWidget extends StatelessWidget {
   const ErrorViewWidget(

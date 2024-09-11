@@ -34,6 +34,9 @@
   "phone": "Phone Number",
   "phone_hint": "Enter phone number",
   "phone_validation": "Phone number must be 7 digits and start with one of the following numbers: 5, 0, 3, 6, 4, 9, 1, 8, 7",
+  "current_password": "Current Password",
+  "current_password_hint": "Enter current password",
+  "current_password_validation": "Current password must be greater than {length} characters",
   "password": "Password",
   "password_hint": "Enter password",
   "password_validation": "Password must be greater than {length} characters",
@@ -62,7 +65,7 @@
   "_LAYOUT": "_LAYOUT",
   "empty_ads": "Currently, No ads found",
   "home": "Home",
-  "profile": "Me",
+  "me": "Me",
   "whats_new": "New",
   "my_orders": "My Orders",
   "sub_category": "Sub Category",
@@ -109,5 +112,8 @@
   "add_new_address": "Add New Address",
   "add": "Add",
   "update": "Update",
-  "product_search_by": "Search by product name, brand or category"
+  "product_search_by": "Search by product name, brand or category",
+  "edit": "Edit",
+  "profile": "Profile",
+  "wallet": "Wallet"
 }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
-import 'package:medina_stores/core/navigation/navigator.dart';
+
+import '../navigation/navigator.dart';
 
 extension FormatString on String {
   String get capitalize {

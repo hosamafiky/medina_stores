@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medina_stores/config/resources/color_palettes/color_palette.dart';
-import 'package:medina_stores/core/extensions/context.dart';
-import 'package:medina_stores/core/navigation/navigator.dart';
-import 'package:medina_stores/features/user/presentation/presentation_imports.dart';
 
+import '../../../config/resources/color_palettes/color_palette.dart';
 import '../../../config/resources/locale_keys.g.dart';
+import '../../../features/user/presentation/presentation_imports.dart';
+import '../../extensions/context.dart';
+import '../../navigation/navigator.dart';
 
 class VisitorLoginSheet extends StatelessWidget {
   const VisitorLoginSheet({super.key, required this.onLoggedInCallback});

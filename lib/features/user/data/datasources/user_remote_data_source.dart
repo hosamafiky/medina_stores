@@ -7,6 +7,10 @@ abstract class UserRemoteDataSource {
   Future<ApiResponseModel<Null>> verifyPasswordOTP(String otp);
   Future<ApiResponseModel<UserModel>> verifyOTP(String otp);
   Future<ApiResponseModel<Null>> resetPassword(ResetPasswordParams params);
+  Future<ApiResponseModel<UserProfileModel>> getUserProfile();
+  Future<ApiResponseModel<Null>> updateProfile(UpdateProfileParams params);
+  Future<ApiResponseModel<Null>> updateUserPassword(UpdatePasswordParams params);
+  Future<ApiResponseModel<Null>> deleteAccount();
   Future<ApiResponseModel<Null>> logout();
 }
 
@@ -84,6 +88,63 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<ApiResponseModel<Null>> resetPassword(ResetPasswordParams params) async {
     final request = ApiRequest(method: RequestMethod.post, path: ApiConstants.endPoints.resetPassword, body: params.toMap());
+    return await DependencyHelper.instance.get<ApiService>().callApi<Null>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(json),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<UserProfileModel>> getUserProfile() async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: ApiConstants.endPoints.PROFILE,
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<UserProfileModel>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => UserProfileModel.fromMap(data['data']),
+          ),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<Null>> updateProfile(UpdateProfileParams params) async {
+    final request = ApiRequest(
+      method: RequestMethod.put,
+      path: ApiConstants.endPoints.PROFILE,
+      body: params.toMap(),
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<Null>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(json),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<Null>> deleteAccount() async {
+    final request = ApiRequest(
+      method: RequestMethod.post,
+      path: ApiConstants.endPoints.DELETE_ACCOUNT,
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<Null>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(json),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<Null>> updateUserPassword(UpdatePasswordParams params) async {
+    final request = ApiRequest(
+      method: RequestMethod.post,
+      path: ApiConstants.endPoints.UPDATE_PASSWORD,
+      body: params.toMap(),
+    );
+
     return await DependencyHelper.instance.get<ApiService>().callApi<Null>(
           request,
           mapper: (json) => ApiResponseModel.fromMap(json),

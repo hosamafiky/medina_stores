@@ -1,15 +1,14 @@
 import 'package:get_it/get_it.dart';
-import '../../features/address/di/setup_address_dependencies.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../features/ad/di/setup_ad_dependencies.dart';
+import '../../features/address/di/setup_address_dependencies.dart';
 import '../../features/brand/di/setup_brand_dependencies.dart';
 import '../../features/cart/di/setup_cart_dependencies.dart';
 import '../../features/category/di/setup_category_dependencies.dart';
 import '../../features/layout/di/setup_layout_dependencies.dart';
 import '../../features/main_tab/di/setup_main_dependencies.dart';
 import '../../features/product/di/setup_product_dependencies.dart';
-import '../../features/profile/di/setup_profile_dependencies.dart';
 import '../../features/sub_category/di/setup_sub_category_dependencies.dart';
 import '../../features/user/di/setup_user_dependencies.dart';
 import '../networking/api_service.dart';
@@ -31,7 +30,6 @@ class DependencyHelper {
     setUpSubCategoryDependencies();
     setUpCategoryDependencies();
     setUpAdDependencies();
-    setUpProfileDependencies();
     setUpMainDependencies();
     setUpLayoutDependencies();
     setUpUserDependencies();

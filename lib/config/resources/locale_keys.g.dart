@@ -38,6 +38,9 @@ abstract class LocaleKeys {
   static const phone = 'phone';
   static const phone_hint = 'phone_hint';
   static const phone_validation = 'phone_validation';
+  static const current_password = 'current_password';
+  static const current_password_hint = 'current_password_hint';
+  static const current_password_validation = 'current_password_validation';
   static const password = 'password';
   static const password_hint = 'password_hint';
   static const password_validation = 'password_validation';
@@ -66,7 +69,7 @@ abstract class LocaleKeys {
   static const _LAYOUT = '_LAYOUT';
   static const empty_ads = 'empty_ads';
   static const home = 'home';
-  static const profile = 'profile';
+  static const me = 'me';
   static const whats_new = 'whats_new';
   static const my_orders = 'my_orders';
   static const sub_category = 'sub_category';
@@ -114,4 +117,7 @@ abstract class LocaleKeys {
   static const add = 'add';
   static const update = 'update';
   static const product_search_by = 'product_search_by';
+  static const edit = 'edit';
+  static const profile = 'profile';
+  static const wallet = 'wallet';
 }
