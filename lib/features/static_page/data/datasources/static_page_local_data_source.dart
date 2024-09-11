@@ -30,7 +30,7 @@ class StaticPageLocalDataSourceImpl implements StaticPageLocalDataSource {
     final cachedJson = await CacheHelper.read(CacheKeys.staticPages);
     final dataAsMap = Map<String, dynamic>.from(jsonDecode(cachedJson));
     if (dataAsMap.containsKey(path)) {
-      return ApiResponseModel.fromMap(dataAsMap[path]);
+      return ApiResponseModel(data: dataAsMap[path]);
     } else {
       throw const CacheException(ApiResponse(message: 'No cached data found'));
     }
