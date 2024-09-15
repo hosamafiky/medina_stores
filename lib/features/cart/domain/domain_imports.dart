@@ -9,12 +9,8 @@ import '../../product/domain/domain_imports.dart';
 
 part 'entities/cart.dart';
 part 'entities/cart_data.dart';
-part 'entities/checkout_data.dart';
-part 'entities/payment_gate.dart';
 part 'repositories/cart_repository.dart';
 part 'usecases/add_to_cart_usecase.dart';
 part 'usecases/get_cart_items_usecase.dart';
-part 'usecases/get_checkout_data_usecase.dart';
-part 'usecases/get_payment_gates_usecase.dart';
 part 'usecases/remove_from_cart_usecase.dart';
 part 'usecases/update_cart_quantity_usecase.dart';

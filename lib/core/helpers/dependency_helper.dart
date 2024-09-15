@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import '../../features/checkout/di/setup_checkout_dependencies.dart';
 import '../../features/static_page/di/setup_static_page_dependencies.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -24,6 +25,7 @@ class DependencyHelper {
 
   void registerDependencies() {
     setUpGeneralDependencies();
+    setUpCheckoutDependencies();
     setUpStaticPageDependencies();
     setUpAddressDependencies();
     setUpCartDependencies();

@@ -14,6 +14,7 @@ class ApiConstants {
 }
 
 class ApiEndPoints {
+  final String CHECKOUTS = '/checkouts';
   // Layout
   final String ADS = '/home/sliders';
   final String CATEGORIES = '/home/categories';

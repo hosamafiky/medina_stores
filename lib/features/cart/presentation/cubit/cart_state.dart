@@ -14,12 +14,6 @@ class CartState extends Equatable {
     this.updateCartQuantityStatus = UsecaseStatus.idle,
     this.updateCartQuantityFailure,
     this.updateCartQuantityResponse = const ApiResponse(data: null),
-    this.checkoutStatus = UsecaseStatus.idle,
-    this.checkoutFailure,
-    this.checkoutResponse = const ApiResponse(data: CheckoutData()),
-    this.paymentGatesStatus = UsecaseStatus.idle,
-    this.paymentGatesFailure,
-    this.paymentGates = const ApiResponse(data: []),
   });
 
   final UsecaseStatus cartDataStatus;
@@ -38,14 +32,6 @@ class CartState extends Equatable {
   final Failure? updateCartQuantityFailure;
   final ApiResponse<void> updateCartQuantityResponse;
 
-  final UsecaseStatus checkoutStatus;
-  final Failure? checkoutFailure;
-  final ApiResponse<CheckoutData> checkoutResponse;
-
-  final UsecaseStatus paymentGatesStatus;
-  final Failure? paymentGatesFailure;
-  final ApiResponse<List<PaymentGate>> paymentGates;
-
   CartState copyWith({
     UsecaseStatus? cartDataStatus,
     Failure? cartDataFailure,
@@ -59,12 +45,6 @@ class CartState extends Equatable {
     UsecaseStatus? updateCartQuantityStatus,
     Failure? updateCartQuantityFailure,
     ApiResponse<void>? updateCartQuantityResponse,
-    UsecaseStatus? checkoutStatus,
-    Failure? checkoutFailure,
-    ApiResponse<CheckoutData>? checkoutResponse,
-    UsecaseStatus? paymentGatesStatus,
-    Failure? paymentGatesFailure,
-    ApiResponse<List<PaymentGate>>? paymentGates,
   }) {
     return CartState(
       cartDataStatus: cartDataStatus ?? this.cartDataStatus,
@@ -79,12 +59,6 @@ class CartState extends Equatable {
       updateCartQuantityStatus: updateCartQuantityStatus ?? UsecaseStatus.idle,
       updateCartQuantityFailure: updateCartQuantityFailure ?? this.updateCartQuantityFailure,
       updateCartQuantityResponse: updateCartQuantityResponse ?? const ApiResponse(data: null),
-      checkoutStatus: checkoutStatus ?? this.checkoutStatus,
-      checkoutFailure: checkoutFailure ?? this.checkoutFailure,
-      checkoutResponse: checkoutResponse ?? this.checkoutResponse,
-      paymentGatesStatus: paymentGatesStatus ?? UsecaseStatus.idle,
-      paymentGatesFailure: paymentGatesFailure ?? this.paymentGatesFailure,
-      paymentGates: paymentGates ?? this.paymentGates,
     );
   }
 
@@ -103,12 +77,6 @@ class CartState extends Equatable {
         '  updateCartQuantityStatus: $updateCartQuantityStatus,\n'
         '  updateCartQuantityFailure: $updateCartQuantityFailure,\n'
         '  updateCartQuantityResponse: $updateCartQuantityResponse,\n'
-        '  checkoutStatus: $checkoutStatus, \n'
-        '  checkoutFailure: $checkoutFailure, \n'
-        '  checkoutResponse: $checkoutResponse, \n'
-        '  paymentGatesStatus: $paymentGatesStatus, \n'
-        '  paymentGatesFailure: $paymentGatesFailure, \n'
-        '  paymentGates: $paymentGates, \n'
         ')';
   }
 
@@ -126,11 +94,5 @@ class CartState extends Equatable {
         updateCartQuantityStatus,
         updateCartQuantityFailure,
         updateCartQuantityResponse,
-        checkoutStatus,
-        checkoutFailure,
-        checkoutResponse,
-        paymentGatesStatus,
-        paymentGatesFailure,
-        paymentGates,
       ];
 }

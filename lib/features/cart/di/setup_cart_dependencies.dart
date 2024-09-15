@@ -11,8 +11,6 @@ void setUpCartDependencies() async {
       addToCartUsecase: DependencyHelper.instance.serviceLocator(),
       removeFromCartUsecase: DependencyHelper.instance.serviceLocator(),
       updateCartQuantityUsecase: DependencyHelper.instance.serviceLocator(),
-      getCheckoutDataUsecase: DependencyHelper.instance.serviceLocator(),
-      getPaymentGatesUsecase: DependencyHelper.instance.serviceLocator(),
     ),
   );
 
@@ -31,14 +29,6 @@ void setUpCartDependencies() async {
 
   DependencyHelper.instance.serviceLocator.registerLazySingleton(
     () => UpdateCartQuantityUsecase(repository: DependencyHelper.instance.serviceLocator()),
-  );
-
-  DependencyHelper.instance.serviceLocator.registerLazySingleton(
-    () => GetCheckoutDataUsecase(repository: DependencyHelper.instance.serviceLocator()),
-  );
-
-  DependencyHelper.instance.serviceLocator.registerLazySingleton(
-    () => GetPaymentGatesUsecase(repository: DependencyHelper.instance.serviceLocator()),
   );
 
   // REPOSITORIES
