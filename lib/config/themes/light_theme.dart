@@ -62,9 +62,9 @@ ThemeData lightTheme(
     checkboxTheme: const CheckboxThemeData(
       visualDensity: VisualDensity.compact,
     ),
-    listTileTheme: ListTileThemeData(
-      contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-      visualDensity: VisualDensity.compact,
+    listTileTheme: const ListTileThemeData(
+      contentPadding: EdgeInsets.zero,
+      visualDensity: VisualDensity(vertical: -4),
       dense: true,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(

@@ -23,4 +23,6 @@ import '../domain/domain_imports.dart';
 part 'datasources/cart_remote_data_source.dart';
 part 'models/cart_data_model.dart';
 part 'models/cart_model.dart';
+part 'models/checkout_data_model.dart';
+part 'models/payment_gate_model.dart';
 part 'repositories/cart_repository_impl.dart';

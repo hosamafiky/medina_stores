@@ -1,14 +1,16 @@
 part of '../presentation_imports.dart';
 
 class CartItemWidget extends StatelessWidget {
-  const CartItemWidget(this.item, {super.key}) : _isSkeleton = false;
+  const CartItemWidget(this.item, {super.key, this.fromCheckout = false}) : _isSkeleton = false;
 
   CartItemWidget.skeleton({super.key})
       : item = Cart.empty,
+        fromCheckout = false,
         _isSkeleton = true;
 
   final Cart item;
   final bool _isSkeleton;
+  final bool fromCheckout;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,7 +76,7 @@ class CartItemWidget extends StatelessWidget {
               backgroundColor: context.colorPalette.shimmerHighlightColor,
               addToCartCallback: (quantity) {
                 context.read<CartCubit>().updateQuantity(
-                      UpdateCartQuantityParams(cart: item, quantity: quantity),
+                      UpdateCartQuantityParams(cart: item, quantity: quantity, fromCheckout: fromCheckout),
                     );
               },
             ),

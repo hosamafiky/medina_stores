@@ -235,7 +235,7 @@ class _ProductPageBodyState extends State<ProductPageBody> {
                             builder: (context, state) {
                               return Row(
                                 children: [
-                                  if (!state.cartData.items.any((element) => element.product.id == productDetails.data.id)) ...[
+                                  if (!state.cartData.data!.items.any((element) => element.product.id == productDetails.data.id)) ...[
                                     Expanded(
                                       child: ElevatedButton(
                                         onPressed: () => context.read<CartCubit>().addToCart(

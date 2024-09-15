@@ -5,10 +5,9 @@ import '../navigation/navigator.dart';
 
 extension FormatString on String {
   String get capitalize {
-    if (isEmpty) return this;
-
+    if (isEmpty) return trim();
     final words = split(' ');
-    final capitalizedWords = words.map((word) {
+    final capitalizedWords = words.where((e) => e.trim().isNotEmpty).map((word) {
       final firstLetter = word[0].toUpperCase();
       final rest = word.substring(1);
       return '$firstLetter$rest';

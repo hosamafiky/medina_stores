@@ -5,6 +5,8 @@ abstract class CartRemoteDataSource {
   Future<ApiResponseModel<void>> addToCart(AddCartParams params);
   Future<ApiResponseModel<void>> removeFromCart(int productId);
   Future<ApiResponseModel<void>> updateQuantity(UpdateCartQuantityParams params);
+  Future<ApiResponseModel<CheckoutDataModel>> getCheckoutData();
+  Future<ApiResponseModel<List<PaymentGateModel>>> getPaymentGates();
 }
 
 class CartRemoteDataSourceImpl implements CartRemoteDataSource {
@@ -63,6 +65,40 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
     return await DependencyHelper.instance.get<ApiService>().callApi<void>(
           request,
           mapper: (json) => ApiResponseModel.fromMap(json),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<CheckoutDataModel>> getCheckoutData() async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: ApiConstants.endPoints.CHECKOUT,
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<CheckoutDataModel>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => CheckoutDataModel.fromMap(data['data']),
+          ),
+        );
+  }
+
+  @override
+  Future<ApiResponseModel<List<PaymentGateModel>>> getPaymentGates() async {
+    final request = ApiRequest(
+      method: RequestMethod.get,
+      path: ApiConstants.endPoints.PAYMENT_GATES,
+      headers: AppNavigator.rootContext!.currentAddress?.asHeader,
+    );
+
+    return await DependencyHelper.instance.get<ApiService>().callApi<List<PaymentGateModel>>(
+          request,
+          mapper: (json) => ApiResponseModel.fromMap(
+            json,
+            mapper: (data) => List<PaymentGateModel>.from(data['data'].map((e) => PaymentGateModel.fromMap(e))),
+          ),
         );
   }
 }

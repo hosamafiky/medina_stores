@@ -14,10 +14,12 @@ class UpdateCartQuantityUsecase implements UseCase<ApiResponse<void>, UpdateCart
 class UpdateCartQuantityParams extends Equatable {
   final Cart cart;
   final int quantity;
+  final bool fromCheckout;
 
   const UpdateCartQuantityParams({
     required this.cart,
     required this.quantity,
+    this.fromCheckout = false,
   });
 
   Map<String, dynamic> toMap() {
