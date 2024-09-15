@@ -69,6 +69,7 @@ class _DialogWidgetState extends State<_DialogWidget> {
               itemBuilder: (BuildContext context, int index) {
                 final language = Language.values[index];
                 return ListTile(
+                  contentPadding: REdgeInsets.symmetric(horizontal: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),

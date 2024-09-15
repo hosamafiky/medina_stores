@@ -32,7 +32,7 @@ class ChangePaymentGateSheetState extends State<ChangePaymentGateSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Select Payment Method',
+            LocaleKeys.select_payment_method.tr(),
             style: context.appTextStyle.elevatedButtonTextStyle,
           ),
           SizedBox(height: 16.h),
@@ -62,7 +62,7 @@ class ChangePaymentGateSheetState extends State<ChangePaymentGateSheet> {
           SizedBox(height: 16.h),
           ElevatedButton(
             onPressed: () => AppNavigator.pop(_selectedPaymentGate),
-            child: const Text('Change Payment Method'),
+            child: Text(LocaleKeys.change_payment_method.tr()),
           ),
         ],
       ),

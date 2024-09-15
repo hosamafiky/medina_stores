@@ -111,6 +111,8 @@
   "address_name": "Address Name",
   "address_name_hint": "Enter address name",
   "add_new_address": "Add New Address",
+  "my_addresses": "My Addresses",
+  "empty_addresses": "Currently, No addresses found",
   "add": "Add",
   "update": "Update",
   "product_search_by": "Search by product name, brand or category",
@@ -127,5 +129,15 @@
   "terms_and_conditions": "Terms and Conditions",
   "shipping_policy": "Shipping Policy",
   "select_language": "Select Language",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "payment_methods": "Payment Methods",
+  "empty_payment_methods": "Currently, No payment methods found",
+  "change_payment_method": "Change Payment Method",
+  "select_payment_method": "Select Payment Method",
+  "coupon_code": "Coupon Code",
+  "coupon_code_hint": "Enter coupon code",
+  "apply": "Apply",
+  "summary": "Summary",
+  "shipping_fees": "Shipping Fees",
+  "place_order": "Place Order"
 }

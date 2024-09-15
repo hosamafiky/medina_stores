@@ -115,6 +115,8 @@ abstract class LocaleKeys {
   static const address_name = 'address_name';
   static const address_name_hint = 'address_name_hint';
   static const add_new_address = 'add_new_address';
+  static const my_addresses = 'my_addresses';
+  static const empty_addresses = 'empty_addresses';
   static const add = 'add';
   static const update = 'update';
   static const product_search_by = 'product_search_by';
@@ -132,4 +134,14 @@ abstract class LocaleKeys {
   static const shipping_policy = 'shipping_policy';
   static const select_language = 'select_language';
   static const confirm = 'confirm';
+  static const payment_methods = 'payment_methods';
+  static const empty_payment_methods = 'empty_payment_methods';
+  static const change_payment_method = 'change_payment_method';
+  static const select_payment_method = 'select_payment_method';
+  static const coupon_code = 'coupon_code';
+  static const coupon_code_hint = 'coupon_code_hint';
+  static const apply = 'apply';
+  static const summary = 'summary';
+  static const shipping_fees = 'shipping_fees';
+  static const place_order = 'place_order';
 }

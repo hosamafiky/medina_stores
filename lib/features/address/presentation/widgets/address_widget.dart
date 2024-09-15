@@ -15,7 +15,6 @@ class AddressWidget extends StatelessWidget {
     return ShimmerWidget.fromChild(
       isLoading: _isSkeleton,
       child: ListTile(
-        contentPadding: EdgeInsets.zero,
         onTap: () => AppNavigator.pop(address),
         leading: Icon(
           Icons.location_history,
@@ -29,9 +28,10 @@ class AddressWidget extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(context.colorPalette.success),
               ),
-              icon: const Icon(
+              icon: Icon(
                 Icons.edit,
                 color: ColorPalette.whiteColor,
+                size: 16.sp,
               ),
               onPressed: () async {
                 final cubit = context.read<AddressCubit>();
@@ -52,6 +52,7 @@ class AddressWidget extends StatelessWidget {
               icon: Icon(
                 Icons.delete,
                 color: context.colorPalette.error,
+                size: 16.sp,
               ),
               onPressed: () async {
                 final cubit = context.read<AddressCubit>();

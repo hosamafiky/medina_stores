@@ -110,6 +110,8 @@
   "address_name": "اسم العنوان",
   "address_name_hint": "أدخل اسم العنوان",
   "add_new_address": "إضافة عنوان جديد",
+  "my_addresses": "عناويني",
+  "empty_addresses": "لا توجد عناوين حاليا",
   "add": "إضافة",
   "update": "تحديث",
   "product_search_by": "البحث بـ اسم المنتج او العلامة التجارية او القسم",
@@ -126,5 +128,15 @@
   "terms_and_conditions": "الشروط والأحكام",
   "shipping_policy": "سياسة الشحن",
   "select_language": "اختر اللغة",
-  "confirm": "تأكيد"
+  "confirm": "تأكيد",
+  "payment_methods": "طرق الدفع",
+  "empty_payment_methods": "لا توجد طرق دفع حاليا",
+  "change_payment_method": "تغيير طريقة الدفع",
+  "select_payment_method": "اختر طريقة الدفع",
+  "coupon_code": "كود الخصم",
+  "coupon_code_hint": "أدخل كود الخصم",
+  "apply": "تطبيق",
+  "summary": "الملخص",
+  "shipping_fees": "رسوم الشحن",
+  "place_order": "إتمام الطلب"
 }

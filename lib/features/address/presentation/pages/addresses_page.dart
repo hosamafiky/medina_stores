@@ -20,11 +20,12 @@ class AddressesPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(),
+      appBar: MainAppBar(title: Text(LocaleKeys.my_addresses.tr())),
       body: BlocSelector<AddressCubit, AddressState, ({UsecaseStatus status, Failure? failure, List<Address> addresses})>(
         selector: (state) => (status: state.addressesStatus, failure: state.addressesFailure, addresses: state.addresses),
         builder: (context, state) {
           return ListView.separated(
+            padding: REdgeInsets.all(16),
             itemCount: state.addresses.length,
             separatorBuilder: (context, index) => SizedBox(height: 16.h),
             itemBuilder: (context, index) {

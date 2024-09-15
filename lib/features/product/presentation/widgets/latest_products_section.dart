@@ -18,7 +18,14 @@ class LatestProductsSection extends StatelessWidget {
           context,
           idle: (_) => const SizedBox().asSliver,
           running: (_) => const _LatestProductsList.skeleton(),
-          completed: (_) => _LatestProductsList(state.products),
+          completed: (_) {
+            final products = state.products;
+            if (products.list.isEmpty) {
+              return SliverFillRemaining(child: Center(child: Text(LocaleKeys.empty_products.tr())));
+            }
+
+            return _LatestProductsList(products);
+          },
           error: (_) => ErrorViewWidget(
             state.failure!,
             onRetry: () => context.read<ProductCubit>().getLatestProducts(1),
