@@ -8,10 +8,7 @@ class PlaceOrderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: REdgeInsets.symmetric(horizontal: 16).copyWith(
-        bottom: 16 + context.bottomBarHeight,
-        top: 6.h,
-      ),
+      padding: REdgeInsets.symmetric(horizontal: 16).copyWith(bottom: (16 + context.bottomBarHeight).h, top: 6.h),
       decoration: BoxDecoration(
         color: context.colorPalette.background,
         boxShadow: [

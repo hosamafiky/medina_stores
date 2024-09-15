@@ -37,20 +37,13 @@ class CheckoutPage extends StatelessWidget {
           BlocListener<CartCubit, CartState>(
             listener: (context, state) async {
               if (state.updateCartQuantityStatus == UsecaseStatus.completed) {
-                context.read<CheckoutCubit>().getCheckoutData();
+                context.read<CheckoutCubit>().getCheckoutData(true);
               }
             },
           ),
         ],
-        child: BlocSelector<
-            CheckoutCubit,
-            CheckoutState,
-            ({
-              UsecaseStatus status,
-              UsecaseStatus paymentGatesStatus,
-              Failure? failure,
-              ApiResponse<Checkout> data,
-            })>(
+        child: BlocSelector<CheckoutCubit, CheckoutState,
+            ({UsecaseStatus status, UsecaseStatus paymentGatesStatus, Failure? failure, ApiResponse<Checkout> data})>(
           selector: (state) => (
             status: state.checkoutStatus,
             paymentGatesStatus: state.paymentGatesStatus,
