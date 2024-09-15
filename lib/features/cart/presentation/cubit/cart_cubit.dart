@@ -6,12 +6,16 @@ class CartCubit extends Cubit<CartState> {
     required this.addToCartUsecase,
     required this.removeFromCartUsecase,
     required this.updateCartQuantityUsecase,
+    required this.getCheckoutDataUsecase,
+    required this.getPaymentGatesUsecase,
   }) : super(const CartState());
 
   final GetCartItemsUsecase getCartItemsUsecase;
   final AddToCartUsecase addToCartUsecase;
   final RemoveFromCartUsecase removeFromCartUsecase;
   final UpdateCartQuantityUsecase updateCartQuantityUsecase;
+  final GetCheckoutDataUsecase getCheckoutDataUsecase;
+  final GetPaymentGatesUsecase getPaymentGatesUsecase;
 
   Future<void> getCartItems([bool refresh = false]) async {
     if (!refresh) emit(state.copyWith(cartDataStatus: UsecaseStatus.running, addToCartStatus: UsecaseStatus.idle));
@@ -23,7 +27,7 @@ class CartCubit extends Cubit<CartState> {
       )),
       (cartData) => emit(state.copyWith(
         cartDataStatus: UsecaseStatus.completed,
-        cartData: cartData.data,
+        cartData: cartData,
       )),
     );
   }
@@ -65,22 +69,26 @@ class CartCubit extends Cubit<CartState> {
     result.fold(
       (failure) {
         emit(state.copyWith(updateCartQuantityStatus: UsecaseStatus.error, updateCartQuantityFailure: failure));
+        if (params.fromCheckout) getCheckoutData(true);
         getCartItems(true);
       },
       (response) {
         emit(state.copyWith(updateCartQuantityStatus: UsecaseStatus.completed, updateCartQuantityResponse: response));
+        if (params.fromCheckout) getCheckoutData(true);
         getCartItems(true);
       },
     );
   }
 
   void removeCart(Cart cart) async {
-    final newItems = List<Cart>.from(state.cartData.items)..remove(cart);
+    final newItems = List<Cart>.from(state.cartData.data!.items)..remove(cart);
 
     emit(state.copyWith(
       cartData: state.cartData.copyWith(
-        items: newItems,
-        total: state.cartData.total - (cart.product.priceAfterDiscount * cart.quantity),
+        data: state.cartData.data!.copyWith(
+          items: newItems,
+          total: state.cartData.data!.total - (cart.product.priceAfterDiscount * cart.quantity),
+        ),
       ),
     ));
 
@@ -92,6 +100,30 @@ class CartCubit extends Cubit<CartState> {
         emit(state.copyWith(removeFromCartStatus: UsecaseStatus.completed));
         getCartItems(true);
       },
+    );
+  }
+
+  void getCheckoutData([bool refresh = false]) async {
+    if (!refresh) emit(state.copyWith(checkoutStatus: UsecaseStatus.running, addToCartStatus: UsecaseStatus.idle));
+    final result = await getCheckoutDataUsecase();
+    result.fold(
+      (failure) => emit(state.copyWith(
+        checkoutStatus: UsecaseStatus.error,
+        checkoutFailure: failure,
+      )),
+      (checkout) => emit(state.copyWith(
+        checkoutStatus: UsecaseStatus.completed,
+        checkoutResponse: checkout,
+      )),
+    );
+  }
+
+  void getPaymentGates() async {
+    emit(state.copyWith(paymentGatesStatus: UsecaseStatus.running));
+    final result = await getPaymentGatesUsecase();
+    result.fold(
+      (failure) => emit(state.copyWith(paymentGatesStatus: UsecaseStatus.error, paymentGatesFailure: failure)),
+      (gates) => emit(state.copyWith(paymentGatesStatus: UsecaseStatus.completed, paymentGates: gates)),
     );
   }
 }

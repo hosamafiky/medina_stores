@@ -65,6 +65,8 @@ class _MainTabPageBodyState extends State<MainTabPageBody> {
                 final result = await AppNavigator.to(const CartPage());
                 if (result == 'browse' && context.mounted) {
                   _onRefresh(context);
+                } else if (result == 'placed-order' && context.mounted) {
+                  context.read<LayoutCubit>().changeIndex(2);
                 }
               } else {
                 await context.showSheet(

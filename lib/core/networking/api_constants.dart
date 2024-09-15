@@ -23,6 +23,8 @@ class ApiEndPoints {
   final String FAV_PRODUCTS = '/product/favorites';
   final String PRODUCT = '/product';
   final String CART = '/carts';
+  final String CHECKOUT = '/checkout';
+  final String PAYMENT_GATES = '/payment-gates';
 
   // Address
   final String ADDRESSES = '/addresses';

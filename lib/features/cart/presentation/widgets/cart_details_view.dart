@@ -112,11 +112,14 @@ class CartDetails extends StatelessWidget {
         Padding(
           padding: REdgeInsets.symmetric(horizontal: 16),
           child: ElevatedButton(
-            onPressed: cart.canCheckout
-                ? () {
-                    // Checkout
-                  }
-                : null,
+            onPressed: !cart.canCheckout
+                ? null
+                : () async {
+                    final result = await AppNavigator.to(
+                      CheckoutPage(cartCubit: context.read<CartCubit>()),
+                    );
+                    if (result == 'placed-order') AppNavigator.pop(result);
+                  },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
             ),

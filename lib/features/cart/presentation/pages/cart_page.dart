@@ -48,7 +48,7 @@ class _CartsPageBodyState extends State<CartsPageBody> {
           }
         },
         child: BlocSelector<CartCubit, CartState, ({UsecaseStatus status, Failure? failure, CartData cart})>(
-          selector: (state) => (status: state.cartDataStatus, failure: state.cartDataFailure, cart: state.cartData),
+          selector: (state) => (status: state.cartDataStatus, failure: state.cartDataFailure, cart: state.cartData.data!),
           builder: (context, state) {
             return state.status.when(
               context,
