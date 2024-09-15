@@ -11,18 +11,18 @@ class CouponCodeWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Coupon Code',
+              LocaleKeys.coupon_code.tr(),
               style: context.appTextStyle.elevatedButtonTextStyle,
             ),
             AppTextField(
-              hintText: 'Enter your coupon code',
+              hintText: LocaleKeys.coupon_code_hint.tr(),
               suffixIcon: TextButton(
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
                   textStyle: context.appTextStyle.textButtonTextStyle.copyWith(fontSize: 12.sp),
                 ),
                 onPressed: () {},
-                child: const Text('Apply'),
+                child: Text(LocaleKeys.apply.tr()),
               ),
             ),
           ],

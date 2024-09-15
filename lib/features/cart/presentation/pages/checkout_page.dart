@@ -57,7 +57,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       slivers: [
                         SizedBox(height: 16.h).asSliver,
                         Text(
-                          'Products',
+                          LocaleKeys.products.tr(),
                           style: context.appTextStyle.elevatedButtonTextStyle,
                         ).asSliver,
                         SliverList(
@@ -71,24 +71,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         ),
                         SizedBox(height: 16.h).asSliver,
                         Text(
-                          'Payment Methods',
+                          LocaleKeys.payment_methods.tr(),
                           style: context.appTextStyle.elevatedButtonTextStyle,
                         ).asSliver,
                         ListTile(
                           leading: const Icon(Icons.credit_card_outlined),
-                          title: const Text('Change Payment Method'),
+                          title: Text(LocaleKeys.change_payment_method.tr()),
                           trailing: TextButton.icon(
                             onPressed: () => widget.cartCubit.getPaymentGates(),
                             icon: Icon(Icons.arrow_forward_ios_outlined, size: 12.sp),
                             iconAlignment: IconAlignment.end,
-                            label: const Text('Change'),
+                            label: Text(LocaleKeys.change.tr()),
                           ),
                         ).asSliver,
                         SizedBox(height: 16.h).asSliver,
                         const CouponCodeWidget().asSliver,
                         SizedBox(height: 16.h).asSliver,
                         Text(
-                          'Summary',
+                          LocaleKeys.summary.tr(),
                           style: context.appTextStyle.elevatedButtonTextStyle,
                         ).asSliver,
                         ListTile(
@@ -96,7 +96,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           trailing: Text('${state.data.data!.subTotal.toStringAsFixed(2)} ${LocaleKeys.shorten_currency.tr()}'),
                         ).asSliver,
                         ListTile(
-                          title: const Text('Shipping Fees'),
+                          title: Text(LocaleKeys.shipping_fees.tr()),
                           trailing: Text('${state.data.data!.shippingFees.toStringAsFixed(2)} ${LocaleKeys.shorten_currency.tr()}'),
                         ).asSliver,
                         ListTile(
@@ -145,7 +145,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         // Place Order
                         AppNavigator.pop('placed-order');
                       },
-                      child: const Text('Place Order'),
+                      child: Text(LocaleKeys.place_order.tr()),
                     ),
                   ],
                 ).withSpacing(spacing: 8.h),

@@ -405,13 +405,9 @@ class ProductCubit extends Cubit<ProductState> {
       (favoriteProducts) {
         final newProducts = List<ProductModel>.from(favoriteProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
         if (newProducts.isEmpty) {
-          final paginatedList = state.favoriteProducts.data
-              ?.copyWith(
-                list: state.favoriteProducts.data!.list.map<ProductModel>((e) => ProductModel.fromProduct(e)).toList(),
-                hasReachedEnd: true,
-              )
-              .map<ProductModel>((e) => ProductModel.fromProduct(e));
-
+          final paginatedList = PaginatedListModel<ProductModel>.from(state.favoriteProducts.data!.map((e) => ProductModel.fromProduct(e))).copyWith(
+            hasReachedEnd: true,
+          );
           emit(state.copyWith(
             favoriteProductsStatus: UsecaseStatus.completed,
             favoriteProducts: favoriteProducts.copyWith(data: paginatedList),
@@ -451,13 +447,9 @@ class ProductCubit extends Cubit<ProductState> {
       (latestProducts) {
         final newProducts = List<ProductModel>.from(latestProducts.data!.list.map((e) => ProductModel.fromProduct(e)));
         if (newProducts.isEmpty) {
-          final paginatedList = state.latestProducts.data
-              ?.copyWith(
-                list: state.latestProducts.data!.list.map<ProductModel>((e) => ProductModel.fromProduct(e)).toList(),
-                hasReachedEnd: true,
-              )
-              .map<ProductModel>((e) => ProductModel.fromProduct(e));
-
+          final paginatedList = PaginatedListModel<ProductModel>.from(state.latestProducts.data!.map((e) => ProductModel.fromProduct(e))).copyWith(
+            hasReachedEnd: true,
+          );
           emit(state.copyWith(
             latestProductsStatus: UsecaseStatus.completed,
             latestProducts: latestProducts.copyWith(data: paginatedList),

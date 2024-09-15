@@ -38,6 +38,9 @@ class _FavoriteProductsBody extends StatelessWidget {
           ),
           completed: (context) {
             final products = state.data;
+            if (products.list.isEmpty) {
+              return Center(child: Text(LocaleKeys.empty_products.tr()));
+            }
             return _FavoriteProductsList(products);
           },
         );
