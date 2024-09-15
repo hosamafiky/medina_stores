@@ -1,6 +1,6 @@
 part of '../domain_imports.dart';
 
-class CheckoutData extends Equatable {
+class Checkout extends Equatable {
   final bool canCheckout;
   final List<Cart> cart;
   final num subTotal;
@@ -12,7 +12,7 @@ class CheckoutData extends Equatable {
   final num total;
   final String deliveryTime;
 
-  const CheckoutData({
+  const Checkout({
     this.canCheckout = false,
     this.cart = const [],
     this.subTotal = 0.0,
@@ -25,7 +25,7 @@ class CheckoutData extends Equatable {
     this.deliveryTime = '',
   });
 
-  CheckoutData copyWith({
+  Checkout copyWith({
     bool? canCheckout,
     List<Cart>? cart,
     int? subTotal,
@@ -37,7 +37,7 @@ class CheckoutData extends Equatable {
     num? total,
     String? deliveryTime,
   }) =>
-      CheckoutData(
+      Checkout(
         canCheckout: canCheckout ?? this.canCheckout,
         cart: cart ?? this.cart,
         subTotal: subTotal ?? this.subTotal,

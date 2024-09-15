@@ -1,6 +1,6 @@
 part of '../presentation_imports.dart';
 
-class CheckoutPage extends StatefulWidget {
+class CheckoutPage extends StatelessWidget {
   const CheckoutPage({
     super.key,
     required this.cartCubit,
@@ -9,37 +9,51 @@ class CheckoutPage extends StatefulWidget {
   final CartCubit cartCubit;
 
   @override
-  State<CheckoutPage> createState() => _CheckoutPageState();
-}
-
-class _CheckoutPageState extends State<CheckoutPage> {
-  @override
-  void initState() {
-    widget.cartCubit.getCheckoutData();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: widget.cartCubit,
-      child: BlocListener<CartCubit, CartState>(
-        listener: (context, state) async {
-          if (state.paymentGatesStatus == UsecaseStatus.completed) {
-            final gate = await context.showSheet<PaymentGate>(
-              child: ChangePaymentGateSheet(
-                paymentGates: state.paymentGates.data!,
-              ),
-            );
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: cartCubit),
+        BlocProvider(
+          create: (context) => DependencyHelper.instance.serviceLocator<CheckoutCubit>()..getCheckoutData(),
+        ),
+      ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<CheckoutCubit, CheckoutState>(
+            listener: (context, state) async {
+              if (state.paymentGatesStatus == UsecaseStatus.completed) {
+                final gate = await context.showSheet<PaymentGate>(
+                  child: ChangePaymentGateSheet(
+                    paymentGates: state.paymentGates.data!,
+                  ),
+                );
 
-            if (gate != null) {
-              // Change Payment Gate
-            }
-          }
-        },
-        child: BlocSelector<CartCubit, CartState, ({UsecaseStatus status, Failure? failure, ApiResponse<CheckoutData> data})>(
+                if (gate != null) {
+                  // Change Payment Gate
+                }
+              }
+            },
+          ),
+          BlocListener<CartCubit, CartState>(
+            listener: (context, state) async {
+              if (state.updateCartQuantityStatus == UsecaseStatus.completed) {
+                context.read<CheckoutCubit>().getCheckoutData();
+              }
+            },
+          ),
+        ],
+        child: BlocSelector<
+            CheckoutCubit,
+            CheckoutState,
+            ({
+              UsecaseStatus status,
+              UsecaseStatus paymentGatesStatus,
+              Failure? failure,
+              ApiResponse<Checkout> data,
+            })>(
           selector: (state) => (
             status: state.checkoutStatus,
+            paymentGatesStatus: state.paymentGatesStatus,
             failure: state.checkoutFailure,
             data: state.checkoutResponse,
           ),
@@ -52,7 +66,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     titleTextStyle: context.appTextStyle.appBarTitleStyle.copyWith(fontSize: 24.sp),
                   ),
                   SliverPadding(
-                    padding: REdgeInsets.symmetric(horizontal: 16),
+                    padding: REdgeInsets.symmetric(horizontal: 16).copyWith(
+                      bottom: 16.h,
+                    ),
                     sliver: SliverMainAxisGroup(
                       slivers: [
                         SizedBox(height: 16.h).asSliver,
@@ -63,10 +79,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
+                              if (state.status == UsecaseStatus.running) return CartItemWidget.skeleton();
                               final cartItem = state.data.data!.cart[index];
                               return CartItemWidget(cartItem, fromCheckout: true);
                             },
-                            childCount: state.data.data!.cart.length,
+                            childCount: state.status == UsecaseStatus.running ? 2 : state.data.data!.cart.length,
                           ),
                         ),
                         SizedBox(height: 16.h).asSliver,
@@ -77,12 +94,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         ListTile(
                           leading: const Icon(Icons.credit_card_outlined),
                           title: Text(LocaleKeys.change_payment_method.tr()),
-                          trailing: TextButton.icon(
-                            onPressed: () => widget.cartCubit.getPaymentGates(),
-                            icon: Icon(Icons.arrow_forward_ios_outlined, size: 12.sp),
-                            iconAlignment: IconAlignment.end,
-                            label: Text(LocaleKeys.change.tr()),
-                          ),
+                          trailing: state.paymentGatesStatus == UsecaseStatus.running
+                              ? const CircularProgressIndicator.adaptive()
+                              : TextButton.icon(
+                                  onPressed: () => context.read<CheckoutCubit>().getPaymentGates(),
+                                  icon: Icon(Icons.arrow_forward_ios_outlined, size: 12.sp),
+                                  iconAlignment: IconAlignment.end,
+                                  label: Text(LocaleKeys.change.tr()),
+                                ),
                         ).asSliver,
                         SizedBox(height: 16.h).asSliver,
                         const CouponCodeWidget().asSliver,
@@ -118,38 +137,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ),
                 ],
               ),
-              bottomNavigationBar: Container(
-                padding: REdgeInsets.symmetric(horizontal: 16).copyWith(
-                  bottom: 16 + context.bottomBarHeight,
-                  top: 6.h,
-                ),
-                decoration: BoxDecoration(
-                  color: context.colorPalette.background,
-                  boxShadow: [
-                    BoxShadow(
-                      color: context.colorPalette.cardShadow,
-                      blurRadius: 16.sp,
-                      offset: const Offset(0, -4),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListTile(
-                      title: Text(LocaleKeys.total.tr()),
-                      trailing: Text('${state.data.data!.total.toStringAsFixed(2)} ${LocaleKeys.shorten_currency.tr()}'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Place Order
-                        AppNavigator.pop('placed-order');
-                      },
-                      child: Text(LocaleKeys.place_order.tr()),
-                    ),
-                  ],
-                ).withSpacing(spacing: 8.h),
-              ),
+              bottomNavigationBar: PlaceOrderWidget(total: state.data.data!.total),
             );
           },
         ),

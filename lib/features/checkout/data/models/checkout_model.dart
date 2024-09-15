@@ -1,7 +1,7 @@
 part of '../data_imports.dart';
 
-class CheckoutDataModel extends CheckoutData {
-  const CheckoutDataModel({
+class CheckoutModel extends Checkout {
+  const CheckoutModel({
     required super.canCheckout,
     required super.cart,
     required super.subTotal,
@@ -14,8 +14,8 @@ class CheckoutDataModel extends CheckoutData {
     required super.deliveryTime,
   });
 
-  factory CheckoutDataModel.fromCheckoutData(CheckoutData data) {
-    return CheckoutDataModel(
+  factory CheckoutModel.fromCheckout(Checkout data) {
+    return CheckoutModel(
       canCheckout: data.canCheckout,
       cart: data.cart,
       subTotal: data.subTotal,
@@ -29,8 +29,8 @@ class CheckoutDataModel extends CheckoutData {
     );
   }
 
-  factory CheckoutDataModel.fromMap(Map<String, dynamic> map) {
-    return CheckoutDataModel(
+  factory CheckoutModel.fromMap(Map<String, dynamic> map) {
+    return CheckoutModel(
       canCheckout: map['can_checkout'],
       cart: List<CartModel>.from(map['cart'].map((e) => CartModel.fromMap(e))),
       subTotal: map['sub_total'],
@@ -44,7 +44,7 @@ class CheckoutDataModel extends CheckoutData {
     );
   }
 
-  factory CheckoutDataModel.fromJson(String source) => CheckoutDataModel.fromMap(jsonDecode(source));
+  factory CheckoutModel.fromJson(String source) => CheckoutModel.fromMap(jsonDecode(source));
 
   Map<String, dynamic> toMap() => {
         "can_checkout": canCheckout,

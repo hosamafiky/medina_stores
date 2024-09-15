@@ -1,7 +1,7 @@
 part of '../domain_imports.dart';
 
 class GetPaymentGatesUsecase implements UseCaseWithoutParam<ApiResponse<List<PaymentGate>>> {
-  final CartRepository repository;
+  final CheckoutRepository repository;
 
   GetPaymentGatesUsecase({required this.repository});
 
